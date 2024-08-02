@@ -1,10 +1,6 @@
 package token;
 
-public record NoValueToken(TokenType type) {
-
-    public String getValue() {
-        return "";
-    }
+public record NoValueToken(TokenType type) implements Token {
 
     public String getType() {
         return type.toString();
