@@ -15,6 +15,7 @@ public class LiteralNode implements ASTNode {
     }
 
     @Override
-    public void accept(ASTVisitor visitor) {
+    public <T> T accept(ASTVisitor<T> visitor) {
+        return visitor.visit(this);
     }
 }
