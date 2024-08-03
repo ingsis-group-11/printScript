@@ -6,25 +6,25 @@ import AST.nodes.DeclarationNode;
 import AST.nodes.LiteralNode;
 import AST.nodes.PrintNode;
 
-public class SemanticVisitor implements ASTVisitor {
+public class SemanticVisitor implements ASTVisitor<Boolean> {
 
     @Override
-    public void visit(DeclarationNode node) {
-
+    public Boolean visit(DeclarationNode node) {
+        return true;
     }
 
     @Override
-    public void visit(LiteralNode node) {
-        //Nothing
+    public Boolean visit(LiteralNode node) {
+        return true;
     }
 
     @Override
-    public void visit(PrintNode node) {
-        //Nothing
+    public Boolean visit(PrintNode node) {
+        return true;
     }
 
     @Override
-    public void visit(AssignationNode node) {
-
+    public Boolean visit(AssignationNode node) {
+        return true;
     }
 }
