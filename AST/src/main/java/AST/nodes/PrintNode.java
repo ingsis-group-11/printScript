@@ -13,7 +13,9 @@ public class PrintNode implements ASTNode {
         return expression;
     }
 
+
     @Override
-    public void accept(ASTVisitor visitor) {
+    public <T> T accept(ASTVisitor<T> visitor) {
+        return visitor.visit(this);
     }
 }

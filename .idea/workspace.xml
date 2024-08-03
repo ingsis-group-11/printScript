@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a5e1d4aa-bdc3-470c-ac28-f139e544533b" name="Changes" comment="refactoring syntax parser to Interface and concrete implementations" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -47,14 +47,12 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
-        <option value="Interface" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="mbarreiro" />
         <entry key="$PROJECT_DIR$" value="mbarreiro" />
       </map>
     </option>
@@ -81,34 +79,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Gradle.SyntaxParserTest.executor": "Run",
-    "Gradle.SyntaxParserTest.testSyntaxParse.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "dev",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/martinbarreiro/Developer/printScript",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.general",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/untitled" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Gradle.SyntaxParserTest">
     <configuration name="SyntaxParserTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -172,11 +159,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.SyntaxParserTest.testSyntaxParse" />
         <item itemvalue="Gradle.SyntaxParserTest" />
         <item itemvalue="Gradle.SyntaxParserTest.testSyntaxParse" />
-        <item itemvalue="Gradle.SyntaxParserTest" />
-        <item itemvalue="Gradle.SyntaxParserTest" />
       </list>
     </recent_temporary>
   </component>
@@ -205,7 +189,7 @@
       <workItem from="1722545535477" duration="3571000" />
       <workItem from="1722613504572" duration="4634000" />
       <workItem from="1722625064019" duration="35000" />
-      <workItem from="1722718433934" duration="1489000" />
+      <workItem from="1722718433934" duration="401000" />
     </task>
     <task id="LOCAL-00001" summary="separated in modules">
       <option name="closed" value="true" />
@@ -239,26 +223,11 @@
       <option name="project" value="LOCAL" />
       <updated>1722624975369</updated>
     </task>
-    <task id="LOCAL-00005" summary="refactoring syntax parser to Interface and concrete implementations">
-      <option name="closed" value="true" />
-      <created>1722721318603</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1722721318604</updated>
-    </task>
-    <option name="localTasksCounter" value="6" />
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="separated in modules" />
-    <MESSAGE value="refactoring in token" />
-    <MESSAGE value="commit" />
-    <MESSAGE value="Syntax Parser with test" />
-    <MESSAGE value="refactoring syntax parser to Interface and concrete implementations" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactoring syntax parser to Interface and concrete implementations" />
   </component>
 </project>

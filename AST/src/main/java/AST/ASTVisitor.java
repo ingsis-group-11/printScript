@@ -5,9 +5,9 @@ import AST.nodes.DeclarationNode;
 import AST.nodes.LiteralNode;
 import AST.nodes.PrintNode;
 
-public interface ASTVisitor {
-    void visit(DeclarationNode node);
-    void visit(LiteralNode node);
-    void visit(PrintNode node);
-    void visit(AssignationNode node);
+public interface ASTVisitor<T> {
+    T visit(DeclarationNode node);
+    T visit(LiteralNode node);
+    T visit(PrintNode node);
+    T visit(AssignationNode node);
 }
