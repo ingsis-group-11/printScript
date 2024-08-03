@@ -1,4 +1,4 @@
-package parser;
+package parser.semantic;
 
 import AST.ASTVisitor;
 import AST.nodes.AssignationNode;
