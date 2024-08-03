@@ -13,7 +13,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class SyntaxParserTest {
+public class AssignationSyntaxParserTest {
 
     @Test
     public void testSyntaxParse() {
@@ -28,7 +28,7 @@ public class SyntaxParserTest {
         );
 
         // WHEN
-        SyntaxParser parser = new SyntaxParser();
+        AssignationSyntaxParser parser = new AssignationSyntaxParser();
         ASTNode ast = parser.syntaxParse(tokens);
 
         // THEN
