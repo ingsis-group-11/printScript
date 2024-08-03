@@ -6,8 +6,8 @@ public record ValueToken(TokenType type, String value) implements Token {
         return value;
     }
 
-    public String getType() {
-        return type.toString();
+    public TokenType getType() {
+        return type;
     }
 
 }

@@ -12,15 +12,16 @@ public class DeclarationNode implements ASTNode {
         this.name = name;
     }
 
-    public Token getType() {
+    public Token getTypeToken() {
         return type;
     }
 
-    public Token getName() {
+    public Token getNameToken() {
         return name;
     }
 
     @Override
-    public void accept(ASTVisitor visitor) {
+    public <T> T accept(ASTVisitor<T> visitor) {
+        return visitor.visit(this);
     }
 }
