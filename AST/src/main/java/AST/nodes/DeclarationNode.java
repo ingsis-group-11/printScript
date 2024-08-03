@@ -12,11 +12,11 @@ public class DeclarationNode implements ASTNode {
         this.name = name;
     }
 
-    public Token getType() {
+    public Token getTypeToken() {
         return type;
     }
 
-    public Token getName() {
+    public Token getNameToken() {
         return name;
     }
 
