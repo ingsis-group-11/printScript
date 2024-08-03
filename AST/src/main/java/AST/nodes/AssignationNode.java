@@ -3,15 +3,15 @@ package AST.nodes;
 import AST.ASTVisitor;
 
 public class AssignationNode implements ASTNode {
-    private final ASTNode declaration;
+    private final DeclarationNode declaration;
     private final ASTNode expression;
 
-    public AssignationNode(ASTNode declaration, ASTNode expression) {
+    public AssignationNode(DeclarationNode declaration, ASTNode expression) {
         this.declaration = declaration;
         this.expression = expression;
     }
 
-    public ASTNode getDeclaration() {
+    public DeclarationNode getDeclaration() {
         return declaration;
     }
 
@@ -20,7 +20,7 @@ public class AssignationNode implements ASTNode {
     }
 
     @Override
-    public void accept(ASTVisitor visitor) {
-
+    public <T> T accept(ASTVisitor<T> visitor) {
+        return visitor.visit(this);
     }
 }

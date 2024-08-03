@@ -5,6 +5,8 @@ import AST.nodes.AssignationNode;
 import AST.nodes.DeclarationNode;
 import AST.nodes.LiteralNode;
 import org.junit.jupiter.api.Test;
+import parser.syntax.AssignationSyntaxParser;
+import parser.syntax.SyntaxParser;
 import token.Token;
 import token.TokenType;
 import token.ValueToken;
@@ -13,7 +15,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class SyntaxParserTest {
+public class AssignationSyntaxParserTest {
 
     @Test
     public void testSyntaxParse() {
@@ -28,22 +30,21 @@ public class SyntaxParserTest {
         );
 
         // WHEN
-        SyntaxParser parser = new SyntaxParser();
+        SyntaxParser parser = new AssignationSyntaxParser();
         ASTNode ast = parser.syntaxParse(tokens);
 
         // THEN
         assertInstanceOf(AssignationNode.class, ast);
         AssignationNode assignationNode = (AssignationNode) ast;
 
-        ASTNode declarationNode = assignationNode.getDeclaration();
+        DeclarationNode declarationNode = assignationNode.getDeclaration();
         assertInstanceOf(DeclarationNode.class, declarationNode);
-        DeclarationNode declNode = (DeclarationNode) declarationNode;
-        assertEquals("name", ((ValueToken) declNode.getName()).getValue());
-        assertEquals("string", ((ValueToken) declNode.getType()).getValue());
+        assertEquals("name", (declarationNode.getNameToken().getValue()));
+        assertEquals("string", (declarationNode.getTypeToken().getValue()));
 
         ASTNode literalNode = assignationNode.getExpression();
         assertInstanceOf(LiteralNode.class, literalNode);
         LiteralNode litNode = (LiteralNode) literalNode;
-        assertEquals("\"Olive\"", ((ValueToken) litNode.getValue()).getValue());
+        assertEquals("\"Olive\"", (litNode.getValue()));
     }
 }
