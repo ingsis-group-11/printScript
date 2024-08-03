@@ -1,4 +1,4 @@
-package parser;
+package parser.syntax;
 
 import AST.nodes.ASTNode;
 import token.Token;

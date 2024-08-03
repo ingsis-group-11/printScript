@@ -1,4 +1,4 @@
-package parser;
+package parser.syntax;
 
 import AST.nodes.ASTNode;
 import AST.nodes.AssignationNode;
@@ -10,7 +10,6 @@ import token.ValueToken;
 
 import java.util.List;
 import java.util.Iterator;
-import java.util.Objects;
 
 public class AssignationSyntaxParser implements SyntaxParser {
 
@@ -21,19 +20,25 @@ public class AssignationSyntaxParser implements SyntaxParser {
     }
 
     private ASTNode parseAssignation(Iterator<Token> iterator) {
-        if (iterator.hasNext() && Objects.equals(iterator.next().getType(), TokenType.LET_KEYWORD.toString())) {
-            DeclarationNode declarationNode = parseDeclaration(iterator);
-            if (iterator.hasNext() && Objects.equals(iterator.next().getType(), TokenType.ASSIGN.toString())) {
-                LiteralNode literalNode = parseLiteral(iterator);
-                return new AssignationNode(declarationNode, literalNode);
+        if (iterator.hasNext()) {
+            Token token = iterator.next();
+            if (token.getType() == TokenType.LET_KEYWORD) {
+                DeclarationNode declarationNode = parseDeclaration(iterator);
+                if (iterator.hasNext()) {
+                    token = iterator.next();
+                    if (token.getType() == TokenType.ASSIGN) {
+                        LiteralNode literalNode = parseLiteral(iterator);
+                        return new AssignationNode(declarationNode, literalNode);
+                    }
+                }
             }
         }
         throw new IllegalArgumentException("Invalid assignation");
     }
 
     private DeclarationNode parseDeclaration(Iterator<Token> iterator) {
-        Token nameToken = iterator.next();
         Token typeToken = iterator.next();
+        Token nameToken = iterator.next();
 
         if (typeToken instanceof ValueToken && nameToken instanceof ValueToken) {
             return new DeclarationNode(typeToken, nameToken);
