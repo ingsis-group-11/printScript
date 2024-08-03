@@ -2,8 +2,11 @@ package token;
 
 public enum TokenType {
     LET_KEYWORD,
-    IDENTIFIER_NUMBER,
-    IDENTIFIER_STRING,
+    STRING,
+    NUMBER,
+    STRING_TYPE,
+    NUMBER_TYPE,
+    IDENTIFIER,
     ASSIGN,
     SEMICOLON,
     WHITESPACE,

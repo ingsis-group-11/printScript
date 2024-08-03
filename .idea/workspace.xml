@@ -4,15 +4,6 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a5e1d4aa-bdc3-470c-ac28-f139e544533b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AST/src/main/java/AST/nodes/AssignationNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/AST/src/main/java/AST/nodes/AssignationNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AST/src/main/java/AST/nodes/DeclarationNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/AST/src/main/java/AST/nodes/DeclarationNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AST/src/main/java/AST/nodes/LiteralNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/AST/src/main/java/AST/nodes/LiteralNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parser/src/main/java/parser/semantic/SemanticVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/parser/src/main/java/parser/semantic/SemanticVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/token/src/main/java/token/NoValueToken.java" beforeDir="false" afterPath="$PROJECT_DIR$/token/src/main/java/token/NoValueToken.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/token/src/main/java/token/Token.java" beforeDir="false" afterPath="$PROJECT_DIR$/token/src/main/java/token/Token.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/token/src/main/java/token/ValueToken.java" beforeDir="false" afterPath="$PROJECT_DIR$/token/src/main/java/token/ValueToken.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +26,17 @@
         </task>
         <projects_view>
           <tree_state>
-            <expand />
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="PrintScript" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="PrintScript" type="f1a62948:ProjectNode" />
+                <item name="lexer" type="2d1252cf:ModuleNode" />
+              </path>
+            </expand>
             <select />
           </tree_state>
         </projects_view>
@@ -45,7 +46,6 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -53,7 +53,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="mbarreiro" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -70,9 +70,6 @@
     &quot;accountId&quot;: &quot;30231087-0afb-402c-a8a2-b339aa7e5c5d&quot;
   }
 }</component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
-  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
@@ -85,21 +82,11 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;tserra&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/tomis/git/ing-sis/printScript&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -108,7 +95,55 @@
       <recent name="$PROJECT_DIR$/untitled" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Gradle.SyntaxParserTest">
+    <configuration name="SyntaxParserTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":parser:test" />
+            <option value="--tests" />
+            <option value="&quot;parser.SyntaxParserTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="SyntaxParserTest.testSyntaxParse" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":parser:test" />
+            <option value="--tests" />
+            <option value="&quot;parser.SyntaxParserTest.testSyntaxParse&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="PrintScript" />
       <method v="2">
@@ -122,6 +157,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.SyntaxParserTest" />
+        <item itemvalue="Gradle.SyntaxParserTest.testSyntaxParse" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -145,22 +186,48 @@
       <workItem from="1722543184716" duration="52000" />
       <workItem from="1722543351794" duration="34000" />
       <workItem from="1722545490762" duration="39000" />
-      <workItem from="1722545535477" duration="2107000" />
+      <workItem from="1722545535477" duration="3571000" />
+      <workItem from="1722613504572" duration="4634000" />
+      <workItem from="1722625064019" duration="35000" />
+      <workItem from="1722718433934" duration="401000" />
     </task>
+    <task id="LOCAL-00001" summary="separated in modules">
+      <option name="closed" value="true" />
+      <created>1722562294616</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1722562294616</updated>
+    </task>
+    <task id="LOCAL-00002" summary="refactoring in token">
+      <option name="closed" value="true" />
+      <created>1722613688920</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1722613688920</updated>
+    </task>
+    <task id="LOCAL-00003" summary="commit">
+      <option name="closed" value="true" />
+      <created>1722622441200</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1722622441200</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Syntax Parser with test">
+      <option name="closed" value="true" />
+      <created>1722624975369</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1722624975369</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
   </component>
 </project>
