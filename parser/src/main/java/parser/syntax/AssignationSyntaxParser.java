@@ -37,8 +37,8 @@ public class AssignationSyntaxParser implements SyntaxParser {
     }
 
     private DeclarationNode parseDeclaration(Iterator<Token> iterator) {
-        Token typeToken = iterator.next();
         Token nameToken = iterator.next();
+        Token typeToken = iterator.next();
 
         if (typeToken instanceof ValueToken && nameToken instanceof ValueToken) {
             return new DeclarationNode(typeToken, nameToken);
