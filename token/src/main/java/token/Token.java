@@ -2,6 +2,9 @@ package token;
 
 public interface Token {
 
-    String getType();
+    TokenType getType();
+    String getValue();
+    Integer getColumn();
+    Integer getLine();
 
 }

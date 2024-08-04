@@ -1,13 +1,23 @@
 package token;
 
-public record ValueToken(TokenType type, String value) implements Token {
-
+public record ValueToken(TokenType type, String value, Integer column, Integer line) implements Token {
+    @Override
     public String getValue() {
         return value;
     }
 
-    public String getType() {
-        return type.toString();
+    @Override
+    public Integer getColumn() {
+        return column;
+    }
+
+    @Override
+    public Integer getLine() {
+        return line;
+    }
+    @Override
+    public TokenType getType() {
+        return type;
     }
 
 }
