@@ -1,4 +1,4 @@
-package parser;
+package parser.syntax;
 
 import AST.nodes.ASTNode;
 import AST.nodes.AssignationNode;
@@ -21,12 +21,12 @@ public class AssignationSyntaxParserTest {
     public void testSyntaxParse() {
         //GIVEN
         List<Token> tokens = List.of(
-                new ValueToken(TokenType.LET_KEYWORD, "let"),
-                new ValueToken(TokenType.IDENTIFIER, "name"),
-                new ValueToken(TokenType.STRING_TYPE, "string"),
-                new ValueToken(TokenType.ASSIGN, "="),
-                new ValueToken(TokenType.STRING, "\"Olive\""),
-                new ValueToken(TokenType.SEMICOLON, ";")
+                new ValueToken(TokenType.LET_KEYWORD, "let", 1, 1),
+                new ValueToken(TokenType.IDENTIFIER, "name", 5, 1),
+                new ValueToken(TokenType.STRING_TYPE, "string", 11, 1),
+                new ValueToken(TokenType.ASSIGN, "=", 18, 1),
+                new ValueToken(TokenType.STRING, "\"Olive\"", 20, 1),
+                new ValueToken(TokenType.SEMICOLON, ";", 27, 1)
         );
 
         // WHEN

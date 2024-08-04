@@ -28,7 +28,7 @@ public class AssignationSyntaxParser implements SyntaxParser {
                     token = iterator.next();
                     if (token.getType() == TokenType.ASSIGN) {
                         LiteralNode literalNode = parseLiteral(iterator);
-                        return new AssignationNode(declarationNode, literalNode);
+                        return new AssignationNode(declarationNode, literalNode, declarationNode.getLine(), declarationNode.getColumn());
                     }
                 }
             }
@@ -41,7 +41,7 @@ public class AssignationSyntaxParser implements SyntaxParser {
         Token typeToken = iterator.next();
 
         if (typeToken instanceof ValueToken && nameToken instanceof ValueToken) {
-            return new DeclarationNode(typeToken, nameToken);
+            return new DeclarationNode(typeToken, nameToken, typeToken.getLine(), typeToken.getColumn());
         }
 
         throw new IllegalArgumentException("Invalid declaration");
