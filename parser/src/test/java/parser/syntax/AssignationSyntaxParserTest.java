@@ -18,8 +18,9 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AssignationSyntaxParserTest {
 
     @Test
-    public void testSyntaxParse() {
+    public void testSyntaxParseString() {
         //GIVEN
+        // let name: string = "John";
         List<Token> tokens = List.of(
                 new ValueToken(TokenType.LET_KEYWORD, "let", 1, 1),
                 new ValueToken(TokenType.IDENTIFIER, "name", 5, 1),
@@ -46,5 +47,37 @@ public class AssignationSyntaxParserTest {
         assertInstanceOf(LiteralNode.class, literalNode);
         LiteralNode litNode = (LiteralNode) literalNode;
         assertEquals("\"Olive\"", (litNode.getValue()));
+    }
+
+    @Test
+    public void testSyntaxParseNumber(){
+        //GIVEN
+        // let age: number = 25;
+        List<Token> tokens = List.of(
+                new ValueToken(TokenType.LET_KEYWORD, "let", 1, 1),
+                new ValueToken(TokenType.IDENTIFIER, "age", 5, 1),
+                new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 1),
+                new ValueToken(TokenType.ASSIGN, "=", 17, 1),
+                new ValueToken(TokenType.NUMBER, "25", 19, 1),
+                new ValueToken(TokenType.SEMICOLON, ";", 21, 1)
+        );
+
+        // WHEN
+        SyntaxParser parser = new AssignationSyntaxParser();
+        ASTNode ast = parser.syntaxParse(tokens);
+
+        // THEN
+        assertInstanceOf(AssignationNode.class, ast);
+        AssignationNode assignationNode = (AssignationNode) ast;
+
+        DeclarationNode declarationNode = assignationNode.getDeclaration();
+        assertInstanceOf(DeclarationNode.class, declarationNode);
+        assertEquals("age", (declarationNode.getNameToken().getValue()));
+        assertEquals("number", (declarationNode.getTypeToken().getValue()));
+
+        ASTNode literalNode = assignationNode.getExpression();
+        assertInstanceOf(LiteralNode.class, literalNode);
+        LiteralNode litNode = (LiteralNode) literalNode;
+        assertEquals("25", (litNode.getValue()));
     }
 }
