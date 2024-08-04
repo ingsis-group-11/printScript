@@ -27,4 +27,14 @@ public class LiteralNode implements ASTNode {
     public <T> T accept(ASTVisitor<T> visitor) {
         return visitor.visit(this);
     }
+
+    @Override
+    public Integer getLine() {
+        return null;
+    }
+
+    @Override
+    public Integer getColumn() {
+        return null;
+    }
 }

@@ -13,17 +13,13 @@ public class SemanticAnalyzer {
         this.semanticVisitor = new SemanticVisitor();
     }
 
-    public boolean analyze() {
+    public SemanticResult analyze() {
         for (ASTNode tree : ASTTrees) {
-            boolean result = analyzeTree(tree);
+            boolean result = tree.accept(semanticVisitor);
             if (!result) {
-                return false;
+                return new SemanticResult(false, List.of("Semantic error in line:" + tree.getLine() + " and column:" + tree.getColumn()));
             }
         }
-        return true;
-    }
-
-    private boolean analyzeTree(ASTNode tree) {
-        return tree.accept(semanticVisitor);
+        return new SemanticResult(true, List.of("Semantic analysis completed successfully"));
     }
 }

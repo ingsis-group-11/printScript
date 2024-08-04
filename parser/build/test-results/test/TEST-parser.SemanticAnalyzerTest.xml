@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="parser.SemanticAnalyzerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-08-04T19:06:42" hostname="DESKTOP-EUDL9JC" time="0.029">
+  <properties/>
+  <testcase name="testOneSemanticValid()" classname="parser.SemanticAnalyzerTest" time="0.029"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
