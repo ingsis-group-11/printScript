@@ -1,7 +1,6 @@
 package parser.syntax;
 
 import AST.nodes.ASTNode;
-import AST.nodes.VariableNode;
 import AST.nodes.LiteralNode;
 import AST.nodes.PrintNode;
 import token.Token;
