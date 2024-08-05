@@ -23,8 +23,9 @@ public class SemanticVisitor implements ASTVisitor<Boolean> {
 
     @Override
     public Boolean visit(AssignationNode node) {
+        TypeVisitor typeVisitor = new TypeVisitor();
         TokenType variableType = node.getDeclaration().getTypeToken().getType();
-        TokenType expressionType = ((LiteralNode) node.getExpression()).getType();
+        TokenType expressionType = node.getExpression().accept(typeVisitor);
         if(variableType == TokenType.NUMBER_TYPE && expressionType == TokenType.NUMBER) {
             return true;
         } else if(variableType == TokenType.STRING_TYPE && expressionType == TokenType.STRING) {

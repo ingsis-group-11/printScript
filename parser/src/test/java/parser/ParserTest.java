@@ -35,7 +35,7 @@ public class ParserTest {
 
         // THEN
         assertEquals(2, astNodes.size());
-        AssignationNode assignationNode1 = (AssignationNode) astNodes.getFirst();
+        AssignationNode assignationNode1 = (AssignationNode) astNodes.get(0);
 
         DeclarationNode declarationNode = assignationNode1.getDeclaration();
         assertInstanceOf(DeclarationNode.class, declarationNode);
