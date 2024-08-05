@@ -17,7 +17,7 @@ public class SemanticAnalyzer {
         for (ASTNode tree : ASTTrees) {
             boolean result = tree.accept(semanticVisitor);
             if (!result) {
-                return new SemanticResult(false, List.of("Semantic error in line:" + tree.getLine() + " and column:" + tree.getColumn()));
+                return new SemanticResult(false, List.of("Semantic error in " + tree.getLine() + ":" + tree.getColumn()));
             }
         }
         return new SemanticResult(true, List.of("Semantic analysis completed successfully"));
