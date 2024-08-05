@@ -3,16 +3,16 @@ package parser.semantic;
 import java.util.List;
 
 public class SemanticResult {
-    private final boolean result;
+    private final boolean hasErrors;
     private final List<String> message;
 
-    public SemanticResult(boolean result, List<String> message) {
-        this.result = result;
+    public SemanticResult(boolean hasErrors, List<String> message) {
+        this.hasErrors = hasErrors;
         this.message = message;
     }
 
-    public boolean getResult() {
-        return result;
+    public boolean hasErrors() {
+        return hasErrors;
     }
 
     public List<String> getMessages() {

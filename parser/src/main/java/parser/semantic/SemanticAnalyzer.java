@@ -2,6 +2,7 @@ package parser.semantic;
 
 import AST.nodes.ASTNode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SemanticAnalyzer {
@@ -14,12 +15,13 @@ public class SemanticAnalyzer {
     }
 
     public SemanticResult analyze() {
+        List<String> messages = new ArrayList<>();
         for (ASTNode tree : ASTTrees) {
             boolean result = tree.accept(semanticVisitor);
             if (!result) {
-                return new SemanticResult(false, List.of("Semantic error in line:" + tree.getLine() + " and column:" + tree.getColumn()));
+                messages.add("Semantic error in "+ tree.getLine() + ":" + tree.getColumn());
             }
         }
-        return new SemanticResult(true, List.of("Semantic analysis completed successfully"));
+        return new SemanticResult(!messages.isEmpty(), messages.isEmpty() ? List.of("No semantic errors") : messages);
     }
 }

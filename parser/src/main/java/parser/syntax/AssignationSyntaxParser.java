@@ -28,6 +28,8 @@ public class AssignationSyntaxParser implements SyntaxParser {
                     token = iterator.next();
                     if (token.getType() == TokenType.ASSIGN) {
                         LiteralNode literalNode = parseLiteral(iterator);
+                        VariableAssignation map = VariableAssignation.getInstance();
+                        map.addVariable(declarationNode.getNameToken().getValue(), literalNode);
                         return new AssignationNode(declarationNode, literalNode, declarationNode.getLine(), declarationNode.getColumn());
                     }
                 }
