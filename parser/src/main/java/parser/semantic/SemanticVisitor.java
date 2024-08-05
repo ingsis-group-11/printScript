@@ -26,6 +26,7 @@ public class SemanticVisitor implements ASTVisitor<Boolean> {
         TypeVisitor typeVisitor = new TypeVisitor();
         TokenType variableType = node.getDeclaration().getTypeToken().getType();
         TokenType expressionType = node.getExpression().accept(typeVisitor);
+
         if(variableType == TokenType.NUMBER_TYPE && expressionType == TokenType.NUMBER) {
             return true;
         } else if(variableType == TokenType.STRING_TYPE && expressionType == TokenType.STRING) {
@@ -33,5 +34,18 @@ public class SemanticVisitor implements ASTVisitor<Boolean> {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public Boolean visit(OperatorNode operatorNode) {
+        TypeVisitor typeVisitor = new TypeVisitor();
+        if(operatorNode.getOperator().equals("*") || operatorNode.getOperator().equals("/") || operatorNode.getOperator().equals("-")) {
+            return !oneNodeIsString(operatorNode, typeVisitor);
+        }
+        return true;
+    }
+
+    private boolean oneNodeIsString(OperatorNode operatorNode, TypeVisitor typeVisitor) {
+        return operatorNode.getLeftNode().accept(typeVisitor) == TokenType.STRING || operatorNode.getRightNode().accept(typeVisitor) == TokenType.STRING;
     }
 }
