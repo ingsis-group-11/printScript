@@ -28,7 +28,7 @@ public class Parser {
         // Semantic analysis
         SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer(astNodes);
         SemanticResult result = semanticAnalyzer.analyze();
-        if (!result.getResult()) {
+        if (result.hasErrors()) {
             String stringResult = "";
             for (String message : result.getMessages()) {
                 stringResult += message + "\n";
