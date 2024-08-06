@@ -16,17 +16,20 @@ public class ParserTest {
     public void testParser() {
         //GIVEN
         // let name: string = "Olive";
-        // print(name)
+        // println(name);
         List<Token> tokens = List.of(
-                new ValueToken(TokenType.LET_KEYWORD, "let", 1, 1),
-                new ValueToken(TokenType.IDENTIFIER, "name", 5, 1),
-                new ValueToken(TokenType.STRING_TYPE, "string", 11, 1),
-                new ValueToken(TokenType.ASSIGN, "=", 18, 1),
-                new ValueToken(TokenType.STRING, "\"Olive\"", 20, 1),
-                new ValueToken(TokenType.SEMICOLON, ";", 27, 1),
-                new ValueToken(TokenType.PRINT_KEYWORD, "print", 2, 1),
-                new ValueToken(TokenType.IDENTIFIER, "name", 2, 7),
-                new ValueToken(TokenType.SEMICOLON, ";", 2, 11)
+                new ValueToken(TokenType.LET_KEYWORD, "let", 0, 0),
+                new ValueToken(TokenType.IDENTIFIER, "name", 4, 0),
+                new ValueToken(TokenType.COLON, ":", 8, 0),
+                new ValueToken(TokenType.STRING_TYPE, "string", 10, 0),
+                new ValueToken(TokenType.ASSIGN, "=", 17, 0),
+                new ValueToken(TokenType.STRING, "\"Olive\"", 19, 0),
+                new ValueToken(TokenType.SEMICOLON, ";", 26, 0),
+                new ValueToken(TokenType.PRINT_KEYWORD, "println", 0, 1),
+                new ValueToken(TokenType.PARENTHESIS_OPEN, "(", 7, 1),
+                new ValueToken(TokenType.IDENTIFIER, "name", 8, 1),
+                new ValueToken(TokenType.PARENTHESIS_CLOSE, ")", 12, 1),
+                new ValueToken(TokenType.SEMICOLON, ";", 13, 1)
         );
 
         // WHEN

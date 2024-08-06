@@ -5,44 +5,36 @@ import AST.nodes.AssignationNode;
 import AST.nodes.DeclarationNode;
 import token.Token;
 import token.TokenType;
-import token.ValueToken;
 
-import java.util.Iterator;
 import java.util.List;
 
 public class AssignationSyntaxParser implements SyntaxParser {
 
     @Override
     public ASTNode syntaxParse(List<Token> tokens) {
-        Iterator<Token> iterator = tokens.iterator();
-        return parseAssignation(iterator);
+        TokenStream tokenStream = new TokenStream(tokens);
+        return parseAssignation(tokenStream);
     }
 
-    private ASTNode parseAssignation(Iterator<Token> iterator) {
-        if (iterator.hasNext()) {
-            Token token = iterator.next();
-            if (token.getType() == TokenType.LET_KEYWORD) {
-                DeclarationNode declarationNode = parseDeclaration(iterator);
-                if (iterator.hasNext()) {
-                    token = iterator.next();
-                    if (token.getType() == TokenType.ASSIGN) {
-                        ASTNode expressionNode = ExpressionFactory.createExpression(iterator);
-                        return new AssignationNode(declarationNode, expressionNode, declarationNode.getLine(), declarationNode.getColumn());
-                    }
-                }
-            }
+    private ASTNode parseAssignation(TokenStream tokenStream) {
+        tokenStream.expect(TokenType.LET_KEYWORD, "Expected 'let'");
+        DeclarationNode declarationNode = parseDeclaration(tokenStream);
+        tokenStream.expect(TokenType.ASSIGN, "Expected '='");
+        ASTNode expressionNode = ExpressionFactory.createExpression(tokenStream);
+        if (tokenStream.isAtEnd() || !tokenStream.match(TokenType.SEMICOLON)) {
+            Token lastToken = tokenStream.getLastToken();
+            throw new RuntimeException("Expected ';' at column " + (lastToken != null ? lastToken.getColumn() : "unknown") + " line " + (lastToken != null ? lastToken.getLine() : "unknown"));
         }
-        throw new IllegalArgumentException("Invalid assignation");
+        tokenStream.advance();
+        return new AssignationNode(declarationNode, expressionNode, declarationNode.getLine(), declarationNode.getColumn());
     }
 
-    private DeclarationNode parseDeclaration(Iterator<Token> iterator) {
-        Token nameToken = iterator.next();
-        Token typeToken = iterator.next();
-
-        if (typeToken instanceof ValueToken && nameToken instanceof ValueToken) {
-            return new DeclarationNode(typeToken, nameToken, typeToken.getLine(), typeToken.getColumn());
-        }
-
-        throw new IllegalArgumentException("Invalid declaration");
+    private DeclarationNode parseDeclaration(TokenStream tokenStream) {
+        Token nameToken = tokenStream.getCurrentToken();
+        tokenStream.expect(TokenType.IDENTIFIER, "Expected identifier");
+        tokenStream.expect(TokenType.COLON, "Expected ':'");
+        Token typeToken = tokenStream.getCurrentToken();
+        tokenStream.expect(TokenType.STRING_TYPE, "Expected type");
+        return new DeclarationNode(typeToken, nameToken, nameToken.getLine(), nameToken.getColumn());
     }
 }

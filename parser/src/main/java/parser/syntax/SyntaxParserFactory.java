@@ -12,7 +12,7 @@ public class SyntaxParserFactory {
             throw new IllegalArgumentException("Empty token list");
         }
 
-        Token firstToken = tokens.get(0);
+        Token firstToken = tokens.getFirst();
         if (firstToken.getType() == TokenType.LET_KEYWORD) {
             return new AssignationSyntaxParser();
         } else  {
