@@ -6,22 +6,21 @@ import AST.nodes.OperatorNode;
 import AST.nodes.VariableNode;
 import token.Token;
 import token.TokenType;
-import java.util.Iterator;
-
 
 public class ExpressionFactory {
 
-    public static ASTNode createExpression(Iterator<Token> iterator) {
-        if (!iterator.hasNext()) {
+    public static ASTNode createExpression(TokenStream tokenStream) {
+        if (tokenStream.getCurrentToken() == null) {
             throw new IllegalArgumentException("Invalid expression");
         }
 
-        ASTNode left = parsePrimary(iterator);
+        ASTNode left = parsePrimary(tokenStream);
 
-        while (iterator.hasNext()) {
-            Token token = iterator.next();
+        while (tokenStream.getCurrentToken() != null) {
+            Token token = tokenStream.getCurrentToken();
             if (token.getType() == TokenType.OPERATOR) {
-                ASTNode right = parsePrimary(iterator);
+                tokenStream.advance();
+                ASTNode right = parsePrimary(tokenStream);
                 left = new OperatorNode(token.getValue(), left, right, token.getLine(), token.getColumn());
             } else {
                 break;
@@ -31,12 +30,14 @@ public class ExpressionFactory {
         return left;
     }
 
-    private static ASTNode parsePrimary(Iterator<Token> iterator) {
-        if (iterator.hasNext()) {
-            Token token = iterator.next();
+    private static ASTNode parsePrimary(TokenStream tokenStream) {
+        Token token = tokenStream.getCurrentToken();
+        if (token != null) {
             if (token.getType() == TokenType.NUMBER || token.getType() == TokenType.STRING) {
+                tokenStream.advance();
                 return new LiteralNode(token);
             } else if (token.getType() == TokenType.IDENTIFIER) {
+                tokenStream.advance();
                 return new VariableNode(token);
             }
         }
