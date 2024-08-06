@@ -34,4 +34,9 @@ public class TypeVisitor implements ASTVisitor<TokenType> {
             return TokenType.STRING;
         }
     }
+
+    @Override
+    public TokenType visit(VariableNode variableNode) {
+        return null;
+    }
 }
