@@ -35,7 +35,7 @@ public class ParserTest {
 
         // THEN
         assertEquals(2, astNodes.size());
-        AssignationNode assignationNode1 = (AssignationNode) astNodes.get(0);
+        AssignationNode assignationNode1 = (AssignationNode) astNodes.getFirst();
 
         DeclarationNode declarationNode = assignationNode1.getDeclaration();
         assertInstanceOf(DeclarationNode.class, declarationNode);
@@ -50,6 +50,6 @@ public class ParserTest {
         ASTNode printNode = astNodes.get(1);
         assertInstanceOf(PrintNode.class, printNode);
         PrintNode print = (PrintNode) printNode;
-        assertEquals("\"Olive\"", ((LiteralNode) print.getExpression()).getValue());
+        assertEquals("name", ((VariableNode) print.getExpression()).getValue());
     }
 }

@@ -8,4 +8,5 @@ public interface ASTVisitor<T> {
     T visit(PrintNode node);
     T visit(AssignationNode node);
     T visit(OperatorNode operatorNode);
+    T visit(VariableNode variableNode);
 }

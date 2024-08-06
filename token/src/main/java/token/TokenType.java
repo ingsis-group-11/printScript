@@ -12,4 +12,5 @@ public enum TokenType {
     SEMICOLON,
     WHITESPACE,
     SEPARATOR,
+    OPERATOR,
 }

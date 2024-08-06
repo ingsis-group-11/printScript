@@ -3,13 +3,12 @@ package parser.syntax;
 import AST.nodes.ASTNode;
 import AST.nodes.AssignationNode;
 import AST.nodes.DeclarationNode;
-import AST.nodes.LiteralNode;
 import token.Token;
 import token.TokenType;
 import token.ValueToken;
 
-import java.util.List;
 import java.util.Iterator;
+import java.util.List;
 
 public class AssignationSyntaxParser implements SyntaxParser {
 
@@ -27,10 +26,8 @@ public class AssignationSyntaxParser implements SyntaxParser {
                 if (iterator.hasNext()) {
                     token = iterator.next();
                     if (token.getType() == TokenType.ASSIGN) {
-                        LiteralNode literalNode = parseLiteral(iterator);
-                        VariableAssignation map = VariableAssignation.getInstance();
-                        map.addVariable(declarationNode.getNameToken().getValue(), literalNode);
-                        return new AssignationNode(declarationNode, literalNode, declarationNode.getLine(), declarationNode.getColumn());
+                        ASTNode expressionNode = ExpressionFactory.createExpression(iterator);
+                        return new AssignationNode(declarationNode, expressionNode, declarationNode.getLine(), declarationNode.getColumn());
                     }
                 }
             }
@@ -47,15 +44,5 @@ public class AssignationSyntaxParser implements SyntaxParser {
         }
 
         throw new IllegalArgumentException("Invalid declaration");
-    }
-
-    private LiteralNode parseLiteral(Iterator<Token> iterator) {
-        Token literalToken = iterator.next();
-
-        if (literalToken instanceof ValueToken) {
-            return new LiteralNode(literalToken);
-        }
-
-        throw new IllegalArgumentException("Invalid literal");
     }
 }
