@@ -1,16 +1,12 @@
 package parser.semantic;
 
-import AST.nodes.ASTNode;
 import org.junit.jupiter.api.Test;
-import parser.syntax.AssignationSyntaxParser;
-import parser.syntax.SyntaxParser;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import parser.Parser;
 import token.Token;
 import token.TokenType;
 import token.ValueToken;
-
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class SemanticAnalyzerTest {
     @Test
@@ -26,13 +22,10 @@ public class SemanticAnalyzerTest {
         );
 
         // WHEN
-        SyntaxParser parser = new AssignationSyntaxParser();
-        ASTNode ast = parser.syntaxParse(tokens);
-
-        // THEN
-        SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer(List.of(ast));
-        SemanticResult result = semanticAnalyzer.analyze();
-        assertFalse(result.getResult());
+        Parser parser = new Parser();
+        assertThrows(RuntimeException.class, () -> {
+            parser.parse(tokens);
+        });
     }
 
     @Test
@@ -48,12 +41,7 @@ public class SemanticAnalyzerTest {
         );
 
         // WHEN
-        SyntaxParser parser = new AssignationSyntaxParser();
-        ASTNode ast = parser.syntaxParse(tokens);
-
-        // THEN
-        SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer(List.of(ast));
-        SemanticResult result = semanticAnalyzer.analyze();
-        assertTrue(result.getResult());
+        Parser parser = new Parser();
+        parser.parse(tokens);
     }
 }

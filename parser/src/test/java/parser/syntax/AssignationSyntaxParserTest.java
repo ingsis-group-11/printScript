@@ -1,9 +1,6 @@
 package parser.syntax;
 
-import AST.nodes.ASTNode;
-import AST.nodes.AssignationNode;
-import AST.nodes.DeclarationNode;
-import AST.nodes.LiteralNode;
+import AST.nodes.*;
 import org.junit.jupiter.api.Test;
 import parser.syntax.AssignationSyntaxParser;
 import parser.syntax.SyntaxParser;
@@ -79,5 +76,38 @@ public class AssignationSyntaxParserTest {
         assertInstanceOf(LiteralNode.class, literalNode);
         LiteralNode litNode = (LiteralNode) literalNode;
         assertEquals("25", (litNode.getValue()));
+    }
+
+    @Test
+    public void testSyntaxParseOperation() {
+        // let name: string = "Olive" + "hello";
+        List<Token> tokens = List.of(
+                new ValueToken(TokenType.LET_KEYWORD, "let", 1, 1),
+                new ValueToken(TokenType.IDENTIFIER, "name", 5, 1),
+                new ValueToken(TokenType.STRING_TYPE, "string", 11, 1),
+                new ValueToken(TokenType.ASSIGN, "=", 18, 1),
+                new ValueToken(TokenType.STRING, "\"Olive\"", 20, 1),
+                new ValueToken(TokenType.OPERATOR, "+", 27, 1),
+                new ValueToken(TokenType.STRING, "\"hello\"", 29, 1),
+                new ValueToken(TokenType.OPERATOR, "+", 27, 1),
+                new ValueToken(TokenType.STRING, "\"bye\"", 29, 1),
+                new ValueToken(TokenType.SEMICOLON, ";", 27, 1)
+        );
+
+        SyntaxParser parser = new AssignationSyntaxParser();
+        ASTNode ast = parser.syntaxParse(tokens);
+
+        assertInstanceOf(AssignationNode.class, ast);
+        AssignationNode assignationNode = (AssignationNode) ast;
+
+        DeclarationNode declarationNode = assignationNode.getDeclaration();
+        assertInstanceOf(DeclarationNode.class, declarationNode);
+        assertEquals("name", (declarationNode.getNameToken().getValue()));
+        assertEquals("string", (declarationNode.getTypeToken().getValue()));
+
+        ASTNode operatorNode = assignationNode.getExpression();
+        assertInstanceOf(OperatorNode.class, operatorNode);
+        OperatorNode opNode = (OperatorNode) operatorNode;
+        assertEquals("+", (opNode.getOperator()));
     }
 }
