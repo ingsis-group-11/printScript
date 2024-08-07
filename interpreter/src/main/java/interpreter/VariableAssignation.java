@@ -1,6 +1,5 @@
-package parser.syntax;
+package interpreter;
 
-import AST.nodes.ASTNode;
 import AST.nodes.LiteralNode;
 
 import java.util.HashMap;
@@ -23,7 +22,9 @@ public class VariableAssignation {
     }
 
     public LiteralNode getVariable(String name) {
-
-        return variables.get(name);
+        if (variables.containsKey(name)) {
+            return variables.get(name);
+        }
+        throw new RuntimeException("Variable " + name + " not found");
     }
 }
