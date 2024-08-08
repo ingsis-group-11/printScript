@@ -1,3 +1,9 @@
 .idea/
 .gradle/
 build/
+AST/build/
+interpreter/build/
+lexer/build
+parser/build
+runner/build
+token/build
