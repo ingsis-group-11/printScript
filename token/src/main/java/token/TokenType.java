@@ -10,6 +10,8 @@ public enum TokenType {
     IDENTIFIER,
     ASSIGN,
     SEMICOLON,
-    WHITESPACE,
-    SEPARATOR,
+    PARENTHESIS_OPEN,
+    PARENTHESIS_CLOSE,
+    COLON,
+    OPERATOR,
 }
