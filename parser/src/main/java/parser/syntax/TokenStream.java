@@ -39,13 +39,17 @@ public class TokenStream {
 
     public void expect(TokenType type, String errorMessage) {
         if (currentToken == null || !match(type)) {
-            String message = errorMessage + (currentToken != null ? " at column " + currentToken.getColumn() + " line " + currentToken.getLine() : "");
+            String message =
+                    errorMessage +
+                            (currentToken != null ? " at column " +
+                                    currentToken.getColumn() + " line " +
+                                    currentToken.getLine() :
+                                    " at column " +
+                                    (lastToken != null ? lastToken.getColumn() : "unknown") +
+                                            " line " +
+                                            (lastToken != null ? lastToken.getLine() : "unknown"));
             throw new RuntimeException(message);
         }
         advance();
-    }
-
-    public boolean isAtEnd() {
-        return currentToken == null;
     }
 }

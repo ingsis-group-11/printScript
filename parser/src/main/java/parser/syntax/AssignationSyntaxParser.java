@@ -21,11 +21,7 @@ public class AssignationSyntaxParser implements SyntaxParser {
         DeclarationNode declarationNode = parseDeclaration(tokenStream);
         tokenStream.expect(TokenType.ASSIGN, "Expected '='");
         ASTNode expressionNode = ExpressionFactory.createExpression(tokenStream);
-        if (tokenStream.isAtEnd() || !tokenStream.match(TokenType.SEMICOLON)) {
-            Token lastToken = tokenStream.getLastToken();
-            throw new RuntimeException("Expected ';' at column " + (lastToken != null ? lastToken.getColumn() : "unknown") + " line " + (lastToken != null ? lastToken.getLine() : "unknown"));
-        }
-        tokenStream.advance();
+        tokenStream.expect(TokenType.SEMICOLON, "Expected ';'");
         return new AssignationNode(declarationNode, expressionNode, declarationNode.getLine(), declarationNode.getColumn());
     }
 

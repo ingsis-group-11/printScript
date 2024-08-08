@@ -14,13 +14,13 @@ public class ExpressionFactory {
             throw new IllegalArgumentException("Invalid expression");
         }
 
-        ASTNode left = parsePrimary(tokenStream);
+        ASTNode left = parseExpression(tokenStream);
 
         while (tokenStream.getCurrentToken() != null) {
             Token token = tokenStream.getCurrentToken();
             if (token.getType() == TokenType.OPERATOR) {
                 tokenStream.advance();
-                ASTNode right = parsePrimary(tokenStream);
+                ASTNode right = parseExpression(tokenStream);
                 left = new OperatorNode(token.getValue(), left, right, token.getLine(), token.getColumn());
             } else {
                 break;
@@ -30,7 +30,7 @@ public class ExpressionFactory {
         return left;
     }
 
-    private static ASTNode parsePrimary(TokenStream tokenStream) {
+    private static ASTNode parseExpression(TokenStream tokenStream) {
         Token token = tokenStream.getCurrentToken();
         if (token != null) {
             if (token.getType() == TokenType.NUMBER || token.getType() == TokenType.STRING) {
@@ -41,6 +41,7 @@ public class ExpressionFactory {
                 return new VariableNode(token);
             }
         }
-        throw new IllegalArgumentException("Invalid primary expression");
+        assert token != null;
+        throw new IllegalArgumentException("Invalid expression at column " + token.getColumn() + " line " + token.getLine());
     }
 }
