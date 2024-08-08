@@ -1,0 +1,11 @@
+{
+  ":": "COLON",
+  "=": "ASSIGN",
+  "+": "PLUS",
+  "-": "MINUS",
+  "*": "MULTIPLY",
+  "/": "DIVIDE",
+  "(": "LPAREN",
+  ")": "RPAREN",
+  ";": "SEMICOLON"
+}
