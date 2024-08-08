@@ -26,11 +26,14 @@ public class AssignationSyntaxParser implements SyntaxParser {
     }
 
     private DeclarationNode parseDeclaration(TokenStream tokenStream) {
-        Token nameToken = tokenStream.getCurrentToken();
-        tokenStream.expect(TokenType.IDENTIFIER, "Expected identifier");
-        tokenStream.expect(TokenType.COLON, "Expected ':'");
-        Token typeToken = tokenStream.getCurrentToken();
-        tokenStream.expect(TokenType.STRING_TYPE, "Expected type");
-        return new DeclarationNode(typeToken, nameToken, nameToken.getLine(), nameToken.getColumn());
+    Token nameToken = tokenStream.getCurrentToken();
+    tokenStream.expect(TokenType.IDENTIFIER, "Expected identifier");
+    tokenStream.expect(TokenType.COLON, "Expected ':'");
+    Token typeToken = tokenStream.getCurrentToken();
+    if (typeToken.getType() != TokenType.STRING_TYPE && typeToken.getType() != TokenType.NUMBER_TYPE) {
+        throw new IllegalArgumentException("Expected type to be 'string' or 'number'");
     }
+    tokenStream.advance();
+    return new DeclarationNode(typeToken, nameToken, nameToken.getLine(), nameToken.getColumn());
+}
 }
