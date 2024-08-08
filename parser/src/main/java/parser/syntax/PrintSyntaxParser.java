@@ -33,11 +33,7 @@ public class PrintSyntaxParser implements SyntaxParser {
             throw new RuntimeException(message);
         }
         tokenStream.expect(TokenType.PARENTHESIS_CLOSE, "Expected ')'");
-        if (tokenStream.isAtEnd() || !tokenStream.match(TokenType.SEMICOLON)) {
-            Token lastToken = tokenStream.getLastToken();
-            throw new RuntimeException("Expected ';' at column " + (lastToken != null ? lastToken.getColumn() : "unknown") + " line " + (lastToken != null ? lastToken.getLine() : "unknown"));
-        }
-        tokenStream.advance();
+        tokenStream.expect(TokenType.SEMICOLON, "Expected ';'");
         return new PrintNode(node, valueToken.getLine(), valueToken.getColumn());
     }
 }
