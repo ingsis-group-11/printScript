@@ -18,7 +18,7 @@ public class SemanticVisitor implements ASTVisitor<Boolean> {
 
     @Override
     public Boolean visit(PrintNode node) {
-        return (node.getExpression() instanceof LiteralNode || node.getExpression() instanceof VariableNode);
+        return node.getExpression().accept(this);
     }
 
     @Override
@@ -38,10 +38,13 @@ public class SemanticVisitor implements ASTVisitor<Boolean> {
 
     @Override
     public Boolean visit(OperatorNode operatorNode) {
+        /*
         TypeVisitor typeVisitor = new TypeVisitor();
         if(operatorNode.getOperator().equals("*") || operatorNode.getOperator().equals("/") || operatorNode.getOperator().equals("-")) {
             return !oneNodeIsString(operatorNode, typeVisitor);
         }
+        */
+
         return true;
     }
 

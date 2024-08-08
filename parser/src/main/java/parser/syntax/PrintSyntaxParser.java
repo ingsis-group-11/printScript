@@ -18,22 +18,11 @@ public class PrintSyntaxParser implements SyntaxParser {
     }
 
     private ASTNode parsePrint(TokenStream tokenStream) {
-        tokenStream.expect(TokenType.PRINT_KEYWORD, "Expected 'print'");
-        tokenStream.expect(TokenType.PARENTHESIS_OPEN, "Expected '('");
-        Token valueToken = tokenStream.getCurrentToken();
-        ASTNode node;
-        if (tokenStream.match(TokenType.IDENTIFIER)) {
-            node = new VariableNode(valueToken);
-            tokenStream.advance();
-        } else if (tokenStream.match(TokenType.STRING) || tokenStream.match(TokenType.NUMBER)) {
-            node = new LiteralNode(valueToken);
-            tokenStream.advance();
-        } else {
-            String message = "Invalid print value at column " + valueToken.getColumn() + " line " + valueToken.getLine();
-            throw new RuntimeException(message);
-        }
-        tokenStream.expect(TokenType.PARENTHESIS_CLOSE, "Expected ')'");
-        tokenStream.expect(TokenType.SEMICOLON, "Expected ';'");
-        return new PrintNode(node, valueToken.getLine(), valueToken.getColumn());
-    }
+    tokenStream.expect(TokenType.PRINT_KEYWORD, "Expected 'print'");
+    tokenStream.expect(TokenType.PARENTHESIS_OPEN, "Expected '('");
+    ASTNode expressionNode = ExpressionFactory.createExpression(tokenStream);
+    tokenStream.expect(TokenType.PARENTHESIS_CLOSE, "Expected ')'");
+    tokenStream.expect(TokenType.SEMICOLON, "Expected ';'");
+    return new PrintNode(expressionNode, expressionNode.getLine(), expressionNode.getColumn());
+}
 }
