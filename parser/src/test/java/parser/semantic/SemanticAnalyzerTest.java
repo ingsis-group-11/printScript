@@ -13,12 +13,13 @@ public class SemanticAnalyzerTest {
     public void testOneSemanticError() {
         //GIVEN
         List<Token> tokens = List.of(
-                new ValueToken(TokenType.LET_KEYWORD, "let", 1, 1),
-                new ValueToken(TokenType.IDENTIFIER, "name", 5, 1),
-                new ValueToken(TokenType.STRING_TYPE, "string", 11, 1),
-                new ValueToken(TokenType.ASSIGN, "=", 18, 1),
-                new ValueToken(TokenType.NUMBER, "2", 20, 1),
-                new ValueToken(TokenType.SEMICOLON, ";", 27, 1)
+                new ValueToken(TokenType.LET_KEYWORD, "let", 0, 0),
+                new ValueToken(TokenType.IDENTIFIER, "name", 4, 0),
+                new ValueToken(TokenType.COLON, ":", 8, 0),
+                new ValueToken(TokenType.STRING_TYPE, "string", 10, 0),
+                new ValueToken(TokenType.ASSIGN, "=", 17, 0),
+                new ValueToken(TokenType.STRING, "John", 19, 0),
+                new ValueToken(TokenType.SEMICOLON, ";", 25, 0)
         );
 
         // WHEN
@@ -36,7 +37,7 @@ public class SemanticAnalyzerTest {
                 new ValueToken(TokenType.IDENTIFIER, "name", 5, 1),
                 new ValueToken(TokenType.STRING_TYPE, "string", 11, 1),
                 new ValueToken(TokenType.ASSIGN, "=", 18, 1),
-                new ValueToken(TokenType.STRING, "'Tomas'", 20, 1),
+                new ValueToken(TokenType.STRING, "Tomas", 20, 1),
                 new ValueToken(TokenType.SEMICOLON, ";", 27, 1)
         );
 

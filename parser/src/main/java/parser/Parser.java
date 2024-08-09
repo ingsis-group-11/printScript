@@ -2,7 +2,7 @@ package parser;
 
 import AST.nodes.ASTNode;
 import parser.semantic.SemanticAnalyzer;
-import parser.semantic.SemanticResult;
+import parser.semantic.result.SemanticResult;
 import parser.syntax.SyntaxParser;
 import parser.syntax.SyntaxParserFactory;
 import token.Token;
@@ -12,9 +12,28 @@ import java.util.List;
 
 public class Parser {
     public List<ASTNode> parse(List<Token> tokens) {
-        List<ASTNode> astNodes = new ArrayList<>();
-
         // Syntax analysis
+        List<ASTNode> astNodes = syntaxParser(tokens);
+        // Semantic analysis
+        semanticParser(astNodes);
+
+        return astNodes;
+    }
+
+    private void semanticParser(List<ASTNode> astNodes) {
+        SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
+        SemanticResult result = semanticAnalyzer.analyze(astNodes);
+        if (result.hasErrors()) {
+            String stringResult = "";
+            for (String message : result.messages()) {
+                stringResult += message + "\n";
+            }
+            throw new RuntimeException(stringResult);
+        }
+    }
+
+    private List<ASTNode> syntaxParser(List<Token> tokens) {
+        List<ASTNode> astNodes = new ArrayList<>();
         SyntaxParserFactory factory = new SyntaxParserFactory();
 
         List<List<Token>> sentences = TokenSplitter.splitBySemicolons(tokens);
@@ -23,17 +42,6 @@ public class Parser {
             SyntaxParser syntaxParser = factory.getSyntaxParser(sentence);
             ASTNode ast = syntaxParser.syntaxParse(sentence);
             astNodes.add(ast);
-        }
-
-        // Semantic analysis
-        SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer(astNodes);
-        SemanticResult result = semanticAnalyzer.analyze();
-        if (result.hasErrors()) {
-            String stringResult = "";
-            for (String message : result.getMessages()) {
-                stringResult += message + "\n";
-            }
-            throw new RuntimeException(stringResult);
         }
 
         return astNodes;

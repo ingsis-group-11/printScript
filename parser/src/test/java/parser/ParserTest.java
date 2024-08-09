@@ -23,7 +23,7 @@ public class ParserTest {
                 new ValueToken(TokenType.COLON, ":", 8, 0),
                 new ValueToken(TokenType.STRING_TYPE, "string", 10, 0),
                 new ValueToken(TokenType.ASSIGN, "=", 17, 0),
-                new ValueToken(TokenType.STRING, "\"Olive\"", 19, 0),
+                new ValueToken(TokenType.STRING, "Olive", 19, 0),
                 new ValueToken(TokenType.SEMICOLON, ";", 26, 0),
                 new ValueToken(TokenType.PRINT_KEYWORD, "println", 0, 1),
                 new ValueToken(TokenType.PARENTHESIS_OPEN, "(", 7, 1),
@@ -48,7 +48,7 @@ public class ParserTest {
         ASTNode literalNode = assignationNode1.getExpression();
         assertInstanceOf(LiteralNode.class, literalNode);
         LiteralNode litNode = (LiteralNode) literalNode;
-        assertEquals("\"Olive\"", (litNode.getValue()));
+        assertEquals("Olive", (litNode.getValue()));
 
         ASTNode printNode = astNodes.get(1);
         assertInstanceOf(PrintNode.class, printNode);

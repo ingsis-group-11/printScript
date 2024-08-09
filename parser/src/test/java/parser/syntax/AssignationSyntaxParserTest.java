@@ -24,7 +24,7 @@ public class AssignationSyntaxParserTest {
                 new ValueToken(TokenType.COLON, ":", 8, 0),
                 new ValueToken(TokenType.STRING_TYPE, "string", 10, 0),
                 new ValueToken(TokenType.ASSIGN, "=", 17, 0),
-                new ValueToken(TokenType.STRING, "\"John\"", 19, 0),
+                new ValueToken(TokenType.STRING, "John", 19, 0),
                 new ValueToken(TokenType.SEMICOLON, ";", 25, 0)
         );
 
@@ -44,7 +44,7 @@ public class AssignationSyntaxParserTest {
         ASTNode literalNode = assignationNode.getExpression();
         assertInstanceOf(LiteralNode.class, literalNode);
         LiteralNode litNode = (LiteralNode) literalNode;
-        assertEquals("\"John\"", (litNode.getValue()));
+        assertEquals("John", (litNode.getValue()));
     }
 
     @Test
@@ -89,11 +89,11 @@ public class AssignationSyntaxParserTest {
                 new ValueToken(TokenType.COLON, ":", 8, 0),
                 new ValueToken(TokenType.STRING_TYPE, "string", 11, 1),
                 new ValueToken(TokenType.ASSIGN, "=", 18, 1),
-                new ValueToken(TokenType.STRING, "\"Olive\"", 20, 1),
+                new ValueToken(TokenType.STRING, "Olive", 20, 1),
                 new ValueToken(TokenType.OPERATOR, "+", 27, 1),
-                new ValueToken(TokenType.STRING, "\"hello\"", 29, 1),
+                new ValueToken(TokenType.STRING, "hello", 29, 1),
                 new ValueToken(TokenType.OPERATOR, "+", 27, 1),
-                new ValueToken(TokenType.STRING, "\"bye\"", 29, 1),
+                new ValueToken(TokenType.STRING, "bye", 29, 1),
                 new ValueToken(TokenType.SEMICOLON, ";", 27, 1)
         );
 

@@ -1,5 +1,8 @@
 package lexer;
 
+import result.LexingResult;
+import result.SuccessfulResult;
+import result.UnsuccessfulResult;
 import token.Token;
 import token.TokenType;
 import token.ValueToken;
@@ -8,17 +11,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Tokenizer {
-    private final String inputText;
+    private String inputText;
     private int position;
     private char currentChar;
     private int line;
     private int column;
     private final MapReader mapReader = new MapReader();
 
-    public Tokenizer(String inputText) {
-        this.inputText = inputText;
+    public Tokenizer() {
         this.position = 0;
-        this.currentChar = inputText.charAt(position);
         this.line = 1;
         this.column = 1;
     }
@@ -72,7 +73,9 @@ public class Tokenizer {
         return new ValueToken(TokenType.STRING, result.toString(), newColumn, line);
     }
 
-    public List<Token> tokenize() {
+    public LexingResult tokenize(String inputText) {
+        this.currentChar = inputText.charAt(0);
+        this.inputText = inputText;
         List<Token> tokens = new ArrayList<>();
 
         while (currentChar != '\0') {
@@ -107,10 +110,10 @@ public class Tokenizer {
                 continue;
             }
 
-            throw new RuntimeException("Unexpected character: " + currentChar);
+            return new UnsuccessfulResult("Unexpected character: " + charAsString, column, line);
         }
 
-        return tokens;
+        return new SuccessfulResult(tokens);
     }
 
     private void isSemicolon() {

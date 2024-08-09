@@ -19,10 +19,10 @@ public class Lexer {
         FileReader fileReader = new FileReader();
         String stringFile = fileReader.readFile(filePath);
 
-        Tokenizer tokenizer = new Tokenizer(stringFile);
-        List<Token> tokens = tokenizer.tokenize();
+        Tokenizer tokenizer = new Tokenizer();
+        LexingResult lexerResult = tokenizer.tokenize(stringFile);
 
-        return new SuccessfulResult(tokens);
+        return lexerResult;
     }
 
     private Boolean checkIfFileExistsAndIsReadable(String filePath) {
