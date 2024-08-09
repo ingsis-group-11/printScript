@@ -1,0 +1,4 @@
+let a: string = "Hello ";
+let b: number = 10;
+let c: string = a - b;
+println(c);

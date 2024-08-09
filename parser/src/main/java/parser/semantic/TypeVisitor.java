@@ -30,13 +30,14 @@ public class TypeVisitor implements ASTVisitor<TokenType> {
     public TokenType visit(OperatorNode operatorNode) {
         if(operatorNode.getLeftNode().accept(this) == TokenType.NUMBER && operatorNode.getRightNode().accept(this) == TokenType.NUMBER) {
             return TokenType.NUMBER;
-        } else {
-            return TokenType.STRING;
+        } else if(operatorNode.getLeftNode().accept(this) == TokenType.IDENTIFIER || operatorNode.getRightNode().accept(this) == TokenType.IDENTIFIER) {
+            return TokenType.IDENTIFIER;
         }
+        return TokenType.STRING;
     }
 
     @Override
     public TokenType visit(VariableNode variableNode) {
-        return null;
+        return TokenType.IDENTIFIER;
     }
 }

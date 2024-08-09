@@ -7,6 +7,7 @@ import parser.Parser;
 import result.FileFailureResult;
 import result.LexingResult;
 import result.SuccessfulResult;
+import result.UnsuccessfulResult;
 import token.Token;
 
 import java.io.IOException;
@@ -23,11 +24,19 @@ public class Runner {
         Lexer lexer = new Lexer();
         LexingResult lexerResult = lexer.lex(filePath);
 
-        if (!(lexerResult instanceof SuccessfulResult)) {
-            throw new RuntimeException(((FileFailureResult) lexerResult).message());
-        }
+        resolveLexerErrors(lexerResult);
+
         List<Token> tokens = ((SuccessfulResult) lexerResult).tokens();
         return tokens;
+    }
+
+    private void resolveLexerErrors(LexingResult lexerResult) throws IOException {
+        if(lexerResult instanceof FileFailureResult){
+            throw new IOException(((FileFailureResult) lexerResult).message());
+        }
+        else if(lexerResult instanceof UnsuccessfulResult){
+            throw new RuntimeException(((UnsuccessfulResult) lexerResult).message());
+        }
     }
 
     private List<ASTNode> parseRun(List<Token> tokens){
