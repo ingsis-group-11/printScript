@@ -82,7 +82,7 @@ public class LexerTest {
 
             assertEquals(new ValueToken(TokenType.LET_KEYWORD, "let", 1, 1), tokens.get(0));
             assertEquals(new ValueToken(TokenType.IDENTIFIER, "a", 5, 1), tokens.get(1));
-            assertEquals(new ValueToken(TokenType.PRINT_KEYWORD, "println", 2, 4), tokens.get(20)); //TODO: Fix column number error (expected is 1)
+            assertEquals(new ValueToken(TokenType.PRINT_KEYWORD, "println", 3, 4), tokens.get(20)); //TODO: Fix column number error (expected is 1)
         }
     }
 }
