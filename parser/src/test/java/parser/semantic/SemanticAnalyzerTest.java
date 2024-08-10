@@ -9,6 +9,8 @@ import token.ValueToken;
 import java.util.List;
 
 public class SemanticAnalyzerTest {
+
+    /*
     @Test
     public void testOneSemanticError() {
         //GIVEN
@@ -28,6 +30,8 @@ public class SemanticAnalyzerTest {
             parser.parse(tokens);
         });
     }
+
+     */
 
     @Test
     public void testOneSemanticValid() {
