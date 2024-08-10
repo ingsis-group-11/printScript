@@ -35,26 +35,26 @@ public class ExpressionFactory {
 
     private static ASTNode parseBinaryExpression(TokenStream tokenStream, int precedence) {
         ASTNode left = parsePrimaryExpression(tokenStream);
-
-        while (true) {
-            Token token = tokenStream.getCurrentToken();
-            if (token == null || token.getType() != TokenType.OPERATOR) {
-                break;
-            }
-
-            int tokenPrecedence = getPriority(token);
-            if (tokenPrecedence < precedence) {
-                break;
-            }
-
-            tokenStream.advance();
-            ASTNode right = parseBinaryExpression(tokenStream, tokenPrecedence + 1);
-            left = new OperatorNode(token.getValue(), left, right, token.getLine(), token.getColumn());
-        }
-
-        return left;
+        return parseBinaryExpressionRecursive(tokenStream, left, precedence);
     }
 
+    private static ASTNode parseBinaryExpressionRecursive(TokenStream tokenStream, ASTNode left, int precedence) {
+        Token token = tokenStream.getCurrentToken();
+        if (token == null || token.getType() != TokenType.OPERATOR) {
+            return left;
+        }
+
+        int tokenPrecedence = getPriority(token);
+        if (tokenPrecedence < precedence) {
+            return left;
+        }
+
+        tokenStream.advance();
+        ASTNode right = parseBinaryExpression(tokenStream, tokenPrecedence + 1);
+        left = new OperatorNode(token.getValue(), left, right, token.getLine(), token.getColumn());
+
+        return parseBinaryExpressionRecursive(tokenStream, left, precedence);
+    }
     private static int getPriority(Token token) {
         return switch (token.getValue()) {
             case "*", "/" -> 2;
