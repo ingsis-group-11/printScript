@@ -75,7 +75,7 @@ public class ParserTest {
                 new ValueToken(TokenType.NUMBER, "2", 14, 1),
                 new ValueToken(TokenType.OPERATOR, "*", 12, 1),
                 new ValueToken(TokenType.NUMBER, "10", 14, 1),
-                new ValueToken(TokenType.OPERATOR, "*", 12, 1),
+                new ValueToken(TokenType.OPERATOR, "+", 12, 1),
                 new ValueToken(TokenType.NUMBER, "10", 14, 1),
                 new ValueToken(TokenType.OPERATOR, "*", 12, 1),
                 new ValueToken(TokenType.NUMBER, "10", 14, 1),
