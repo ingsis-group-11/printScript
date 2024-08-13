@@ -18,7 +18,11 @@ public class VariableAssignation {
     }
 
     public void addVariable(String name, LiteralNode value) {
-        variables.put(name, value);
+        if (variables.containsKey(name)) {
+            variables.put(name, value);
+        } else {
+            throw new RuntimeException("Variable " + name + " already exists");
+        }
     }
 
     public LiteralNode getVariable(String name) {

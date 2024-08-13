@@ -76,7 +76,7 @@ public class LiteralTransformer implements ASTVisitor<LiteralNode> {
                                        TokenType rightType, String operator) {
         if (leftType == TokenType.STRING || rightType == TokenType.STRING) {
             throw new RuntimeException("Invalid operation: " + left.getValue() + " " + operator + " " + right.getValue()
-                    + "on " + left.getLine() + ":" + left.getColumn());
+                    + " on " + left.getLine() + ":" + left.getColumn());
         }
     }
 }
