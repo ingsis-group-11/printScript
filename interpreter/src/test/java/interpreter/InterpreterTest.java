@@ -2,7 +2,6 @@ package interpreter;
 
 import AST.nodes.*;
 import org.junit.jupiter.api.Test;
-import token.Token;
 import token.TokenType;
 import token.ValueToken;
 
@@ -11,6 +10,7 @@ import java.io.PrintStream;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class InterpreterTest {
 
@@ -46,5 +46,29 @@ public class InterpreterTest {
             System.setOut(originalOut);
         }
 
+    }
+
+    @Test
+    public void testCreationOfTheSameVariable() {
+        //GIVEN
+        // let name: string = "a";
+        // let name: string = "a";
+        List<ASTNode> astNodes = List.of(
+                new AssignationNode(
+                        new DeclarationNode(new ValueToken(TokenType.STRING_TYPE, "string", 10, 0),
+                                new ValueToken(TokenType.IDENTIFIER, "name", 4, 0), 0, 0)
+                        , new LiteralNode(new ValueToken(TokenType.STRING, "a", 19, 0)),
+                        1,1
+                ), new AssignationNode(
+                        new DeclarationNode(new ValueToken(TokenType.STRING_TYPE, "string", 10, 0),
+                                new ValueToken(TokenType.IDENTIFIER, "name", 4, 0), 1, 0)
+                        , new LiteralNode(new ValueToken(TokenType.STRING, "a", 19, 0)),
+                        1,1
+                )
+        );
+
+        // WHEN & THEN
+        Interpreter interpreter = new Interpreter();
+        assertThrows(RuntimeException.class, () -> interpreter.interpret(astNodes));
     }
 }
