@@ -233,4 +233,11 @@ public class AssignationRunnerTest {
             runner.run("src/test/resources/assignation/variableStringNumberDivision.txt");
         });
     }
+
+    @Test public void duplicateSameVariableAssignation(){
+        Runner runner = new Runner();
+        assertThrows(RuntimeException.class, () -> {
+            runner.run("src/test/resources/assignation/duplicateSameVariableAssignation.txt");
+        });
+    }
 }

@@ -1,34 +1,16 @@
 package lexer;
 
-
-import token.*;
-
-import java.io.IOException;
-import java.util.*;
 import result.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class Lexer {
-    public LexingResult lex(String filePath) throws IOException {
-        if (!checkIfFileExistsAndIsReadable(filePath)) {
-            return new FileFailureResult("File does not exist or is not readable");
-        }
-
-        FileReader fileReader = new FileReader();
-        String stringFile = fileReader.readFile(filePath);
-
+    public LexingResult lex(String stringFile) {
         Tokenizer tokenizer = new Tokenizer();
         LexingResult lexerResult = tokenizer.tokenize(stringFile);
 
         return lexerResult;
     }
 
-    private Boolean checkIfFileExistsAndIsReadable(String filePath) {
-        Path path = Paths.get(filePath);
-        return Files.exists(path) || Files.isReadable(path);
-    }
+
 }
 
 
