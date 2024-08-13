@@ -18,11 +18,11 @@ public class PrintSyntaxParser implements SyntaxParser {
     }
 
     private ASTNode parsePrint(TokenStream tokenStream) {
-    tokenStream.expect(TokenType.PRINT_KEYWORD, "Expected 'print'");
-    tokenStream.expect(TokenType.PARENTHESIS_OPEN, "Expected '('");
-    ASTNode expressionNode = ExpressionFactory.createExpression(tokenStream);
-    tokenStream.expect(TokenType.PARENTHESIS_CLOSE, "Expected ')'");
-    tokenStream.expect(TokenType.SEMICOLON, "Expected ';'");
-    return new PrintNode(expressionNode, expressionNode.getLine(), expressionNode.getColumn());
-}
+        tokenStream.expect(TokenType.PRINT_KEYWORD, "Expected 'print'");
+        tokenStream.expect(TokenType.PARENTHESIS_OPEN, "Expected '('");
+        ASTNode expressionNode = ExpressionFactory.createExpression(tokenStream);
+        tokenStream.expect(TokenType.PARENTHESIS_CLOSE, "Expected ')'");
+        tokenStream.expect(TokenType.SEMICOLON, "Expected ';'");
+        return new PrintNode(expressionNode, expressionNode.getLine(), expressionNode.getColumn());
+    }
 }

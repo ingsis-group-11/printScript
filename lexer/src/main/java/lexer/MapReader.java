@@ -1,7 +1,6 @@
 package lexer;
 
 import token.TokenType;
-
 import java.util.HashMap;
 
 public class MapReader {
@@ -24,10 +23,10 @@ public class MapReader {
     }
 
     public TokenType getTokenType(String word) {
-        if(tokenMap.get(word) == null) {
-            return TokenType.IDENTIFIER;
+        if(tokenMap.containsKey(word)) {
+            return tokenMap.get(word);
         }
-        return tokenMap.get(word);
+        return TokenType.IDENTIFIER;
     }
 
     public boolean containsKey(String key) {
