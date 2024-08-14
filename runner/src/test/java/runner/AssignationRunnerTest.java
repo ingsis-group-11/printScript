@@ -129,6 +129,13 @@ public class AssignationRunnerTest {
         });
     }
 
+    @Test public void validReassignment() throws IOException {
+        Runner runner = new Runner();
+        runner.run("src/test/resources/assignation/validReassignment.txt");
+        String expected = expectedTransformer.transform(List.of("Doe"));
+        assertEquals(expected, outContent.toString());
+    }
+
     @Test public void divisionStringNumberPrint() {
         Runner runner = new Runner();
         assertThrows(RuntimeException.class, () -> {

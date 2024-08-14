@@ -9,5 +9,5 @@ public interface ASTVisitor<T> {
     T visit(AssignationNode node);
     T visit(OperatorNode node);
     T visit(VariableNode node);
-    T visit(ReasignationNode node);
+    T visit(ReassignmentNode node);
 }

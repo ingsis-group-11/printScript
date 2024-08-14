@@ -51,7 +51,7 @@ public class LiteralTransformer implements ASTVisitor<LiteralNode> {
     }
 
     @Override
-    public LiteralNode visit(ReasignationNode node) {
+    public LiteralNode visit(ReassignmentNode node) {
         return null;
     }
 

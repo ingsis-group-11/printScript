@@ -42,7 +42,7 @@ public class TypeVisitor implements ASTVisitor<TokenType> {
     }
 
     @Override
-    public TokenType visit(ReasignationNode node) {
+    public TokenType visit(ReassignmentNode node) {
         return node.getExpression().accept(this);
     }
 }
