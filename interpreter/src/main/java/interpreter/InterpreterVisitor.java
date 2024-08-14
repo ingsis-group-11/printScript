@@ -49,7 +49,9 @@ public class InterpreterVisitor implements ASTVisitor<Void> {
     }
 
     @Override
-    public Void visit(ReassignmentNode node) {
+    public Void visit(ReasignationNode node) {
+        LiteralNode expression = node.getExpression().accept(literalTransformer);
+        variableAssignation.updateVariable(node.getVariableNode().getValue(), expression);
         return null;
     }
 }
