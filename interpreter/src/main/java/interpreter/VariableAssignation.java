@@ -28,4 +28,12 @@ public class VariableAssignation {
         }
         throw new RuntimeException("Variable " + name + " not found");
     }
+
+    public void updateVariable(String name, LiteralNode value) {
+        if (variables.containsKey(name)) {
+            variables.put(name, value);
+        } else {
+            throw new RuntimeException("Variable " + name + " not declared yet" );
+        }
+    }
 }
