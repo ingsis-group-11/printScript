@@ -6,9 +6,14 @@ import AST.nodes.*;
 import java.util.List;
 
 public class InterpreterVisitor implements ASTVisitor<Void> {
-    private final VariableAssignation variableAssignation = VariableAssignation.getInstance();
-    private final LiteralTransformer literalTransformer = new LiteralTransformer();
+    private final VariableAssignation variableAssignation;
+    private final LiteralTransformer literalTransformer;
 
+
+    public InterpreterVisitor(VariableAssignation variableAssignation) {
+        this.variableAssignation = variableAssignation;
+        this.literalTransformer = new LiteralTransformer(variableAssignation);
+    }
 
     @Override
     public Void visit(DeclarationNode node) {

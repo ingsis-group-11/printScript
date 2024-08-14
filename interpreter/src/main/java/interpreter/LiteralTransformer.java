@@ -6,7 +6,12 @@ import token.TokenType;
 import token.ValueToken;
 
 public class LiteralTransformer implements ASTVisitor<LiteralNode> {
-    VariableAssignation variableAssignation = VariableAssignation.getInstance();
+
+    private final VariableAssignation variableAssignation;
+
+    public LiteralTransformer (VariableAssignation variableAssignation) {
+        this.variableAssignation = variableAssignation;
+    }
 
     @Override
     public LiteralNode visit(DeclarationNode node) {
