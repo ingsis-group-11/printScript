@@ -2,7 +2,6 @@ package parser.semantic;
 
 import AST.ASTVisitor;
 import AST.nodes.*;
-import com.sun.source.tree.BreakTree;
 import parser.semantic.result.SemanticErrorResult;
 import parser.semantic.result.SemanticResult;
 import parser.semantic.result.SemanticSuccessResult;
@@ -66,7 +65,7 @@ public class SemanticVisitor implements ASTVisitor<SemanticResult> {
     }
 
     @Override
-    public SemanticResult visit(ReasignationNode node) {
+    public SemanticResult visit(ReassignmentNode node) {
         return new SemanticSuccessResult();
     }
 

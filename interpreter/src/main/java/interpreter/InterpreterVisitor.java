@@ -3,8 +3,6 @@ package interpreter;
 import AST.ASTVisitor;
 import AST.nodes.*;
 
-import java.util.List;
-
 public class InterpreterVisitor implements ASTVisitor<Void> {
     private final VariableAssignation variableAssignation;
     private final LiteralTransformer literalTransformer;

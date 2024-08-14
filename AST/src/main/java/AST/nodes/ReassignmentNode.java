@@ -2,13 +2,13 @@ package AST.nodes;
 
 import AST.ASTVisitor;
 
-public class ReasignationNode implements ASTNode{
+public class ReassignmentNode implements ASTNode{
     private final VariableNode variableNode;
     private final ASTNode expression;
     private final Integer line;
     private final Integer column;
 
-    public ReasignationNode(VariableNode variableNode, ASTNode expression, Integer line, Integer column){
+    public ReassignmentNode(VariableNode variableNode, ASTNode expression, Integer line, Integer column){
         this.variableNode = variableNode;
         this.expression = expression;
         this.line = line;
