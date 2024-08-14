@@ -6,9 +6,14 @@ import AST.nodes.*;
 import java.util.List;
 
 public class InterpreterVisitor implements ASTVisitor<Void> {
-    private final VariableAssignation variableAssignation = VariableAssignation.getInstance();
-    private final LiteralTransformer literalTransformer = new LiteralTransformer();
+    private final VariableAssignation variableAssignation;
+    private final LiteralTransformer literalTransformer;
 
+
+    public InterpreterVisitor(VariableAssignation variableAssignation) {
+        this.variableAssignation = variableAssignation;
+        this.literalTransformer = new LiteralTransformer(variableAssignation);
+    }
 
     @Override
     public Void visit(DeclarationNode node) {
@@ -36,12 +41,19 @@ public class InterpreterVisitor implements ASTVisitor<Void> {
     }
 
     @Override
-    public Void visit(OperatorNode operatorNode) {
+    public Void visit(OperatorNode node) {
         return null;
     }
 
     @Override
-    public Void visit(VariableNode variableNode) {
+    public Void visit(VariableNode node) {
+        return null;
+    }
+
+    @Override
+    public Void visit(ReasignationNode node) {
+        LiteralNode expression = node.getExpression().accept(literalTransformer);
+        variableAssignation.updateVariable(node.getVariableNode().getValue(), expression);
         return null;
     }
 }

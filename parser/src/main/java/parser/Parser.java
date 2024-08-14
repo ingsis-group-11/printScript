@@ -23,6 +23,10 @@ public class Parser {
     private void semanticParser(List<ASTNode> astNodes) {
         SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
         SemanticResult result = semanticAnalyzer.analyze(astNodes);
+        resolveSemanticErrors(result);
+    }
+
+    private void resolveSemanticErrors(SemanticResult result) {
         if (result.hasErrors()) {
             String stringResult = "";
             for (String message : result.messages()) {
@@ -33,10 +37,14 @@ public class Parser {
     }
 
     private List<ASTNode> syntaxParser(List<Token> tokens) {
+        List<List<Token>> sentences = TokenSplitter.splitBySemicolons(tokens);
+
+        return createTrees(sentences);
+    }
+
+    private List<ASTNode> createTrees(List<List<Token>> sentences) {
         List<ASTNode> astNodes = new ArrayList<>();
         SyntaxParserFactory factory = new SyntaxParserFactory();
-
-        List<List<Token>> sentences = TokenSplitter.splitBySemicolons(tokens);
 
         for (List<Token> sentence : sentences) {
             SyntaxParser syntaxParser = factory.getSyntaxParser(sentence);
