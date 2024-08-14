@@ -136,6 +136,20 @@ public class AssignationRunnerTest {
         assertEquals(expected, outContent.toString());
     }
 
+    @Test public void invalidReassignment() {
+        Runner runner = new Runner();
+        assertThrows(RuntimeException.class, () -> {
+            runner.run("src/test/resources/assignation/invalidReassignment.txt");
+        });
+    }
+
+    @Test public void printBeforeReassignment() throws IOException {
+        Runner runner = new Runner();
+        runner.run("src/test/resources/assignation/printBeforeReassignment.txt");
+        String expected = expectedTransformer.transform(List.of("John","Doe"));
+        assertEquals(expected, outContent.toString());
+    }
+
     @Test public void divisionStringNumberPrint() {
         Runner runner = new Runner();
         assertThrows(RuntimeException.class, () -> {
