@@ -1,0 +1,4 @@
+let name: string = "John";
+println(name);
+name = "Doe";
+println(name);

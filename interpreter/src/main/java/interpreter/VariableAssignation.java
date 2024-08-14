@@ -30,10 +30,22 @@ public class VariableAssignation {
     }
 
     public void updateVariable(String name, LiteralNode value) {
+
         if (variables.containsKey(name)) {
-            variables.put(name, value);
+
+            if (validateType(name, value)) {
+                throw new RuntimeException("Variable " + name + " is of type " + variables.get(name).getType() + " and cannot be assigned to a " + value.getType());
+            }
+            else {
+                variables.put(name, value);
+            }
+
         } else {
             throw new RuntimeException("Variable " + name + " not declared yet" );
         }
+    }
+
+    private Boolean validateType(String name, LiteralNode value) {
+        return variables.get(name).getType() != value.getType();
     }
 }
