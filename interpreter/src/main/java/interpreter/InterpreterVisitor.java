@@ -41,12 +41,17 @@ public class InterpreterVisitor implements ASTVisitor<Void> {
     }
 
     @Override
-    public Void visit(OperatorNode operatorNode) {
+    public Void visit(OperatorNode node) {
         return null;
     }
 
     @Override
-    public Void visit(VariableNode variableNode) {
+    public Void visit(VariableNode node) {
+        return null;
+    }
+
+    @Override
+    public Void visit(ReasignationNode node) {
         return null;
     }
 }

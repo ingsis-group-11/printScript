@@ -34,20 +34,25 @@ public class LiteralTransformer implements ASTVisitor<LiteralNode> {
     }
 
     @Override
-    public LiteralNode visit(OperatorNode operatorNode) {
-        String operator = operatorNode.getOperator();
-        LiteralNode left = operatorNode.getLeftNode().accept(this);
-        LiteralNode right = operatorNode.getRightNode().accept(this);
+    public LiteralNode visit(OperatorNode node) {
+        String operator = node.getOperator();
+        LiteralNode left = node.getLeftNode().accept(this);
+        LiteralNode right = node.getRightNode().accept(this);
         return new LiteralNode(new ValueToken(left.getType(), parseCalc(operator, left, right),
                 left.getLine(), left.getColumn()));
     }
 
     @Override
-    public LiteralNode visit(VariableNode variableNode) {
-        String variableName = variableNode.getValue();
+    public LiteralNode visit(VariableNode node) {
+        String variableName = node.getValue();
         LiteralNode variableValue = variableAssignation.getVariable(variableName);
         return new LiteralNode(new ValueToken(variableValue.getType(), variableValue.getValue(),
                 variableValue.getLine(), variableValue.getColumn()));
+    }
+
+    @Override
+    public LiteralNode visit(ReasignationNode node) {
+        return null;
     }
 
     private String parseCalc(String operator, LiteralNode left, LiteralNode right) {
