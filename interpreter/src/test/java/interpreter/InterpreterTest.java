@@ -82,7 +82,7 @@ public class InterpreterTest {
                                 new ValueToken(TokenType.IDENTIFIER, "name", 4, 0), 0, 0)
                         , new LiteralNode(new ValueToken(TokenType.STRING, "a", 19, 0)),
                         1,1
-                ), new ReasignationNode(
+                ), new ReassignmentNode(
                         new VariableNode(new ValueToken(TokenType.IDENTIFIER, "name", 8, 1)),
                         new LiteralNode(new ValueToken(TokenType.STRING, "b", 19, 0)),
                         1,1
