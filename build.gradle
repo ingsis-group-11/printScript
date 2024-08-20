@@ -35,6 +35,11 @@ tasks.register('addPreCommitGitHookOnBuild', Copy) {
     }
 }
 
+tasks.register('runScript', Exec) {
+    if (org.gradle.internal.os.OperatingSystem.current().isMacOsX()) {
+        commandLine 'sh', 'setup-hooks.sh'
+    }
+}
 
 
 tasks.named('build'){
