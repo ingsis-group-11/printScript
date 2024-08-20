@@ -129,6 +129,27 @@ public class AssignationRunnerTest {
         });
     }
 
+    @Test public void validReassignment() throws IOException {
+        Runner runner = new Runner();
+        runner.run("src/test/resources/assignation/validReassignment.txt");
+        String expected = expectedTransformer.transform(List.of("Doe"));
+        assertEquals(expected, outContent.toString());
+    }
+
+    @Test public void invalidReassignment() {
+        Runner runner = new Runner();
+        assertThrows(RuntimeException.class, () -> {
+            runner.run("src/test/resources/assignation/invalidReassignment.txt");
+        });
+    }
+
+    @Test public void printBeforeReassignment() throws IOException {
+        Runner runner = new Runner();
+        runner.run("src/test/resources/assignation/printBeforeReassignment.txt");
+        String expected = expectedTransformer.transform(List.of("John","Doe"));
+        assertEquals(expected, outContent.toString());
+    }
+
     @Test public void divisionStringNumberPrint() {
         Runner runner = new Runner();
         assertThrows(RuntimeException.class, () -> {
@@ -231,6 +252,13 @@ public class AssignationRunnerTest {
         Runner runner = new Runner();
         assertThrows(RuntimeException.class, () -> {
             runner.run("src/test/resources/assignation/variableStringNumberDivision.txt");
+        });
+    }
+
+    @Test public void duplicateSameVariableAssignation(){
+        Runner runner = new Runner();
+        assertThrows(RuntimeException.class, () -> {
+            runner.run("src/test/resources/assignation/duplicateSameVariableAssignation.txt");
         });
     }
 }

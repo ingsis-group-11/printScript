@@ -4,7 +4,6 @@ import AST.nodes.ASTNode;
 import interpreter.Interpreter;
 import lexer.Lexer;
 import parser.Parser;
-import result.FileFailureResult;
 import result.LexingResult;
 import result.SuccessfulResult;
 import result.UnsuccessfulResult;
@@ -15,12 +14,13 @@ import java.util.List;
 
 public class Runner {
     public void run(String filePath) throws IOException {
-        List<Token> tokens = lexRun(filePath);
+        String fileString = new FileReader().readFile(filePath);
+        List<Token> tokens = lexRun(fileString);
         List<ASTNode> ASTNodes = parseRun(tokens);
         interpretRun(ASTNodes);
     }
 
-    private List<Token> lexRun(String filePath) throws IOException {
+    private List<Token> lexRun(String filePath){
         Lexer lexer = new Lexer();
         LexingResult lexerResult = lexer.lex(filePath);
 
@@ -30,11 +30,8 @@ public class Runner {
         return tokens;
     }
 
-    private void resolveLexerErrors(LexingResult lexerResult) throws IOException {
-        if(lexerResult instanceof FileFailureResult){
-            throw new IOException(((FileFailureResult) lexerResult).message());
-        }
-        else if(lexerResult instanceof UnsuccessfulResult){
+    private void resolveLexerErrors(LexingResult lexerResult) {
+        if(lexerResult instanceof UnsuccessfulResult){
             throw new RuntimeException(((UnsuccessfulResult) lexerResult).message());
         }
     }

@@ -27,17 +27,22 @@ public class TypeVisitor implements ASTVisitor<TokenType> {
     }
 
     @Override
-    public TokenType visit(OperatorNode operatorNode) {
-        if(operatorNode.getLeftNode().accept(this) == TokenType.NUMBER && operatorNode.getRightNode().accept(this) == TokenType.NUMBER) {
+    public TokenType visit(OperatorNode node) {
+        if(node.getLeftNode().accept(this) == TokenType.NUMBER && node.getRightNode().accept(this) == TokenType.NUMBER) {
             return TokenType.NUMBER;
-        } else if(operatorNode.getLeftNode().accept(this) == TokenType.IDENTIFIER || operatorNode.getRightNode().accept(this) == TokenType.IDENTIFIER) {
+        } else if(node.getLeftNode().accept(this) == TokenType.IDENTIFIER || node.getRightNode().accept(this) == TokenType.IDENTIFIER) {
             return TokenType.IDENTIFIER;
         }
         return TokenType.STRING;
     }
 
     @Override
-    public TokenType visit(VariableNode variableNode) {
+    public TokenType visit(VariableNode node) {
         return TokenType.IDENTIFIER;
+    }
+
+    @Override
+    public TokenType visit(ReassignmentNode node) {
+        return node.getExpression().accept(this);
     }
 }

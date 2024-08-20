@@ -2,7 +2,6 @@ package parser.semantic;
 
 import AST.ASTVisitor;
 import AST.nodes.*;
-import com.sun.source.tree.BreakTree;
 import parser.semantic.result.SemanticErrorResult;
 import parser.semantic.result.SemanticResult;
 import parser.semantic.result.SemanticSuccessResult;
@@ -44,24 +43,29 @@ public class SemanticVisitor implements ASTVisitor<SemanticResult> {
     }
 
     @Override
-    public SemanticResult visit(OperatorNode operatorNode) {
+    public SemanticResult visit(OperatorNode node) {
         TypeVisitor typeVisitor = new TypeVisitor();
-        String operator = operatorNode.getOperator();
+        String operator = node.getOperator();
         return switch (operator) {
             case "+" -> new SemanticSuccessResult();
             case "-", "*", "/" -> {
-                if (bothNumbersOrIdentifiers(operatorNode, typeVisitor)) {
+                if (bothNumbersOrIdentifiers(node, typeVisitor)) {
                     yield new SemanticSuccessResult();
                 } else {
-                    yield new SemanticErrorResult(List.of("Semantic error in " + operatorNode.getLine() + ":" + operatorNode.getColumn() + " Operator " + operator + " can only be applied to numbers"));
+                    yield new SemanticErrorResult(List.of("Semantic error in " + node.getLine() + ":" + node.getColumn() + " Operator " + operator + " can only be applied to numbers"));
                 }
             }
-            default -> new SemanticErrorResult(List.of("Semantic error in " + operatorNode.getLine() + ":" + operatorNode.getColumn() + " Operator not recognized"));
+            default -> new SemanticErrorResult(List.of("Semantic error in " + node.getLine() + ":" + node.getColumn() + " Operator not recognized"));
         };
     }
 
     @Override
-    public SemanticResult visit(VariableNode variableNode) {
+    public SemanticResult visit(VariableNode node) {
+        return new SemanticSuccessResult();
+    }
+
+    @Override
+    public SemanticResult visit(ReassignmentNode node) {
         return new SemanticSuccessResult();
     }
 

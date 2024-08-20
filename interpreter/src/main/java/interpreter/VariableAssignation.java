@@ -7,18 +7,19 @@ import java.util.Map;
 
 public class VariableAssignation {
     private final Map<String, LiteralNode> variables = new HashMap<>();
-    private static final VariableAssignation instance = new VariableAssignation();
 
 
-    private VariableAssignation() {
+
+    public VariableAssignation() {
     }
 
-    public static VariableAssignation getInstance() {
-        return instance;
-    }
 
     public void addVariable(String name, LiteralNode value) {
-        variables.put(name, value);
+        if (!variables.containsKey(name)) {
+            variables.put(name, value);
+        } else {
+            throw new RuntimeException("Variable " + name + " already exists");
+        }
     }
 
     public LiteralNode getVariable(String name) {
@@ -26,5 +27,25 @@ public class VariableAssignation {
             return variables.get(name);
         }
         throw new RuntimeException("Variable " + name + " not found");
+    }
+
+    public void updateVariable(String name, LiteralNode value) {
+
+        if (variables.containsKey(name)) {
+
+            if (validateType(name, value)) {
+                throw new RuntimeException("Variable " + name + " is of type " + variables.get(name).getType() + " and cannot be assigned to a " + value.getType());
+            }
+            else {
+                variables.put(name, value);
+            }
+
+        } else {
+            throw new RuntimeException("Variable " + name + " not declared yet" );
+        }
+    }
+
+    private Boolean validateType(String name, LiteralNode value) {
+        return variables.get(name).getType() != value.getType();
     }
 }

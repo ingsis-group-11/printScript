@@ -7,6 +7,7 @@ public interface ASTVisitor<T> {
     T visit(LiteralNode node);
     T visit(PrintNode node);
     T visit(AssignationNode node);
-    T visit(OperatorNode operatorNode);
-    T visit(VariableNode variableNode);
+    T visit(OperatorNode node);
+    T visit(VariableNode node);
+    T visit(ReassignmentNode node);
 }
