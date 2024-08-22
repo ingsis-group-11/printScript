@@ -63,32 +63,30 @@ public class LiteralTransformer implements ASTVisitor<LiteralNode> {
   private String parseCalc(String operator, LiteralNode left, LiteralNode right) {
     TokenType leftType = left.getType();
     TokenType rightType = right.getType();
-    return switch (operator) {
-      case "+" -> {
+    Operators operatorEnum = Operators.fromSymbol(operator);
+    return switch (operatorEnum) {
+        case ADDITION -> {
         if (leftType == TokenType.STRING || rightType == TokenType.STRING) {
           yield left.getValue() + right.getValue();
         }
         yield String.valueOf(
             Double.parseDouble(left.getValue()) + Double.parseDouble(right.getValue()));
       }
-      case "-" -> {
+        case SUBTRACTION -> {
         checkInvalidOperation(left, right, leftType, rightType, operator);
         yield String.valueOf(
             Double.parseDouble(left.getValue()) - Double.parseDouble(right.getValue()));
       }
-      case "*" -> {
+        case MULTIPLICATION -> {
         checkInvalidOperation(left, right, leftType, rightType, operator);
         yield String.valueOf(
             Double.parseDouble(left.getValue()) * Double.parseDouble(right.getValue()));
       }
-      case "/" -> {
+        case DIVISION -> {
         checkInvalidOperation(left, right, leftType, rightType, operator);
         yield String.valueOf(
             Double.parseDouble(left.getValue()) / Double.parseDouble(right.getValue()));
       }
-      default ->
-          throw new RuntimeException(
-              "Invalid operator: " + operator + " on " + left.getLine() + ":" + left.getColumn());
     };
   }
 
