@@ -76,6 +76,7 @@ public class InterpreterTest {
         //GIVEN
         // let name: string = "a";
         // name = "b";
+        // println(name);
         List<ASTNode> astNodes = List.of(
                 new AssignationNode(
                         new DeclarationNode(new ValueToken(TokenType.STRING_TYPE, "string", 10, 0),
@@ -106,5 +107,28 @@ public class InterpreterTest {
             // Restore original System.out
             System.setOut(originalOut);
         }
+    }
+
+    @Test
+    public void testReassignationOfVariable2() {
+        //GIVEN
+        // let name: string = "a";
+        // name = "b";
+        List<ASTNode> astNodes = List.of(
+                new AssignationNode(
+                        new DeclarationNode(new ValueToken(TokenType.STRING_TYPE, "string", 10, 0),
+                                new ValueToken(TokenType.IDENTIFIER, "name", 4, 0), 0, 0)
+                        , new LiteralNode(new ValueToken(TokenType.STRING, "a", 19, 0)),
+                        1,1
+                ), new ReasignationNode(
+                        new VariableNode(new ValueToken(TokenType.IDENTIFIER, "name", 8, 1)),
+                        new LiteralNode(new ValueToken(TokenType.NUMBER, "8", 19, 0)),
+                        1,1
+                )
+        );
+
+        // WHEN & THEN
+        Interpreter interpreter = new Interpreter();
+        assertThrows(RuntimeException.class, () -> interpreter.interpret(astNodes));
     }
 }
