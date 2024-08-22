@@ -2,8 +2,7 @@ package interpreter;
 
 import AST.ASTVisitor;
 import AST.nodes.*;
-
-import java.util.List;
+import token.TokenType;
 
 public class InterpreterVisitor implements ASTVisitor<Void> {
     private final VariableAssignation variableAssignation;
@@ -51,9 +50,16 @@ public class InterpreterVisitor implements ASTVisitor<Void> {
     }
 
     @Override
-    public Void visit(ReasignationNode node) {
+    public Void visit(ReassignmentNode node) {
         LiteralNode expression = node.getExpression().accept(literalTransformer);
-        variableAssignation.updateVariable(node.getVariableNode().getValue(), expression);
+        LiteralNode variable = variableAssignation.getVariable(node.getVariableNode().getValue());
+        TokenType variableType = variable.getType();
+        if (variableType.equals(expression.getType())) {
+            variableAssignation.updateVariable(node.getVariableNode().getValue(), expression);
+        } else {
+            throw new RuntimeException("Variable " + node.getVariableNode().getValue() + " is of type " + variableType +
+                    " and cannot be reassigned to type " + expression.getType());
+        }
         return null;
     }
 }

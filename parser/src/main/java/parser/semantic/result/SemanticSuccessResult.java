@@ -5,14 +5,13 @@ import java.util.List;
 
 public class SemanticSuccessResult implements SemanticResult {
 
-    @Override
-    public boolean hasErrors() {
-        return false;
-    }
+  @Override
+  public boolean hasErrors() {
+    return false;
+  }
 
-    @Override
-    public List<String> messages() {
-        return new ArrayList<>();
-    }
-
+  @Override
+  public List<String> messages() {
+    return new ArrayList<>();
+  }
 }
