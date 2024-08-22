@@ -52,6 +52,59 @@ public class InterpreterTest {
   }
 
   @Test
+  public void testOperation() {
+    // GIVEN
+    // let a: number = 5;
+    // let b: number = 3;
+    // println(a + b);
+    List<ASTNode> astNodes = List.of(
+        new AssignationNode(
+                new DeclarationNode(
+                        new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 0),
+                        new ValueToken(TokenType.IDENTIFIER, "a", 4, 0),
+                        1,
+                        0),
+                new LiteralNode(new ValueToken(TokenType.NUMBER, "5", 19, 0)),
+                1,
+                1),
+        new AssignationNode(
+                new DeclarationNode(
+                        new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 0),
+                        new ValueToken(TokenType.IDENTIFIER, "b", 4, 0),
+                        1,
+                        0),
+                new LiteralNode(new ValueToken(TokenType.NUMBER, "3", 19, 0)),
+                1,
+                1),
+        new PrintNode(
+                new OperatorNode("+",
+                        new VariableNode(new ValueToken(TokenType.IDENTIFIER, "a", 8, 1)),
+                        new VariableNode(new ValueToken(TokenType.IDENTIFIER, "b", 8, 1)),
+                        1,
+                        1),
+                1,
+                1)
+    );
+    // Redirect System.out to capture the output
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    PrintStream originalOut = System.out;
+    System.setOut(new PrintStream(outputStream));
+
+    try {
+      // WHEN
+      Interpreter interpreter = new Interpreter();
+      interpreter.interpret(astNodes);
+
+      // THEN
+      String output = outputStream.toString().trim();
+      assertEquals("8.0", output);
+    } finally {
+      // Restore original System.out
+      System.setOut(originalOut);
+    }
+  }
+
+  @Test
   public void testCreationOfTheSameVariable() {
     // GIVEN
     // let name: string = "a";
