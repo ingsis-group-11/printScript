@@ -83,7 +83,7 @@ public class InterpreterTest {
   }
 
     @Test
-    public void testReassignationOfVariable() {
+    public void testReassignmentOfVariable() {
         //GIVEN
         // let name: string = "a";
         // name = "b";
@@ -93,34 +93,35 @@ public class InterpreterTest {
                         new DeclarationNode(new ValueToken(TokenType.STRING_TYPE, "string", 10, 0),
                                 new ValueToken(TokenType.IDENTIFIER, "name", 4, 0), 0, 0)
                         , new LiteralNode(new ValueToken(TokenType.STRING, "a", 19, 0)),
-                        1,1
-                ), new ReasignationNode(
+                        1, 1
+                ), new ReassignmentNode(
                         new VariableNode(new ValueToken(TokenType.IDENTIFIER, "name", 8, 1)),
                         new LiteralNode(new ValueToken(TokenType.STRING, "b", 19, 0)),
-                        1,1
+                        1, 1
                 ), new PrintNode(new VariableNode(new ValueToken(TokenType.IDENTIFIER, "name", 8, 1)), 1, 1)
         );
 
-    // Redirect System.out to capture the output
-    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    PrintStream originalOut = System.out;
-    System.setOut(new PrintStream(outputStream));
+        // Redirect System.out to capture the output
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outputStream));
 
-    try {
-      // WHEN
-      Interpreter interpreter = new Interpreter();
-      interpreter.interpret(astNodes);
+        try {
+            // WHEN
+            Interpreter interpreter = new Interpreter();
+            interpreter.interpret(astNodes);
 
-      // THEN
-      String output = outputStream.toString().trim();
-      assertEquals("b", output);
-    } finally {
-      // Restore original System.out
-      System.setOut(originalOut);
+            // THEN
+            String output = outputStream.toString().trim();
+            assertEquals("b", output);
+        } finally {
+            // Restore original System.out
+            System.setOut(originalOut);
+        }
     }
 
     @Test
-    public void testReassignationOfVariable2() {
+    public void testReassignmentOfVariable2() {
         //GIVEN
         // let name: string = "a";
         // name = "b";
@@ -130,7 +131,7 @@ public class InterpreterTest {
                                 new ValueToken(TokenType.IDENTIFIER, "name", 4, 0), 0, 0)
                         , new LiteralNode(new ValueToken(TokenType.STRING, "a", 19, 0)),
                         1,1
-                ), new ReasignationNode(
+                ), new ReassignmentNode(
                         new VariableNode(new ValueToken(TokenType.IDENTIFIER, "name", 8, 1)),
                         new LiteralNode(new ValueToken(TokenType.NUMBER, "8", 19, 0)),
                         1,1

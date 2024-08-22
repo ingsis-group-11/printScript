@@ -50,7 +50,7 @@ public class InterpreterVisitor implements ASTVisitor<Void> {
     }
 
     @Override
-    public Void visit(ReasignationNode node) {
+    public Void visit(ReassignmentNode node) {
         LiteralNode expression = node.getExpression().accept(literalTransformer);
         LiteralNode variable = variableAssignation.getVariable(node.getVariableNode().getValue());
         TokenType variableType = variable.getType();
