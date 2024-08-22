@@ -1,11 +1,11 @@
 package result;
 
-import token.Token;
 import java.util.List;
+import token.Token;
 
 public record SuccessfulResult(List<Token> tokens) implements LexingResult {
-    @Override
-    public boolean isSuccess() {
-        return true;
-    }
+  @Override
+  public boolean isSuccess() {
+    return true;
+  }
 }

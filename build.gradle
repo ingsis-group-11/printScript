@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'org.jetbrains.kotlin.jvm' version '1.8.0' // Replace with the appropriate version
+    id "com.diffplug.spotless" version "6.25.0"
 }
 
 group = 'org.example'
@@ -18,4 +19,30 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+tasks.register('addPreCommitGitHookOnBuild', Copy) {
+    doFirst {
+        println "⚈ ⚈ ⚈ Running Add Pre Commit Git Hook Script on Build ⚈ ⚈ ⚈"
+    }
+
+    from '.scripts/'
+    into '.git/hooks/'
+    include 'pre-commit'
+
+    doLast {
+        println "Pre-Commit file copied successfully to .git/hooks!"
+    }
+}
+
+tasks.register('runScript', Exec) {
+    if (org.gradle.internal.os.OperatingSystem.current().isMacOsX()) {
+        commandLine 'sh', 'setup-hooks.sh'
+    }
+}
+
+
+tasks.named('build'){
+    dependsOn 'runScript'
+    dependsOn 'addPreCommitGitHookOnBuild'
 }

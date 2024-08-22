@@ -1,0 +1,46 @@
+#!/bin/bash
+
+echo "*********************************************************"
+echo "Running git pre-commit hook. Running tests... "
+echo "*********************************************************"
+
+# Run tests and capture the exit code
+./gradlew test
+status=$?
+
+if [ "$status" -ne 0 ]; then
+    echo "*********************************************************"
+    echo "       ********************************************      "
+    echo 1>&2 "Some tests failed. Fix the issues before committing."
+    echo "       ********************************************      "
+    echo "*********************************************************"
+    exit 1
+fi
+
+echo "*********************************************************"
+echo "Running Spotless Apply... "
+echo "*********************************************************"
+
+# Run Spotless apply
+./gradlew spotlessApply
+status=$?
+
+if [ "$status" -ne 0 ]; then
+    echo "*********************************************************"
+    echo "       ********************************************      "
+    echo 1>&2 "Spotless Apply found violations it could not fix."
+    echo "Run spotless apply in your terminal and fix the issues before trying to commit again."
+    echo "       ********************************************      "
+    echo "*********************************************************"
+    exit 1
+fi
+
+# Add all changes to the staging area
+echo "*********************************************************"
+echo "Adding all changes to the staging area... "
+echo "*********************************************************"
+
+git add .
+
+# Exit
+exit 0
