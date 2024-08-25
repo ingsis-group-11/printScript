@@ -52,7 +52,7 @@ public class InterpreterTest {
   }
 
   @Test
-  public void testOperation() {
+  public void testOperationAtPrint() {
     // GIVEN
     // let a: number = 5;
     // let b: number = 3;
