@@ -48,4 +48,14 @@ public class Parser {
   public SemanticResult getSemanticError() {
       return semanticError;
   }
+
+  public void resolveErrors() {
+    if (semanticError.hasErrors()) {
+      String messages = "";
+      for (String message : semanticError.messages()) {
+        messages+=message;
+      }
+      throw new RuntimeException(messages);
+    }
+  }
 }
