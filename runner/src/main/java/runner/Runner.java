@@ -39,14 +39,8 @@ public class Runner {
   private List<ASTNode> parseRun(List<Token> tokens) {
     Parser parser = new Parser();
     List<ASTNode> ASTNodes = parser.parse(tokens);
-    resolveSemanticErrors(parser.getSemanticError());
+    parser.resolveErrors();
     return ASTNodes;
-  }
-
-  private void resolveSemanticErrors (SemanticResult semanticResult) {
-    if (semanticResult.hasErrors()) {
-      throw new RuntimeException(String.valueOf(semanticResult.messages()));
-    }
   }
 
   private void interpretRun(List<ASTNode> nodes) {
