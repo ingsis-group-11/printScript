@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.List;
 import lexer.Lexer;
 import parser.Parser;
+import parser.semantic.result.SemanticResult;
 import result.LexingResult;
 import result.SuccessfulResult;
 import result.UnsuccessfulResult;
@@ -37,7 +38,15 @@ public class Runner {
 
   private List<ASTNode> parseRun(List<Token> tokens) {
     Parser parser = new Parser();
-    return parser.parse(tokens);
+    List<ASTNode> ASTNodes = parser.parse(tokens);
+    resolveSemanticErrors(parser.getSemanticError());
+    return ASTNodes;
+  }
+
+  private void resolveSemanticErrors (SemanticResult semanticResult) {
+    if (semanticResult.hasErrors()) {
+      throw new RuntimeException(String.valueOf(semanticResult.messages()));
+    }
   }
 
   private void interpretRun(List<ASTNode> nodes) {
