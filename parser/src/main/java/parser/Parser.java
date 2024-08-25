@@ -10,8 +10,6 @@ import parser.syntax.SyntaxParserFactory;
 import token.Token;
 
 public class Parser {
-  private SemanticResult semanticError;
-
   public List<ASTNode> parse(List<Token> tokens) {
     // Syntax analysis
     List<ASTNode> astNodes = syntaxParser(tokens);
@@ -23,7 +21,18 @@ public class Parser {
 
   private void semanticParser(List<ASTNode> astNodes) {
     SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
-    semanticError = semanticAnalyzer.analyze(astNodes);
+    SemanticResult result = semanticAnalyzer.analyze(astNodes);
+    resolveSemanticErrors(result);
+  }
+
+  private void resolveSemanticErrors(SemanticResult result) {
+    if (result.hasErrors()) {
+      String stringResult = "";
+      for (String message : result.messages()) {
+        stringResult += message + "\n";
+      }
+      throw new RuntimeException(stringResult);
+    }
   }
 
   private List<ASTNode> syntaxParser(List<Token> tokens) {
@@ -43,19 +52,5 @@ public class Parser {
     }
 
     return astNodes;
-  }
-
-  public SemanticResult getSemanticError() {
-      return semanticError;
-  }
-
-  public void resolveErrors() {
-    if (semanticError.hasErrors()) {
-      String messages = "";
-      for (String message : semanticError.messages()) {
-        messages+=message;
-      }
-      throw new RuntimeException(messages);
-    }
   }
 }

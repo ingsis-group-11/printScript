@@ -2,19 +2,10 @@ plugins {
     id 'java'
     id 'org.jetbrains.kotlin.jvm' version '1.8.0' // Replace with the appropriate version
     id "com.diffplug.spotless" version "6.25.0"
-    id 'checkstyle'
 }
 
 group = 'org.example'
 version = '1.0-SNAPSHOT'
-
-allprojects {
-    apply plugin: 'checkstyle'
-    checkstyle {
-        toolVersion = '10.18.0'
-        configFile = file("${rootProject.projectDir}/config/checkstyle/google_checks.xml")
-    }
-}
 
 repositories {
     mavenCentral()
@@ -47,8 +38,6 @@ tasks.register('addPreCommitGitHookOnBuild', Copy) {
 tasks.register('runScript', Exec) {
     if (org.gradle.internal.os.OperatingSystem.current().isMacOsX()) {
         commandLine 'sh', 'setup-hooks.sh'
-    } else {
-        commandLine 'cmd', '/c', 'echo Running on Windows, no script executed.'
     }
 }
 
