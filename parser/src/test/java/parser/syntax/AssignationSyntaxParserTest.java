@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import AST.nodes.*;
 import java.util.List;
 import org.junit.jupiter.api.Test;
+import parser.syntax.result.SyntaxResult;
+import parser.syntax.result.SyntaxSuccessResult;
 import token.Token;
 import token.TokenType;
 import token.ValueToken;
@@ -26,8 +28,12 @@ public class AssignationSyntaxParserTest {
             new ValueToken(TokenType.SEMICOLON, ";", 25, 0));
 
     // WHEN
+    ASTNode ast = null;
     SyntaxParser parser = new AssignationSyntaxParser();
-    ASTNode ast = parser.syntaxParse(tokens);
+    SyntaxResult result = parser.syntaxParse(tokens);
+    if (!result.hasErrors()) {
+        ast = ((SyntaxSuccessResult) result).getAstNode();
+    }
 
     // THEN
     assertInstanceOf(AssignationNode.class, ast);
@@ -59,8 +65,13 @@ public class AssignationSyntaxParserTest {
             new ValueToken(TokenType.SEMICOLON, ";", 22, 0));
 
     // WHEN
+
+    ASTNode ast = null;
     SyntaxParser parser = new AssignationSyntaxParser();
-    ASTNode ast = parser.syntaxParse(tokens);
+    SyntaxResult result = parser.syntaxParse(tokens);
+    if (!result.hasErrors()) {
+        ast = ((SyntaxSuccessResult) result).getAstNode();
+    }
 
     // THEN
     assertInstanceOf(AssignationNode.class, ast);
@@ -94,8 +105,12 @@ public class AssignationSyntaxParserTest {
             new ValueToken(TokenType.STRING, "bye", 29, 1),
             new ValueToken(TokenType.SEMICOLON, ";", 27, 1));
 
+    ASTNode ast = null;
     SyntaxParser parser = new AssignationSyntaxParser();
-    ASTNode ast = parser.syntaxParse(tokens);
+    SyntaxResult result = parser.syntaxParse(tokens);
+    if (!result.hasErrors()) {
+        ast = ((SyntaxSuccessResult) result).getAstNode();
+    }
 
     assertInstanceOf(AssignationNode.class, ast);
     AssignationNode assignationNode = (AssignationNode) ast;

@@ -7,10 +7,13 @@ import parser.semantic.SemanticAnalyzer;
 import parser.semantic.result.SemanticResult;
 import parser.syntax.SyntaxParser;
 import parser.syntax.SyntaxParserFactory;
+import parser.syntax.result.SyntaxResult;
+import parser.syntax.result.SyntaxSuccessResult;
 import token.Token;
 
 public class Parser {
   private SemanticResult semanticError;
+  private SyntaxResult syntaxResult;
 
   public List<ASTNode> parse(List<Token> tokens) {
     // Syntax analysis
@@ -38,10 +41,11 @@ public class Parser {
 
     for (List<Token> sentence : sentences) {
       SyntaxParser syntaxParser = factory.getSyntaxParser(sentence);
-      ASTNode ast = syntaxParser.syntaxParse(sentence);
-      astNodes.add(ast);
+      syntaxResult = syntaxParser.syntaxParse(sentence);
+      if (!syntaxResult.hasErrors()){
+        astNodes.add(((SyntaxSuccessResult) syntaxResult).getAstNode());
+      }
     }
-
     return astNodes;
   }
 
@@ -49,12 +53,26 @@ public class Parser {
       return semanticError;
   }
 
+  public SyntaxResult getSyntaxResult() {
+      return syntaxResult;
+  }
+
   public void resolveErrors() {
+
+    String messages = "";
     if (semanticError.hasErrors()) {
-      String messages = "";
+      messages+="Semantic errors:\n";
       for (String message : semanticError.messages()) {
-        messages+=message;
+        messages+=message + "\n";
       }
+    }
+    if (syntaxResult.hasErrors()) {
+      messages+="Syntax errors:\n";
+      for (String message : syntaxResult.messages()) {
+        messages+=message + "\n";
+      }
+    }
+    if (!messages.isEmpty()) {
       throw new RuntimeException(messages);
     }
   }

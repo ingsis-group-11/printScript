@@ -1,10 +1,11 @@
 package parser.syntax;
 
-import AST.nodes.ASTNode;
 import java.util.List;
+
+import parser.syntax.result.SyntaxResult;
 import token.Token;
 
 public interface SyntaxParser {
 
-  ASTNode syntaxParse(List<Token> tokens);
+  SyntaxResult syntaxParse(List<Token> tokens);
 }
