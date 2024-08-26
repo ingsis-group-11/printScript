@@ -1,6 +1,7 @@
 package parser.semantic;
 
 import AST.ASTVisitor;
+import AST.ExpressionTypeVisitor;
 import AST.nodes.*;
 import java.util.List;
 import parser.semantic.result.SemanticErrorResult;
@@ -27,9 +28,9 @@ public class SemanticVisitor implements ASTVisitor<SemanticResult> {
 
   @Override
   public SemanticResult visit(AssignationNode node) {
-    TypeVisitor typeVisitor = new TypeVisitor();
+    ExpressionTypeVisitor expressionTypeVisitor = new ExpressionTypeVisitor();
     TokenType variableType = node.getDeclaration().getTypeToken().getType();
-    TokenType expressionType = node.getExpression().accept(typeVisitor);
+    TokenType expressionType = node.getExpression().accept(expressionTypeVisitor);
 
     if (variableType == TokenType.NUMBER_TYPE && expressionType == TokenType.NUMBER) {
       return new SemanticSuccessResult();
@@ -52,12 +53,12 @@ public class SemanticVisitor implements ASTVisitor<SemanticResult> {
 
   @Override
   public SemanticResult visit(OperatorNode node) {
-    TypeVisitor typeVisitor = new TypeVisitor();
+    ExpressionTypeVisitor expressionTypeVisitor = new ExpressionTypeVisitor();
     String operator = node.getOperator();
     return switch (operator) {
       case "+" -> new SemanticSuccessResult();
       case "-", "*", "/" -> {
-        if (bothNumbersOrIdentifiers(node, typeVisitor)) {
+        if (bothNumbersOrIdentifiers(node, expressionTypeVisitor)) {
           yield new SemanticSuccessResult();
         } else {
           yield new SemanticErrorResult(
@@ -93,12 +94,12 @@ public class SemanticVisitor implements ASTVisitor<SemanticResult> {
   }
 
   private static Boolean bothNumbersOrIdentifiers(
-      OperatorNode operatorNode, TypeVisitor typeVisitor) {
-    if (operatorNode.getLeftNode().accept(typeVisitor) == TokenType.NUMBER
-        && operatorNode.getRightNode().accept(typeVisitor) == TokenType.NUMBER) {
+      OperatorNode operatorNode, ExpressionTypeVisitor expressionTypeVisitor) {
+    if (operatorNode.getLeftNode().accept(expressionTypeVisitor) == TokenType.NUMBER
+        && operatorNode.getRightNode().accept(expressionTypeVisitor) == TokenType.NUMBER) {
       return true;
-    } else if (operatorNode.getLeftNode().accept(typeVisitor) == TokenType.IDENTIFIER
-        || operatorNode.getRightNode().accept(typeVisitor) == TokenType.IDENTIFIER) {
+    } else if (operatorNode.getLeftNode().accept(expressionTypeVisitor) == TokenType.IDENTIFIER
+        || operatorNode.getRightNode().accept(expressionTypeVisitor) == TokenType.IDENTIFIER) {
       return true;
     }
     return false;

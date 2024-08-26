@@ -1,0 +1,12 @@
+{
+  "rules": [
+    {
+      "type": "camelCase",
+      "active": true
+    },
+    {
+      "type": "printPreventExpression",
+      "active": true
+    }
+  ]
+}

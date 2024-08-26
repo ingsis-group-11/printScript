@@ -1,10 +1,9 @@
-package parser.semantic;
+package AST;
 
-import AST.ASTVisitor;
 import AST.nodes.*;
 import token.TokenType;
 
-public class TypeVisitor implements ASTVisitor<TokenType> {
+public class ExpressionTypeVisitor implements ASTVisitor<TokenType> {
 
   @Override
   public TokenType visit(DeclarationNode node) {
