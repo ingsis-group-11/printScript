@@ -19,12 +19,9 @@ import java.util.List;
 
 public class Linter {
 
-  public void lint(String path) throws IOException {
-    String fileString = new FileReader().readFile(path);
-    List<Token> tokens = lexRun(fileString);
-    List<ASTNode> ASTNodes = parseRun(tokens);
-    List<Rule> rules = getRules(path);
-    checkRules(rules, ASTNodes);
+  public void lint(List<ASTNode> astNodes, String configFilePath) throws IOException {
+    List<Rule> rules = getRules(configFilePath);
+    checkRules(rules, astNodes);
   }
 
   private List<Rule> getRules(String path) throws IOException {
@@ -54,28 +51,5 @@ public class Linter {
       }
       throw new RuntimeException(messages);
     }
-  }
-
-  private List<Token> lexRun(String filePath) {
-    Lexer lexer = new Lexer();
-    LexingResult lexerResult = lexer.lex(filePath);
-
-    resolveLexerErrors(lexerResult);
-
-    List<Token> tokens = ((SuccessfulResult) lexerResult).tokens();
-    return tokens;
-  }
-
-  private void resolveLexerErrors(LexingResult lexerResult) {
-    if (lexerResult instanceof UnsuccessfulResult) {
-      throw new RuntimeException(((UnsuccessfulResult) lexerResult).message());
-    }
-  }
-
-  private List<ASTNode> parseRun(List<Token> tokens) {
-    Parser parser = new Parser();
-    List<ASTNode> ASTNodes = parser.parse(tokens);
-    parser.resolveErrors();
-    return ASTNodes;
   }
 }
