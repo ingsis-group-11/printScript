@@ -1,12 +1,12 @@
 package runner;
 
 import AST.nodes.ASTNode;
+import fileReader.FileReader;
 import interpreter.Interpreter;
 import java.io.IOException;
 import java.util.List;
 import lexer.Lexer;
 import parser.Parser;
-import parser.semantic.result.SemanticResult;
 import result.LexingResult;
 import result.SuccessfulResult;
 import result.UnsuccessfulResult;
