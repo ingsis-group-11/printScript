@@ -11,4 +11,5 @@ include 'lexer', 'token', 'AST', 'parser', 'interpreter', 'runner'
 include 'linter'
 include 'formatter'
 include 'fileReader'
+include 'cli'
 
