@@ -26,8 +26,9 @@ public class Linter {
 
   private List<Rule> getRules(String path) throws IOException {
     RulesReader rulesReader = new RulesReader();
-    String json = new JSONReader().read(path);
-    List<Rule> rules = rulesReader.loadRulesFromJson(json);
+    FileReader fileReader = new FileReader();
+    String jsonString = fileReader.readFile(path);
+    List<Rule> rules = rulesReader.loadRulesFromJson(jsonString);
     return rules;
   }
 
