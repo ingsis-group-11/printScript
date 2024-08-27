@@ -5,7 +5,7 @@ echo "Running git pre-commit hook. Running tests... "
 echo "*********************************************************"
 
 # Run tests and capture the exit code
-./gradlew build
+./gradlew test
 status=$?
 
 if [ "$status" -ne 0 ]; then
