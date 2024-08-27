@@ -14,4 +14,6 @@ public enum TokenType {
   PARENTHESIS_CLOSE,
   COLON,
   OPERATOR,
+  WHITESPACE,
+  LINE_BREAK
 }

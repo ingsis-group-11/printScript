@@ -10,14 +10,19 @@ public class SyntaxParserFactory {
     if (tokens.isEmpty()) {
       throw new IllegalArgumentException("Empty token list");
     }
+    int i=0;
+    Token firstToken = tokens.get(i);
 
-    Token firstToken = tokens.get(0);
-    if (firstToken.getType() == TokenType.LET_KEYWORD) {
-      return new AssignationSyntaxParser();
-    } else if (firstToken.getType() == TokenType.IDENTIFIER) {
-      return new ReassignationSyntaxParser();
-    } else {
-      return new PrintSyntaxParser();
+    while((firstToken.getType() == TokenType.WHITESPACE || firstToken.getType() == TokenType.LINE_BREAK) && i < tokens.size()-1) {
+      i+=1;
+      firstToken = tokens.get(i);
     }
+
+    return switch (firstToken.getType()) {
+      case LET_KEYWORD -> new AssignationSyntaxParser();
+      case IDENTIFIER -> new ReassignationSyntaxParser();
+      case PRINT_KEYWORD -> new PrintSyntaxParser();
+      default -> throw new IllegalArgumentException("Invalid");
+    };
   }
 }

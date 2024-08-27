@@ -18,18 +18,23 @@ public class ParserTest {
     // println(name);
     List<Token> tokens =
         List.of(
-            new ValueToken(TokenType.LET_KEYWORD, "let", 0, 0),
-            new ValueToken(TokenType.IDENTIFIER, "name", 4, 0),
-            new ValueToken(TokenType.COLON, ":", 8, 0),
-            new ValueToken(TokenType.STRING_TYPE, "string", 10, 0),
-            new ValueToken(TokenType.ASSIGN, "=", 17, 0),
-            new ValueToken(TokenType.STRING, "Olive", 19, 0),
-            new ValueToken(TokenType.SEMICOLON, ";", 26, 0),
-            new ValueToken(TokenType.PRINT_KEYWORD, "println", 0, 1),
-            new ValueToken(TokenType.PARENTHESIS_OPEN, "(", 7, 1),
-            new ValueToken(TokenType.IDENTIFIER, "name", 8, 1),
-            new ValueToken(TokenType.PARENTHESIS_CLOSE, ")", 12, 1),
-            new ValueToken(TokenType.SEMICOLON, ";", 13, 1));
+            new ValueToken(TokenType.LET_KEYWORD, "let", 1, 1),
+            new ValueToken(TokenType.WHITESPACE, " ", 4, 1),
+            new ValueToken(TokenType.IDENTIFIER, "name", 5, 1),
+            new ValueToken(TokenType.COLON, ":", 9, 1),
+            new ValueToken(TokenType.WHITESPACE, " ", 10, 1),
+            new ValueToken(TokenType.STRING_TYPE, "string", 11, 1),
+            new ValueToken(TokenType.WHITESPACE, " ", 17, 1),
+            new ValueToken(TokenType.ASSIGN, "=", 18, 1),
+            new ValueToken(TokenType.WHITESPACE, " ", 19, 1),
+            new ValueToken(TokenType.STRING, "Olive", 20, 1),
+            new ValueToken(TokenType.SEMICOLON, ";", 27, 1),
+            new ValueToken(TokenType.LINE_BREAK, "\n", 28, 1),
+            new ValueToken(TokenType.PRINT_KEYWORD, "println", 1, 1),
+            new ValueToken(TokenType.PARENTHESIS_OPEN, "(", 8, 1),
+            new ValueToken(TokenType.IDENTIFIER, "name", 9, 1),
+            new ValueToken(TokenType.PARENTHESIS_CLOSE, ")", 13, 1),
+            new ValueToken(TokenType.SEMICOLON, ";", 14, 1));
 
     // WHEN
     Parser parser = new Parser();
