@@ -33,7 +33,13 @@ public class Tokenizer {
     }
   }
 
-  private Token identifier() {
+  private void skipWhitespace() {
+    while (currentChar != '\0' && Character.isWhitespace(currentChar)) {
+      advance();
+    }
+  }
+
+  private Token character() {
     StringBuilder result = new StringBuilder();
     int newColumn = column;
     while (currentChar != '\0' && (Character.isLetterOrDigit(currentChar) || currentChar == '_')) {
@@ -83,7 +89,7 @@ public class Tokenizer {
       }
 
       if (Character.isLetter(currentChar)) {
-        tokens.add(identifier());
+        tokens.add(character());
         continue;
       }
 

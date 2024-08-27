@@ -12,6 +12,6 @@ public class JSONReader {
       if (!Files.exists(path)) {
         throw new IOException("El archivo no existe: " + filePath);
       }
-      return new String(Files.readAllBytes(Paths.get(filePath)));
+      return new String(Files.readAllBytes(path));
     }
 }
