@@ -4,6 +4,8 @@ plugins {
 }
 
 dependencies {
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.14.0'
     implementation project(':token')
     implementation project(':fileReader')
+    implementation project(':lexer')
 }

@@ -9,5 +9,6 @@ plugins {
 rootProject.name = 'PrintScript'
 include 'lexer', 'token', 'AST', 'parser', 'interpreter', 'runner'
 include 'linter'
+include 'formatter'
 include 'fileReader'
 
