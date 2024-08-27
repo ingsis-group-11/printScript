@@ -11,7 +11,16 @@ public class SyntaxParserFactory {
       throw new IllegalArgumentException("Empty token list");
     }
 
-    Token firstToken = tokens.get(0).getType() == TokenType.LINE_BREAK ? tokens.get(1) : tokens.get(0);
+    int i = 0;
+    while (i < tokens.size()) {
+      if (tokens.get(i).getType() != TokenType.LINE_BREAK) {
+        break;
+      }
+      i++;
+    }
+
+    Token firstToken = tokens.get(i);
+
     if (firstToken.getType() == TokenType.LET_KEYWORD) {
       return new AssignationSyntaxParser();
     } else if (firstToken.getType() == TokenType.IDENTIFIER) {
