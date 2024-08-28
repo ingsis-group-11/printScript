@@ -1,7 +1,3 @@
 plugins {
     id 'common-conventions'
-    id 'publish-packages-conventions'
 }
-
-group = 'org.example'
-version = '1.0-SNAPSHOT'
