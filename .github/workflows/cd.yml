@@ -2,7 +2,7 @@ name: Publish package to GitHub Packages
 on:
   push:
     branches:
-      - mbarreiro
+      - fix-cli
 jobs:
   publish:
     runs-on: ubuntu-latest
