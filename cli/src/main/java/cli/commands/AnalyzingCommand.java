@@ -16,10 +16,11 @@ public class AnalyzingCommand implements Runnable {
 
   @Override
   public void run() {
-    System.out.print("Analyzing file...");
+    System.out.println("Analyzing file...");
     try {
       LinterRunner linterRunner = new LinterRunner();
       linterRunner.linterRun(sourceFile, configFile);
+      System.out.println("File has no linter errors :)");
     } catch (Exception e) {
       System.err.print(e);
       System.exit(1);

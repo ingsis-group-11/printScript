@@ -1,11 +1,11 @@
 package cli.commands;
 
-import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Parameters;
 
 @Command(name = "format", description = "Format a printScript file using a config file")
 public class FormattingCommand implements Runnable {
+
   @Parameters(index = "0", description = "The source file to format")
   private String sourceFile;
 
