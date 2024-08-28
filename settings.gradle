@@ -7,9 +7,9 @@ plugins {
     id 'org.gradle.toolchains.foojay-resolver-convention' version '0.8.0'
 }
 rootProject.name = 'PrintScript'
-include 'lexer', 'token', 'AST', 'parser', 'interpreter', 'runner'
+include 'lexer', 'token', 'ast', 'parser', 'interpreter', 'runner'
 include 'linter'
 include 'formatter'
-include 'fileReader'
+include 'filereader'
 include 'cli'
 

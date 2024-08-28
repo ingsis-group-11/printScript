@@ -1,9 +1,10 @@
 plugins {
     id 'common-conventions'
     id 'coverage-conventions'
+    id 'publish-packages-conventions'
 }
 
 dependencies {
     implementation project(':token')
-    implementation project(':fileReader')
+    implementation project(':filereader')
 }

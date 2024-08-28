@@ -1,8 +1,8 @@
 name: Publish package to GitHub Packages
 on:
-  push:
+  pull_request:
     branches:
-      - msalas
+      - main
 jobs:
   publish:
     runs-on: ubuntu-latest
