@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.8.0' // Replace with the appropriate version
     id "com.diffplug.spotless" version "6.25.0"
     id 'checkstyle'
+    id 'maven-publish'
 }
 
 group = 'org.example'
@@ -57,3 +58,4 @@ tasks.named('build'){
     dependsOn 'runScript'
     dependsOn 'addPreCommitGitHookOnBuild'
 }
+
