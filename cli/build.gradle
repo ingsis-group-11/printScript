@@ -12,14 +12,16 @@ application {
 shadowJar {
     archiveBaseName.set('printScriptCLI')
     archiveVersion.set('1.0')
-    archiveClassifier.set('')
+    archiveClassifier.set('') // Ensure no classifier is used to avoid multiple JARs
     manifest {
         attributes 'Main-Class': 'cli.Cli'
     }
 }
 
-group = 'org.example'
-version = '1.0-SNAPSHOT'
+tasks.named('jar'){
+    enabled = false
+}
+
 
 repositories {
     mavenCentral()
