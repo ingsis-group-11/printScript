@@ -1,7 +1,9 @@
 package parser.syntax;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 import token.Token;
 import token.TokenType;
 
@@ -9,9 +11,14 @@ public class TokenStream {
   private final Iterator<Token> iterator;
   private Token currentToken;
   private Token lastToken;
+  private final List<String> errorMessages = new ArrayList<>();
 
   public TokenStream(List<Token> tokens) {
-    this.iterator = tokens.iterator();
+    // Filter out WHITESPACE and LINEBREAK tokens
+    List<Token> filteredTokens = tokens.stream()
+            .filter(token -> token.getType() != TokenType.WHITESPACE && token.getType() != TokenType.LINE_BREAK)
+            .collect(Collectors.toList());
+    this.iterator = filteredTokens.iterator();
     advance();
   }
 
@@ -28,10 +35,6 @@ public class TokenStream {
     return currentToken;
   }
 
-  public Token getLastToken() {
-    return lastToken;
-  }
-
   public boolean match(TokenType type) {
     return currentToken != null && currentToken.getType() == type;
   }
@@ -39,15 +42,20 @@ public class TokenStream {
   public void expect(TokenType type, String errorMessage) {
     if (currentToken == null || !match(type)) {
       String message =
-          errorMessage
-              + (currentToken != null
-                  ? " at column " + currentToken.getColumn() + " line " + currentToken.getLine()
-                  : " at column "
+              errorMessage
+                      + (currentToken != null
+                      ? " at column " + currentToken.getColumn() + " line " + currentToken.getLine()
+                      : " at column "
                       + (lastToken != null ? lastToken.getColumn() : "unknown")
                       + " line "
                       + (lastToken != null ? lastToken.getLine() : "unknown"));
-      throw new RuntimeException(message);
+      errorMessages.add(message);
+    } else {
+      advance();
     }
-    advance();
+  }
+
+  public List<String> getErrorMessages() {
+    return errorMessages;
   }
 }

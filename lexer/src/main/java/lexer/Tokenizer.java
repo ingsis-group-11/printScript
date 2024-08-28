@@ -27,7 +27,7 @@ public class Tokenizer {
     position++;
     column++;
     if (position >= inputText.length()) {
-      currentChar = '\0'; // End of input
+      currentChar = '\0';
     } else {
       currentChar = inputText.charAt(position);
     }
@@ -39,7 +39,7 @@ public class Tokenizer {
     }
   }
 
-  private Token identifier() {
+  private Token character() {
     StringBuilder result = new StringBuilder();
     int newColumn = column;
     while (currentChar != '\0' && (Character.isLetterOrDigit(currentChar) || currentChar == '_')) {
@@ -63,12 +63,12 @@ public class Tokenizer {
   private Token string() {
     StringBuilder result = new StringBuilder();
     int newColumn = column;
-    advance(); // Skip opening quote
+    advance();
     while (currentChar != '\0' && currentChar != '"') {
       result.append(currentChar);
       advance();
     }
-    advance(); // Skip closing quote
+    advance();
     return new ValueToken(TokenType.STRING, result.toString(), newColumn, line);
   }
 
@@ -78,13 +78,18 @@ public class Tokenizer {
     List<Token> tokens = new ArrayList<>();
 
     while (currentChar != '\0') {
+      if(isCarriageReturn()) {
+        advance();
+        continue;
+      }
+      
       if (Character.isWhitespace(currentChar)) {
-        skipWhitespace();
+        tokens.add(whiteSpace());
         continue;
       }
 
       if (Character.isLetter(currentChar)) {
-        tokens.add(identifier());
+        tokens.add(character());
         continue;
       }
 
@@ -100,12 +105,7 @@ public class Tokenizer {
 
       String charAsString = String.valueOf(currentChar);
       if (mapReader.containsKey(charAsString)) {
-        TokenType tokenType = mapReader.getTokenType(charAsString);
-        if (tokenType.equals(TokenType.SEMICOLON)) {
-          isSemicolon();
-        }
-        tokens.add(
-            new ValueToken(mapReader.getTokenType(charAsString), charAsString, column, line));
+        tokens.add(new ValueToken(mapReader.getTokenType(charAsString), charAsString, column, line));
         advance();
         continue;
       }
@@ -116,7 +116,28 @@ public class Tokenizer {
     return new SuccessfulResult(tokens);
   }
 
-  private void isSemicolon() {
+  private boolean isCarriageReturn() {
+    return (int) currentChar == 13;
+  }
+
+  private Token whiteSpace() {
+    if (isLineBreak()) {
+      ValueToken valueToken = new ValueToken(TokenType.LINE_BREAK, "\n", column, line);
+      advance();
+      lineBreak();
+      return valueToken;
+    } else {
+      ValueToken valueToken = new ValueToken(TokenType.WHITESPACE, String.valueOf(currentChar), column, line);
+      advance();
+      return valueToken;
+    }
+  }
+
+  private boolean isLineBreak() {
+    return (int) currentChar == 10;
+  }
+
+  private void lineBreak() {
     line++;
     column = 0;
   }

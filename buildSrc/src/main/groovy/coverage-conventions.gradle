@@ -1,0 +1,51 @@
+plugins {
+    id 'jacoco'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+    finalizedBy 'jacocoTestReport'
+}
+
+if (!tasks.names.contains('jacocoTestReport')) {
+    tasks.register('jacocoTestReport', JacocoReport) {
+        dependsOn 'test'
+        reports {
+            xml.required.set(true)
+            html.required.set(true)
+        }
+    }
+} else {
+    tasks.named('jacocoTestReport') {
+        reports {
+            xml.required.set(true)
+            html.required.set(true)
+        }
+    }
+}
+
+if (!tasks.names.contains('jacocoTestCoverageVerification')) {
+    tasks.register('jacocoTestCoverageVerification', JacocoCoverageVerification) {
+        violationRules {
+            rule {
+                limit {
+                    minimum = 0.5
+                }
+            }
+        }
+    }
+} else {
+    tasks.named('jacocoTestCoverageVerification') {
+        violationRules {
+            rule {
+                limit {
+                    minimum = 0.5
+                }
+            }
+        }
+    }
+}
+
+tasks.named('check') {
+    dependsOn 'jacocoTestCoverageVerification'
+}

@@ -1,6 +1,9 @@
 package lexer;
 
 import result.*;
+import token.Token;
+
+import java.util.List;
 
 public class Lexer {
   public LexingResult lex(String stringFile) {

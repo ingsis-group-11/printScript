@@ -1,23 +1,14 @@
 plugins {
-    id 'java'
-}
-
-group = 'org.example'
-
-repositories {
-    mavenCentral()
+    id 'common-conventions'
+    id 'coverage-conventions'
+    id 'publish-packages-conventions'
 }
 
 dependencies {
     implementation project(':token')
-    implementation project(':AST')
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation project(':ast')
     implementation project(':lexer')
     implementation project(':parser')
     implementation project(':interpreter')
-}
-
-tasks.test {
-    useJUnitPlatform()
+    implementation project(':filereader')
 }

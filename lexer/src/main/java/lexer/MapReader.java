@@ -20,6 +20,8 @@ public class MapReader {
     tokenMap.put(")", TokenType.PARENTHESIS_CLOSE);
     tokenMap.put("(", TokenType.PARENTHESIS_OPEN);
     tokenMap.put(":", TokenType.COLON);
+    tokenMap.put(" ", TokenType.WHITESPACE);
+    tokenMap.put("\n", TokenType.LINE_BREAK);
   }
 
   public TokenType getTokenType(String word) {
