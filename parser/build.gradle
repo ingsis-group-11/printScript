@@ -1,6 +1,7 @@
 plugins {
     id 'common-conventions'
     id 'coverage-conventions'
+    id 'publish-packages-conventions'
 }
 
 dependencies {
