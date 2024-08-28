@@ -20,7 +20,7 @@ public class RulesReader {
         for (JsonNode ruleNode : rulesNode) {
             String type = ruleNode.get("type").asText();
             boolean active = ruleNode.get("active").asBoolean();
-            if(active) {
+            if (active) {
                 Rule rule = rulesMap.getRule(type);
                 activeRules.add(rule);
             }
