@@ -8,9 +8,9 @@ dependencies {
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.14.0'
     implementation 'org.codehaus.groovy:groovy-json:3.0.9'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
-    implementation project(':AST')
+    implementation project(':ast')
     implementation project(':token')
-    implementation project(':fileReader')
+    implementation project(':filereader')
     implementation project(':lexer')
     implementation project(':parser')
 }

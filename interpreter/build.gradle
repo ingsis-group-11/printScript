@@ -5,7 +5,7 @@ plugins {
 }
 
 dependencies {
-    implementation project(':AST')
+    implementation project(':ast')
     implementation project(':token')
 }
 

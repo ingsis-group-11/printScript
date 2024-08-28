@@ -6,9 +6,9 @@ plugins {
 
 dependencies {
     implementation project(':token')
-    implementation project(':AST')
+    implementation project(':ast')
     implementation project(':lexer')
     implementation project(':parser')
     implementation project(':interpreter')
-    implementation project(':fileReader')
+    implementation project(':filereader')
 }
