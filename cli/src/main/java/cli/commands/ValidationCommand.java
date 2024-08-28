@@ -1,6 +1,5 @@
 package cli.commands;
 
-import AST.nodes.ASTNode;
 import fileReader.FileReader;
 import lexer.Lexer;
 import parser.Parser;
@@ -11,7 +10,6 @@ import result.SuccessfulResult;
 import result.UnsuccessfulResult;
 import token.Token;
 
-import java.io.IOException;
 import java.util.List;
 
 @Command(name = "validate", description = "Validates the semantic and syntax errors in a printScript file")
@@ -22,11 +20,12 @@ public class ValidationCommand implements Runnable {
 
   @Override
   public void run() {
-    System.out.print("Validating file...");
+    System.out.println("Validating file...");
     try {
       String fileString = new FileReader().readFile(sourceFile);
       List<Token> tokens = lexRun(fileString);
       parseRun(tokens);
+      System.out.println("File has no semantic or syntax errors :)");
     } catch (Exception e) {
       throw new RuntimeException(e);
     }

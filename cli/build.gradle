@@ -1,5 +1,20 @@
 plugins {
     id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+application {
+    mainClassName = 'cli.Cli'
+}
+
+shadowJar {
+    archiveBaseName.set('printScriptCLI')
+    archiveVersion.set('1.0')
+    archiveClassifier.set('')
+    manifest {
+        attributes 'Main-Class': 'cli.Cli'
+    }
 }
 
 group = 'org.example'
