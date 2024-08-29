@@ -38,7 +38,6 @@ public class Formatter {
 
     String output = getOutput(formattedTokens);
     new FileWriter().writeFile(outputPathFile, output);
-    System.out.println(output);
   }
 
   private List<Rule> getRules(String path) throws IOException {
