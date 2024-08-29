@@ -12,7 +12,6 @@ public class RulesMap {
     ruleMap.put("spaceBeforeColon", new SpaceBeforeColon());
     ruleMap.put("spaceAfterColon", new SpaceAfterColon());
     ruleMap.put("spacesBetweenAssign", new SpacesBetweenAssign());
-    ruleMap.put("spacesBetweenOperator", new SpacesBetweenOperator());
     ruleMap.put("linebreakBeforePrint", new LinebreakBeforePrint());
     ruleMap.put("lineBreakAfterSemicolon", new LineBreakAfterSemicolon());
   }

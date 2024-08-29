@@ -2,6 +2,7 @@ package formatter;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import formatter.rules.LineBreakAfterSemicolon;
 import formatter.rules.Rule;
 
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.util.List;
 public class RulesReader {
   public List<Rule> loadRulesFromJson(String jsonString) throws IOException {
     List<Rule> activeRules = new ArrayList<>();
+    activeRules.add(new LineBreakAfterSemicolon());
     RulesMap rulesMap = new RulesMap();
 
     ObjectMapper mapper = new ObjectMapper();

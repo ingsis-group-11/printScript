@@ -13,7 +13,6 @@ public class TokenMap {
     tokenMap.put(TokenType.COLON, new ColonFormatter());
     tokenMap.put(TokenType.ASSIGN, new AssignFormatter());
     tokenMap.put(TokenType.SEMICOLON, new SemicolonFormatter());
-    tokenMap.put(TokenType.OPERATOR, new OperatorFormatter());
     tokenMap.put(TokenType.PRINT_KEYWORD, new PrintFormatter());
   }
 
