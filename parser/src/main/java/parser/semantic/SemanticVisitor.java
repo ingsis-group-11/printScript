@@ -98,8 +98,10 @@ public class SemanticVisitor implements ASTVisitor<SemanticResult> {
     if (operatorNode.getLeftNode().accept(expressionTypeVisitor) == TokenType.NUMBER
         && operatorNode.getRightNode().accept(expressionTypeVisitor) == TokenType.NUMBER) {
       return true;
-    } else if (operatorNode.getLeftNode().accept(expressionTypeVisitor) == TokenType.IDENTIFIER
-        || operatorNode.getRightNode().accept(expressionTypeVisitor) == TokenType.IDENTIFIER) {
+    } else if ((operatorNode.getLeftNode().accept(expressionTypeVisitor) == TokenType.IDENTIFIER
+        && operatorNode.getRightNode().accept(expressionTypeVisitor) == TokenType.NUMBER)
+    || (operatorNode.getLeftNode().accept(expressionTypeVisitor) == TokenType.NUMBER
+        && operatorNode.getRightNode().accept(expressionTypeVisitor) == TokenType.IDENTIFIER)){
       return true;
     }
     return false;
