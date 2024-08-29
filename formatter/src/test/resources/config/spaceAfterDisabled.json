@@ -1,0 +1,20 @@
+{
+  "rules": [
+    {
+      "type": "spaceBeforeColon",
+      "active": true
+    },
+    {
+      "type": "spaceAfterColon",
+      "active": false
+    },
+    {
+      "type": "spacesBetweenAssign",
+      "active": true
+    },
+    {
+      "type": "linebreakBeforePrint",
+      "active": true
+    }
+  ]
+}

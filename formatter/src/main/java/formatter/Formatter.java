@@ -1,29 +1,43 @@
 package formatter;
 
 import fileReader.FileReader;
+import fileWriter.FileWriter;
 import formatter.rules.Rule;
 import formatter.tokenFormatter.TokenFormatter;
 import token.Token;
+import token.TokenType;
+import token.ValueToken;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Formatter {
 
-  public void formatFile(List<Token> tokens, String inputFilePath, String outputPathFile, String configPathRules) throws IOException {
+  public void formatFile(List<Token> tokens, String outputPathFile, String configPathRules) throws IOException {
     List<Rule> rules = getRules(configPathRules);
-    List<Token> formattedTokens = List.copyOf(tokens);
+    List<Token> strippedTokens = removeWhitespacesAndLineBreaks(tokens);
+    List<Token> formattedTokens = new ArrayList<>();
+
     TokenMap tokenMap = new TokenMap();
 
-    for (Token token : tokens) {
+    for (Token token : strippedTokens) {
       if (tokenMap.containsToken(token.getType())) {
         TokenFormatter tokenFormatter = tokenMap.getTokenFormatter(token.getType());
-        int tokenIndex = getTokenIndex(formattedTokens, token);
         formattedTokens = tokenFormatter.formatToken(formattedTokens, rules);
+      } else {
+        formattedTokens.add(token);
+        if (token.getType() != TokenType.IDENTIFIER && token.getType() != TokenType.STRING_TYPE &&
+            token.getType() != TokenType.NUMBER_TYPE) {
+          formattedTokens.addLast(new ValueToken(TokenType.WHITESPACE, " ", token.getLine(),
+              token.getColumn() + 1));
+        }
       }
     }
 
     String output = getOutput(formattedTokens);
+    new FileWriter().writeFile(outputPathFile, output);
     System.out.println(output);
   }
 
@@ -38,24 +52,18 @@ public class Formatter {
   private String getOutput(List<Token> tokens) {
     StringBuilder output = new StringBuilder();
     for (Token token : tokens) {
-      output.append(token.getValue());
+      if (token.getType() == TokenType.STRING) {
+        output.append("\"").append(token.getValue()).append("\"");
+      } else {
+        output.append(token.getValue());
+      }
     }
     return output.toString();
   }
 
-  private int getTokenIndex(List<Token> tokens, Token token) {
-    for (int i = 0; i < tokens.size(); i++) {
-      if (tokens.get(i).equals(token)) {
-        return i;
-      }
-    }
-    return -1;
+  private List<Token> removeWhitespacesAndLineBreaks(List<Token> tokens) {
+    return tokens.stream()
+        .filter(token -> token.getType() != TokenType.WHITESPACE && token.getType() != TokenType.LINE_BREAK)
+        .collect(Collectors.toList());
   }
 }
-
-
-// let name : string="John";
-// LET_TOKEN, WHITESPACE_TOKEN, IDENTIFIER_TOKEN, COLON_TOKEN, WHITESPACE_TOKEN,
-// STRING_TOKEN, EQUALS_TOKEN, STRING_LITERAL_TOKEN, SEMICOLON_TOKEN
-// let name : string = "John"; -> Nueva lista de tokens, armo un nuevo archivo
-// let, id, ws, colon, ..., assign, ..., string_literal, semicolon

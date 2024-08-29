@@ -9,6 +9,5 @@ public interface RuleVisitor {
   List<Token> visit(SpaceAfterColon rule, List<Token> tokens);
   List<Token> visit(LineBreakAfterSemicolon rule, List<Token> tokens);
   List<Token> visit(SpacesBetweenAssign rule, List<Token> tokens);
-  List<Token> visit(SpacesBetweenOperator spaceBetweenOperator, List<Token> tokens);
   List<Token> visit(LinebreakBeforePrint linebreakBeforePrint, List<Token> tokens);
 }
