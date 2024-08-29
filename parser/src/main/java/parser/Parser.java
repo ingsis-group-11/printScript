@@ -24,9 +24,9 @@ public class Parser {
     return astNodes;
   }
 
-  private void semanticParser(List<ASTNode> astNodes) {
+  private void semanticParser(ASTNode node) {
     SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
-    semanticError = semanticAnalyzer.analyze(astNodes);
+    semanticError = semanticAnalyzer.analyze(node);
   }
 
   private List<ASTNode> syntaxParser(List<Token> tokens) {
