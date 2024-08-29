@@ -36,6 +36,7 @@ dependencies {
     implementation project(':token')
     implementation project(':parser')
     implementation project(':lexer')
+    implementation project(':formatter')
     implementation project(':interpreter')
     implementation project(':linter')
     implementation project(':filereader')
