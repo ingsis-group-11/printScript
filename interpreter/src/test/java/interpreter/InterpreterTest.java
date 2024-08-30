@@ -40,7 +40,7 @@ public class InterpreterTest {
     try {
       // WHEN
       Interpreter interpreter = new Interpreter();
-      interpreter.interpret(astNodes);
+      interpreter.interpret(astNodes.iterator());
 
       // THEN
       String output = outputStream.toString().trim();
@@ -93,7 +93,7 @@ public class InterpreterTest {
     try {
       // WHEN
       Interpreter interpreter = new Interpreter();
-      interpreter.interpret(astNodes);
+      interpreter.interpret(astNodes.iterator());
 
       // THEN
       String output = outputStream.toString().trim();
@@ -132,7 +132,7 @@ public class InterpreterTest {
 
     // WHEN & THEN
     Interpreter interpreter = new Interpreter();
-    assertThrows(RuntimeException.class, () -> interpreter.interpret(astNodes));
+    assertThrows(RuntimeException.class, () -> interpreter.interpret(astNodes.iterator()));
   }
 
     @Test
@@ -162,7 +162,7 @@ public class InterpreterTest {
         try {
             // WHEN
             Interpreter interpreter = new Interpreter();
-            interpreter.interpret(astNodes);
+            interpreter.interpret(astNodes.iterator());
 
             // THEN
             String output = outputStream.toString().trim();
@@ -193,6 +193,6 @@ public class InterpreterTest {
 
         // WHEN & THEN
         Interpreter interpreter = new Interpreter();
-        assertThrows(RuntimeException.class, () -> interpreter.interpret(astNodes));
+        assertThrows(RuntimeException.class, () -> interpreter.interpret(astNodes.iterator()));
     }
 }

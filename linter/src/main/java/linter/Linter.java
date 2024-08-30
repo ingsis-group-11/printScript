@@ -2,16 +2,10 @@ package linter;
 
 import AST.nodes.ASTNode;
 import fileReader.FileReader;
-import lexer.Lexer;
 import linter.result.FailedLinterResult;
 import linter.result.LinterResult;
 import linter.rules.Rule;
 import linter.rules.RuleValidator;
-import parser.Parser;
-import result.LexingResult;
-import result.SuccessfulResult;
-import result.UnsuccessfulResult;
-import token.Token;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,9 +13,9 @@ import java.util.List;
 
 public class Linter {
 
-  public void lint(List<ASTNode> astNodes, String configFilePath) throws IOException {
+  public void lint(ASTNode node, String configFilePath) throws IOException {
     List<Rule> rules = getRules(configFilePath);
-    checkRules(rules, astNodes);
+    checkRules(rules, node);
   }
 
   private List<Rule> getRules(String path) throws IOException {
@@ -32,11 +26,11 @@ public class Linter {
     return rules;
   }
 
-  private void checkRules(List<Rule> rules, List<ASTNode> ASTNodes) {
+  private void checkRules(List<Rule> rules, ASTNode node) {
     RuleValidator validator = new RuleValidator();
     List<String> errors = new ArrayList<>();
     for (Rule rule : rules) {
-      LinterResult result = rule.accept(validator, ASTNodes);
+      LinterResult result = rule.accept(validator, node);
       if(result.hasErrors()) {
         errors.addAll(((FailedLinterResult) result).getErrors());
       }

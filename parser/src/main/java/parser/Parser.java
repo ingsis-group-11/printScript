@@ -14,13 +14,13 @@ public class Parser {
   private SemanticResult semanticError;
   private SyntaxResult syntaxResult;
 
-  public ASTNode parse(Iterator<Token> tokens) {
+  public Iterator<ASTNode> parse(Iterator<Token> tokens) {
     // Syntax analysis
     ASTNode node = syntaxParser(tokens);
     // Semantic analysis
     semanticParser(node);
 
-    return node;
+    return new ASTIterator(this, tokens);
   }
 
   private void semanticParser(ASTNode node) {

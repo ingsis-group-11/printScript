@@ -15,7 +15,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class SemanticOperationTest {
   @Test
   public void validStringAssignationOperationTest() {
-    List<ASTNode> trees = new ArrayList<>();
     ASTNode assignmentNode =
             new AssignationNode(
                     new DeclarationNode(
@@ -30,15 +29,13 @@ public class SemanticOperationTest {
                             20),
                     1,
                     1);
-    trees.add(assignmentNode);
     SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
-    SemanticResult semanticError = semanticAnalyzer.analyze(trees);
+    SemanticResult semanticError = semanticAnalyzer.analyze(assignmentNode);
     assertFalse(semanticError.hasErrors());
   }
 
   @Test
   public void validNumberAssignationOperationTest() {
-    List<ASTNode> trees = new ArrayList<>();
     ASTNode assignmentNode =
             new AssignationNode(
                     new DeclarationNode(
@@ -53,15 +50,13 @@ public class SemanticOperationTest {
                             20),
                     1,
                     1);
-    trees.add(assignmentNode);
     SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
-    SemanticResult semanticError = semanticAnalyzer.analyze(trees);
+    SemanticResult semanticError = semanticAnalyzer.analyze(assignmentNode);
     assertFalse(semanticError.hasErrors());
   }
 
   @Test
   public void invalidStringAssignationOperationTest() {
-    List<ASTNode> trees = new ArrayList<>();
     ASTNode assignmentNode =
             new AssignationNode(
                     new DeclarationNode(
@@ -76,15 +71,13 @@ public class SemanticOperationTest {
                             20),
                     1,
                     1);
-    trees.add(assignmentNode);
     SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
-    SemanticResult semanticError = semanticAnalyzer.analyze(trees);
+    SemanticResult semanticError = semanticAnalyzer.analyze(assignmentNode);
     assertTrue(semanticError.hasErrors());
   }
 
   @Test
   public void invalidNumberAssignationOperationTest() {
-    List<ASTNode> trees = new ArrayList<>();
     ASTNode assignmentNode =
             new AssignationNode(
                     new DeclarationNode(
@@ -99,15 +92,13 @@ public class SemanticOperationTest {
                             20),
                     1,
                     1);
-    trees.add(assignmentNode);
     SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
-    SemanticResult semanticError = semanticAnalyzer.analyze(trees);
+    SemanticResult semanticError = semanticAnalyzer.analyze(assignmentNode);
     assertTrue(semanticError.hasErrors());
   }
 
   @Test
   public void validNumberPrintOperationTest() {
-    List<ASTNode> trees = new ArrayList<>();
     ASTNode assignmentNode =
             new PrintNode(
                     new OperatorNode("+",
@@ -117,15 +108,13 @@ public class SemanticOperationTest {
                             20),
                     1,
                     1);
-    trees.add(assignmentNode);
     SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
-    SemanticResult semanticError = semanticAnalyzer.analyze(trees);
+    SemanticResult semanticError = semanticAnalyzer.analyze(assignmentNode);
     assertFalse(semanticError.hasErrors());
   }
 
   @Test
   public void invalidNumberPrintOperationTest() {
-    List<ASTNode> trees = new ArrayList<>();
     ASTNode assignmentNode =
             new PrintNode(
                     new OperatorNode("%",
@@ -135,15 +124,13 @@ public class SemanticOperationTest {
                             20),
                     1,
                     1);
-    trees.add(assignmentNode);
     SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
-    SemanticResult semanticError = semanticAnalyzer.analyze(trees);
+    SemanticResult semanticError = semanticAnalyzer.analyze(assignmentNode);
     assertTrue(semanticError.hasErrors());
   }
 
   @Test
   public void validStringPrintOperationTest() {
-    List<ASTNode> trees = new ArrayList<>();
     ASTNode assignmentNode =
             new PrintNode(
                     new OperatorNode("+",
@@ -153,15 +140,13 @@ public class SemanticOperationTest {
                             20),
                     1,
                     1);
-    trees.add(assignmentNode);
     SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
-    SemanticResult semanticError = semanticAnalyzer.analyze(trees);
+    SemanticResult semanticError = semanticAnalyzer.analyze(assignmentNode);
     assertFalse(semanticError.hasErrors());
   }
 
   @Test
   public void invalidStringPrintOperationTest() {
-    List<ASTNode> trees = new ArrayList<>();
     ASTNode assignmentNode =
             new PrintNode(
                     new OperatorNode("-",
@@ -171,15 +156,13 @@ public class SemanticOperationTest {
                             20),
                     1,
                     1);
-    trees.add(assignmentNode);
     SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
-    SemanticResult semanticError = semanticAnalyzer.analyze(trees);
+    SemanticResult semanticError = semanticAnalyzer.analyze(assignmentNode);
     assertTrue(semanticError.hasErrors());
   }
 
   @Test
   public void validVariablePrintOperationTest() {
-    List<ASTNode> trees = new ArrayList<>();
     ASTNode assignmentNode =
             new PrintNode(
                     new OperatorNode("+",
@@ -189,15 +172,13 @@ public class SemanticOperationTest {
                             20),
                     1,
                     1);
-    trees.add(assignmentNode);
     SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
-    SemanticResult semanticError = semanticAnalyzer.analyze(trees);
+    SemanticResult semanticError = semanticAnalyzer.analyze(assignmentNode);
     assertFalse(semanticError.hasErrors());
   }
 
   @Test
   public void validVariableNumberPrintOperationTest() {
-    List<ASTNode> trees = new ArrayList<>();
     ASTNode assignmentNode =
             new PrintNode(
                     new OperatorNode("-",
@@ -207,15 +188,13 @@ public class SemanticOperationTest {
                             20),
                     1,
                     1);
-    trees.add(assignmentNode);
     SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
-    SemanticResult semanticError = semanticAnalyzer.analyze(trees);
+    SemanticResult semanticError = semanticAnalyzer.analyze(assignmentNode);
     assertFalse(semanticError.hasErrors());
   }
 
   @Test
   public void validVariableStringPrintOperationTest() {
-    List<ASTNode> trees = new ArrayList<>();
     ASTNode assignmentNode =
             new PrintNode(
                     new OperatorNode("+",
@@ -225,15 +204,13 @@ public class SemanticOperationTest {
                             20),
                     1,
                     1);
-    trees.add(assignmentNode);
     SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
-    SemanticResult semanticError = semanticAnalyzer.analyze(trees);
+    SemanticResult semanticError = semanticAnalyzer.analyze(assignmentNode);
     assertFalse(semanticError.hasErrors());
   }
 
   @Test
   public void invalidVariableStringPrintOperationTest() {
-    List<ASTNode> trees = new ArrayList<>();
     ASTNode assignmentNode =
             new PrintNode(
                     new OperatorNode("-",
@@ -243,9 +220,8 @@ public class SemanticOperationTest {
                             20),
                     1,
                     1);
-    trees.add(assignmentNode);
     SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
-    SemanticResult semanticError = semanticAnalyzer.analyze(trees);
+    SemanticResult semanticError = semanticAnalyzer.analyze(assignmentNode);
     assertTrue(semanticError.hasErrors());
   }
 

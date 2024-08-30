@@ -1,8 +1,5 @@
 package parser.semantic;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import AST.nodes.*;
 import org.junit.jupiter.api.Test;
 import parser.semantic.result.SemanticResult;
@@ -15,7 +12,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class SemanticAssignationTest {
   @Test
   public void validStringAssignationTest(){
-    List<ASTNode> trees = new ArrayList<>();
     ASTNode assignmentNode =
           new AssignationNode(
                   new DeclarationNode(
@@ -26,15 +22,13 @@ public class SemanticAssignationTest {
                   new LiteralNode(new ValueToken(TokenType.STRING, "Olive", 19, 0)),
                   1,
                   1);
-    trees.add(assignmentNode);
     SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
-    SemanticResult semanticError = semanticAnalyzer.analyze(trees);
+    SemanticResult semanticError = semanticAnalyzer.analyze(assignmentNode);
     assertFalse(semanticError.hasErrors());
   }
 
   @Test
   public void validNumberAssignationTest(){
-    List<ASTNode> trees = new ArrayList<>();
     ASTNode assignmentNode =
             new AssignationNode(
                     new DeclarationNode(
@@ -45,15 +39,13 @@ public class SemanticAssignationTest {
                     new LiteralNode(new ValueToken(TokenType.NUMBER, "10", 19, 0)),
                     1,
                     1);
-    trees.add(assignmentNode);
     SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
-    SemanticResult semanticError = semanticAnalyzer.analyze(trees);
+    SemanticResult semanticError = semanticAnalyzer.analyze(assignmentNode);
     assertFalse(semanticError.hasErrors());
   }
 
   @Test
   public void invalidStringAssignationTest(){
-    List<ASTNode> trees = new ArrayList<>();
     ASTNode assignmentNode =
             new AssignationNode(
                     new DeclarationNode(
@@ -64,15 +56,13 @@ public class SemanticAssignationTest {
                     new LiteralNode(new ValueToken(TokenType.STRING, "Olive", 19, 0)),
                     1,
                     1);
-    trees.add(assignmentNode);
     SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
-    SemanticResult semanticError = semanticAnalyzer.analyze(trees);
+    SemanticResult semanticError = semanticAnalyzer.analyze(assignmentNode);
     assertTrue(semanticError.hasErrors());
   }
 
   @Test
   public void invalidNumberAssignationTest(){
-    List<ASTNode> trees = new ArrayList<>();
     ASTNode assignmentNode =
             new AssignationNode(
                     new DeclarationNode(
@@ -83,15 +73,13 @@ public class SemanticAssignationTest {
                     new LiteralNode(new ValueToken(TokenType.NUMBER, "10", 19, 0)),
                     1,
                     1);
-    trees.add(assignmentNode);
     SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
-    SemanticResult semanticError = semanticAnalyzer.analyze(trees);
+    SemanticResult semanticError = semanticAnalyzer.analyze(assignmentNode);
     assertTrue(semanticError.hasErrors());
   }
 
   @Test
   public void validVariableAssignationTest(){
-    List<ASTNode> trees = new ArrayList<>();
     ASTNode assignmentNode =
             new AssignationNode(
                     new DeclarationNode(
@@ -102,9 +90,8 @@ public class SemanticAssignationTest {
                     new LiteralNode(new ValueToken(TokenType.IDENTIFIER, "a", 19, 0)),
                     1,
                     1);
-    trees.add(assignmentNode);
     SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
-    SemanticResult semanticError = semanticAnalyzer.analyze(trees);
+    SemanticResult semanticError = semanticAnalyzer.analyze(assignmentNode);
     assertFalse(semanticError.hasErrors());
   }
 }

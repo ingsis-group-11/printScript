@@ -10,15 +10,19 @@ import result.UnsuccessfulResult;
 import token.Token;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 
 public class LinterRunner {
   public void linterRun(String filePath, String configRulesPath) throws IOException {
-    String fileString = new FileReader().readFile(filePath);
-    List<Token> tokens = lexRun(fileString);
-    List<ASTNode> ASTNodes = parseRun(tokens);
+    FileIterator fileIterator = new FileIterator(filePath);
+    Iterator<Token> tokens = lexRun(fileIterator);
+    Iterator<ASTNode> nodes = parseRun(tokens);
     Linter linter = new Linter();
-    linter.lint(ASTNodes, configRulesPath);
+    while (nodes.hasNext()) {
+      ASTNode node = nodes.next();
+      linter.lint(node, configRulesPath);
+    }
   }
 
   private List<Token> lexRun(String filePath) {
@@ -37,10 +41,10 @@ public class LinterRunner {
     }
   }
 
-  private List<ASTNode> parseRun(List<Token> tokens) {
+  private ASTNode parseRun(Iterator<Token> tokens) {
     Parser parser = new Parser();
-    List<ASTNode> ASTNodes = parser.parse(tokens);
+    ASTNode node = parser.parse(tokens);
     parser.resolveErrors();
-    return ASTNodes;
+    return node;
   }
 }
