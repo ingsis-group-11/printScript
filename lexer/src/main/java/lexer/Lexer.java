@@ -3,17 +3,16 @@ package lexer;
 import fileReader.InputReader;
 import result.*;
 
-import java.io.IOException;
-
 public class Lexer {
+  private final Tokenizer tokenizer;
+  private final InputReader input;
 
-  public LexingResult lex(InputReader input) {
-    Tokenizer tokenizer = new Tokenizer(input, 0, 0);
-
-    return tokenizer.tokenize(input);
+  public Lexer(InputReader input) {
+    tokenizer = new Tokenizer(input);
+    this.input = input;
   }
 
-  public boolean hasNext(InputReader input) throws IOException {
-    return input.hasNext();
+  public LexingResult lex() {
+    return tokenizer.tokenize(input);
   }
 }

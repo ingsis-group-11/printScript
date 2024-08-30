@@ -1,41 +1,20 @@
 package formatter;
 
-import fileReader.FileReader;
+import fileReader.FileReaderIterator;
+import iterator.TokenIterator;
 import lexer.Lexer;
-import result.LexingResult;
-import result.SuccessfulResult;
-import result.UnsuccessfulResult;
 import token.Token;
 
+import java.io.File;
 import java.io.IOException;
-import java.util.List;
+import java.util.Iterator;
 
 public class FormatterRunner {
 
   public void format(String inputFilePath, String outputFilePath, String configPathRules) throws IOException {
-    String fileString = readFile(inputFilePath);
-    List<Token> tokens = lexFile(fileString);
+    FileReaderIterator fileIterator = new FileReaderIterator(new File(inputFilePath));
+    Iterator<Token> tokens = new TokenIterator(fileIterator, new Lexer(fileIterator));
     Formatter formatter = new Formatter();
     formatter.formatFile(tokens, outputFilePath, configPathRules);
-  }
-
-  private List<Token> lexFile(String filePath) {
-    Lexer lexer = new Lexer();
-    LexingResult lexerResult = lexer.lex(filePath);
-
-    resolveLexerErrors(lexerResult);
-
-    List<Token> tokens = ((SuccessfulResult) lexerResult).tokens();
-    return tokens;
-  }
-
-  private void resolveLexerErrors(LexingResult lexerResult) {
-    if (lexerResult instanceof UnsuccessfulResult) {
-      throw new RuntimeException(((UnsuccessfulResult) lexerResult).message());
-    }
-  }
-
-  private String readFile(String filePath) throws IOException {
-    return new FileReader().readFile(filePath);
   }
 }

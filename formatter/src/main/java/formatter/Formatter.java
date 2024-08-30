@@ -10,28 +10,29 @@ import token.ValueToken;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Formatter {
 
-  public void formatFile(List<Token> tokens, String outputPathFile, String configPathRules) throws IOException {
+  public void formatFile(Iterator<Token> tokens, String outputPathFile, String configPathRules) throws IOException {
     List<Rule> rules = getRules(configPathRules);
-    List<Token> strippedTokens = removeWhitespacesAndLineBreaks(tokens);
+    Iterator<Token> strippedTokens = removeWhitespacesAndLineBreaks(tokens);
     List<Token> formattedTokens = new ArrayList<>();
 
     TokenMap tokenMap = new TokenMap();
 
-    for (Token token : strippedTokens) {
+    while(strippedTokens.hasNext()) {
+      Token token = strippedTokens.next();
       if (tokenMap.containsToken(token.getType())) {
         TokenFormatter tokenFormatter = tokenMap.getTokenFormatter(token.getType());
         formattedTokens = tokenFormatter.formatToken(formattedTokens, rules);
       } else {
         formattedTokens.add(token);
         if (token.getType() != TokenType.IDENTIFIER && token.getType() != TokenType.STRING_TYPE &&
-            token.getType() != TokenType.NUMBER_TYPE) {
+                token.getType() != TokenType.NUMBER_TYPE) {
           formattedTokens.addLast(new ValueToken(TokenType.WHITESPACE, " ", token.getLine(),
-              token.getColumn() + 1));
+                  token.getColumn() + 1));
         }
       }
     }
@@ -43,7 +44,7 @@ public class Formatter {
   private List<Rule> getRules(String path) throws IOException {
     RulesReader rulesReader = new RulesReader();
     FileReader fileReader = new FileReader();
-    String jsonString = fileReader.readFile(path);
+    String jsonString = fileReader.read(path);
     List<Rule> rules = rulesReader.loadRulesFromJson(jsonString);
     return rules;
   }
@@ -60,9 +61,16 @@ public class Formatter {
     return output.toString();
   }
 
-  private List<Token> removeWhitespacesAndLineBreaks(List<Token> tokens) {
-    return tokens.stream()
-        .filter(token -> token.getType() != TokenType.WHITESPACE && token.getType() != TokenType.LINE_BREAK)
-        .collect(Collectors.toList());
+  private Iterator<Token> removeWhitespacesAndLineBreaks(Iterator<Token> tokens) {
+    List<Token> filteredTokens = new ArrayList<>();
+
+    while (tokens.hasNext()) {
+      Token token = tokens.next();
+      if (token.getType() != TokenType.WHITESPACE && token.getType() != TokenType.LINE_BREAK) {
+        filteredTokens.add(token);
+      }
+    }
+
+    return filteredTokens.iterator();
   }
 }

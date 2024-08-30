@@ -1,11 +1,9 @@
 package fileReader;
 
-import java.io.IOException;
-
 public interface InputReader {
-    public int next();
+    public char next();
 
     public boolean hasNext();
 
-    public int current();
+    public char current();
 }

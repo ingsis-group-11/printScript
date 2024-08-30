@@ -1,7 +1,7 @@
 package formatter.tokenFormatter;
 
 import formatter.rules.ColonRule;
-import formatter.rules.FormatterTokenVisitor;
+import formatter.rules.visitor.FormatterTokenVisitor;
 import formatter.rules.Rule;
 import token.Token;
 import token.TokenType;

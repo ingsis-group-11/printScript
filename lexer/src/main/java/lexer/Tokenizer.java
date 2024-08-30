@@ -14,16 +14,16 @@ public class Tokenizer {
   private int column;
   private final MapReader mapReader = new MapReader();
 
-  public Tokenizer(InputReader input, int line, int column) {
+  public Tokenizer(InputReader input) {
     this.input = input;
-    this.line = line;
-    this.column = column;
+    this.line = 0;
+    this.column = 0;
   }
 
   public LexingResult tokenize(InputReader input) {
     this.currentChar = input.current();
 
-    if(isCarriageReturn()) {
+    if (isCarriageReturn()) {
       advance();
     }
 
@@ -43,11 +43,14 @@ public class Tokenizer {
       return string();
     }
 
-    String charAsString = String.valueOf(currentChar);
+    String charAsString = Character.toString((char) currentChar);
     if (mapReader.containsKey(charAsString)) {
-      return new SuccessfulResult(new ValueToken(mapReader.getTokenType(charAsString), charAsString, column, line));
+      SuccessfulResult result = new SuccessfulResult(new ValueToken(mapReader.getTokenType(charAsString), charAsString, column, line));
+      advance();
+      return result;
     }
-    return new UnsuccessfulResult("Invalid character '" + currentChar + "'  found at " + line + ":" + column);
+
+    return new UnsuccessfulResult("Invalid character: " + currentChar + " at " + line + ":" + column);
 
   }
 

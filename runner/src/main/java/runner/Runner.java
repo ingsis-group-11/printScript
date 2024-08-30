@@ -17,7 +17,7 @@ import token.Token;
 public class Runner {
   public void run(String filePath) throws IOException {
     FileReaderIterator fileIterator = new FileReaderIterator(new File(filePath));
-    Iterator<Token> tokens = new TokenIterator(fileIterator, new Lexer());
+    Iterator<Token> tokens = new TokenIterator(fileIterator, new Lexer(fileIterator));
     Iterator<ASTNode> ASTNodes = new ASTIterator(new Parser(), tokens);
     new Interpreter().interpret(ASTNodes);
   }

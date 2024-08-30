@@ -6,13 +6,13 @@ public class StringReader implements InputReader {
     private final String input;
     private int position;
 
-    public StringReader(String input) {
-        this.input = input;
+    public StringReader(String filePath) {
+        this.input = new FileReader().read(filePath);
         this.position = 0;
     }
 
     @Override
-    public int next() {
+    public char next() {
         if (hasNext()) {
             return input.charAt(position++);
         }
@@ -25,7 +25,7 @@ public class StringReader implements InputReader {
     }
 
     @Override
-    public int current() {
+    public char current() {
         if (position < input.length()) {
             return input.charAt(position);
         }

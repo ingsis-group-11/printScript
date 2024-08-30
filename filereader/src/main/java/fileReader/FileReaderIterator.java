@@ -5,43 +5,44 @@ import java.io.IOException;
 import java.io.Reader;
 
 public class FileReaderIterator implements InputReader {
-    private final Reader reader;
-    private int currentChar;
+  private final Reader reader;
+  private int currentChar;
 
-    public FileReaderIterator(File file) throws IOException {
-        this.reader = new java.io.FileReader(file);
-        currentChar = reader.read();
-    }
+  public FileReaderIterator(File file) throws IOException {
+    this.reader = new java.io.FileReader(file);
+    currentChar = reader.read();
+  }
 
-    @Override
-    public int next(){
-        try {
-            currentChar = reader.read();
-        }
-        catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return currentChar;
+  @Override
+  public char next(){
+    try {
+      currentChar = reader.read();
     }
+    catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+    return (char) currentChar;
+  }
 
-    @Override
-    public boolean hasNext(){
-       if ( currentChar != -1){
-              return true;
-         }
-         else{
-              try {
-                reader.close();
-              }
-              catch (IOException e) {
-                throw new RuntimeException(e);
-              }
-              return false;
-       }
+  @Override
+  public boolean hasNext(){
+    if (currentChar != -1) {
+      return true;
+    } else {
+      try {
+        reader.close();
+      } catch (IOException e) {
+        throw new RuntimeException(e);
+      }
+      return false;
     }
+  }
 
-    @Override
-    public int current(){
-        return currentChar;
+  @Override
+  public char current(){
+    if (currentChar == -1) {
+      throw new IllegalStateException("No more characters to read");
     }
+    return (char) currentChar;
+  }
 }
