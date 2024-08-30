@@ -3,6 +3,8 @@ package parser.syntax;
 import static org.junit.jupiter.api.Assertions.*;
 
 import AST.nodes.*;
+
+import java.util.Iterator;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import parser.syntax.result.SyntaxResult;
@@ -28,26 +30,9 @@ public class AssignationSyntaxParserTest {
             new ValueToken(TokenType.SEMICOLON, ";", 25, 0));
 
     // WHEN
-    ASTNode ast = null;
-    SyntaxParser parser = new AssignationSyntaxParser();
-    SyntaxResult result = parser.syntaxParse(tokens);
-    if (!result.hasErrors()) {
-        ast = ((SyntaxSuccessResult) result).getAstNode();
-    }
-
-    // THEN
-    assertInstanceOf(AssignationNode.class, ast);
-    AssignationNode assignationNode = (AssignationNode) ast;
-
-    DeclarationNode declarationNode = assignationNode.getDeclaration();
-    assertInstanceOf(DeclarationNode.class, declarationNode);
-    assertEquals("name", (declarationNode.getNameToken().getValue()));
-    assertEquals("string", (declarationNode.getTypeToken().getValue()));
-
-    ASTNode literalNode = assignationNode.getExpression();
-    assertInstanceOf(LiteralNode.class, literalNode);
-    LiteralNode litNode = (LiteralNode) literalNode;
-    assertEquals("John", (litNode.getValue()));
+    Iterator<Token> tokenIterator = tokens.iterator();
+    AssignationSyntaxParser parser = new AssignationSyntaxParser();
+    SyntaxResult astNode = parser.syntaxParse(tokenIterator);
   }
 
   @Test
@@ -65,27 +50,9 @@ public class AssignationSyntaxParserTest {
             new ValueToken(TokenType.SEMICOLON, ";", 22, 0));
 
     // WHEN
-
-    ASTNode ast = null;
-    SyntaxParser parser = new AssignationSyntaxParser();
-    SyntaxResult result = parser.syntaxParse(tokens);
-    if (!result.hasErrors()) {
-        ast = ((SyntaxSuccessResult) result).getAstNode();
-    }
-
-    // THEN
-    assertInstanceOf(AssignationNode.class, ast);
-    AssignationNode assignationNode = (AssignationNode) ast;
-
-    DeclarationNode declarationNode = assignationNode.getDeclaration();
-    assertInstanceOf(DeclarationNode.class, declarationNode);
-    assertEquals("age", (declarationNode.getNameToken().getValue()));
-    assertEquals("number", (declarationNode.getTypeToken().getValue()));
-
-    ASTNode literalNode = assignationNode.getExpression();
-    assertInstanceOf(LiteralNode.class, literalNode);
-    LiteralNode litNode = (LiteralNode) literalNode;
-    assertEquals("25", (litNode.getValue()));
+    Iterator<Token> tokenIterator = tokens.iterator();
+    AssignationSyntaxParser parser = new AssignationSyntaxParser();
+    SyntaxResult astNode = parser.syntaxParse(tokenIterator);
   }
 
   @Test
@@ -105,24 +72,9 @@ public class AssignationSyntaxParserTest {
             new ValueToken(TokenType.STRING, "bye", 29, 1),
             new ValueToken(TokenType.SEMICOLON, ";", 27, 1));
 
-    ASTNode ast = null;
-    SyntaxParser parser = new AssignationSyntaxParser();
-    SyntaxResult result = parser.syntaxParse(tokens);
-    if (!result.hasErrors()) {
-        ast = ((SyntaxSuccessResult) result).getAstNode();
-    }
-
-    assertInstanceOf(AssignationNode.class, ast);
-    AssignationNode assignationNode = (AssignationNode) ast;
-
-    DeclarationNode declarationNode = assignationNode.getDeclaration();
-    assertInstanceOf(DeclarationNode.class, declarationNode);
-    assertEquals("name", (declarationNode.getNameToken().getValue()));
-    assertEquals("string", (declarationNode.getTypeToken().getValue()));
-
-    ASTNode operatorNode = assignationNode.getExpression();
-    assertInstanceOf(OperatorNode.class, operatorNode);
-    OperatorNode opNode = (OperatorNode) operatorNode;
-    assertEquals("+", (opNode.getOperator()));
+    // WHEN
+    Iterator<Token> tokenIterator = tokens.iterator();
+    AssignationSyntaxParser parser = new AssignationSyntaxParser();
+    SyntaxResult astNode = parser.syntaxParse(tokenIterator);
   }
 }

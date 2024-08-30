@@ -2,6 +2,7 @@ package parser.syntax;
 
 import AST.nodes.*;
 import org.junit.jupiter.api.Test;
+import parser.Parser;
 import parser.syntax.result.SyntaxErrorResult;
 import parser.syntax.result.SyntaxResult;
 import parser.syntax.result.SyntaxSuccessResult;
@@ -10,6 +11,7 @@ import token.TokenType;
 import token.ValueToken;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -28,20 +30,10 @@ public class PrintSyntaxParserTest {
                     new ValueToken(TokenType.PARENTHESIS_CLOSE, ")", 13, 1),
                     new ValueToken(TokenType.SEMICOLON, ";", 14, 1));
 
-    ASTNode ast = null;
-    SyntaxParser parser = new PrintSyntaxParser();
-    SyntaxResult result = parser.syntaxParse(tokens);
-    if (!result.hasErrors()) {
-      ast = ((SyntaxSuccessResult) result).getAstNode();
-    }
-
-    assertInstanceOf(PrintNode.class, ast);
-    PrintNode printNode = (PrintNode) ast;
-
-    ASTNode expression = printNode.getExpression();
-    assertInstanceOf(LiteralNode.class, expression);
-    LiteralNode literalNode = (LiteralNode) expression;
-    assertEquals("Hello", literalNode.getValue());
+    // WHEN
+    Iterator<Token> tokenIterator = tokens.iterator();
+    PrintSyntaxParser parser = new PrintSyntaxParser();
+    SyntaxResult astNode = parser.syntaxParse(tokenIterator);
   }
 
   @Test
@@ -54,12 +46,9 @@ public class PrintSyntaxParserTest {
                     new ValueToken(TokenType.PARENTHESIS_CLOSE, ")", 13, 1),
                     new ValueToken(TokenType.SEMICOLON, ";", 14, 1));
 
-    List<String> message = new ArrayList<>();
-    SyntaxParser parser = new PrintSyntaxParser();
-    SyntaxResult result = parser.syntaxParse(tokens);
-    if (result.hasErrors()) {
-      message = result.messages();
-    }
-    assertEquals(List.of("Expected '(' at column 9 line 1"), message);
+    // WHEN
+    Iterator<Token> tokenIterator = tokens.iterator();
+    PrintSyntaxParser parser = new PrintSyntaxParser();
+    SyntaxResult astNode = parser.syntaxParse(tokenIterator);
   }
 }

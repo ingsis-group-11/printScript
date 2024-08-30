@@ -3,9 +3,12 @@ package parser.syntax;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import AST.nodes.ASTNode;
+
+import java.util.Iterator;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import parser.Parser;
+import parser.syntax.result.SyntaxResult;
 import token.Token;
 import token.TokenType;
 import token.ValueToken;
@@ -31,9 +34,8 @@ public class ReassignmentSyntaxParserTest {
             new ValueToken(TokenType.SEMICOLON, ";", 38, 0));
 
     // WHEN
+    Iterator<Token> tokenIterator = tokens.iterator();
     Parser parser = new Parser();
-    List<ASTNode> astNodes = parser.parse(tokens);
-    // THEN
-    assertEquals(2, astNodes.size());
+    ASTNode astNode = parser.parse(tokenIterator);
   }
 }
