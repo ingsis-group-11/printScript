@@ -102,4 +102,32 @@ public class LexerTokenTypeTest {
 
 
 
+  @Test
+  public void tokenizeReassignmentCompleteCode() throws IOException {
+    //let name: string = "John";
+    //name = "Doe";
+
+    String filePath = "src/test/resources/reassignment.txt";
+    FileReaderIterator fileReaderIterator = new FileReaderIterator(new File(filePath));
+    Iterator<Token> tokenIterator = new TokenIterator(fileReaderIterator, new Lexer(fileReaderIterator));
+    assertEquals(tokenIterator.next().getType(), TokenType.LET_KEYWORD);
+    assertEquals(tokenIterator.next().getType(), TokenType.WHITESPACE);
+    assertEquals(tokenIterator.next().getType(), TokenType.IDENTIFIER);
+    assertEquals(tokenIterator.next().getType(), TokenType.COLON);
+    assertEquals(tokenIterator.next().getType(), TokenType.WHITESPACE);
+    assertEquals(tokenIterator.next().getType(), TokenType.STRING_TYPE);
+    assertEquals(tokenIterator.next().getType(), TokenType.WHITESPACE);
+    assertEquals(tokenIterator.next().getType(), TokenType.ASSIGN);
+    assertEquals(tokenIterator.next().getType(), TokenType.WHITESPACE);
+    assertEquals(tokenIterator.next().getType(), TokenType.STRING);
+    assertEquals(tokenIterator.next().getType(), TokenType.SEMICOLON);
+    assertEquals(tokenIterator.next().getType(), TokenType.LINE_BREAK);
+
+    assertEquals(tokenIterator.next().getType(), TokenType.IDENTIFIER);
+    assertEquals(tokenIterator.next().getType(), TokenType.WHITESPACE);
+    assertEquals(tokenIterator.next().getType(), TokenType.ASSIGN);
+    assertEquals(tokenIterator.next().getType(), TokenType.WHITESPACE);
+    assertEquals(tokenIterator.next().getType(), TokenType.STRING);
+    assertEquals(tokenIterator.next().getType(), TokenType.SEMICOLON);
+  }
 }
