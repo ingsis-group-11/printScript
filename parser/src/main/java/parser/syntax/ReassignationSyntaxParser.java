@@ -8,13 +8,13 @@ import parser.syntax.result.SyntaxResult;
 import parser.syntax.result.SyntaxSuccessResult;
 import token.Token;
 import token.TokenType;
+import java.util.Iterator;
 
-import java.util.List;
 
 public class ReassignationSyntaxParser implements SyntaxParser {
 
     @Override
-    public SyntaxResult syntaxParse(List<Token> tokens) {
+    public SyntaxResult syntaxParse(Iterator<Token> tokens) {
         TokenStream tokenStream = new TokenStream(tokens);
         ASTNode result = parseReassignment(tokenStream);
         if (tokenStream.getErrorMessages().isEmpty()) {
@@ -26,7 +26,6 @@ public class ReassignationSyntaxParser implements SyntaxParser {
 
     private ASTNode parseReassignment(TokenStream tokenStream) {
         VariableNode variableNode = parseVariable(tokenStream);
-        tokenStream.expect(TokenType.IDENTIFIER, "Expected a variable name");
         tokenStream.expect(TokenType.ASSIGN, "Expected '='");
         ASTNode expressionNode = ExpressionFactory.createExpression(tokenStream);
         tokenStream.expect(TokenType.SEMICOLON, "Expected ';'");
