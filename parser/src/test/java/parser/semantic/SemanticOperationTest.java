@@ -6,9 +6,6 @@ import parser.semantic.result.SemanticResult;
 import token.TokenType;
 import token.ValueToken;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
