@@ -13,17 +13,17 @@ import java.util.Iterator;
 public class AssignationSyntaxParser implements SyntaxParser {
 
   @Override
-  public SyntaxResult syntaxParse(Iterator<Token> tokens) {
-    TokenStream tokenStream = new TokenStream(tokens);
-    ASTNode result = parseAssignation(tokenStream);
-    if (tokenStream.getErrorMessages().isEmpty()) {
+  public SyntaxResult syntaxParse(TokenStream tokens) {
+    ASTNode result = parseAssignation(tokens);
+    if (tokens.getErrorMessages().isEmpty()) {
       return new SyntaxSuccessResult(result);
     } else {
-      return new SyntaxErrorResult(tokenStream.getErrorMessages());
+      return new SyntaxErrorResult(tokens.getErrorMessages());
     }
   }
 
   private ASTNode parseAssignation(TokenStream tokenStream) {
+    tokenStream.expect(TokenType.LET_KEYWORD, "Expected 'let'");
     DeclarationNode declarationNode = parseDeclaration(tokenStream);
     tokenStream.expect(TokenType.ASSIGN, "Expected '='");
     ASTNode expressionNode = ExpressionFactory.createExpression(tokenStream);

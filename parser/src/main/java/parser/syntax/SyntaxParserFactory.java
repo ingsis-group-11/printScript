@@ -6,7 +6,7 @@ import token.TokenType;
 
 public class SyntaxParserFactory {
 
-  public SyntaxParser getSyntaxParser(Iterator<Token> tokens) {
+  public SyntaxParser getSyntaxParser(TokenStream tokens) {
     if (!tokens.hasNext()) {
       throw new IllegalArgumentException("Empty token list");
     }
@@ -14,7 +14,7 @@ public class SyntaxParserFactory {
     Token firstToken = null;
 
     while (tokens.hasNext()) {
-      firstToken = tokens.next();
+      firstToken = tokens.getCurrentToken();
       if (firstToken.getType() != TokenType.LINE_BREAK && firstToken.getType() != TokenType.WHITESPACE) {
         break;
       }

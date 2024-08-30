@@ -14,17 +14,17 @@ import java.util.List;
 public class PrintSyntaxParser implements SyntaxParser {
 
     @Override
-    public SyntaxResult syntaxParse(Iterator<Token> tokens) {
-        TokenStream tokenStream = new TokenStream(tokens);
-        ASTNode result = parsePrint(tokenStream);
-        if (tokenStream.getErrorMessages().isEmpty()) {
+    public SyntaxResult syntaxParse(TokenStream tokens) {
+        ASTNode result = parsePrint(tokens);
+        if (tokens.getErrorMessages().isEmpty()) {
             return new SyntaxSuccessResult(result);
         } else {
-            return new SyntaxErrorResult(tokenStream.getErrorMessages());
+            return new SyntaxErrorResult(tokens.getErrorMessages());
         }
     }
 
     private ASTNode parsePrint(TokenStream tokenStream) {
+        tokenStream.expect(TokenType.PRINT_KEYWORD, "Expected 'println'");
         tokenStream.expect(TokenType.PARENTHESIS_OPEN, "Expected '('");
         ASTNode expressionNode = ExpressionFactory.createExpression(tokenStream);
         tokenStream.expect(TokenType.PARENTHESIS_CLOSE, "Expected ')'");
