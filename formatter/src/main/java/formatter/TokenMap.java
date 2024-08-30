@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TokenMap {
-  Map<TokenType, TokenFormatter> tokenMap = new HashMap<TokenType, TokenFormatter>();
+  Map<TokenType, TokenFormatter> tokenMap = new HashMap<>();
 
   public TokenMap() {
     tokenMap.put(TokenType.COLON, new ColonFormatter());

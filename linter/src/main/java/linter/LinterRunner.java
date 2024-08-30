@@ -14,7 +14,7 @@ import java.util.Iterator;
 public class LinterRunner {
   public void linterRun(String filePath, String configRulesPath) throws IOException {
     FileReaderIterator fileIterator = new FileReaderIterator(new File(filePath));
-    Iterator<Token> tokens = new TokenIterator(fileIterator, new Lexer());
+    Iterator<Token> tokens = new TokenIterator(fileIterator, new Lexer(fileIterator));
     Iterator<ASTNode> nodes = new ASTIterator(new Parser(), tokens);
     Linter linter = new Linter();
     while (nodes.hasNext()) {

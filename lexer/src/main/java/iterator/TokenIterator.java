@@ -26,7 +26,7 @@ public class TokenIterator implements Iterator<Token> {
         if(!hasNext()){
             throw new NoSuchElementException("No more tokens to parse");
         }
-        LexingResult result = lexer.lex(inputIterator);
+        LexingResult result = lexer.lex();
         if (result instanceof SuccessfulResult) {
             return ((SuccessfulResult) result).token();
         } else {

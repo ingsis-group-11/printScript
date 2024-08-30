@@ -1,6 +1,6 @@
 package formatter.tokenFormatter;
 
-import formatter.rules.FormatterTokenVisitor;
+import formatter.rules.visitor.FormatterTokenVisitor;
 import formatter.rules.PrintRule;
 import formatter.rules.Rule;
 import token.Token;

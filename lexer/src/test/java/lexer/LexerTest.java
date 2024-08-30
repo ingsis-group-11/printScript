@@ -1,11 +1,12 @@
 package lexer;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
 
-import fileReader.StringReader;
+import fileReader.FileReaderIterator;
+import iterator.TokenIterator;
 import org.junit.jupiter.api.Test;
-import result.LexingResult;
-import result.SuccessfulResult;
 import token.Token;
 import token.TokenType;
 
@@ -15,27 +16,18 @@ public class LexerTest {
 
   @Test
   public void tokenizeOneOperationTest() throws IOException {
-    String input = "5 + 3;";
-    StringReader stringReader = new StringReader(input);
-    Lexer lexer = new Lexer();
+    // 5 + 3;
+    String filePath = "src/test/resources/operation.txt";
+    FileReaderIterator fileReaderIterator = new FileReaderIterator(new File(filePath));
+    Iterator<Token> tokenIterator = new TokenIterator(fileReaderIterator, new Lexer());
 
-    SuccessfulResult tokenResult = (SuccessfulResult) lexer.lex(stringReader);
-    assertEquals("5", tokenResult.token().getValue());
-
-    tokenResult = (SuccessfulResult) lexer.lex(stringReader);
-    assertEquals(" ", tokenResult.token().getValue());
-
-    tokenResult = (SuccessfulResult) lexer.lex(stringReader);
-    assertEquals("+", tokenResult.token().getValue());
-
-    tokenResult = (SuccessfulResult) lexer.lex(stringReader);
-    assertEquals(" ", tokenResult.token().getValue());
-
-    tokenResult = (SuccessfulResult) lexer.lex(stringReader);
-    assertEquals("3", tokenResult.token().getValue());
-
-    tokenResult = (SuccessfulResult) lexer.lex(stringReader);
-    assertEquals(";", tokenResult.token().getValue());
+    assertEquals(tokenIterator.next().getType(), TokenType.NUMBER);
+    assertEquals(tokenIterator.next().getType(), TokenType.WHITESPACE);
+    assertEquals(tokenIterator.next().getType(), TokenType.OPERATOR);
+    assertEquals(tokenIterator.next().getType(), TokenType.WHITESPACE);
+    assertEquals(tokenIterator.next().getType(), TokenType.NUMBER);
+    assertEquals(tokenIterator.next().getType(), TokenType.SEMICOLON);
+    assertFalse(tokenIterator.hasNext());
   }
 
 }
