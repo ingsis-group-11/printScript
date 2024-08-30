@@ -7,6 +7,7 @@ import AST.nodes.*;
 import java.util.Iterator;
 import java.util.List;
 import org.junit.jupiter.api.Test;
+import parser.iterator.ASTIterator;
 import token.Token;
 import token.TokenType;
 import token.ValueToken;
@@ -34,9 +35,9 @@ public class ParserTest {
 
     // WHEN
     Iterator<Token> tokenIterator = tokens.iterator();
-    Parser parser = new Parser();
-    ASTNode astNode = parser.parse(tokenIterator);
-
+    Iterator<ASTNode> nodes = new ASTIterator(new Parser(), tokenIterator);
+    ASTNode firstAST = nodes.next();
+    assertInstanceOf(AssignationNode.class, firstAST);
   }
 
   @Test
@@ -48,7 +49,7 @@ public class ParserTest {
             new ValueToken(TokenType.IDENTIFIER, "num", 5, 1),
             new ValueToken(TokenType.COLON, ":", 9, 1),
             new ValueToken(TokenType.WHITESPACE, " ", 10, 1),
-            new ValueToken(TokenType.STRING_TYPE, "number", 11, 1),
+            new ValueToken(TokenType.NUMBER_TYPE, "number", 11, 1),
             new ValueToken(TokenType.WHITESPACE, " ", 17, 1),
             new ValueToken(TokenType.ASSIGN, "=", 18, 1),
             new ValueToken(TokenType.WHITESPACE, " ", 19, 1),
@@ -60,7 +61,8 @@ public class ParserTest {
             new ValueToken(TokenType.SEMICOLON, ";", 27, 1));
 
     Iterator<Token> tokenIterator = tokens.iterator();
-    Parser parser = new Parser();
-    ASTNode astNode = parser.parse(tokenIterator);
+    Iterator<ASTNode> nodes = new ASTIterator(new Parser(), tokenIterator);
+    ASTNode firstAST = nodes.next();
+    assertInstanceOf(AssignationNode.class, firstAST);
   }
 }
