@@ -1,9 +1,7 @@
 package parser;
 
 import AST.nodes.ASTNode;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import parser.semantic.SemanticAnalyzer;
 import parser.semantic.result.SemanticResult;
 import parser.syntax.SyntaxParser;
@@ -31,8 +29,6 @@ public class Parser {
   }
 
 
-  }
-
   private ASTNode syntaxParser(Iterator<Token> tokens) {
     return createTree(tokens);
   }
@@ -50,26 +46,26 @@ public class Parser {
   }
 
   public SemanticResult getSemanticError() {
-      return semanticError;
+    return semanticError;
   }
 
   public SyntaxResult getSyntaxResult() {
-      return syntaxResult;
+    return syntaxResult;
   }
 
   public void resolveErrors() {
 
     String messages = "";
     if (semanticError.hasErrors()) {
-      messages+="Semantic errors:\n";
+      messages += "Semantic errors:\n";
       for (String message : semanticError.messages()) {
-        messages+=message + "\n";
+        messages += message + "\n";
       }
     }
     if (syntaxResult.hasErrors()) {
-      messages+="Syntax errors:\n";
+      messages += "Syntax errors:\n";
       for (String message : syntaxResult.messages()) {
-        messages+=message + "\n";
+        messages += message + "\n";
       }
     }
     if (!messages.isEmpty()) {
@@ -77,3 +73,4 @@ public class Parser {
     }
   }
 }
+
