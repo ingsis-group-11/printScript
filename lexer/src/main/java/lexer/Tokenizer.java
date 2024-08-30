@@ -9,7 +9,7 @@ import token.ValueToken;
 
 public class Tokenizer {
   private final InputReader input;
-  private int currentChar;
+  private char currentChar;
   private int line;
   private int column;
   private final MapReader mapReader = new MapReader();
@@ -43,7 +43,7 @@ public class Tokenizer {
       return string();
     }
 
-    String charAsString = Character.toString((char) currentChar);
+    String charAsString = Character.toString(currentChar);
     if (mapReader.containsKey(charAsString)) {
       SuccessfulResult result = new SuccessfulResult(new ValueToken(mapReader.getTokenType(charAsString), charAsString, column, line));
       advance();
