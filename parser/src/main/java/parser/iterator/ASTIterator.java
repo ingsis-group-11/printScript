@@ -1,9 +1,11 @@
-package parser;
+package parser.iterator;
 
 import AST.nodes.ASTNode;
+import parser.Parser;
 import token.Token;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class ASTIterator implements Iterator<ASTNode> {
   private final Parser parser;
@@ -21,6 +23,9 @@ public class ASTIterator implements Iterator<ASTNode> {
 
   @Override
   public ASTNode next() {
-   return parser.parse(iterator);
+    if(!hasNext()){
+      throw new NoSuchElementException("No more tokens to parse");
+    }
+    return parser.parse(iterator);
   }
 }

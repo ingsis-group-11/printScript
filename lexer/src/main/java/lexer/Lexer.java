@@ -2,7 +2,6 @@ package lexer;
 
 import fileReader.InputReader;
 import result.*;
-import token.Token;
 
 import java.io.IOException;
 

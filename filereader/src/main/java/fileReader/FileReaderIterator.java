@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.Reader;
 
 public class FileReaderIterator implements InputReader {
-    private Reader reader;
+    private final Reader reader;
     private int currentChar;
 
     public FileReaderIterator(File file) throws IOException {

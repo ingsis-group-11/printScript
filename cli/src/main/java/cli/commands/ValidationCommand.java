@@ -1,16 +1,16 @@
 package cli.commands;
 
-import fileReader.FileReader;
+import fileReader.FileReaderIterator;
+import iterator.TokenIterator;
 import lexer.Lexer;
+import parser.iterator.ASTIterator;
 import parser.Parser;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Parameters;
-import result.LexingResult;
-import result.SuccessfulResult;
-import result.UnsuccessfulResult;
 import token.Token;
 
-import java.util.List;
+import java.io.File;
+import java.util.Iterator;
 
 @Command(name = "validate", description = "Validates the semantic and syntax errors in a printScript file")
 public class ValidationCommand implements Runnable {
@@ -22,34 +22,12 @@ public class ValidationCommand implements Runnable {
   public void run() {
     System.out.println("Validating file...");
     try {
-      String fileString = new FileReader().readFile(sourceFile);
-      List<Token> tokens = lexRun(fileString);
-      parseRun(tokens);
+      FileReaderIterator fileIterator = new FileReaderIterator(new File(sourceFile));
+      Iterator<Token> tokens = new TokenIterator(fileIterator, new Lexer());
+      new ASTIterator(new Parser(), tokens);
       System.out.println("File has no semantic or syntax errors :)");
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
-  }
-
-  private List<Token> lexRun(String filePath) {
-    Lexer lexer = new Lexer();
-    LexingResult lexerResult = lexer.lex(filePath);
-
-    resolveLexerErrors(lexerResult);
-
-    List<Token> tokens = ((SuccessfulResult) lexerResult).tokens();
-    return tokens;
-  }
-
-  private void resolveLexerErrors(LexingResult lexerResult) {
-    if (lexerResult instanceof UnsuccessfulResult) {
-      throw new RuntimeException(((UnsuccessfulResult) lexerResult).message());
-    }
-  }
-
-  private void parseRun(List<Token> tokens) {
-    Parser parser = new Parser();
-    parser.parse(tokens);
-    parser.resolveErrors();
   }
 }
