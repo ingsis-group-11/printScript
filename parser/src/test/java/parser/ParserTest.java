@@ -3,8 +3,6 @@ package parser;
 import static org.junit.jupiter.api.Assertions.*;
 
 import AST.nodes.*;
-
-import java.util.Iterator;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import token.Token;
@@ -19,48 +17,79 @@ public class ParserTest {
     // let name: string = "Olive";
     // println(name);
     List<Token> tokens =
-            List.of(
-                    new ValueToken(TokenType.LET_KEYWORD, "let", 1, 1),
-                    new ValueToken(TokenType.WHITESPACE, " ", 4, 1),
-                    new ValueToken(TokenType.IDENTIFIER, "name", 5, 1),
-                    new ValueToken(TokenType.COLON, ":", 9, 1),
-                    new ValueToken(TokenType.WHITESPACE, " ", 10, 1),
-                    new ValueToken(TokenType.STRING_TYPE, "string", 11, 1),
-                    new ValueToken(TokenType.WHITESPACE, " ", 17, 1),
-                    new ValueToken(TokenType.ASSIGN, "=", 18, 1),
-                    new ValueToken(TokenType.WHITESPACE, " ", 19, 1),
-                    new ValueToken(TokenType.STRING, "Olive", 20, 1),
-                    new ValueToken(TokenType.SEMICOLON, ";", 27, 1));
-
-
-    Iterator<Token> tokenIterator = tokens.iterator();
+        List.of(
+            new ValueToken(TokenType.LET_KEYWORD, "let", 1, 1),
+            new ValueToken(TokenType.WHITESPACE, " ", 4, 1),
+            new ValueToken(TokenType.IDENTIFIER, "name", 5, 1),
+            new ValueToken(TokenType.COLON, ":", 9, 1),
+            new ValueToken(TokenType.WHITESPACE, " ", 10, 1),
+            new ValueToken(TokenType.STRING_TYPE, "string", 11, 1),
+            new ValueToken(TokenType.WHITESPACE, " ", 17, 1),
+            new ValueToken(TokenType.ASSIGN, "=", 18, 1),
+            new ValueToken(TokenType.WHITESPACE, " ", 19, 1),
+            new ValueToken(TokenType.STRING, "Olive", 20, 1),
+            new ValueToken(TokenType.SEMICOLON, ";", 27, 1),
+            new ValueToken(TokenType.LINE_BREAK, "\n", 28, 1),
+            new ValueToken(TokenType.PRINT_KEYWORD, "println", 1, 1),
+            new ValueToken(TokenType.PARENTHESIS_OPEN, "(", 8, 1),
+            new ValueToken(TokenType.IDENTIFIER, "name", 9, 1),
+            new ValueToken(TokenType.PARENTHESIS_CLOSE, ")", 13, 1),
+            new ValueToken(TokenType.SEMICOLON, ";", 14, 1));
 
     // WHEN
     Parser parser = new Parser();
-    ASTNode astNode = parser.parse(tokenIterator);
+    List<ASTNode> astNodes = parser.parse(tokens);
+
+    // THEN
+    assertEquals(2, astNodes.size());
+    AssignationNode assignationNode1 = (AssignationNode) astNodes.getFirst();
+
+    DeclarationNode declarationNode = assignationNode1.getDeclaration();
+    assertInstanceOf(DeclarationNode.class, declarationNode);
+    assertEquals("name", (declarationNode.getNameToken().getValue()));
+    assertEquals("string", (declarationNode.getTypeToken().getValue()));
+
+    ASTNode literalNode = assignationNode1.getExpression();
+    assertInstanceOf(LiteralNode.class, literalNode);
+    LiteralNode litNode = (LiteralNode) literalNode;
+    assertEquals("Olive", (litNode.getValue()));
+
+    ASTNode printNode = astNodes.get(1);
+    assertInstanceOf(PrintNode.class, printNode);
+    PrintNode print = (PrintNode) printNode;
+    assertEquals("name", ((VariableNode) print.getExpression()).getValue());
   }
 
   @Test
   public void testOperationParsing() {
     List<Token> tokens =
-        // let num: number = 20+10;
         List.of(
-            new ValueToken(TokenType.LET_KEYWORD, "let", 1, 1),
-            new ValueToken(TokenType.WHITESPACE, " ", 4, 1),
-            new ValueToken(TokenType.IDENTIFIER, "num", 5, 1),
-            new ValueToken(TokenType.COLON, ":", 8, 1),
-            new ValueToken(TokenType.WHITESPACE, " ", 9, 1),
-            new ValueToken(TokenType.STRING_TYPE, "number", 10, 1),
-            new ValueToken(TokenType.WHITESPACE, " ", 16, 1),
-            new ValueToken(TokenType.ASSIGN, "=", 17, 1),
-            new ValueToken(TokenType.WHITESPACE, " ", 18, 1),
-            new ValueToken(TokenType.STRING, "20", 19, 1),
-            new ValueToken(TokenType.OPERATOR, "+", 21, 1),
-            new ValueToken(TokenType.STRING, "10", 22, 1),
-            new ValueToken(TokenType.SEMICOLON, ";", 24, 1));
+            new ValueToken(TokenType.LET_KEYWORD, "let", 0, 0),
+            new ValueToken(TokenType.IDENTIFIER, "age", 4, 0),
+            new ValueToken(TokenType.COLON, ":", 8, 0),
+            new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 0),
+            new ValueToken(TokenType.ASSIGN, "=", 17, 0),
+            new ValueToken(TokenType.NUMBER, "20", 19, 0),
+            new ValueToken(TokenType.SEMICOLON, ";", 26, 0),
+            new ValueToken(TokenType.PRINT_KEYWORD, "println", 0, 1),
+            new ValueToken(TokenType.PARENTHESIS_OPEN, "(", 7, 1),
+            new ValueToken(TokenType.IDENTIFIER, "age", 8, 1),
+            new ValueToken(TokenType.OPERATOR, "*", 12, 1),
+            new ValueToken(TokenType.NUMBER, "10", 14, 1),
+            new ValueToken(TokenType.OPERATOR, "+", 12, 1),
+            new ValueToken(TokenType.NUMBER, "2", 14, 1),
+            new ValueToken(TokenType.OPERATOR, "*", 12, 1),
+            new ValueToken(TokenType.NUMBER, "10", 14, 1),
+            new ValueToken(TokenType.OPERATOR, "+", 12, 1),
+            new ValueToken(TokenType.NUMBER, "10", 14, 1),
+            new ValueToken(TokenType.OPERATOR, "*", 12, 1),
+            new ValueToken(TokenType.NUMBER, "10", 14, 1),
+            new ValueToken(TokenType.PARENTHESIS_CLOSE, ")", 12, 1),
+            new ValueToken(TokenType.SEMICOLON, ";", 13, 1));
 
     Parser parser = new Parser();
-    Iterator<Token> tokenIterator = tokens.iterator();
-    ASTNode astNode = parser.parse(tokenIterator);
+    List<ASTNode> astNodes = parser.parse(tokens);
+
+    assertEquals(2, astNodes.size());
   }
 }

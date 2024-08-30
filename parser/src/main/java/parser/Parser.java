@@ -2,7 +2,6 @@ package parser;
 
 import AST.nodes.ASTNode;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import parser.semantic.SemanticAnalyzer;
 import parser.semantic.result.SemanticResult;
@@ -16,13 +15,13 @@ public class Parser {
   private SemanticResult semanticError;
   private SyntaxResult syntaxResult;
 
-  public ASTNode parse(Iterator<Token> tokens) {
+  public List<ASTNode> parse(List<Token> tokens) {
     // Syntax analysis
-    ASTNode node = syntaxParser(tokens);
+    List<ASTNode> astNodes = syntaxParser(tokens);
     // Semantic analysis
-    semanticParser(node);
+    semanticParser(astNodes);
 
-    return node;
+    return astNodes;
   }
 
   private void semanticParser(ASTNode node) {
@@ -30,23 +29,24 @@ public class Parser {
     semanticError = semanticAnalyzer.analyze(node);
   }
 
+  private List<ASTNode> syntaxParser(List<Token> tokens) {
+    List<List<Token>> sentences = TokenSplitter.splitBySemicolons(tokens);
 
+    return createTrees(sentences);
   }
 
-  private ASTNode syntaxParser(Iterator<Token> tokens) {
-    return createTree(tokens);
-  }
-
-  private ASTNode createTree(Iterator<Token> tokens) {
-    ASTNode astNode;
+  private List<ASTNode> createTrees(List<List<Token>> sentences) {
+    List<ASTNode> astNodes = new ArrayList<>();
     SyntaxParserFactory factory = new SyntaxParserFactory();
-    SyntaxParser syntaxParser = factory.getSyntaxParser(tokens);
-    syntaxResult = syntaxParser.syntaxParse(tokens);
-    if (syntaxResult.hasErrors()) {
-      return null;
+
+    for (List<Token> sentence : sentences) {
+      SyntaxParser syntaxParser = factory.getSyntaxParser(sentence);
+      syntaxResult = syntaxParser.syntaxParse(sentence);
+      if (!syntaxResult.hasErrors()){
+        astNodes.add(((SyntaxSuccessResult) syntaxResult).getAstNode());
+      }
     }
-    astNode = ((SyntaxSuccessResult) syntaxResult).getAstNode();
-    return astNode;
+    return astNodes;
   }
 
   public SemanticResult getSemanticError() {
