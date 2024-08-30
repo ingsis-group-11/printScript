@@ -1,16 +1,16 @@
 package interpreter;
 
 import AST.nodes.ASTNode;
-import java.util.List;
+import java.util.Iterator;
 
 public class Interpreter {
   private final VariableAssignation variableAssignation = new VariableAssignation();
 
-  public void interpret(List<ASTNode> astNodes) {
-
+  public void interpret(Iterator<ASTNode> astIterator) {
     InterpreterVisitor interpreterVisitor = new InterpreterVisitor(variableAssignation);
-    for (ASTNode node : astNodes) {
-      node.accept(interpreterVisitor);
+    while(astIterator.hasNext()) {
+      astIterator.next().accept(interpreterVisitor);
     }
   }
+
 }
