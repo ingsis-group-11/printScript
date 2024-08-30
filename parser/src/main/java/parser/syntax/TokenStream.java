@@ -1,8 +1,9 @@
 package parser.syntax;
 
-import java.util.Iterator;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 import token.Token;
 import token.TokenType;
 
@@ -12,20 +13,22 @@ public class TokenStream {
   private Token lastToken;
   private final List<String> errorMessages = new ArrayList<>();
 
-  public TokenStream(Iterator<Token> iterator) {
-    this.iterator = iterator;
+  public TokenStream(List<Token> tokens) {
+    // Filter out WHITESPACE and LINEBREAK tokens
+    List<Token> filteredTokens = tokens.stream()
+            .filter(token -> token.getType() != TokenType.WHITESPACE && token.getType() != TokenType.LINE_BREAK)
+            .collect(Collectors.toList());
+    this.iterator = filteredTokens.iterator();
     advance();
   }
 
   public void advance() {
     lastToken = currentToken;
-    while (iterator.hasNext()) {
+    if (iterator.hasNext()) {
       currentToken = iterator.next();
-      if (currentToken.getType() != TokenType.WHITESPACE && currentToken.getType() != TokenType.LINE_BREAK) {
-        return;
-      }
+    } else {
+      currentToken = null;
     }
-    currentToken = null;
   }
 
   public Token getCurrentToken() {
