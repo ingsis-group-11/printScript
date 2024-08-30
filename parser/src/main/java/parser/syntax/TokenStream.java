@@ -21,7 +21,7 @@ public class TokenStream {
     lastToken = currentToken;
     while (iterator.hasNext()) {
       currentToken = iterator.next();
-      if (currentToken.getType() != TokenType.WHITESPACE && currentToken.getType() != TokenType.LINE_BREAK) {
+      if (currentToken.getType() != TokenType.WHITESPACE) {
         return;
       }
     }

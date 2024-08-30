@@ -3,6 +3,7 @@ package parser.syntax;
 import AST.nodes.*;
 import org.junit.jupiter.api.Test;
 import parser.Parser;
+import parser.iterator.ASTIterator;
 import parser.syntax.result.SyntaxErrorResult;
 import parser.syntax.result.SyntaxResult;
 import parser.syntax.result.SyntaxSuccessResult;
@@ -14,8 +15,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PrintSyntaxParserTest {
 
@@ -32,13 +32,14 @@ public class PrintSyntaxParserTest {
 
     // WHEN
     Iterator<Token> tokenIterator = tokens.iterator();
-    PrintSyntaxParser parser = new PrintSyntaxParser();
-    SyntaxResult astNode = parser.syntaxParse(tokenIterator);
+    Iterator<ASTNode> nodes = new ASTIterator(new Parser(), tokenIterator);
+    ASTNode firstAST = nodes.next();
+    assertInstanceOf(PrintNode.class, firstAST);
   }
 
   @Test
   public void testSyntaxParsePrintError() {
-    // println("Hello");
+    // println"Hello");
     List<Token> tokens =
             List.of(
                     new ValueToken(TokenType.PRINT_KEYWORD, "println", 1, 1),
@@ -48,7 +49,7 @@ public class PrintSyntaxParserTest {
 
     // WHEN
     Iterator<Token> tokenIterator = tokens.iterator();
-    PrintSyntaxParser parser = new PrintSyntaxParser();
-    SyntaxResult astNode = parser.syntaxParse(tokenIterator);
+    Parser parser = new Parser();
+    assertThrows(RuntimeException.class, () -> parser.parse(tokenIterator));
   }
 }

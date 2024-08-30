@@ -7,6 +7,8 @@ import AST.nodes.*;
 import java.util.Iterator;
 import java.util.List;
 import org.junit.jupiter.api.Test;
+import parser.Parser;
+import parser.iterator.ASTIterator;
 import parser.syntax.result.SyntaxResult;
 import parser.syntax.result.SyntaxSuccessResult;
 import token.Token;
@@ -31,8 +33,10 @@ public class AssignationSyntaxParserTest {
 
     // WHEN
     Iterator<Token> tokenIterator = tokens.iterator();
-    AssignationSyntaxParser parser = new AssignationSyntaxParser();
-    SyntaxResult astNode = parser.syntaxParse(tokenIterator);
+    Iterator<ASTNode> nodes = new ASTIterator(new Parser(), tokenIterator);
+    ASTNode firstAST = nodes.next();
+    assertInstanceOf(AssignationNode.class, firstAST);
+    assertEquals("John", ((LiteralNode) ((AssignationNode) firstAST).getExpression()).getValue());
   }
 
   @Test
@@ -42,17 +46,23 @@ public class AssignationSyntaxParserTest {
     List<Token> tokens =
         List.of(
             new ValueToken(TokenType.LET_KEYWORD, "let", 0, 0),
+            new ValueToken(TokenType.WHITESPACE, " ", 17, 1),
             new ValueToken(TokenType.IDENTIFIER, "age", 4, 0),
             new ValueToken(TokenType.COLON, ":", 7, 0),
+            new ValueToken(TokenType.WHITESPACE, " ", 17, 1),
             new ValueToken(TokenType.STRING_TYPE, "number", 9, 0),
+            new ValueToken(TokenType.WHITESPACE, " ", 17, 1),
             new ValueToken(TokenType.ASSIGN, "=", 16, 0),
+            new ValueToken(TokenType.WHITESPACE, " ", 17, 1),
             new ValueToken(TokenType.STRING, "25", 18, 0),
             new ValueToken(TokenType.SEMICOLON, ";", 22, 0));
 
     // WHEN
     Iterator<Token> tokenIterator = tokens.iterator();
-    AssignationSyntaxParser parser = new AssignationSyntaxParser();
-    SyntaxResult astNode = parser.syntaxParse(tokenIterator);
+    Iterator<ASTNode> nodes = new ASTIterator(new Parser(), tokenIterator);
+    ASTNode firstAST = nodes.next();
+    assertInstanceOf(AssignationNode.class, firstAST);
+    assertEquals("25", ((LiteralNode) ((AssignationNode) firstAST).getExpression()).getValue());
   }
 
   @Test
@@ -61,20 +71,32 @@ public class AssignationSyntaxParserTest {
     List<Token> tokens =
         List.of(
             new ValueToken(TokenType.LET_KEYWORD, "let", 1, 1),
+            new ValueToken(TokenType.WHITESPACE, " ", 17, 1),
             new ValueToken(TokenType.IDENTIFIER, "name", 5, 1),
             new ValueToken(TokenType.COLON, ":", 8, 0),
             new ValueToken(TokenType.STRING_TYPE, "string", 11, 1),
+            new ValueToken(TokenType.WHITESPACE, " ", 17, 1),
             new ValueToken(TokenType.ASSIGN, "=", 18, 1),
+            new ValueToken(TokenType.WHITESPACE, " ", 17, 1),
             new ValueToken(TokenType.STRING, "Olive", 20, 1),
+            new ValueToken(TokenType.WHITESPACE, " ", 17, 1),
             new ValueToken(TokenType.OPERATOR, "+", 27, 1),
+            new ValueToken(TokenType.WHITESPACE, " ", 17, 1),
             new ValueToken(TokenType.STRING, "hello", 29, 1),
             new ValueToken(TokenType.OPERATOR, "+", 27, 1),
+            new ValueToken(TokenType.WHITESPACE, " ", 17, 1),
             new ValueToken(TokenType.STRING, "bye", 29, 1),
             new ValueToken(TokenType.SEMICOLON, ";", 27, 1));
 
     // WHEN
     Iterator<Token> tokenIterator = tokens.iterator();
-    AssignationSyntaxParser parser = new AssignationSyntaxParser();
-    SyntaxResult astNode = parser.syntaxParse(tokenIterator);
+    Iterator<ASTNode> nodes = new ASTIterator(new Parser(), tokenIterator);
+    ASTNode firstAST = nodes.next();
+    assertInstanceOf(AssignationNode.class, firstAST);
+    assertEquals(
+        "+",
+        ((OperatorNode) ((AssignationNode) firstAST).getExpression()).getOperator());
+    assertEquals(
+        "bye", ((LiteralNode) ((OperatorNode) ((AssignationNode) firstAST).getExpression()).getRightNode()).getValue());
   }
 }

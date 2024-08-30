@@ -30,11 +30,11 @@ public class LiteralNode implements ASTNode {
 
   @Override
   public Integer getLine() {
-    return null;
+    return token.getLine();
   }
 
   @Override
   public Integer getColumn() {
-    return null;
+    return token.getColumn();
   }
 }
