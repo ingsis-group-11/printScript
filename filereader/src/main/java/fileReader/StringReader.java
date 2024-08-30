@@ -1,5 +1,7 @@
 package fileReader;
 
+import java.util.NoSuchElementException;
+
 public class StringReader implements InputReader {
     private final String input;
     private int position;
@@ -14,7 +16,7 @@ public class StringReader implements InputReader {
         if (hasNext()) {
             return input.charAt(position++);
         }
-        return -1; // End of input
+        throw new NoSuchElementException("No more characters to read");
     }
 
     @Override
@@ -27,6 +29,6 @@ public class StringReader implements InputReader {
         if (position < input.length()) {
             return input.charAt(position);
         }
-        return -1; // End of input
+        throw new NoSuchElementException("No more characters to read");
     }
 }

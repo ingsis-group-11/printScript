@@ -5,33 +5,32 @@ import lexer.Lexer;
 import result.*;
 import token.Token;
 
-import java.io.IOException;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class TokenIterator implements Iterator<Token> {
     private final Lexer lexer;
-    private final FileReaderIterator input;
+    private final FileReaderIterator inputIterator;
 
-    public TokenIterator(FileReaderIterator input, Lexer lexer) {
-        this.input = input;
+    public TokenIterator(FileReaderIterator inputIterator, Lexer lexer) {
+        this.inputIterator = inputIterator;
         this.lexer = lexer;
     }
     @Override
     public boolean hasNext() {
-        try {
-            return lexer.hasNext(input);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        return inputIterator.hasNext();
     }
 
     @Override
     public Token next() {
-        LexingResult result = lexer.lex(input);
+        if(!hasNext()){
+            throw new NoSuchElementException("No more tokens to parse");
+        }
+        LexingResult result = lexer.lex(inputIterator);
         if (result instanceof SuccessfulResult) {
             return ((SuccessfulResult) result).token();
         } else {
-            throw new RuntimeException("Error while lexing");
+            throw new RuntimeException(((UnsuccessfulResult) result).message());
         }
     }
 }

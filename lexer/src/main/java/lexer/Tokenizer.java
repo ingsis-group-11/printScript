@@ -1,14 +1,9 @@
 package lexer;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import fileReader.InputReader;
 import result.LexingResult;
 import result.SuccessfulResult;
 import result.UnsuccessfulResult;
-import token.Token;
 import token.TokenType;
 import token.ValueToken;
 
@@ -28,31 +23,31 @@ public class Tokenizer {
   public LexingResult tokenize(InputReader input) {
     this.currentChar = input.current();
 
-      if(isCarriageReturn()) {
-        advance();
-      }
+    if(isCarriageReturn()) {
+      advance();
+    }
 
-      if (Character.isWhitespace(currentChar)) {
-        return whiteSpace();
-      }
+    if (Character.isWhitespace(currentChar)) {
+      return whiteSpace();
+    }
 
-      if (Character.isLetter(currentChar)) {
-        return character();
-      }
+    if (Character.isLetter(currentChar)) {
+      return character();
+    }
 
-      if (Character.isDigit(currentChar)) {
-        return number();
-      }
+    if (Character.isDigit(currentChar)) {
+      return number();
+    }
 
-      if (currentChar == '"') {
-        return string();
-      }
+    if (currentChar == '"') {
+      return string();
+    }
 
-      String charAsString = String.valueOf(currentChar);
-      if (mapReader.containsKey(charAsString)) {
-        return new SuccessfulResult(new ValueToken(mapReader.getTokenType(charAsString), charAsString, column, line));
-      }
-      return new UnsuccessfulResult("Invalid character '" + currentChar + "'  found at " + line + ":" + column);
+    String charAsString = String.valueOf(currentChar);
+    if (mapReader.containsKey(charAsString)) {
+      return new SuccessfulResult(new ValueToken(mapReader.getTokenType(charAsString), charAsString, column, line));
+    }
+    return new UnsuccessfulResult("Invalid character '" + currentChar + "'  found at " + line + ":" + column);
 
   }
 
