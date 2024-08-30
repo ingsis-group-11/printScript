@@ -9,12 +9,13 @@ import parser.syntax.result.SyntaxSuccessResult;
 import token.Token;
 import token.TokenType;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class ReassignationSyntaxParser implements SyntaxParser {
 
     @Override
-    public SyntaxResult syntaxParse(List<Token> tokens) {
+    public SyntaxResult syntaxParse(Iterator<Token> tokens) {
         TokenStream tokenStream = new TokenStream(tokens);
         ASTNode result = parseReassignment(tokenStream);
         if (tokenStream.getErrorMessages().isEmpty()) {
