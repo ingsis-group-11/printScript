@@ -2,6 +2,7 @@ package parser;
 
 import AST.nodes.ASTNode;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import parser.semantic.SemanticAnalyzer;
 import parser.semantic.result.SemanticResult;
@@ -15,38 +16,34 @@ public class Parser {
   private SemanticResult semanticError;
   private SyntaxResult syntaxResult;
 
-  public List<ASTNode> parse(List<Token> tokens) {
+  public ASTNode parse(Iterator<Token> tokens) {
     // Syntax analysis
-    List<ASTNode> astNodes = syntaxParser(tokens);
+    ASTNode node = syntaxParser(tokens);
     // Semantic analysis
-    semanticParser(astNodes);
+    semanticParser(node);
 
-    return astNodes;
+    return node;
   }
 
-  private void semanticParser(List<ASTNode> astNodes) {
+  private void semanticParser(ASTNode node) {
     SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
-    semanticError = semanticAnalyzer.analyze(astNodes);
+
   }
 
-  private List<ASTNode> syntaxParser(List<Token> tokens) {
-    List<List<Token>> sentences = TokenSplitter.splitBySemicolons(tokens);
-
-    return createTrees(sentences);
+  private ASTNode syntaxParser(Iterator<Token> tokens) {
+    return createTree(tokens);
   }
 
-  private List<ASTNode> createTrees(List<List<Token>> sentences) {
-    List<ASTNode> astNodes = new ArrayList<>();
+  private ASTNode createTree(Iterator<Token> tokens) {
+    ASTNode astNode;
     SyntaxParserFactory factory = new SyntaxParserFactory();
-
-    for (List<Token> sentence : sentences) {
-      SyntaxParser syntaxParser = factory.getSyntaxParser(sentence);
-      syntaxResult = syntaxParser.syntaxParse(sentence);
-      if (!syntaxResult.hasErrors()){
-        astNodes.add(((SyntaxSuccessResult) syntaxResult).getAstNode());
-      }
+    SyntaxParser syntaxParser = factory.getSyntaxParser(tokens);
+    syntaxResult = syntaxParser.syntaxParse(tokens);
+    if (syntaxResult.hasErrors()) {
+      return null;
     }
-    return astNodes;
+    astNode = ((SyntaxSuccessResult) syntaxResult).getAstNode();
+    return astNode;
   }
 
   public SemanticResult getSemanticError() {

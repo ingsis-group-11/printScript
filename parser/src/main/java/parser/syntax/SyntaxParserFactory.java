@@ -1,25 +1,24 @@
 package parser.syntax;
 
-import java.util.List;
+import java.util.Iterator;
 import token.Token;
 import token.TokenType;
 
 public class SyntaxParserFactory {
 
-  public SyntaxParser getSyntaxParser(List<Token> tokens) {
-    if (tokens.isEmpty()) {
-      throw new IllegalArgumentException("Empty token list");
+  public SyntaxParser getSyntaxParser(Iterator<Token> tokens) {
+    if (!tokens.hasNext()) {
+      throw new IllegalArgumentException("Empty token iterator");
     }
 
-    int i = 0;
-    while (i < tokens.size()) {
-      if (tokens.get(i).getType() != TokenType.LINE_BREAK) {
+    Token firstToken = null;
+
+    while (tokens.hasNext()) {
+      firstToken = tokens.next();
+      if (firstToken.getType() != TokenType.LINE_BREAK && firstToken.getType() != TokenType.WHITESPACE) {
         break;
       }
-      i++;
     }
-
-    Token firstToken = tokens.get(i);
 
     if (firstToken.getType() == TokenType.LET_KEYWORD) {
       return new AssignationSyntaxParser();
