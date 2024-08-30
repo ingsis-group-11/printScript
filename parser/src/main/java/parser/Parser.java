@@ -23,7 +23,7 @@ public class Parser {
       resolveSyntaxErrors(syntaxError);
     }
     else if ( syntaxResult instanceof SyntaxSuccessResult syntaxSuccess) {
-      node = syntaxSuccess.getAstNode();
+      node = syntaxSuccess.astNode();
       semanticParser(node);
     }
 
