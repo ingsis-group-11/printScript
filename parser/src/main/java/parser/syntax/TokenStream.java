@@ -28,8 +28,16 @@ public class TokenStream {
     currentToken = null;
   }
 
+  public boolean hasNext() {
+    return currentToken != null;
+  }
+
   public Token getCurrentToken() {
     return currentToken;
+  }
+
+  public Token getPreviousToken() {
+    return lastToken;
   }
 
   public boolean match(TokenType type) {

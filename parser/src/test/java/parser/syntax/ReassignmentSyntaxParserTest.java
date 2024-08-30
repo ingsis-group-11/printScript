@@ -36,7 +36,7 @@ public class ReassignmentSyntaxParserTest {
             new ValueToken(TokenType.WHITESPACE, " ", 17, 1),
             new ValueToken(TokenType.STRING, "John", 19, 0),
             new ValueToken(TokenType.SEMICOLON, ";", 25, 0),
-            new ValueToken(TokenType.LINE_BREAK, "\0", 17, 1),
+            new ValueToken(TokenType.LINE_BREAK, "\n", 17, 1),
             new ValueToken(TokenType.IDENTIFIER, "name", 27, 0),
             new ValueToken(TokenType.WHITESPACE, " ", 17, 1),
             new ValueToken(TokenType.ASSIGN, "=", 32, 0),

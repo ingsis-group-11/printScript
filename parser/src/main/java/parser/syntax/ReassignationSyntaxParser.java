@@ -8,33 +8,31 @@ import parser.syntax.result.SyntaxResult;
 import parser.syntax.result.SyntaxSuccessResult;
 import token.Token;
 import token.TokenType;
-import java.util.Iterator;
-
 
 public class ReassignationSyntaxParser implements SyntaxParser {
 
-    @Override
-    public SyntaxResult syntaxParse(Iterator<Token> tokens) {
-        TokenStream tokenStream = new TokenStream(tokens);
-        ASTNode result = parseReassignment(tokenStream);
-        if (tokenStream.getErrorMessages().isEmpty()) {
-            return new SyntaxSuccessResult(result);
-        } else {
-            return new SyntaxErrorResult(tokenStream.getErrorMessages());
-        }
+  @Override
+  public SyntaxResult syntaxParse(TokenStream tokens) {
+    ASTNode result = parseReassignment(tokens);
+    if (tokens.getErrorMessages().isEmpty()) {
+      return new SyntaxSuccessResult(result);
+    } else {
+      return new SyntaxErrorResult(tokens.getErrorMessages());
     }
+  }
 
-    private ASTNode parseReassignment(TokenStream tokenStream) {
-        VariableNode variableNode = parseVariable(tokenStream);
-        tokenStream.expect(TokenType.ASSIGN, "Expected '='");
-        ASTNode expressionNode = ExpressionFactory.createExpression(tokenStream);
-        tokenStream.expect(TokenType.SEMICOLON, "Expected ';'");
-        return new ReassignmentNode(
-                variableNode, expressionNode, expressionNode.getLine(), expressionNode.getColumn());
-    }
+  private ASTNode parseReassignment(TokenStream tokenStream) {
+    VariableNode variableNode = parseVariable(tokenStream);
+    tokenStream.expect(TokenType.ASSIGN, "Expected '='");
+    ASTNode expressionNode = ExpressionFactory.createExpression(tokenStream);
+    tokenStream.expect(TokenType.SEMICOLON, "Expected ';'");
+    return new ReassignmentNode(
+        variableNode, expressionNode, expressionNode.getLine(), expressionNode.getColumn());
+  }
 
-    private VariableNode parseVariable(TokenStream tokenStream) {
-        Token variable = tokenStream.getCurrentToken();
-        return new VariableNode(variable);
-    }
+  private VariableNode parseVariable(TokenStream tokenStream) {
+    Token variable = tokenStream.getCurrentToken();
+    tokenStream.advance();
+    return new VariableNode(variable);
+  }
 }

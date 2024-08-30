@@ -7,5 +7,5 @@ import token.Token;
 
 public interface SyntaxParser {
 
-  SyntaxResult syntaxParse(Iterator<Token> tokens);
+  SyntaxResult syntaxParse(TokenStream tokens);
 }
