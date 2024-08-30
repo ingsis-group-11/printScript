@@ -27,6 +27,9 @@ public class Parser {
 
   private void semanticParser(ASTNode node) {
     SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
+    semanticError = semanticAnalyzer.analyze(node);
+  }
+
 
   }
 

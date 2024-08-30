@@ -14,14 +14,12 @@ public class SemanticAnalyzer {
     this.semanticVisitor = new SemanticVisitor();
   }
 
-  public SemanticResult analyze(List<ASTNode> ASTTrees) {
+  public SemanticResult analyze(ASTNode node) {
     List<String> messages = new ArrayList<>();
-    for (ASTNode tree : ASTTrees) {
-      SemanticResult result = tree.accept(semanticVisitor);
+      SemanticResult result = node.accept(semanticVisitor);
       if (result.hasErrors()) {
         messages.addAll(result.messages());
       }
-    }
     if (messages.isEmpty()) {
       return new SemanticSuccessResult();
     }
