@@ -44,9 +44,6 @@ public class RuleValidator implements RuleVisitor{
           errors.add("Print statement at " + line + ":" + column + " has an expression");
         }
       }
-      else{
-        errors.add("Print statement is not found");
-      }
 
       return errors.isEmpty() ? new SuccessLinterResult() : new FailedLinterResult(errors);
     }
@@ -54,16 +51,15 @@ public class RuleValidator implements RuleVisitor{
   @Override
   public LinterResult visit(InputPreventExpressionRule inputPreventExpressionRule, ASTNode node) {
     List<String> errors = new ArrayList<>();
-    if (node instanceof ReadInputNode readInputNode){
-      ASTNode expression = readInputNode.getString();
-      if (expression instanceof OperatorNode) {
-        int line = readInputNode.getLine();
-        int column = readInputNode.getColumn();
-        errors.add("readInput statement at " + line + ":" + column + " has an expression");
+    if (node instanceof AssignationNode assignationNode){
+      ASTNode expression = assignationNode.getExpression();
+      if (expression instanceof ReadInputNode readInputNode) {
+        if(readInputNode.getString() instanceof OperatorNode){
+          int line = readInputNode.getLine();
+          int column = readInputNode.getColumn();
+          errors.add("readInput statement at " + line + ":" + column + " has an expression");
+        }
       }
-    }
-    else{
-      errors.add("readInput statement is not found");
     }
 
     return errors.isEmpty() ? new SuccessLinterResult() : new FailedLinterResult(errors);

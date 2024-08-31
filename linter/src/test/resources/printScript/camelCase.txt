@@ -1,1 +1,2 @@
 let camelCase: string = "camelCase test";
+println(camelCase);

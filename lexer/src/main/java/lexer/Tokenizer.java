@@ -16,8 +16,8 @@ public class Tokenizer {
 
   public Tokenizer(InputReader input) {
     this.input = input;
-    this.line = 0;
-    this.column = 0;
+    this.line = 1;
+    this.column = 1;
   }
 
   public LexingResult tokenize(InputReader input) {
@@ -119,6 +119,6 @@ public class Tokenizer {
 
   private void lineBreak() {
     line++;
-    column = 0;
+    column = 1;
   }
 }

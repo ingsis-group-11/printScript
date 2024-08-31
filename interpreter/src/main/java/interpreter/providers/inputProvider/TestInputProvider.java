@@ -1,4 +1,4 @@
-package interpreter.inputProvider;
+package interpreter.providers.inputProvider;
 
 import java.util.List;
 import java.util.Iterator;
@@ -8,6 +8,10 @@ public class TestInputProvider implements InputProvider {
 
   public TestInputProvider(List<String> inputs) {
     this.inputs = inputs.iterator();
+  }
+
+  public TestInputProvider(){
+    this.inputs = List.of("").iterator();
   }
 
   @Override

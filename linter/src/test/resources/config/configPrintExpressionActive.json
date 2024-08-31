@@ -9,7 +9,7 @@
       "active": true
     },
     {
-      "type": "inputPreventExpression",
+      "type": "readInputPreventExpression",
       "active": false
     }
   ]

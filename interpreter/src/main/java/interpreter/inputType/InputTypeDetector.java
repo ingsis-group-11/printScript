@@ -36,9 +36,5 @@ public class InputTypeDetector {
       return false;
     }
   }
-
-  private boolean isBoolean(String input) {
-    return "true".equalsIgnoreCase(input) || "false".equalsIgnoreCase(input);
-  }
 }
 

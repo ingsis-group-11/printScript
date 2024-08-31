@@ -2,7 +2,7 @@ package interpreter;
 
 import AST.ASTVisitor;
 import AST.nodes.*;
-import interpreter.inputProvider.InputProvider;
+import interpreter.providers.inputProvider.InputProvider;
 import interpreter.inputType.InputTypeDetector;
 import token.TokenType;
 import token.ValueToken;
