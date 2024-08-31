@@ -2,7 +2,7 @@
   "rules": [
     {
       "type": "camelCase",
-      "active": true
+      "active": false
     },
     {
       "type": "printPreventExpression",
@@ -10,7 +10,7 @@
     },
     {
       "type": "inputPreventExpression",
-      "active": false
+      "active": true
     }
   ]
 }

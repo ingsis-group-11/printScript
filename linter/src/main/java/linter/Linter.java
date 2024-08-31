@@ -5,7 +5,7 @@ import fileReader.FileReader;
 import linter.result.FailedLinterResult;
 import linter.result.LinterResult;
 import linter.rules.Rule;
-import linter.rules.RuleValidator;
+import linter.rules.validator.RuleValidator;
 
 import java.io.IOException;
 import java.util.ArrayList;
