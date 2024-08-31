@@ -2,15 +2,19 @@ package interpreter;
 
 import AST.ASTVisitor;
 import AST.nodes.*;
+import interpreter.inputProvider.InputProvider;
+import interpreter.inputType.InputTypeDetector;
 import token.TokenType;
 import token.ValueToken;
 
 public class LiteralTransformer implements ASTVisitor<LiteralNode> {
 
   private final VariableAssignation variableAssignation;
+  private final InputProvider inputProvider;
 
-  public LiteralTransformer(VariableAssignation variableAssignation) {
+  public LiteralTransformer(VariableAssignation variableAssignation, InputProvider inputProvider) {
     this.variableAssignation = variableAssignation;
+    this.inputProvider = inputProvider;
   }
 
   @Override
@@ -58,6 +62,16 @@ public class LiteralTransformer implements ASTVisitor<LiteralNode> {
   @Override
   public LiteralNode visit(ReassignmentNode node) {
     return null;
+  }
+
+  @Override
+  public LiteralNode visit(ReadInputNode node) {
+    LiteralNode expression = node.getString().accept(this);
+    String message = expression.getValue();
+    String input = inputProvider.getInput(message);
+    TokenType inputType = new InputTypeDetector().detectInputType(input);
+    return new LiteralNode(
+        new ValueToken(inputType, input, node.getColumn(), node.getLine()));
   }
 
   private String parseCalc(String operator, LiteralNode left, LiteralNode right) {
