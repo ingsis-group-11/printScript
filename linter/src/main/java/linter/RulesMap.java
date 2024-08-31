@@ -13,6 +13,7 @@ public class RulesMap {
   public RulesMap() {
     ruleMap.put("camelCase", new CamelCaseRule());
     ruleMap.put("printPreventExpression", new PrintPreventExpressionRule());
+    ruleMap.put("readInputPreventExpression", new PrintPreventExpressionRule());
   }
 
   public Rule getRule(String ruleName) {

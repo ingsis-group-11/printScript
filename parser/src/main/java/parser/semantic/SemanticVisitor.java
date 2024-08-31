@@ -36,7 +36,13 @@ public class SemanticVisitor implements ASTVisitor<SemanticResult> {
       return new SemanticSuccessResult();
     } else if (variableType == TokenType.STRING_TYPE && expressionType == TokenType.STRING) {
       return new SemanticSuccessResult();
-    } else if (expressionType == TokenType.IDENTIFIER) {
+    } else if(variableType == TokenType.BOOLEAN_TYPE && expressionType == TokenType.BOOLEAN) {
+      return new SemanticSuccessResult();
+    }
+    else if (expressionType == TokenType.IDENTIFIER) {
+      return new SemanticSuccessResult();
+    }
+    else if (expressionType == TokenType.READINPUT_KEYWORD) {
       return new SemanticSuccessResult();
     }
     return new SemanticErrorResult(

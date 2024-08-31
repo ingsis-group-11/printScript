@@ -1,12 +1,12 @@
-package linter.rules;
+package linter.rules.validator;
 
-import AST.nodes.ASTNode;
-import AST.nodes.AssignationNode;
-import AST.nodes.OperatorNode;
-import AST.nodes.PrintNode;
+import AST.nodes.*;
 import linter.result.FailedLinterResult;
 import linter.result.LinterResult;
 import linter.result.SuccessLinterResult;
+import linter.rules.CamelCaseRule;
+import linter.rules.InputPreventExpressionRule;
+import linter.rules.PrintPreventExpressionRule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +44,28 @@ public class RuleValidator implements RuleVisitor{
           errors.add("Print statement at " + line + ":" + column + " has an expression");
         }
       }
+      else{
+        errors.add("Print statement is not found");
+      }
 
       return errors.isEmpty() ? new SuccessLinterResult() : new FailedLinterResult(errors);
     }
+
+  @Override
+  public LinterResult visit(InputPreventExpressionRule inputPreventExpressionRule, ASTNode node) {
+    List<String> errors = new ArrayList<>();
+    if (node instanceof ReadInputNode readInputNode){
+      ASTNode expression = readInputNode.getString();
+      if (expression instanceof OperatorNode) {
+        int line = readInputNode.getLine();
+        int column = readInputNode.getColumn();
+        errors.add("readInput statement at " + line + ":" + column + " has an expression");
+      }
+    }
+    else{
+      errors.add("readInput statement is not found");
+    }
+
+    return errors.isEmpty() ? new SuccessLinterResult() : new FailedLinterResult(errors);
+  }
 }

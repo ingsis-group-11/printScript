@@ -1,9 +1,6 @@
 package parser.syntax;
 
-import AST.nodes.ASTNode;
-import AST.nodes.LiteralNode;
-import AST.nodes.OperatorNode;
-import AST.nodes.VariableNode;
+import AST.nodes.*;
 import token.Token;
 import token.TokenType;
 
@@ -27,11 +24,18 @@ public class ExpressionFactory {
         ASTNode expression = parseBinaryExpression(tokenStream, 0);
         tokenStream.expect(TokenType.PARENTHESIS_CLOSE, "Expected ')'");
         return expression;
+      } else if(token.getType() == TokenType.READINPUT_KEYWORD){
+        tokenStream.advance();
+        tokenStream.expect(TokenType.PARENTHESIS_OPEN, "Expected '('");
+        ASTNode expression = parseBinaryExpression(tokenStream, 0);
+        tokenStream.expect(TokenType.PARENTHESIS_CLOSE, "Expected ')'");
+
+        return new ReadInputNode(expression, token.getLine(), token.getColumn());
       }
     }
     assert token != null;
     throw new IllegalArgumentException(
-        "Invalid expression at column " + token.getColumn() + " line " + token.getLine());
+        "Invalid expression " + token.getValue() + " at column " + token.getColumn() + " line " + token.getLine());
   }
 
   private static ASTNode parseBinaryExpression(TokenStream tokenStream, int precedence) {
