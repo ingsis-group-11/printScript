@@ -6,13 +6,17 @@ import parser.semantic.result.SemanticErrorResult;
 import parser.semantic.result.SemanticResult;
 import parser.syntax.SyntaxParser;
 import parser.syntax.SyntaxParserFactory;
+import parser.syntax.provider.SyntaxParserProvider;
+import parser.syntax.provider.SyntaxParserProviderType;
 import parser.syntax.result.SyntaxErrorResult;
 import parser.syntax.result.SyntaxResult;
 import parser.syntax.result.SyntaxSuccessResult;
 import token.Token;
 import parser.syntax.TokenStream;
 
+import java.util.EnumSet;
 import java.util.Iterator;
+import java.util.List;
 
 public class Parser {
 
@@ -50,7 +54,8 @@ public class Parser {
   }
 
   private SyntaxResult createTree(TokenStream tokenStream) {
-    SyntaxParserFactory factory = new SyntaxParserFactory();
+    EnumSet<SyntaxParserProviderType> providerTypes = EnumSet.allOf(SyntaxParserProviderType.class);
+    SyntaxParserFactory factory = new SyntaxParserFactory(providerTypes);
     SyntaxParser syntaxParser = factory.getSyntaxParser(tokenStream);
     return syntaxParser.syntaxParse(tokenStream);
   }
