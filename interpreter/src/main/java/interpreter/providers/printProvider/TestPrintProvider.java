@@ -9,7 +9,7 @@ public class TestPrintProvider implements PrintProvider {
 
   @Override
   public void print(String message) {
-    messages.add(message);
+    messages.add(message+"\n");
   }
 
   public Iterator<String> getMessages() {

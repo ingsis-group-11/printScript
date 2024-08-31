@@ -7,6 +7,8 @@ import AST.nodes.*;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.List;
+
+import interpreter.providers.printProvider.TestPrintProvider;
 import org.junit.jupiter.api.Test;
 import token.TokenType;
 import token.ValueToken;
@@ -18,6 +20,7 @@ public class InterpreterTest {
     // GIVEN
     // let name: string = "Olive";
     // println(name);
+    TestPrintProvider printProvider = new TestPrintProvider();
     List<ASTNode> astNodes =
         List.of(
             new AssignationNode(
@@ -32,23 +35,10 @@ public class InterpreterTest {
             new PrintNode(
                 new VariableNode(new ValueToken(TokenType.IDENTIFIER, "name", 8, 1)), 1, 1));
 
-    // Redirect System.out to capture the output
-    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    PrintStream originalOut = System.out;
-    System.setOut(new PrintStream(outputStream));
-
-    try {
-      // WHEN
-      Interpreter interpreter = new Interpreter();
+      Interpreter interpreter = new Interpreter(printProvider);
       interpreter.interpret(astNodes.iterator());
 
-      // THEN
-      String output = outputStream.toString().trim();
-      assertEquals("Olive", output);
-    } finally {
-      // Restore original System.out
-      System.setOut(originalOut);
-    }
+      assertEquals("Olive\n", printProvider.getMessages().next());
   }
 
   @Test
@@ -57,6 +47,7 @@ public class InterpreterTest {
     // let a: number = 5;
     // let b: number = 3;
     // println(a + b);
+    TestPrintProvider printProvider = new TestPrintProvider();
     List<ASTNode> astNodes = List.of(
         new AssignationNode(
                 new DeclarationNode(
@@ -85,23 +76,10 @@ public class InterpreterTest {
                 1,
                 1)
     );
-    // Redirect System.out to capture the output
-    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    PrintStream originalOut = System.out;
-    System.setOut(new PrintStream(outputStream));
+    Interpreter interpreter = new Interpreter(printProvider);
+    interpreter.interpret(astNodes.iterator());
 
-    try {
-      // WHEN
-      Interpreter interpreter = new Interpreter();
-      interpreter.interpret(astNodes.iterator());
-
-      // THEN
-      String output = outputStream.toString().trim();
-      assertEquals("8.0", output);
-    } finally {
-      // Restore original System.out
-      System.setOut(originalOut);
-    }
+    assertEquals("8.0\n", printProvider.getMessages().next());
   }
 
   @Test
@@ -130,47 +108,34 @@ public class InterpreterTest {
                 1,
                 1));
 
-    // WHEN & THEN
     Interpreter interpreter = new Interpreter();
     assertThrows(RuntimeException.class, () -> interpreter.interpret(astNodes.iterator()));
   }
 
     @Test
     public void testReassignmentOfVariable() {
-        //GIVEN
-        // let name: string = "a";
-        // name = "b";
-        // println(name);
-        List<ASTNode> astNodes = List.of(
-                new AssignationNode(
-                        new DeclarationNode(new ValueToken(TokenType.STRING_TYPE, "string", 10, 0),
-                                new ValueToken(TokenType.IDENTIFIER, "name", 4, 0), 0, 0)
-                        , new LiteralNode(new ValueToken(TokenType.STRING, "a", 19, 0)),
-                        1, 1
-                ), new ReassignmentNode(
-                        new VariableNode(new ValueToken(TokenType.IDENTIFIER, "name", 8, 1)),
-                        new LiteralNode(new ValueToken(TokenType.STRING, "b", 19, 0)),
-                        1, 1
-                ), new PrintNode(new VariableNode(new ValueToken(TokenType.IDENTIFIER, "name", 8, 1)), 1, 1)
-        );
+      //GIVEN
+      // let name: string = "a";
+      // name = "b";
+      // println(name);
+      TestPrintProvider printProvider = new TestPrintProvider();
+      List<ASTNode> astNodes = List.of(
+              new AssignationNode(
+                      new DeclarationNode(new ValueToken(TokenType.STRING_TYPE, "string", 10, 0),
+                              new ValueToken(TokenType.IDENTIFIER, "name", 4, 0), 0, 0)
+                      , new LiteralNode(new ValueToken(TokenType.STRING, "a", 19, 0)),
+                      1, 1
+              ), new ReassignmentNode(
+                      new VariableNode(new ValueToken(TokenType.IDENTIFIER, "name", 8, 1)),
+                      new LiteralNode(new ValueToken(TokenType.STRING, "b", 19, 0)),
+                      1, 1
+              ), new PrintNode(new VariableNode(new ValueToken(TokenType.IDENTIFIER, "name", 8, 1)), 1, 1)
+      );
 
-        // Redirect System.out to capture the output
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        PrintStream originalOut = System.out;
-        System.setOut(new PrintStream(outputStream));
+      Interpreter interpreter = new Interpreter(printProvider);
+      interpreter.interpret(astNodes.iterator());
 
-        try {
-            // WHEN
-            Interpreter interpreter = new Interpreter();
-            interpreter.interpret(astNodes.iterator());
-
-            // THEN
-            String output = outputStream.toString().trim();
-            assertEquals("b", output);
-        } finally {
-            // Restore original System.out
-            System.setOut(originalOut);
-        }
+      assertEquals("b\n", printProvider.getMessages().next());
     }
 
     @Test
