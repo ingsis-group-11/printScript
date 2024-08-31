@@ -22,4 +22,8 @@ public class TestInputProvider implements InputProvider {
       throw new RuntimeException("No more inputs to read");
     }
   }
+
+  public boolean hasInputsToRead(){
+    return inputs.hasNext();
+  }
 }
