@@ -1,7 +1,6 @@
 package cli.commands;
 
 import formatter.FormatterRunner;
-import linter.LinterRunner;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Parameters;
 

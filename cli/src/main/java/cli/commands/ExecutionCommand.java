@@ -1,5 +1,7 @@
 package cli.commands;
 
+import interpreter.providers.inputProvider.ConsoleInputProvider;
+import interpreter.providers.printProvider.ConsolePrintProvider;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Parameters;
 import runner.Runner;
@@ -13,8 +15,10 @@ public class ExecutionCommand implements Runnable {
   @Override
   public void run() {
     try {
+      ConsolePrintProvider printProvider = new ConsolePrintProvider();
+      ConsoleInputProvider inputProvider = new ConsoleInputProvider();
       Runner runner = new Runner();
-      runner.run(sourceFile);
+      runner.run(sourceFile, inputProvider, printProvider);
     } catch (Exception e) {
       System.err.print(e);
       System.exit(1);

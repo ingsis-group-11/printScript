@@ -1,10 +1,9 @@
 package cli.commands;
 
+import AST.nodes.ASTNode;
 import fileReader.FileReaderIterator;
 import iterator.TokenIterator;
-import lexer.Lexer;
 import parser.iterator.ASTIterator;
-import parser.Parser;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Parameters;
 import token.Token;
@@ -23,8 +22,11 @@ public class ValidationCommand implements Runnable {
     System.out.println("Validating file...");
     try {
       FileReaderIterator fileIterator = new FileReaderIterator(new File(sourceFile));
-      Iterator<Token> tokens = new TokenIterator(fileIterator, new Lexer());
-      new ASTIterator(new Parser(), tokens);
+      Iterator<Token> tokens = new TokenIterator(fileIterator);
+      Iterator<ASTNode> nodes = new ASTIterator(tokens);
+      while (nodes.hasNext()){
+        nodes.next();
+      }
       System.out.println("File has no semantic or syntax errors :)");
     } catch (Exception e) {
       throw new RuntimeException(e);
