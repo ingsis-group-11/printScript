@@ -8,7 +8,6 @@ import parser.syntax.result.SyntaxResult;
 import parser.syntax.result.SyntaxSuccessResult;
 import token.Token;
 import token.TokenType;
-import java.util.Iterator;
 
 public class AssignationSyntaxParser implements SyntaxParser {
 

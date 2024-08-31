@@ -1,31 +1,38 @@
 package parser.syntax;
 
-import java.util.Iterator;
+import parser.syntax.provider.SyntaxParserProvider;
+import parser.syntax.provider.SyntaxParserProviderType;
 import token.Token;
 import token.TokenType;
 
+import java.util.EnumSet;
+
 public class SyntaxParserFactory {
+  private final EnumSet<SyntaxParserProviderType> providerTypes;
+
+  public SyntaxParserFactory(EnumSet<SyntaxParserProviderType> providerTypes) {
+    this.providerTypes = providerTypes;
+  }
 
   public SyntaxParser getSyntaxParser(TokenStream tokens) {
     if (!tokens.hasNext()) {
       throw new IllegalArgumentException("Empty token list");
     }
 
-    Token firstToken = null;
-
     while (tokens.hasNext()) {
-      firstToken = tokens.getCurrentToken();
+      Token firstToken = tokens.getCurrentToken();
       if (firstToken.getType() != TokenType.LINE_BREAK && firstToken.getType() != TokenType.WHITESPACE) {
         break;
       }
     }
 
-    if (firstToken.getType() == TokenType.LET_KEYWORD) {
-      return new AssignationSyntaxParser();
-    } else if (firstToken.getType() == TokenType.IDENTIFIER) {
-      return new ReassignationSyntaxParser();
-    } else {
-      return new PrintSyntaxParser();
+    for (SyntaxParserProviderType type : providerTypes) {
+      SyntaxParserProvider provider = type.getProvider();
+      if (provider.supports(tokens)) {
+        return provider.createParser();
+      }
     }
+
+    throw new IllegalArgumentException("No suitable parser found");
   }
 }
