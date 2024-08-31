@@ -46,4 +46,9 @@ public class ExpressionTypeVisitor implements ASTVisitor<TokenType> {
   public TokenType visit(ReassignmentNode node) {
     return node.getExpression().accept(this);
   }
+
+  @Override
+  public TokenType visit(ReadInputNode node) {
+    return node.getString().accept(this);
+  }
 }

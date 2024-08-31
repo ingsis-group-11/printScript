@@ -16,4 +16,6 @@ public interface ASTVisitor<T> {
   T visit(VariableNode node);
 
   T visit(ReassignmentNode node);
+
+  T visit(ReadInputNode node);
 }
