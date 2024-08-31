@@ -1,6 +1,7 @@
 package AST.nodes;
 
 import AST.ASTVisitor;
+import token.TokenType;
 
 public class ReadInputNode implements ASTNode {
   private final Integer line;
@@ -29,6 +30,6 @@ public class ReadInputNode implements ASTNode {
 
   @Override
   public <T> T accept(ASTVisitor<T> visitor) {
-    return null;
+    return visitor.visit(this);
   }
 }
