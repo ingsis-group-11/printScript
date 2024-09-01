@@ -1,16 +1,17 @@
 package parser.syntax;
 
+import parser.syntax.provider.ProviderType;
 import parser.syntax.provider.SyntaxParserProvider;
-import parser.syntax.provider.SyntaxParserProviderType;
+import parser.syntax.provider.ProviderTypeV2;
 import token.Token;
 import token.TokenType;
 
 import java.util.EnumSet;
 
 public class SyntaxParserFactory {
-  private final EnumSet<SyntaxParserProviderType> providerTypes;
+  private final EnumSet<? extends ProviderType> providerTypes;
 
-  public SyntaxParserFactory(EnumSet<SyntaxParserProviderType> providerTypes) {
+  public SyntaxParserFactory(EnumSet<ProviderTypeV2> providerTypes) {
     this.providerTypes = providerTypes;
   }
 
@@ -26,7 +27,7 @@ public class SyntaxParserFactory {
       }
     }
 
-    for (SyntaxParserProviderType type : providerTypes) {
+    for (ProviderType type : providerTypes) {
       SyntaxParserProvider provider = type.getProvider();
       if (provider.supports(tokens)) {
         return provider.createParser();
