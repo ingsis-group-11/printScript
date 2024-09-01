@@ -36,9 +36,6 @@ public class TokenStream {
     return currentToken;
   }
 
-  public Token getPreviousToken() {
-    return lastToken;
-  }
 
   public boolean match(TokenType type) {
     return currentToken != null && currentToken.getType() == type;

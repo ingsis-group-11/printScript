@@ -18,6 +18,12 @@ public enum SyntaxParserProviderType {
         public SyntaxParserProvider getProvider() {
             return new PrintSyntaxParserProvider();
         }
+    },
+    READ_INPUT {
+        @Override
+        public SyntaxParserProvider getProvider() {
+            return new ReadInputSyntaxParserProvider();
+        }
     };
 
     public abstract SyntaxParserProvider getProvider();
