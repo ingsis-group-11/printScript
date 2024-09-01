@@ -19,7 +19,7 @@ public class LexerTokenTypeTest {
     // 5 + 3;
     String filePath = "src/test/resources/operation.txt";
     FileReaderIterator fileReaderIterator = new FileReaderIterator(new File(filePath));
-    Iterator<Token> tokenIterator = new TokenIterator(fileReaderIterator, new Lexer(fileReaderIterator));
+    Iterator<Token> tokenIterator = new TokenIterator(fileReaderIterator);
 
     assertEquals(tokenIterator.next().getType(), TokenType.NUMBER);
     assertEquals(tokenIterator.next().getType(), TokenType.WHITESPACE);
@@ -36,7 +36,7 @@ public class LexerTokenTypeTest {
     //10 / 2;
     String filePath = "src/test/resources/multiple_operations.txt";
     FileReaderIterator fileReaderIterator = new FileReaderIterator(new File(filePath));
-    Iterator<Token> tokenIterator = new TokenIterator(fileReaderIterator, new Lexer(fileReaderIterator));
+    Iterator<Token> tokenIterator = new TokenIterator(fileReaderIterator);
 
     assertEquals(tokenIterator.next().getType(), TokenType.NUMBER);
     assertEquals(tokenIterator.next().getType(), TokenType.WHITESPACE);
@@ -62,7 +62,7 @@ public class LexerTokenTypeTest {
 
     String filePath = "src/test/resources/complete.txt";
     FileReaderIterator fileReaderIterator = new FileReaderIterator(new File(filePath));
-    Iterator<Token> tokenIterator = new TokenIterator(fileReaderIterator, new Lexer(fileReaderIterator));
+    Iterator<Token> tokenIterator = new TokenIterator(fileReaderIterator);
     assertEquals(tokenIterator.next().getType(), TokenType.LET_KEYWORD);
     assertEquals(tokenIterator.next().getType(), TokenType.WHITESPACE);
     assertEquals(tokenIterator.next().getType(), TokenType.IDENTIFIER);
@@ -109,7 +109,7 @@ public class LexerTokenTypeTest {
 
     String filePath = "src/test/resources/reassignment.txt";
     FileReaderIterator fileReaderIterator = new FileReaderIterator(new File(filePath));
-    Iterator<Token> tokenIterator = new TokenIterator(fileReaderIterator, new Lexer(fileReaderIterator));
+    Iterator<Token> tokenIterator = new TokenIterator(fileReaderIterator);
     assertEquals(tokenIterator.next().getType(), TokenType.LET_KEYWORD);
     assertEquals(tokenIterator.next().getType(), TokenType.WHITESPACE);
     assertEquals(tokenIterator.next().getType(), TokenType.IDENTIFIER);
@@ -128,6 +128,25 @@ public class LexerTokenTypeTest {
     assertEquals(tokenIterator.next().getType(), TokenType.ASSIGN);
     assertEquals(tokenIterator.next().getType(), TokenType.WHITESPACE);
     assertEquals(tokenIterator.next().getType(), TokenType.STRING);
+    assertEquals(tokenIterator.next().getType(), TokenType.SEMICOLON);
+  }
+
+  @Test
+  public void tokenizeBooleanAssignmentCompleteCode() throws IOException {
+    // let a: boolean = true;
+    String filePath = "src/test/resources/boolean_declaration.txt";
+    FileReaderIterator fileReaderIterator = new FileReaderIterator(new File(filePath));
+    Iterator<Token> tokenIterator = new TokenIterator(fileReaderIterator);
+    assertEquals(tokenIterator.next().getType(), TokenType.LET_KEYWORD);
+    assertEquals(tokenIterator.next().getType(), TokenType.WHITESPACE);
+    assertEquals(tokenIterator.next().getType(), TokenType.IDENTIFIER);
+    assertEquals(tokenIterator.next().getType(), TokenType.COLON);
+    assertEquals(tokenIterator.next().getType(), TokenType.WHITESPACE);
+    assertEquals(tokenIterator.next().getType(), TokenType.BOOLEAN_TYPE);
+    assertEquals(tokenIterator.next().getType(), TokenType.WHITESPACE);
+    assertEquals(tokenIterator.next().getType(), TokenType.ASSIGN);
+    assertEquals(tokenIterator.next().getType(), TokenType.WHITESPACE);
+    assertEquals(tokenIterator.next().getType(), TokenType.BOOLEAN);
     assertEquals(tokenIterator.next().getType(), TokenType.SEMICOLON);
   }
 }
