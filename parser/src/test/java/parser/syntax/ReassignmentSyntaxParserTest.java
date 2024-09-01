@@ -46,7 +46,7 @@ public class ReassignmentSyntaxParserTest {
 
     // WHEN
     Iterator<Token> tokenIterator = tokens.iterator();
-    Iterator<ASTNode> nodes = new ASTIterator(new Parser(), tokenIterator);
+    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator);
     ASTNode firstAST = nodes.next();
     assertInstanceOf(AssignationNode.class, firstAST);
     ASTNode secondAST = nodes.next();

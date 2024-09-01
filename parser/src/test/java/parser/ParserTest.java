@@ -35,7 +35,7 @@ public class ParserTest {
 
     // WHEN
     Iterator<Token> tokenIterator = tokens.iterator();
-    Iterator<ASTNode> nodes = new ASTIterator(new Parser(), tokenIterator);
+    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator);
     ASTNode firstAST = nodes.next();
     assertInstanceOf(AssignationNode.class, firstAST);
   }
@@ -61,7 +61,7 @@ public class ParserTest {
             new ValueToken(TokenType.SEMICOLON, ";", 27, 1));
 
     Iterator<Token> tokenIterator = tokens.iterator();
-    Iterator<ASTNode> nodes = new ASTIterator(new Parser(), tokenIterator);
+    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator);
     ASTNode firstAST = nodes.next();
     assertInstanceOf(AssignationNode.class, firstAST);
   }

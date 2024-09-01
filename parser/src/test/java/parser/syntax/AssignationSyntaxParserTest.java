@@ -9,8 +9,6 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import parser.Parser;
 import parser.iterator.ASTIterator;
-import parser.syntax.result.SyntaxResult;
-import parser.syntax.result.SyntaxSuccessResult;
 import token.Token;
 import token.TokenType;
 import token.ValueToken;
@@ -33,7 +31,7 @@ public class AssignationSyntaxParserTest {
 
     // WHEN
     Iterator<Token> tokenIterator = tokens.iterator();
-    Iterator<ASTNode> nodes = new ASTIterator(new Parser(), tokenIterator);
+    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator);
     ASTNode firstAST = nodes.next();
     assertInstanceOf(AssignationNode.class, firstAST);
     assertEquals("John", ((LiteralNode) ((AssignationNode) firstAST).getExpression()).getValue());
@@ -59,7 +57,7 @@ public class AssignationSyntaxParserTest {
 
     // WHEN
     Iterator<Token> tokenIterator = tokens.iterator();
-    Iterator<ASTNode> nodes = new ASTIterator(new Parser(), tokenIterator);
+    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator);
     ASTNode firstAST = nodes.next();
     assertInstanceOf(AssignationNode.class, firstAST);
     assertEquals("25", ((LiteralNode) ((AssignationNode) firstAST).getExpression()).getValue());
@@ -90,7 +88,7 @@ public class AssignationSyntaxParserTest {
 
     // WHEN
     Iterator<Token> tokenIterator = tokens.iterator();
-    Iterator<ASTNode> nodes = new ASTIterator(new Parser(), tokenIterator);
+    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator);
     ASTNode firstAST = nodes.next();
     assertInstanceOf(AssignationNode.class, firstAST);
     assertEquals(
