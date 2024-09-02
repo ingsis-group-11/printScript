@@ -4,13 +4,32 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Iterator;
 
-public class FileWriter {
-  public void writeFile(String filePath, String content) throws IOException {
-    if (!checkIfFileIsWritable(filePath)) {
-      throw new IOException("File not writable");
+public class FileWriter implements OutputProvider {
+  private final String filePath;
+
+  public FileWriter(String filePath) {
+    this.filePath = filePath;
+  }
+
+  @Override
+  public void write(Iterator<String> content) throws IOException {
+    if (checkIfFileIsWritable(filePath)) {
+      java.io.FileWriter fileWriter = new java.io.FileWriter(filePath, true);
+      while (content.hasNext()) {
+        fileWriter.write(content.next());
+      }
+      fileWriter.flush();
+      fileWriter.close();
+    } else {
+      throw new IOException("File is not writable");
     }
-    Files.write(Paths.get(filePath), content.getBytes());
+  }
+
+  @Override
+  public String getOutput() {
+    return "";
   }
 
   private Boolean checkIfFileIsWritable(String filePath) {

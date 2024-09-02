@@ -2,8 +2,11 @@ package formatter;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import formatter.rules.LineBreakAfterSemicolon;
-import formatter.rules.Rule;
+import formatter.rules.*;
+import formatter.rules.identifier.Identifier;
+import formatter.rules.semicolon.LineBreakAfterSemicolon;
+import formatter.rules.types.StringQuotes;
+import formatter.rules.types.Types;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,8 +14,7 @@ import java.util.List;
 
 public class RulesReader {
   public List<Rule> loadRulesFromJson(String jsonString) throws IOException {
-    List<Rule> activeRules = new ArrayList<>();
-    activeRules.add(new LineBreakAfterSemicolon());
+    List<Rule> activeRules = alwaysActiveRules();
     RulesMap rulesMap = new RulesMap();
 
     ObjectMapper mapper = new ObjectMapper();
@@ -27,6 +29,15 @@ public class RulesReader {
         activeRules.add(rule);
       }
     }
+    return activeRules;
+  }
+
+  private List<Rule> alwaysActiveRules() {
+    List<Rule> activeRules = new ArrayList<>();
+    activeRules.add(new LineBreakAfterSemicolon());
+    activeRules.add(new Identifier());
+    activeRules.add(new Types());
+    activeRules.add(new StringQuotes());
     return activeRules;
   }
 }

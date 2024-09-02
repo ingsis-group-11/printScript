@@ -14,6 +14,11 @@ public class TokenMap {
     tokenMap.put(TokenType.ASSIGN, new AssignFormatter());
     tokenMap.put(TokenType.SEMICOLON, new SemicolonFormatter());
     tokenMap.put(TokenType.PRINT_KEYWORD, new PrintFormatter());
+    tokenMap.put(TokenType.IDENTIFIER, new IdentifierFormatter());
+    tokenMap.put(TokenType.NUMBER_TYPE, new TypesFormatter());
+    tokenMap.put(TokenType.STRING_TYPE, new TypesFormatter());
+    tokenMap.put(TokenType.STRING, new StringFormatter());
+    tokenMap.put(TokenType.NUMBER, new TypesFormatter());
   }
 
   public TokenFormatter getTokenFormatter(TokenType tokenType) {
