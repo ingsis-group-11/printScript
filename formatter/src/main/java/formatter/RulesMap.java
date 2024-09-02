@@ -1,6 +1,11 @@
 package formatter;
 
 import formatter.rules.*;
+import formatter.rules.assign.SpacesBetweenAssign;
+import formatter.rules.colon.SpaceAfterColon;
+import formatter.rules.colon.SpaceBeforeColon;
+import formatter.rules.semicolon.LineBreakAfterSemicolon;
+import formatter.rules.print.LinebreakBeforePrint;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,2 +1,1 @@
 let name:string="John";
-let n:number=2;
