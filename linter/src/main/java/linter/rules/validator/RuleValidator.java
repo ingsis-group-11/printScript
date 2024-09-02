@@ -5,7 +5,6 @@ import linter.result.FailedLinterResult;
 import linter.result.LinterResult;
 import linter.result.SuccessLinterResult;
 import linter.rules.CamelCaseRule;
-import linter.rules.InputPreventExpressionRule;
 import linter.rules.PrintPreventExpressionRule;
 
 import java.util.ArrayList;
@@ -47,21 +46,4 @@ public class RuleValidator implements RuleVisitor{
 
       return errors.isEmpty() ? new SuccessLinterResult() : new FailedLinterResult(errors);
     }
-
-  @Override
-  public LinterResult visit(InputPreventExpressionRule inputPreventExpressionRule, ASTNode node) {
-    List<String> errors = new ArrayList<>();
-    if (node instanceof AssignationNode assignationNode){
-      ASTNode expression = assignationNode.getExpression();
-      if (expression instanceof ReadInputNode readInputNode) {
-        if(readInputNode.getString() instanceof OperatorNode){
-          int line = readInputNode.getLine();
-          int column = readInputNode.getColumn();
-          errors.add("readInput statement at " + line + ":" + column + " has an expression");
-        }
-      }
-    }
-
-    return errors.isEmpty() ? new SuccessLinterResult() : new FailedLinterResult(errors);
-  }
 }

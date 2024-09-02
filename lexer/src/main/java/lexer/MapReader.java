@@ -9,7 +9,6 @@ public class MapReader {
   public MapReader() {
     tokenMap.put("let", TokenType.LET_KEYWORD);
     tokenMap.put("println", TokenType.PRINT_KEYWORD);
-    tokenMap.put("readInput", TokenType.READINPUT_KEYWORD);
     tokenMap.put("string", TokenType.STRING_TYPE);
     tokenMap.put("number", TokenType.NUMBER_TYPE);
     tokenMap.put(";", TokenType.SEMICOLON);

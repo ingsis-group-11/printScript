@@ -2,7 +2,6 @@ package parser.syntax;
 
 import parser.syntax.provider.ProviderType;
 import parser.syntax.provider.SyntaxParserProvider;
-import parser.syntax.provider.ProviderTypeV2;
 import token.Token;
 import token.TokenType;
 

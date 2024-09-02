@@ -5,11 +5,7 @@ import AST.nodes.PrintNode;
 import parser.syntax.result.SyntaxErrorResult;
 import parser.syntax.result.SyntaxResult;
 import parser.syntax.result.SyntaxSuccessResult;
-import token.Token;
 import token.TokenType;
-
-import java.util.Iterator;
-import java.util.List;
 
 public class PrintSyntaxParser implements SyntaxParser {
 

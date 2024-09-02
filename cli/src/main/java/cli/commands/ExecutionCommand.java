@@ -1,6 +1,5 @@
 package cli.commands;
 
-import interpreter.providers.inputProvider.ConsoleInputProvider;
 import interpreter.providers.printProvider.ConsolePrintProvider;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Parameters;
@@ -16,9 +15,8 @@ public class ExecutionCommand implements Runnable {
   public void run() {
     try {
       ConsolePrintProvider printProvider = new ConsolePrintProvider();
-      ConsoleInputProvider inputProvider = new ConsoleInputProvider();
       Runner runner = new Runner();
-      runner.run(sourceFile, inputProvider, printProvider);
+      runner.run(sourceFile, printProvider);
     } catch (Exception e) {
       System.err.print(e);
       System.exit(1);

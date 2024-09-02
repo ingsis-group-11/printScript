@@ -1,3 +1,0 @@
-let a: string = readInput("Test");
-let b: number = readInput("Test");
-let c: string = readInput("Test");
