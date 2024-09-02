@@ -10,7 +10,7 @@ import java.util.EnumSet;
 public class SyntaxParserFactory {
   private final EnumSet<? extends ProviderType> providerTypes;
 
-  public SyntaxParserFactory(EnumSet<ProviderTypeV2> providerTypes) {
+  public SyntaxParserFactory(EnumSet<ProviderType> providerTypes) {
     this.providerTypes = providerTypes;
   }
 
