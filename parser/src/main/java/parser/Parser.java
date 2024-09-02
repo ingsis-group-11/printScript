@@ -6,6 +6,7 @@ import parser.semantic.result.SemanticErrorResult;
 import parser.semantic.result.SemanticResult;
 import parser.syntax.SyntaxParser;
 import parser.syntax.SyntaxParserFactory;
+import parser.syntax.provider.ProviderType;
 import parser.syntax.result.SyntaxErrorResult;
 import parser.syntax.result.SyntaxResult;
 import parser.syntax.result.SyntaxSuccessResult;
@@ -50,7 +51,7 @@ public class Parser {
   }
 
   private SyntaxResult createTree(TokenStream tokenStream) {
-    EnumSet<ProviderTypeV2> providerTypes = EnumSet.allOf(ProviderTypeV2.class);
+    EnumSet<ProviderType> providerTypes = EnumSet.allOf(ProviderType.class);
     SyntaxParserFactory factory = new SyntaxParserFactory(providerTypes);
     SyntaxParser syntaxParser = factory.getSyntaxParser(tokenStream);
     return syntaxParser.syntaxParse(tokenStream);
