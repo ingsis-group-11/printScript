@@ -2,22 +2,19 @@ package interpreter;
 
 import AST.ASTVisitor;
 import AST.nodes.*;
-import interpreter.providers.inputProvider.InputProvider;
 import interpreter.providers.printProvider.PrintProvider;
 import token.TokenType;
 
 public class InterpreterVisitor implements ASTVisitor<Void> {
   private final VariableAssignation variableAssignation;
   private final LiteralTransformer literalTransformer;
-  private final InputProvider inputProvider;
   private final PrintProvider printProvider;
 
 
-  public InterpreterVisitor(VariableAssignation variableAssignation, InputProvider inputProvider, PrintProvider printProvider){
+  public InterpreterVisitor(VariableAssignation variableAssignation, PrintProvider printProvider){
     this.variableAssignation = variableAssignation;
     this.printProvider = printProvider;
-    this.literalTransformer = new LiteralTransformer(variableAssignation, inputProvider);
-    this.inputProvider = inputProvider;
+    this.literalTransformer = new LiteralTransformer(variableAssignation);
   }
 
   @Override
@@ -66,14 +63,6 @@ public class InterpreterVisitor implements ASTVisitor<Void> {
       throw new RuntimeException("Variable " + node.getVariableNode().getValue() + " is of type " + variableType +
               " and cannot be reassigned to type " + expression.getType());
     }
-    return null;
-  }
-
-  @Override
-  public Void visit(ReadInputNode node) {
-    LiteralNode expression = node.getString().accept(literalTransformer);
-    String message = expression.getValue();
-    inputProvider.getInput(message);
     return null;
   }
 }

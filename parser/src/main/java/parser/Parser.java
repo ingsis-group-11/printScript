@@ -6,8 +6,6 @@ import parser.semantic.result.SemanticErrorResult;
 import parser.semantic.result.SemanticResult;
 import parser.syntax.SyntaxParser;
 import parser.syntax.SyntaxParserFactory;
-import parser.syntax.provider.ProviderType;
-import parser.syntax.provider.ProviderTypeV2;
 import parser.syntax.result.SyntaxErrorResult;
 import parser.syntax.result.SyntaxResult;
 import parser.syntax.result.SyntaxSuccessResult;

@@ -16,7 +16,6 @@ public enum TokenType {
   COLON,
   OPERATOR,
   WHITESPACE,
-  READINPUT_KEYWORD,
   BOOLEAN,
   LINE_BREAK,
   IF_KEYWORD,

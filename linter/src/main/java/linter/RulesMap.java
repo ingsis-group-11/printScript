@@ -1,7 +1,6 @@
 package linter;
 
 import linter.rules.CamelCaseRule;
-import linter.rules.InputPreventExpressionRule;
 import linter.rules.PrintPreventExpressionRule;
 import linter.rules.Rule;
 
@@ -14,7 +13,6 @@ public class RulesMap {
   public RulesMap() {
     ruleMap.put("camelCase", new CamelCaseRule());
     ruleMap.put("printPreventExpression", new PrintPreventExpressionRule());
-    ruleMap.put("readInputPreventExpression", new InputPreventExpressionRule());
   }
 
   public Rule getRule(String ruleName) {

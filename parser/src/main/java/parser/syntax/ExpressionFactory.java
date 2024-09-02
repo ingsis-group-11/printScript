@@ -24,13 +24,6 @@ public class ExpressionFactory {
         ASTNode expression = parseBinaryExpression(tokenStream, 0);
         tokenStream.expect(TokenType.PARENTHESIS_CLOSE, "Expected ')'");
         return expression;
-      } else if(token.getType() == TokenType.READINPUT_KEYWORD){
-        tokenStream.advance();
-        tokenStream.expect(TokenType.PARENTHESIS_OPEN, "Expected '('");
-        ASTNode expression = parseBinaryExpression(tokenStream, 0);
-        tokenStream.expect(TokenType.PARENTHESIS_CLOSE, "Expected ')'");
-
-        return new ReadInputNode(expression, token.getLine(), token.getColumn());
       }
     }
     assert token != null;

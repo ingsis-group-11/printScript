@@ -1,3 +1,0 @@
-readInput("Test");
-readInput("Test");
-readInput("Test");
