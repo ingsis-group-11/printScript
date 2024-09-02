@@ -1,6 +1,6 @@
 package parser.syntax.provider;
 
-public enum SyntaxParserProviderType {
+public enum ProviderTypeV2 implements ProviderType {
     ASSIGNATION {
         @Override
         public SyntaxParserProvider getProvider() {
@@ -26,5 +26,6 @@ public enum SyntaxParserProviderType {
         }
     };
 
+    @Override
     public abstract SyntaxParserProvider getProvider();
 }
