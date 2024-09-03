@@ -2,7 +2,7 @@ package interpreter;
 
 import AST.ASTVisitor;
 import AST.nodes.*;
-import interpreter.providers.printProvider.PrintProvider;
+import providers.printProvider.PrintProvider;
 import token.TokenType;
 
 public class InterpreterVisitor implements ASTVisitor<Void> {

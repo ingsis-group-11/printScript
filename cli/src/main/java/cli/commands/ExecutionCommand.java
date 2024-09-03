@@ -1,6 +1,6 @@
 package cli.commands;
 
-import interpreter.providers.printProvider.ConsolePrintProvider;
+import providers.printProvider.ConsolePrintProvider;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Parameters;
 import runner.Runner;

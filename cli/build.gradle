@@ -41,6 +41,7 @@ dependencies {
     implementation project(':linter')
     implementation project(':filereader')
     implementation project(':runner')
+    implementation project(':providers')
 }
 
 test {

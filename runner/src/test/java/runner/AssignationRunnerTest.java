@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
-import interpreter.providers.printProvider.TestPrintProvider;
 import org.junit.jupiter.api.Test;
+import providers.printProvider.TestPrintProvider;
 
 public class AssignationRunnerTest {
   private final ExpectedTransformer expectedTransformer = new ExpectedTransformer();

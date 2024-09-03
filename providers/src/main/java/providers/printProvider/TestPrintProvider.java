@@ -1,4 +1,4 @@
-package interpreter.providers.printProvider;
+package providers.printProvider;
 
 import java.util.ArrayList;
 import java.util.Iterator;
