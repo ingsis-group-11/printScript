@@ -1,50 +1,24 @@
 package runner;
 
 import AST.nodes.ASTNode;
-import fileReader.FileReader;
+import fileReader.FileReaderIterator;
 import interpreter.Interpreter;
+
+import java.io.File;
 import java.io.IOException;
-import java.util.List;
-import lexer.Lexer;
-import parser.Parser;
-import result.LexingResult;
-import result.SuccessfulResult;
-import result.UnsuccessfulResult;
+import java.util.Iterator;
+
+import providers.printProvider.PrintProvider;
+import iterator.TokenIterator;
+import parser.iterator.ASTIterator;
 import token.Token;
 
 public class Runner {
-  public void run(String filePath) throws IOException {
-    String fileString = new FileReader().readFile(filePath);
-    List<Token> tokens = lexRun(fileString);
-    List<ASTNode> ASTNodes = parseRun(tokens);
-    interpretRun(ASTNodes);
-  }
-
-  private List<Token> lexRun(String filePath) {
-    Lexer lexer = new Lexer();
-    LexingResult lexerResult = lexer.lex(filePath);
-
-    resolveLexerErrors(lexerResult);
-
-    List<Token> tokens = ((SuccessfulResult) lexerResult).tokens();
-    return tokens;
-  }
-
-  private void resolveLexerErrors(LexingResult lexerResult) {
-    if (lexerResult instanceof UnsuccessfulResult) {
-      throw new RuntimeException(((UnsuccessfulResult) lexerResult).message());
-    }
-  }
-
-  private List<ASTNode> parseRun(List<Token> tokens) {
-    Parser parser = new Parser();
-    List<ASTNode> ASTNodes = parser.parse(tokens);
-    parser.resolveErrors();
-    return ASTNodes;
-  }
-
-  private void interpretRun(List<ASTNode> nodes) {
-    Interpreter interpreter = new Interpreter();
-    interpreter.interpret(nodes);
+  //When you use printProvider
+  public void run(String filePath, PrintProvider printProvider) throws IOException {
+    FileReaderIterator fileIterator = new FileReaderIterator(new File(filePath));
+    Iterator<Token> tokens = new TokenIterator(fileIterator);
+    Iterator<ASTNode> ASTNodes = new ASTIterator(tokens);
+    new Interpreter(printProvider).interpret(ASTNodes);
   }
 }

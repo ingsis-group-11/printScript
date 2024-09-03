@@ -1,79 +1,64 @@
 package parser;
 
 import AST.nodes.ASTNode;
-import java.util.ArrayList;
-import java.util.List;
 import parser.semantic.SemanticAnalyzer;
+import parser.semantic.result.SemanticErrorResult;
 import parser.semantic.result.SemanticResult;
 import parser.syntax.SyntaxParser;
 import parser.syntax.SyntaxParserFactory;
+import parser.syntax.provider.ProviderType;
+import parser.syntax.result.SyntaxErrorResult;
 import parser.syntax.result.SyntaxResult;
 import parser.syntax.result.SyntaxSuccessResult;
 import token.Token;
+import parser.syntax.TokenStream;
+import java.util.EnumSet;
+import java.util.Iterator;
 
 public class Parser {
-  private SemanticResult semanticError;
-  private SyntaxResult syntaxResult;
 
-  public List<ASTNode> parse(List<Token> tokens) {
+  public ASTNode parse(Iterator<Token> tokens) {
+    ASTNode node = null;
+    TokenStream tokenStream = new TokenStream(tokens);
     // Syntax analysis
-    List<ASTNode> astNodes = syntaxParser(tokens);
+    SyntaxResult syntaxResult = syntaxParser(tokenStream);
     // Semantic analysis
-    semanticParser(astNodes);
+    if (syntaxResult instanceof SyntaxErrorResult syntaxError) {
+      resolveSyntaxErrors(syntaxError);
+    }
+    else if ( syntaxResult instanceof SyntaxSuccessResult syntaxSuccess) {
+      node = syntaxSuccess.astNode();
+      semanticParser(node);
+    }
 
-    return astNodes;
+    return node;
   }
 
-  private void semanticParser(List<ASTNode> astNodes) {
+  private void semanticParser(ASTNode node) {
     SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
-    semanticError = semanticAnalyzer.analyze(astNodes);
-  }
-
-  private List<ASTNode> syntaxParser(List<Token> tokens) {
-    List<List<Token>> sentences = TokenSplitter.splitBySemicolons(tokens);
-
-    return createTrees(sentences);
-  }
-
-  private List<ASTNode> createTrees(List<List<Token>> sentences) {
-    List<ASTNode> astNodes = new ArrayList<>();
-    SyntaxParserFactory factory = new SyntaxParserFactory();
-
-    for (List<Token> sentence : sentences) {
-      SyntaxParser syntaxParser = factory.getSyntaxParser(sentence);
-      syntaxResult = syntaxParser.syntaxParse(sentence);
-      if (!syntaxResult.hasErrors()){
-        astNodes.add(((SyntaxSuccessResult) syntaxResult).getAstNode());
-      }
-    }
-    return astNodes;
-  }
-
-  public SemanticResult getSemanticError() {
-      return semanticError;
-  }
-
-  public SyntaxResult getSyntaxResult() {
-      return syntaxResult;
-  }
-
-  public void resolveErrors() {
-
-    String messages = "";
-    if (semanticError.hasErrors()) {
-      messages+="Semantic errors:\n";
-      for (String message : semanticError.messages()) {
-        messages+=message + "\n";
-      }
-    }
-    if (syntaxResult.hasErrors()) {
-      messages+="Syntax errors:\n";
-      for (String message : syntaxResult.messages()) {
-        messages+=message + "\n";
-      }
-    }
-    if (!messages.isEmpty()) {
-      throw new RuntimeException(messages);
+    SemanticResult result = semanticAnalyzer.analyze(node);
+    if (result.hasErrors()) {
+      resolveSemanticErrors(result);
     }
   }
+
+  private void resolveSemanticErrors(SemanticResult result) {
+    new ErrorResolver().resolveSemanticErrors(result);
+  }
+
+  private SyntaxResult syntaxParser(TokenStream tokenStream) {
+    return createTree(tokenStream);
+  }
+
+  private SyntaxResult createTree(TokenStream tokenStream) {
+    EnumSet<ProviderType> providerTypes = EnumSet.allOf(ProviderType.class);
+    SyntaxParserFactory factory = new SyntaxParserFactory(providerTypes);
+    SyntaxParser syntaxParser = factory.getSyntaxParser(tokenStream);
+    return syntaxParser.syntaxParse(tokenStream);
+  }
+
+  public void resolveSyntaxErrors(SyntaxErrorResult syntaxError) {
+    new ErrorResolver().resolveSyntaxErrors(syntaxError);
+  }
+
 }

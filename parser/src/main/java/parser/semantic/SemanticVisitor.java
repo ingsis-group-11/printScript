@@ -36,9 +36,11 @@ public class SemanticVisitor implements ASTVisitor<SemanticResult> {
       return new SemanticSuccessResult();
     } else if (variableType == TokenType.STRING_TYPE && expressionType == TokenType.STRING) {
       return new SemanticSuccessResult();
-    } else if (expressionType == TokenType.IDENTIFIER) {
+    }
+    else if (expressionType == TokenType.IDENTIFIER) {
       return new SemanticSuccessResult();
     }
+
     return new SemanticErrorResult(
         List.of(
             "Semantic error in "
@@ -98,8 +100,10 @@ public class SemanticVisitor implements ASTVisitor<SemanticResult> {
     if (operatorNode.getLeftNode().accept(expressionTypeVisitor) == TokenType.NUMBER
         && operatorNode.getRightNode().accept(expressionTypeVisitor) == TokenType.NUMBER) {
       return true;
-    } else if (operatorNode.getLeftNode().accept(expressionTypeVisitor) == TokenType.IDENTIFIER
-        || operatorNode.getRightNode().accept(expressionTypeVisitor) == TokenType.IDENTIFIER) {
+    } else if ((operatorNode.getLeftNode().accept(expressionTypeVisitor) == TokenType.IDENTIFIER
+        && operatorNode.getRightNode().accept(expressionTypeVisitor) == TokenType.NUMBER)
+    || (operatorNode.getLeftNode().accept(expressionTypeVisitor) == TokenType.NUMBER
+        && operatorNode.getRightNode().accept(expressionTypeVisitor) == TokenType.IDENTIFIER)){
       return true;
     }
     return false;

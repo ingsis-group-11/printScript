@@ -1,15 +1,18 @@
 package lexer;
 
+import fileReader.InputReader;
 import result.*;
-import token.Token;
-
-import java.util.List;
 
 public class Lexer {
-  public LexingResult lex(String stringFile) {
-    Tokenizer tokenizer = new Tokenizer();
-    LexingResult lexerResult = tokenizer.tokenize(stringFile);
+  private final Tokenizer tokenizer;
+  private final InputReader input;
 
-    return lexerResult;
+  public Lexer(InputReader input) {
+    tokenizer = new Tokenizer(input);
+    this.input = input;
+  }
+
+  public LexingResult lex() {
+    return tokenizer.tokenize(input);
   }
 }

@@ -1,9 +1,6 @@
 package parser.syntax;
 
-import AST.nodes.ASTNode;
-import AST.nodes.LiteralNode;
-import AST.nodes.OperatorNode;
-import AST.nodes.VariableNode;
+import AST.nodes.*;
 import token.Token;
 import token.TokenType;
 
@@ -31,7 +28,7 @@ public class ExpressionFactory {
     }
     assert token != null;
     throw new IllegalArgumentException(
-        "Invalid expression at column " + token.getColumn() + " line " + token.getLine());
+        "Invalid expression " + token.getValue() + " at column " + token.getColumn() + " line " + token.getLine());
   }
 
   private static ASTNode parseBinaryExpression(TokenStream tokenStream, int precedence) {

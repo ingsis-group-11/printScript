@@ -7,14 +7,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TokenMap {
-  Map<TokenType, TokenFormatter> tokenMap = new HashMap<TokenType, TokenFormatter>();
+  Map<TokenType, TokenFormatter> tokenMap = new HashMap<>();
 
   public TokenMap() {
     tokenMap.put(TokenType.COLON, new ColonFormatter());
     tokenMap.put(TokenType.ASSIGN, new AssignFormatter());
     tokenMap.put(TokenType.SEMICOLON, new SemicolonFormatter());
-    tokenMap.put(TokenType.OPERATOR, new OperatorFormatter());
     tokenMap.put(TokenType.PRINT_KEYWORD, new PrintFormatter());
+    tokenMap.put(TokenType.IDENTIFIER, new IdentifierFormatter());
+    tokenMap.put(TokenType.NUMBER_TYPE, new TypesFormatter());
+    tokenMap.put(TokenType.STRING_TYPE, new TypesFormatter());
+    tokenMap.put(TokenType.STRING, new StringFormatter());
+    tokenMap.put(TokenType.NUMBER, new TypesFormatter());
   }
 
   public TokenFormatter getTokenFormatter(TokenType tokenType) {

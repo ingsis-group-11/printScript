@@ -12,4 +12,5 @@ include 'linter'
 include 'formatter'
 include 'filereader'
 include 'cli'
+include 'providers'
 

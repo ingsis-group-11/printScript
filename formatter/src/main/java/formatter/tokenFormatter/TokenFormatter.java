@@ -6,5 +6,5 @@ import token.Token;
 import java.util.List;
 
 public interface TokenFormatter {
-  List<Token> formatToken(List<Token> tokens, List<Rule> rules);
+  List<Token> formatToken(Token token, List<Rule> rules);
 }

@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RulesMap {
-  Map<String, Rule> ruleMap = new HashMap<String, Rule>();
+  Map<String, Rule> ruleMap = new HashMap<>();
 
   public RulesMap() {
     ruleMap.put("camelCase", new CamelCaseRule());
@@ -16,6 +16,9 @@ public class RulesMap {
   }
 
   public Rule getRule(String ruleName) {
+    if (!ruleMap.containsKey(ruleName)) {
+      throw new RuntimeException("Rule " + ruleName + " not found");
+    }
     return ruleMap.get(ruleName);
   }
 }

@@ -7,6 +7,7 @@ public enum TokenType {
   NUMBER,
   STRING_TYPE,
   NUMBER_TYPE,
+  BOOLEAN_TYPE,
   IDENTIFIER,
   ASSIGN,
   SEMICOLON,

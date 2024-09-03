@@ -1,5 +1,6 @@
 package formatter.rules;
 
+import formatter.rules.visitor.RuleVisitor;
 import token.Token;
 
 import java.util.List;

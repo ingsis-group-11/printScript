@@ -1,16 +1,28 @@
 package interpreter;
 
 import AST.nodes.ASTNode;
-import java.util.List;
+import providers.printProvider.PrintProvider;
+import providers.printProvider.TestPrintProvider;
+
+import java.util.Iterator;
 
 public class Interpreter {
   private final VariableAssignation variableAssignation = new VariableAssignation();
+  private final PrintProvider printProvider;
 
-  public void interpret(List<ASTNode> astNodes) {
+  public Interpreter(PrintProvider printProvider) {
+    this.printProvider = printProvider;
+  }
 
-    InterpreterVisitor interpreterVisitor = new InterpreterVisitor(variableAssignation);
-    for (ASTNode node : astNodes) {
-      node.accept(interpreterVisitor);
+  public Interpreter() {
+    this.printProvider = new TestPrintProvider();
+  }
+
+  public void interpret(Iterator<ASTNode> astIterator) {
+    InterpreterVisitor interpreterVisitor = new InterpreterVisitor(variableAssignation, printProvider);
+    while(astIterator.hasNext()) {
+      astIterator.next().accept(interpreterVisitor);
     }
   }
+
 }
