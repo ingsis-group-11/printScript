@@ -3,16 +3,12 @@ package runner;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.util.Iterator;
 import java.util.List;
 
-import interpreter.providers.printProvider.TestPrintProvider;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import providers.printProvider.TestPrintProvider;
 
 public class PrintRunnerTest {
   private final ExpectedTransformer expectedTransformer = new ExpectedTransformer();

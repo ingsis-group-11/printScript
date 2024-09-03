@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 
-import interpreter.providers.printProvider.PrintProvider;
+import providers.printProvider.PrintProvider;
 import iterator.TokenIterator;
 import parser.iterator.ASTIterator;
 import token.Token;

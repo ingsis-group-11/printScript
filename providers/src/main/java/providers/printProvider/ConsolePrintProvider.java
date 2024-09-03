@@ -1,4 +1,5 @@
-package interpreter.providers.printProvider;
+package providers.printProvider;
+
 
 public class ConsolePrintProvider implements PrintProvider {
   @Override

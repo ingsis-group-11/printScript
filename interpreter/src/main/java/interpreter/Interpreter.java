@@ -1,8 +1,8 @@
 package interpreter;
 
 import AST.nodes.ASTNode;
-import interpreter.providers.printProvider.PrintProvider;
-import interpreter.providers.printProvider.TestPrintProvider;
+import providers.printProvider.PrintProvider;
+import providers.printProvider.TestPrintProvider;
 
 import java.util.Iterator;
 
