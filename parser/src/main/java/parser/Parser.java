@@ -61,7 +61,4 @@ public class Parser {
     new ErrorResolver().resolveSyntaxErrors(syntaxError);
   }
 
-  public void resolveErrors(SemanticErrorResult semanticError, SyntaxResult syntaxResult) {
-    new ErrorResolver().resolveErrors(semanticError, syntaxResult);
-  }
 }

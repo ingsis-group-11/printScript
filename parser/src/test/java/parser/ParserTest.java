@@ -65,4 +65,23 @@ public class ParserTest {
     ASTNode firstAST = nodes.next();
     assertInstanceOf(AssignationNode.class, firstAST);
   }
+
+  @Test
+  public void testInvalidPrint() throws RuntimeException {
+    // println"Hello");
+    List<Token> tokens =
+        List.of(
+            new ValueToken(TokenType.PRINT_KEYWORD, "println", 1, 1),
+            new ValueToken(TokenType.STRING, "Hello", 9, 1),
+            new ValueToken(TokenType.PARENTHESIS_CLOSE, ")", 13, 1),
+            new ValueToken(TokenType.SEMICOLON, ";", 14, 1));
+
+    // WHEN
+    Iterator<Token> tokenIterator = tokens.iterator();
+    Parser parser = new Parser();
+    RuntimeException exception = assertThrows(RuntimeException.class, () -> parser.parse(tokenIterator));
+    assertEquals("Syntax errors:\n" +
+        "Expected '(' at column 9 line 1\n", exception.getMessage());
+  }
+
 }

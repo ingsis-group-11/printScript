@@ -14,14 +14,6 @@ import parser.iterator.ASTIterator;
 import token.Token;
 
 public class Runner {
-  //When you don't use inputProvider and printProvider
-  public void run(String filePath) throws IOException {
-    FileReaderIterator fileIterator = new FileReaderIterator(new File(filePath));
-    Iterator<Token> tokens = new TokenIterator(fileIterator);
-    Iterator<ASTNode> ASTNodes = new ASTIterator(tokens);
-    new Interpreter().interpret(ASTNodes);
-  }
-
   //When you use printProvider
   public void run(String filePath, PrintProvider printProvider) throws IOException {
     FileReaderIterator fileIterator = new FileReaderIterator(new File(filePath));
