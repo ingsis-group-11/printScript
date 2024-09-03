@@ -2,7 +2,7 @@ plugins{
     id 'maven-publish'
 }
 
-group = 'org.example'
+group = 'printScript'
 version = '1.0-SNAPSHOT'
 
 
