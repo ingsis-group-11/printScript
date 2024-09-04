@@ -84,4 +84,61 @@ public class ParserTest {
         "Expected '(' at column 9 line 1\n", exception.getMessage());
   }
 
+  @Test
+  public void testSyntaxParse() {
+    // GIVEN
+    // let name: string;
+    List<Token> tokens =
+        List.of(
+            new ValueToken(TokenType.LET_KEYWORD, "let", 0, 0),
+            new ValueToken(TokenType.IDENTIFIER, "name", 4, 0),
+            new ValueToken(TokenType.COLON, ":", 8, 0),
+            new ValueToken(TokenType.STRING_TYPE, "string", 10, 0),
+            new ValueToken(TokenType.SEMICOLON, ";", 17, 0));
+
+    // WHEN
+    Iterator<Token> tokenIterator = tokens.iterator();
+    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator);
+    ASTNode firstAST = nodes.next();
+    assertInstanceOf(AssignationNode.class, firstAST);
+  }
+
+  @Test
+  public void testSyntaxParseResignationPrint() {
+    // GIVEN
+    // let name: string;
+    // name = "John"
+    // println(name);
+    List<Token> tokens =
+        List.of(
+            new ValueToken(TokenType.LET_KEYWORD, "let", 0, 0),
+            new ValueToken(TokenType.IDENTIFIER, "name", 4, 0),
+            new ValueToken(TokenType.COLON, ":", 8, 0),
+            new ValueToken(TokenType.STRING_TYPE, "string", 10, 0),
+            new ValueToken(TokenType.SEMICOLON, ";", 17, 0),
+            new ValueToken(TokenType.LINE_BREAK, "\n", 17, 0),
+            new ValueToken(TokenType.IDENTIFIER, "name", 4, 0),
+            new ValueToken(TokenType.ASSIGN, "=", 8, 0),
+            new ValueToken(TokenType.STRING, "John", 10, 0),
+            new ValueToken(TokenType.SEMICOLON, ";", 17, 0),
+            new ValueToken(TokenType.LINE_BREAK, "\n", 17, 0),
+            new ValueToken(TokenType.PRINT_KEYWORD, "println", 1, 1),
+            new ValueToken(TokenType.PARENTHESIS_OPEN, "(", 8, 1),
+            new ValueToken(TokenType.IDENTIFIER, "name", 9, 1),
+            new ValueToken(TokenType.PARENTHESIS_CLOSE, ")", 13, 1),
+            new ValueToken(TokenType.SEMICOLON, ";", 14, 1)
+            );
+
+
+    // WHEN
+    Iterator<Token> tokenIterator = tokens.iterator();
+    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator);
+    ASTNode firstAST = nodes.next();
+    assertInstanceOf(AssignationNode.class, firstAST);
+    ASTNode secondAST = nodes.next();
+    assertInstanceOf(ReassignmentNode.class, secondAST);
+
+
+  }
+
 }
