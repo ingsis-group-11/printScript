@@ -353,5 +353,57 @@ public class InterpreterTest {
     interpreter.interpret(astNodes.iterator());
   }
 
+  @Test
+  public void testValidEmptyAssignment() {
+    // GIVEN
+    // let a: number;
+    // a = 5;
+    TestPrintProvider printProvider = new TestPrintProvider();
+    List<ASTNode> astNodes = List.of(
+            new AssignationNode(
+                    new DeclarationNode(
+                            new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 1),
+                            new ValueToken(TokenType.IDENTIFIER, "a", 4, 1),
+                            1,
+                            0),
+                    new EmptyNode(TokenType.NUMBER),
+                    2,
+                    1),
+            new ReassignmentNode(
+                    new VariableNode(new ValueToken(TokenType.IDENTIFIER, "a", 8, 2)),
+                    new LiteralNode(new ValueToken(TokenType.NUMBER, "5", 8, 2)),
+                    2,
+                    1)
+    );
+    Interpreter interpreter = new Interpreter(printProvider);
+    interpreter.interpret(astNodes.iterator());
+  }
+
+  @Test
+  public void testInvalidEmptyAssignment() {
+    // GIVEN
+    // let a: number;
+    // a = "Hello";
+    TestPrintProvider printProvider = new TestPrintProvider();
+    List<ASTNode> astNodes = List.of(
+            new AssignationNode(
+                    new DeclarationNode(
+                            new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 1),
+                            new ValueToken(TokenType.IDENTIFIER, "a", 4, 1),
+                            1,
+                            0),
+                    new EmptyNode(TokenType.NUMBER),
+                    2,
+                    1),
+            new ReassignmentNode(
+                    new VariableNode(new ValueToken(TokenType.IDENTIFIER, "a", 8, 2)),
+                    new LiteralNode(new ValueToken(TokenType.STRING, "Hello", 8, 2)),
+                    2,
+                    1)
+    );
+    Interpreter interpreter = new Interpreter(printProvider);
+    assertThrows(RuntimeException.class, () -> interpreter.interpret(astNodes.iterator()));
+  }
+
 
 }
