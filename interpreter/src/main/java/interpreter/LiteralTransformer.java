@@ -69,23 +69,31 @@ public class LiteralTransformer implements ASTVisitor<LiteralNode> {
         if (leftType == TokenType.STRING || rightType == TokenType.STRING) {
           yield left.getValue() + right.getValue();
         }
-        yield String.valueOf(
-            Double.parseDouble(left.getValue()) + Double.parseDouble(right.getValue()));
+        if(isDouble(left.getValue()) || isDouble(right.getValue())) {
+          yield String.valueOf(parseToDouble(left.getValue()) + parseToDouble(right.getValue()));
+        }
+        yield String.valueOf(parseToInteger(left.getValue()) + parseToInteger(right.getValue()));
       }
         case SUBTRACTION -> {
         checkInvalidOperation(left, right, leftType, rightType, operator);
-        yield String.valueOf(
-            Double.parseDouble(left.getValue()) - Double.parseDouble(right.getValue()));
+        if(isDouble(left.getValue()) || isDouble(right.getValue())) {
+          yield String.valueOf(parseToDouble(left.getValue()) - parseToDouble(right.getValue()));
+        }
+        yield String.valueOf(parseToInteger(left.getValue()) - parseToInteger(right.getValue()));
       }
         case MULTIPLICATION -> {
         checkInvalidOperation(left, right, leftType, rightType, operator);
-        yield String.valueOf(
-            Double.parseDouble(left.getValue()) * Double.parseDouble(right.getValue()));
+          if(isDouble(left.getValue()) || isDouble(right.getValue())) {
+            yield String.valueOf(parseToDouble(left.getValue()) * parseToDouble(right.getValue()));
+          }
+          yield String.valueOf(parseToInteger(left.getValue()) * parseToInteger(right.getValue()));
       }
         case DIVISION -> {
         checkInvalidOperation(left, right, leftType, rightType, operator);
-        yield String.valueOf(
-            Double.parseDouble(left.getValue()) / Double.parseDouble(right.getValue()));
+          if(isDouble(left.getValue()) || isDouble(right.getValue())) {
+            yield String.valueOf(divide(parseToDouble(left.getValue()), parseToDouble(right.getValue())));
+          }
+          yield String.valueOf(divide(parseToInteger(left.getValue()), parseToInteger(right.getValue())));
       }
     };
   }
@@ -108,6 +116,36 @@ public class LiteralTransformer implements ASTVisitor<LiteralNode> {
               + left.getLine()
               + ":"
               + left.getColumn());
+    }
+  }
+
+  private boolean isDouble(String value) {
+    return value.matches("^\\d+\\.\\d+$");
+  }
+
+  private Double parseToDouble(String value) {
+    return Double.parseDouble(value);
+  }
+
+  private Integer parseToInteger(String value) {
+    return Integer.parseInt(value);
+  }
+
+  private Number divide(int a, int b) {
+    double result = (double) a / b;
+    if (result == (int) result) {
+      return (int) result;
+    } else {
+      return result;
+    }
+  }
+
+  private Number divide(double a, double b) {
+    double result = a / b;
+    if (result == (int) result) {
+      return (int) result;
+    } else {
+      return result;
     }
   }
 }

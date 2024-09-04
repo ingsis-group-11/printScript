@@ -48,7 +48,25 @@ public class AssignationRunnerTest {
     TestPrintProvider printProvider = new TestPrintProvider();
     Runner runner = new Runner();
     runner.run("src/test/resources/assignation/additionNumberPrint.txt", printProvider);
-    String expected = expectedTransformer.transform(List.of("10.0"));
+    String expected = expectedTransformer.transform(List.of("10"));
+    assertEquals(expected, printProvider.getMessages().next());
+  }
+
+  @Test
+  public void additionIntDoubleAssignation() throws IOException {
+    TestPrintProvider printProvider = new TestPrintProvider();
+    Runner runner = new Runner();
+    runner.run("src/test/resources/assignation/additionNumberDoubleAssignation.txt", printProvider);
+    String expected = expectedTransformer.transform(List.of("17.5"));
+    assertEquals(expected, printProvider.getMessages().next());
+  }
+
+  @Test
+  public void divisionIntAssignation() throws IOException {
+    TestPrintProvider printProvider = new TestPrintProvider();
+    Runner runner = new Runner();
+    runner.run("src/test/resources/assignation/divisionIntAssignation.txt", printProvider);
+    String expected = expectedTransformer.transform(List.of("2.5"));
     assertEquals(expected, printProvider.getMessages().next());
   }
 
@@ -57,7 +75,7 @@ public class AssignationRunnerTest {
     TestPrintProvider printProvider = new TestPrintProvider();
     Runner runner = new Runner();
     runner.run("src/test/resources/assignation/subtractionNumberPrint.txt", printProvider);
-    String expected = expectedTransformer.transform(List.of("10.0"));
+    String expected = expectedTransformer.transform(List.of("10"));
     assertEquals(expected, printProvider.getMessages().next());
   }
 
@@ -66,7 +84,7 @@ public class AssignationRunnerTest {
     TestPrintProvider printProvider = new TestPrintProvider();
     Runner runner = new Runner();
     runner.run("src/test/resources/assignation/multiplicationNumberPrint.txt", printProvider);
-    String expected = expectedTransformer.transform(List.of("10.0"));
+    String expected = expectedTransformer.transform(List.of("10"));
     assertEquals(expected, printProvider.getMessages().next());
   }
 
@@ -75,7 +93,7 @@ public class AssignationRunnerTest {
     TestPrintProvider printProvider = new TestPrintProvider();
     Runner runner = new Runner();
     runner.run("src/test/resources/assignation/divisionNumberPrint.txt", printProvider);
-    String expected = expectedTransformer.transform(List.of("10.0"));
+    String expected = expectedTransformer.transform(List.of("10"));
     assertEquals(expected, printProvider.getMessages().next());
   }
 
@@ -198,7 +216,7 @@ public class AssignationRunnerTest {
     TestPrintProvider printProvider = new TestPrintProvider();
     Runner runner = new Runner();
     runner.run("src/test/resources/assignation/combinedNumberOperations.txt", printProvider);
-    String expected = expectedTransformer.transform(List.of("48.0"));
+    String expected = expectedTransformer.transform(List.of("48"));
     assertEquals(expected, printProvider.getMessages().next());
   }
 
@@ -207,7 +225,7 @@ public class AssignationRunnerTest {
     TestPrintProvider printProvider = new TestPrintProvider();
     Runner runner = new Runner();
     runner.run("src/test/resources/assignation/combinedNumberOperationsWithParenthesis.txt", printProvider);
-    String expected = expectedTransformer.transform(List.of("30.0"));
+    String expected = expectedTransformer.transform(List.of("30"));
     assertEquals(expected, printProvider.getMessages().next());
   }
 
@@ -216,7 +234,7 @@ public class AssignationRunnerTest {
     TestPrintProvider printProvider = new TestPrintProvider();
     Runner runner = new Runner();
     runner.run("src/test/resources/assignation/variableNumberAddition.txt", printProvider);
-    String expected = expectedTransformer.transform(List.of("20.0"));
+    String expected = expectedTransformer.transform(List.of("20"));
     assertEquals(expected, printProvider.getMessages().next());
   }
 
@@ -243,7 +261,7 @@ public class AssignationRunnerTest {
     TestPrintProvider printProvider = new TestPrintProvider();
     Runner runner = new Runner();
     runner.run("src/test/resources/assignation/variableNumberSubtraction.txt", printProvider);
-    String expected = expectedTransformer.transform(List.of("0.0"));
+    String expected = expectedTransformer.transform(List.of("0"));
     assertEquals(expected, printProvider.getMessages().next());
   }
 
@@ -274,7 +292,7 @@ public class AssignationRunnerTest {
     TestPrintProvider printProvider = new TestPrintProvider();
     Runner runner = new Runner();
     runner.run("src/test/resources/assignation/variableNumberMultiplication.txt", printProvider);
-    String expected = expectedTransformer.transform(List.of("10.0"));
+    String expected = expectedTransformer.transform(List.of("10"));
     assertEquals(expected, printProvider.getMessages().next());
   }
 
@@ -305,7 +323,7 @@ public class AssignationRunnerTest {
     TestPrintProvider printProvider = new TestPrintProvider();
     Runner runner = new Runner();
     runner.run("src/test/resources/assignation/variableNumberDivision.txt", printProvider);
-    String expected = expectedTransformer.transform(List.of("10.0"));
+    String expected = expectedTransformer.transform(List.of("10"));
     assertEquals(expected, printProvider.getMessages().next());
   }
 
