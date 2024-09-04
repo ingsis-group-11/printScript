@@ -47,7 +47,7 @@ public class PrintRunnerTest {
     TestPrintProvider printProvider = new TestPrintProvider();
     Runner runner = new Runner();
     runner.run("src/test/resources/print/additionNumberPrint.txt", printProvider);
-    String expected = expectedTransformer.transform(List.of("10.0"));
+    String expected = expectedTransformer.transform(List.of("10"));
     assertEquals(expected, printProvider.getMessages().next());
   }
 
@@ -56,7 +56,7 @@ public class PrintRunnerTest {
     TestPrintProvider printProvider = new TestPrintProvider();
     Runner runner = new Runner();
     runner.run("src/test/resources/print/subtractionNumberPrint.txt", printProvider);
-    String expected = expectedTransformer.transform(List.of("10.0"));
+    String expected = expectedTransformer.transform(List.of("10"));
     assertEquals(expected, printProvider.getMessages().next());
   }
 
@@ -65,7 +65,7 @@ public class PrintRunnerTest {
     TestPrintProvider printProvider = new TestPrintProvider();
     Runner runner = new Runner();
     runner.run("src/test/resources/print/multiplicationNumberPrint.txt", printProvider);
-    String expected = expectedTransformer.transform(List.of("10.0"));
+    String expected = expectedTransformer.transform(List.of("10"));
     assertEquals(expected, printProvider.getMessages().next());
   }
 
@@ -74,7 +74,7 @@ public class PrintRunnerTest {
     TestPrintProvider printProvider = new TestPrintProvider();
     Runner runner = new Runner();
     runner.run("src/test/resources/print/divisionNumberPrint.txt", printProvider);
-    String expected = expectedTransformer.transform(List.of("10.0"));
+    String expected = expectedTransformer.transform(List.of("10"));
     assertEquals(expected, printProvider.getMessages().next());
   }
 
@@ -167,7 +167,7 @@ public class PrintRunnerTest {
     TestPrintProvider printProvider = new TestPrintProvider();
     Runner runner = new Runner();
     runner.run("src/test/resources/print/combinedNumberOperations.txt", printProvider);
-    String expected = expectedTransformer.transform(List.of("48.0"));
+    String expected = expectedTransformer.transform(List.of("48"));
     assertEquals(expected, printProvider.getMessages().next());
   }
 
@@ -176,7 +176,7 @@ public class PrintRunnerTest {
     TestPrintProvider printProvider = new TestPrintProvider();
     Runner runner = new Runner();
     runner.run("src/test/resources/print/combinedNumberOperationsWithParenthesis.txt", printProvider);
-    String expected = expectedTransformer.transform(List.of("30.0"));
+    String expected = expectedTransformer.transform(List.of("30"));
     assertEquals(expected, printProvider.getMessages().next());
   }
 

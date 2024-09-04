@@ -40,6 +40,9 @@ public class SemanticVisitor implements ASTVisitor<SemanticResult> {
     else if (expressionType == TokenType.IDENTIFIER) {
       return new SemanticSuccessResult();
     }
+    else if (node.getExpression() instanceof EmptyNode) {
+      return new SemanticSuccessResult();
+    }
 
     return new SemanticErrorResult(
         List.of(
@@ -92,6 +95,11 @@ public class SemanticVisitor implements ASTVisitor<SemanticResult> {
 
   @Override
   public SemanticResult visit(ReassignmentNode node) {
+    return new SemanticSuccessResult();
+  }
+
+  @Override
+  public SemanticResult visit(EmptyNode emptyNode) {
     return new SemanticSuccessResult();
   }
 

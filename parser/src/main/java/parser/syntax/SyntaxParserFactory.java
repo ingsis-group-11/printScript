@@ -24,6 +24,9 @@ public class SyntaxParserFactory {
       if (firstToken.getType() != TokenType.LINE_BREAK && firstToken.getType() != TokenType.WHITESPACE) {
         break;
       }
+      else {
+        tokens.advance();
+      }
     }
 
     for (ProviderType type : providerTypes) {
