@@ -14,7 +14,7 @@ public class PrintTest {
     String filePath = "src/test/resources/printScript/printWithoutExpression.txt";
 
     LinterRunner linterRunner = new LinterRunner();
-    linterRunner.linterRun(filePath, configFilePath);
+    linterRunner.linterRun(filePath, configFilePath,"1.0");
   }
 
   @Test
@@ -26,7 +26,7 @@ public class PrintTest {
     assertThrows(
             RuntimeException.class,
             () -> {
-              linterRunner.linterRun(filePath, configFilePath);
+              linterRunner.linterRun(filePath, configFilePath,"1.0");
             });
   }
 
@@ -36,6 +36,6 @@ public class PrintTest {
     String filePath = "src/test/resources/printScript/printWithExpression.txt";
 
     LinterRunner linterRunner = new LinterRunner();
-    linterRunner.linterRun(filePath, configFilePath);
+    linterRunner.linterRun(filePath, configFilePath,"1.0");
   }
 }
