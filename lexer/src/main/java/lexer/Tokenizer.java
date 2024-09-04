@@ -77,7 +77,7 @@ public class Tokenizer {
   private LexingResult number() {
     StringBuilder result = new StringBuilder();
     int newColumn = column;
-    while (currentChar != '\0' && Character.isDigit(currentChar)) {
+    while (currentChar != '\0' && (Character.isDigit(currentChar) || currentChar == '.')) {
       result.append(currentChar);
       advance();
     }

@@ -77,7 +77,7 @@ public class InterpreterTest {
     Interpreter interpreter = new Interpreter(printProvider);
     interpreter.interpret(astNodes.iterator());
 
-    assertEquals("8.0\n", printProvider.getMessages().next());
+    assertEquals("8\n", printProvider.getMessages().next());
   }
 
   @Test
