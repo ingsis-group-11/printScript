@@ -12,9 +12,9 @@ public class TokenIterator implements Iterator<Token> {
     private final Lexer lexer;
     private final FileReaderIterator inputIterator;
 
-    public TokenIterator(FileReaderIterator inputIterator) {
+    public TokenIterator(FileReaderIterator inputIterator, String version) {
         this.inputIterator = inputIterator;
-        this.lexer = new Lexer(inputIterator);
+        this.lexer = new Lexer(inputIterator, version);
     }
     @Override
     public boolean hasNext() {

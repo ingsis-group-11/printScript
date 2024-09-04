@@ -16,7 +16,7 @@ public class ExecutionCommand implements Runnable {
     try {
       ConsolePrintProvider printProvider = new ConsolePrintProvider();
       Runner runner = new Runner();
-      runner.run(sourceFile, printProvider);
+      runner.run(sourceFile,"1.0", printProvider);
     } catch (Exception e) {
       System.err.print(e);
       System.exit(1);

@@ -22,7 +22,7 @@ public class ValidationCommand implements Runnable {
     System.out.println("Validating file...");
     try {
       FileReaderIterator fileIterator = new FileReaderIterator(new File(sourceFile));
-      Iterator<Token> tokens = new TokenIterator(fileIterator);
+      Iterator<Token> tokens = new TokenIterator(fileIterator, "1.0");
       Iterator<ASTNode> nodes = new ASTIterator(tokens);
       while (nodes.hasNext()){
         nodes.next();

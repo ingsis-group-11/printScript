@@ -12,12 +12,13 @@ public class Tokenizer {
   private char currentChar;
   private int line;
   private int column;
-  private final MapReader mapReader = new MapReader();
+  private final MapReader mapReader;
 
-  public Tokenizer(InputReader input) {
+  public Tokenizer(InputReader input, MapReader mapReader) {
     this.input = input;
     this.line = 1;
     this.column = 1;
+    this.mapReader = mapReader;
   }
 
   public LexingResult tokenize(InputReader input) {
