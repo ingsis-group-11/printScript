@@ -65,4 +65,9 @@ public class InterpreterVisitor implements ASTVisitor<Void> {
     }
     return null;
   }
+
+  @Override
+  public Void visit(EmptyNode emptyNode) {
+    return null;
+  }
 }

@@ -16,5 +16,6 @@ public enum TokenType {
   COLON,
   OPERATOR,
   WHITESPACE,
-  LINE_BREAK
+  LINE_BREAK,
+  EMPTY
 }

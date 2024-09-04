@@ -266,6 +266,26 @@ public class AssignationRunnerTest {
   }
 
   @Test
+  public void assignationReassignmentString() throws IOException {
+    TestPrintProvider printProvider = new TestPrintProvider();
+    Runner runner = new Runner();
+    runner.run("src/test/resources/assignation/assignationReassignmentString.txt", printProvider);
+    String expected = expectedTransformer.transform(List.of("John"));
+    assertEquals(expected, printProvider.getMessages().next());
+  }
+
+  @Test
+  public void assignationReassignmentNumber() throws IOException {
+    TestPrintProvider printProvider = new TestPrintProvider();
+    Runner runner = new Runner();
+    assertThrows(
+        RuntimeException.class,
+        () -> {
+          runner.run("src/test/resources/assignation/assignationReassignmentNumber.txt", printProvider);
+        });
+  }
+
+  @Test
   public void variableStringSubtraction() {
     TestPrintProvider printProvider = new TestPrintProvider();
     Runner runner = new Runner();

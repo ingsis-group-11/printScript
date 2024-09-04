@@ -5,6 +5,8 @@ import AST.nodes.*;
 import token.TokenType;
 import token.ValueToken;
 
+import java.util.ListResourceBundle;
+
 public class LiteralTransformer implements ASTVisitor<LiteralNode> {
 
   private final VariableAssignation variableAssignation;
@@ -58,6 +60,11 @@ public class LiteralTransformer implements ASTVisitor<LiteralNode> {
   @Override
   public LiteralNode visit(ReassignmentNode node) {
     return null;
+  }
+
+  @Override
+  public LiteralNode visit(EmptyNode emptyNode) {
+    return new LiteralNode(new ValueToken(emptyNode.getType(), "", null, null));
   }
 
   private String parseCalc(String operator, LiteralNode left, LiteralNode right) {
