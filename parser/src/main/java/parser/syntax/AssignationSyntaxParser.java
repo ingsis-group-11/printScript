@@ -24,7 +24,15 @@ public class AssignationSyntaxParser implements SyntaxParser {
 
   private ASTNode parseAssignation(TokenStream tokenStream) {
     ASTNode expressionNode;
-    tokenStream.expect(TokenType.LET_KEYWORD, "Expected 'let'");
+
+
+    if (tokenStream.getCurrentToken().getType() == TokenType.CONST_KEYWORD) {
+      tokenStream.expect(TokenType.CONST_KEYWORD, "Expected 'const'");
+    }
+
+    else {
+      tokenStream.expect(TokenType.LET_KEYWORD, "Expected 'let'");
+    }
     DeclarationNode declarationNode = parseDeclaration(tokenStream);
 
     if (tokenStream.getCurrentToken().getType() == TokenType.SEMICOLON) {
@@ -43,6 +51,7 @@ public class AssignationSyntaxParser implements SyntaxParser {
   }
 
   private DeclarationNode parseDeclaration(TokenStream tokenStream) {
+    Token keyWordToken = tokenStream.getLastToken();
     Token nameToken = tokenStream.getCurrentToken();
     tokenStream.expect(TokenType.IDENTIFIER, "Expected identifier");
     tokenStream.expect(TokenType.COLON, "Expected ':'");
@@ -52,7 +61,7 @@ public class AssignationSyntaxParser implements SyntaxParser {
     } else {
       tokenStream.advance();
     }
-    return new DeclarationNode(typeToken, nameToken, nameToken.getLine(), nameToken.getColumn());
+    return new DeclarationNode(typeToken, nameToken, keyWordToken, nameToken.getLine(), nameToken.getColumn());
   }
 
   private TokenType resolveEmptyType(TokenType type) {

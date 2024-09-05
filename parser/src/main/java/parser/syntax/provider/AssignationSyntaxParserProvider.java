@@ -9,7 +9,8 @@ public class AssignationSyntaxParserProvider implements SyntaxParserProvider {
 
   @Override
   public boolean supports(TokenStream tokens) {
-    return tokens.getCurrentToken().getType() == TokenType.LET_KEYWORD;
+    return tokens.getCurrentToken().getType() == TokenType.LET_KEYWORD
+        || tokens.getCurrentToken().getType() == TokenType.CONST_KEYWORD;
   }
 
   @Override

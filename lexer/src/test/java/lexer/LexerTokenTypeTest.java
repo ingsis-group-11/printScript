@@ -150,4 +150,23 @@ public class LexerTokenTypeTest {
     assertEquals(tokenIterator.next().getType(), TokenType.SEMICOLON);
   }
 
+  @Test
+  public void tokenizeConstAssignment() throws IOException {
+    // const a: number = 5;
+    String filePath = "src/test/resources/const_declaration.txt";
+    FileReaderIterator fileReaderIterator = new FileReaderIterator(new File(filePath));
+    Iterator<Token> tokenIterator = new TokenIterator(fileReaderIterator, "1.1");
+    assertEquals(tokenIterator.next().getType(), TokenType.CONST_KEYWORD);
+    assertEquals(tokenIterator.next().getType(), TokenType.WHITESPACE);
+    assertEquals(tokenIterator.next().getType(), TokenType.IDENTIFIER);
+    assertEquals(tokenIterator.next().getType(), TokenType.COLON);
+    assertEquals(tokenIterator.next().getType(), TokenType.WHITESPACE);
+    assertEquals(tokenIterator.next().getType(), TokenType.NUMBER_TYPE);
+    assertEquals(tokenIterator.next().getType(), TokenType.WHITESPACE);
+    assertEquals(tokenIterator.next().getType(), TokenType.ASSIGN);
+    assertEquals(tokenIterator.next().getType(), TokenType.WHITESPACE);
+    assertEquals(tokenIterator.next().getType(), TokenType.NUMBER);
+    assertEquals(tokenIterator.next().getType(), TokenType.SEMICOLON);
+  }
+
 }
