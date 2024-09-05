@@ -10,6 +10,7 @@ import picocli.CommandLine.Parameters;
 import token.Token;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.util.Iterator;
 
 @Command(name = "validate", description = "Validates the semantic and syntax errors in a printScript file")
@@ -25,7 +26,7 @@ public class ValidationCommand implements Runnable {
   public void run() {
     System.out.println("Validating file...");
     try {
-      FileReaderIterator fileIterator = new FileReaderIterator(new File(sourceFile));
+      FileReaderIterator fileIterator = new FileReaderIterator(new FileInputStream(sourceFile));
       Iterator<Token> tokens = new TokenIterator(fileIterator, version);
       Iterator<ASTNode> nodes = new ASTIterator(tokens);
       while (nodes.hasNext()){

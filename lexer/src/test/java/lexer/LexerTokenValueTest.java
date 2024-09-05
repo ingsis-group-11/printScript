@@ -7,6 +7,7 @@ import token.Token;
 import token.TokenType;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Iterator;
 
@@ -19,7 +20,7 @@ public class LexerTokenValueTest {
   public void tokenizeOneOperationTest() throws IOException {
     //5 + 3;
     String filePath = "src/test/resources/operation.txt";
-    FileReaderIterator fileReaderIterator = new FileReaderIterator(new File(filePath));
+    FileReaderIterator fileReaderIterator = new FileReaderIterator(new FileInputStream(filePath));
     Iterator<Token> tokenIterator = new TokenIterator(fileReaderIterator, "1.0");
 
     assertEquals(tokenIterator.next().getValue(), "5");
@@ -36,7 +37,7 @@ public class LexerTokenValueTest {
     //5 + 3;
     //10 / 2;
     String filePath = "src/test/resources/multiple_operations.txt";
-    FileReaderIterator fileReaderIterator = new FileReaderIterator(new File(filePath));
+    FileReaderIterator fileReaderIterator = new FileReaderIterator(new FileInputStream(filePath));
     Iterator<Token> tokenIterator = new TokenIterator(fileReaderIterator, "1.0");
 
     assertEquals(tokenIterator.next().getValue(), "5");
@@ -62,7 +63,7 @@ public class LexerTokenValueTest {
     //println("Result: "+a+b);
 
     String filePath = "src/test/resources/complete.txt";
-    FileReaderIterator fileReaderIterator = new FileReaderIterator(new File(filePath));
+    FileReaderIterator fileReaderIterator = new FileReaderIterator(new FileInputStream(filePath));
     Iterator<Token> tokenIterator = new TokenIterator(fileReaderIterator, "1.0");
     assertEquals(tokenIterator.next().getValue(), "let");
     assertEquals(tokenIterator.next().getValue(), " ");
@@ -105,7 +106,7 @@ public class LexerTokenValueTest {
   public void tokenizeBooleanTest() throws IOException {
     //true false
     String filePath = "src/test/resources/boolean.txt";
-    FileReaderIterator fileReaderIterator = new FileReaderIterator(new File(filePath));
+    FileReaderIterator fileReaderIterator = new FileReaderIterator(new FileInputStream(filePath));
     Iterator<Token> tokenIterator = new TokenIterator(fileReaderIterator, "1.1");
 
     assertEquals(tokenIterator.next().getValue(), "true");
@@ -117,7 +118,7 @@ public class LexerTokenValueTest {
   public void tokenizeReadInput() throws IOException {
     //true false
     String filePath = "src/test/resources/readInput.txt";
-    FileReaderIterator fileReaderIterator = new FileReaderIterator(new File(filePath));
+    FileReaderIterator fileReaderIterator = new FileReaderIterator(new FileInputStream(filePath));
     Iterator<Token> tokenIterator = new TokenIterator(fileReaderIterator, "1.1");
 
     assertEquals(tokenIterator.next().getValue(), "readInput");

@@ -3,6 +3,7 @@ package runner;
 import org.junit.jupiter.api.Test;
 import providers.printProvider.TestPrintProvider;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class ConstAssignationTest {
   public void constValidAssignationTest() throws IOException {
     TestPrintProvider printProvider = new TestPrintProvider();
     Runner runner = new Runner();
-    runner.run("src/test/resources/assignation/1.1/constValidAssignation.txt","1.1", printProvider);
+    runner.run(new FileInputStream("src/test/resources/assignation/1.1/constValidAssignation.txt"),"1.1", printProvider);
     String expected = expectedTransformer.transform(List.of("15.7"));
     assertEquals(expected, printProvider.getMessages().next());
   }
@@ -28,7 +29,7 @@ public class ConstAssignationTest {
     assertThrows(
             RuntimeException.class,
             () -> {
-              runner.run("src/test/resources/assignation/1.1/constInvalidResignationTest.txt","1.1", printProvider);
+              runner.run(new FileInputStream("src/test/resources/assignation/1.1/constInvalidResignationTest.txt"),"1.1", printProvider);
             });
   }
 }
