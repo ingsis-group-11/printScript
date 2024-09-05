@@ -14,7 +14,7 @@ public class CamelCaseTests {
     String filePath = "src/test/resources/printScript/camelCase.txt";
 
     LinterRunner linterRunner = new LinterRunner();
-    linterRunner.linterRun(filePath, configFilePath);
+    linterRunner.linterRun(filePath, configFilePath,"1.0");
   }
 
   @Test
@@ -26,7 +26,7 @@ public class CamelCaseTests {
     assertThrows(
             RuntimeException.class,
             () -> {
-              linterRunner.linterRun(filePath, configFilePath);
+              linterRunner.linterRun(filePath, configFilePath,"1.0");
             });
   }
 
@@ -36,6 +36,6 @@ public class CamelCaseTests {
     String filePath = "src/test/resources/printScript/snakeCase.txt";
 
     LinterRunner linterRunner = new LinterRunner();
-    linterRunner.linterRun(filePath, configFilePath);
+    linterRunner.linterRun(filePath, configFilePath,"1.0");
   }
 }

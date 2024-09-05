@@ -2,6 +2,7 @@ package cli.commands;
 
 import fileWriter.FileWriter;
 import formatter.FormatterRunner;
+import picocli.CommandLine.Option;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Parameters;
 
@@ -17,13 +18,16 @@ public class FormattingCommand implements Runnable {
   @Parameters(index = "2", description = "The config file that have the formatter rules")
   private String configFile;
 
+  @Option(names = {"-v", "--version"}, description = "The version to execute printScript", defaultValue = "1.0")
+  private String version;
+
   @Override
   public void run() {
     System.out.println("Formatting file...");
     try {
       FormatterRunner formatterRunner = new FormatterRunner();
       FileWriter fileWriter = new FileWriter(outputFile);
-      formatterRunner.format(inputFile, configFile, fileWriter);
+      formatterRunner.format(inputFile, configFile, fileWriter, version);
       System.out.println("File has been formatted :)");
     } catch (Exception e) {
       System.err.print(e);

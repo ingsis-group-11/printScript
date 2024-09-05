@@ -15,9 +15,9 @@ import token.Token;
 
 public class Runner {
   //When you use printProvider
-  public void run(String filePath, PrintProvider printProvider) throws IOException {
+  public void run(String filePath, String version, PrintProvider printProvider) throws IOException {
     FileReaderIterator fileIterator = new FileReaderIterator(new File(filePath));
-    Iterator<Token> tokens = new TokenIterator(fileIterator);
+    Iterator<Token> tokens = new TokenIterator(fileIterator, version);
     Iterator<ASTNode> ASTNodes = new ASTIterator(tokens);
     new Interpreter(printProvider).interpret(ASTNodes);
   }

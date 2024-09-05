@@ -19,7 +19,7 @@ public class LexerTokenTypeTest {
     // 5 + 3;
     String filePath = "src/test/resources/operation.txt";
     FileReaderIterator fileReaderIterator = new FileReaderIterator(new File(filePath));
-    Iterator<Token> tokenIterator = new TokenIterator(fileReaderIterator);
+    Iterator<Token> tokenIterator = new TokenIterator(fileReaderIterator, "1.0");
 
     assertEquals(tokenIterator.next().getType(), TokenType.NUMBER);
     assertEquals(tokenIterator.next().getType(), TokenType.WHITESPACE);
@@ -36,7 +36,7 @@ public class LexerTokenTypeTest {
     //10 / 2;
     String filePath = "src/test/resources/multiple_operations.txt";
     FileReaderIterator fileReaderIterator = new FileReaderIterator(new File(filePath));
-    Iterator<Token> tokenIterator = new TokenIterator(fileReaderIterator);
+    Iterator<Token> tokenIterator = new TokenIterator(fileReaderIterator, "1.0");
 
     assertEquals(tokenIterator.next().getType(), TokenType.NUMBER);
     assertEquals(tokenIterator.next().getType(), TokenType.WHITESPACE);
@@ -62,7 +62,7 @@ public class LexerTokenTypeTest {
 
     String filePath = "src/test/resources/complete.txt";
     FileReaderIterator fileReaderIterator = new FileReaderIterator(new File(filePath));
-    Iterator<Token> tokenIterator = new TokenIterator(fileReaderIterator);
+    Iterator<Token> tokenIterator = new TokenIterator(fileReaderIterator, "1.0");
     assertEquals(tokenIterator.next().getType(), TokenType.LET_KEYWORD);
     assertEquals(tokenIterator.next().getType(), TokenType.WHITESPACE);
     assertEquals(tokenIterator.next().getType(), TokenType.IDENTIFIER);
@@ -109,7 +109,7 @@ public class LexerTokenTypeTest {
 
     String filePath = "src/test/resources/reassignment.txt";
     FileReaderIterator fileReaderIterator = new FileReaderIterator(new File(filePath));
-    Iterator<Token> tokenIterator = new TokenIterator(fileReaderIterator);
+    Iterator<Token> tokenIterator = new TokenIterator(fileReaderIterator, "1.0");
     assertEquals(tokenIterator.next().getType(), TokenType.LET_KEYWORD);
     assertEquals(tokenIterator.next().getType(), TokenType.WHITESPACE);
     assertEquals(tokenIterator.next().getType(), TokenType.IDENTIFIER);
