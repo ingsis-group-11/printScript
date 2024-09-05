@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import AST.nodes.*;
+
+import java.util.Iterator;
 import java.util.List;
 
 import providers.printProvider.TestPrintProvider;
@@ -171,6 +173,7 @@ public class InterpreterTest {
   public void testReassignmentOfVariableBoolean() {
     //GIVEN
     // let bool: boolean = true;
+    // println(bool);
     // bool = false;
     // println(bool);
     TestPrintProvider printProvider = new TestPrintProvider();
@@ -181,7 +184,10 @@ public class InterpreterTest {
                 new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),0, 0)
             , new LiteralNode(new ValueToken(TokenType.BOOLEAN, "true", 19, 0)),
             1,1
-        ), new ReassignmentNode(
+        ),
+        new PrintNode(
+            new VariableNode(new ValueToken(TokenType.IDENTIFIER, "bool", 8, 1)), 1, 1),
+        new ReassignmentNode(
             new VariableNode(new ValueToken(TokenType.IDENTIFIER, "bool", 8, 1)),
             new LiteralNode(new ValueToken(TokenType.BOOLEAN, "false", 19, 0)),
             1,1
@@ -192,7 +198,9 @@ public class InterpreterTest {
 
     Interpreter interpreter = new Interpreter(printProvider);
     interpreter.interpret(astNodes.iterator());
-    assertEquals("false\n", printProvider.getMessages().next());
+    Iterator<String> messages = printProvider.getMessages();
+    assertEquals("true\n", messages.next());
+    assertEquals("false\n", messages.next());
   }
 
   @Test
