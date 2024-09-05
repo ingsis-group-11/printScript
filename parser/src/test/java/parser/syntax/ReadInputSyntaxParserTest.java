@@ -26,7 +26,7 @@ public class ReadInputSyntaxParserTest {
 
     // WHEN
     Iterator<Token> tokenIterator = tokens.iterator();
-    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator);
+    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator,"1.1");
     ASTNode firstAST = nodes.next();
     assertInstanceOf(ReadInputNode.class, firstAST);
   }
@@ -43,7 +43,7 @@ public class ReadInputSyntaxParserTest {
 
     // WHEN
     Iterator<Token> tokenIterator = tokens.iterator();
-    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator);
+    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator,"1.0");
     assertThrows(RuntimeException.class, () -> nodes.next());
   }
 }

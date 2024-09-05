@@ -1,4 +1,4 @@
-package parser.syntax;
+package parser.syntax.resolver;
 
 import token.TokenType;
 

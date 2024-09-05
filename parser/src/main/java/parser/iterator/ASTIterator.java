@@ -11,9 +11,10 @@ public class ASTIterator implements Iterator<ASTNode> {
   private final Parser parser;
   private final Iterator<Token> iterator;
 
-  public ASTIterator (Iterator<Token> iterator){
-    this.parser = new Parser();
+  public ASTIterator (Iterator<Token> iterator, String version){
+    this.parser = new Parser(version);
     this.iterator = iterator;
+
   }
 
   @Override

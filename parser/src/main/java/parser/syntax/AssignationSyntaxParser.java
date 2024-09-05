@@ -4,6 +4,8 @@ import AST.nodes.ASTNode;
 import AST.nodes.AssignationNode;
 import AST.nodes.DeclarationNode;
 import AST.nodes.EmptyNode;
+import parser.syntax.factory.ExpressionFactory;
+import parser.syntax.resolver.DeclarationTypeValidator;
 import parser.syntax.result.SyntaxErrorResult;
 import parser.syntax.result.SyntaxResult;
 import parser.syntax.result.SyntaxSuccessResult;

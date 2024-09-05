@@ -1,6 +1,7 @@
-package parser.syntax;
+package parser.syntax.factory;
 
 import AST.nodes.*;
+import parser.syntax.TokenStream;
 import token.Token;
 import token.TokenType;
 
