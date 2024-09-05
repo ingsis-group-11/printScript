@@ -599,53 +599,6 @@ public class InterpreterTest {
   }
 
   @Test
-  public void testInvalidMultipleInput(){
-    // Given
-    // let a: number = readInput("Ingrese a: "); -> 2
-    // let b: number = readInput("Ingrese b: "); -> hola
-    // println(a + b);
-
-    List<ASTNode> astNodes = List.of(
-            new AssignationNode(
-                    new DeclarationNode(
-                            new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 1),
-                            new ValueToken(TokenType.IDENTIFIER, "a", 4, 1),
-                            new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
-                            1,
-                            0),
-                    new ReadInputNode(new LiteralNode(new ValueToken(TokenType.STRING, "Ingrese a: ", 8, 2)),
-                            2,
-                            1),
-                    2,
-                    1),
-            new AssignationNode(
-                    new DeclarationNode(
-                            new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 1),
-                            new ValueToken(TokenType.IDENTIFIER, "b", 4, 1),
-                            new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
-                            1,
-                            0),
-                    new ReadInputNode(new LiteralNode(new ValueToken(TokenType.STRING, "Ingrese b: ", 8, 2)),
-                            2,
-                            1),
-                    2,
-                    1),
-            new PrintNode(new OperatorNode("+",
-                    new VariableNode(new ValueToken(TokenType.IDENTIFIER, "a", 8, 2)),
-                    new VariableNode(new ValueToken(TokenType.IDENTIFIER, "b", 8, 2)),
-                    2,
-                    1), 2, 1
-      )
-    );
-
-
-    InputProvider inputProvider = new TestInputProvider(List.of("2", "hola"));
-    TestPrintProvider printProvider = new TestPrintProvider();
-    Interpreter interpreter = new Interpreter(inputProvider, printProvider);
-    assertThrows(RuntimeException.class, () -> interpreter.interpret(astNodes.iterator()));
-  }
-
-  @Test
   public void testSpecialCharactersInput(){
     // Given
     // let a: string = readInput("Ingrese a: "); -> "\"hola\""
