@@ -18,20 +18,10 @@ public class InputTypeTransformer {
   }
 
   private boolean isInteger(String input) {
-    try {
-      Integer.parseInt(input);
-      return true;
-    } catch (NumberFormatException e) {
-      return false;
-    }
+    return input.matches("-?\\d+");
   }
 
   private boolean isDouble(String input) {
-    try {
-      Double.parseDouble(input);
-      return true;
-    } catch (NumberFormatException e) {
-      return false;
-    }
+    return input.matches("-?\\d+(\\.\\d+)?");
   }
 }

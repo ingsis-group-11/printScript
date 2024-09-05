@@ -8,6 +8,9 @@ import AST.nodes.*;
 import java.util.Iterator;
 import java.util.List;
 
+import providers.inputProvider.InputProvider;
+import providers.inputProvider.TestInputProvider;
+import providers.printProvider.PrintProvider;
 import providers.printProvider.TestPrintProvider;
 import org.junit.jupiter.api.Test;
 import token.TokenType;
@@ -462,4 +465,109 @@ public class InterpreterTest {
   }
 
 
+  @Test
+  public void testInvalidTypeReadInput() {
+    // GIVEN
+    // let a: number = readInput("Ingrese a: "); -> hola
+    // println(a);
+
+    List<ASTNode> astNodes = List.of(
+            new AssignationNode(
+                    new DeclarationNode(
+                            new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 1),
+                            new ValueToken(TokenType.IDENTIFIER, "a", 4, 1),
+                            new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                            1,
+                            0),
+                    new ReadInputNode(new LiteralNode(new ValueToken(TokenType.STRING, "Ingrese a: ", 8, 2)),
+                            2,
+                            1),
+                    2,
+                    1),
+            new PrintNode(new VariableNode(new ValueToken(TokenType.IDENTIFIER, "a", 8, 2)), 2, 1)
+    );
+
+    InputProvider inputProvider = new TestInputProvider(List.of("hola"));
+    TestPrintProvider printProvider = new TestPrintProvider();
+    Interpreter interpreter = new Interpreter(inputProvider, printProvider);
+    interpreter.interpret(astNodes.iterator());
+    assertEquals("hola\n", printProvider.getMessages().next());
+  }
+
+  @Test
+  public void testValidSingleReadInput(){
+    // GIVEN
+    // let a: string = readInput("Ingrese a: ");
+    // println(a);
+
+    List<ASTNode> astNodes = List.of(
+            new AssignationNode(
+                    new DeclarationNode(
+                            new ValueToken(TokenType.STRING_TYPE, "string", 10, 1),
+                            new ValueToken(TokenType.IDENTIFIER, "a", 4, 1),
+                            new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                            1,
+                            0),
+                    new ReadInputNode(new LiteralNode(new ValueToken(TokenType.STRING, "Ingrese a: ", 8, 2)),
+                            2,
+                            1),
+                    2,
+                    1),
+            new PrintNode(new VariableNode(new ValueToken(TokenType.IDENTIFIER, "a", 8, 2)), 2, 1)
+    );
+
+    InputProvider inputProvider = new TestInputProvider(List.of("hola"));
+    TestPrintProvider printProvider = new TestPrintProvider();
+    Interpreter interpreter = new Interpreter(inputProvider, printProvider);
+    interpreter.interpret(astNodes.iterator());
+    assertEquals("hola\n", printProvider.getMessages().next());
+  }
+
+  @Test
+  public void testValidMultipleReadInput(){
+    // GIVEN
+    // let a: number = readInput("Ingrese a: ");
+    // let b: number = readInput("Ingrese b: ");
+    // println(a + b);
+
+    List<ASTNode> astNodes = List.of(
+            new AssignationNode(
+                    new DeclarationNode(
+                            new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 1),
+                            new ValueToken(TokenType.IDENTIFIER, "a", 4, 1),
+                            new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                            1,
+                            0),
+                    new ReadInputNode(new LiteralNode(new ValueToken(TokenType.STRING, "Ingrese a: ", 8, 2)),
+                            2,
+                            1),
+                    2,
+                    1),
+            new AssignationNode(
+                    new DeclarationNode(
+                            new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 1),
+                            new ValueToken(TokenType.IDENTIFIER, "b", 4, 1),
+                            new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                            1,
+                            0),
+                    new ReadInputNode(new LiteralNode(new ValueToken(TokenType.STRING, "Ingrese b: ", 8, 2)),
+                            2,
+                            1),
+                    2,
+                    1),
+            new PrintNode(new OperatorNode("+",
+                    new VariableNode(new ValueToken(TokenType.IDENTIFIER, "a", 8, 2)),
+                    new VariableNode(new ValueToken(TokenType.IDENTIFIER, "b", 8, 2)),
+                    2,
+                    1), 2, 1
+            )
+    );
+
+    InputProvider inputProvider = new TestInputProvider(List.of("2", "2"));
+    TestPrintProvider printProvider = new TestPrintProvider();
+    Interpreter interpreter = new Interpreter(inputProvider, printProvider);
+    interpreter.interpret(astNodes.iterator());
+    assertEquals("4\n", printProvider.getMessages().next());
+
+  }
 }
