@@ -6,16 +6,15 @@ import inputType.InputTypeTransformer;
 import providers.inputProvider.InputProvider;
 import token.TokenType;
 import token.ValueToken;
-
-import java.util.ListResourceBundle;
+import variableMap.VariableMap;
 
 public class LiteralTransformer implements ASTVisitor<LiteralNode> {
 
-  private final VariableAssignation variableAssignation;
+  private final VariableMap variableMap;
   private final InputProvider inputProvider;
 
-  public LiteralTransformer(VariableAssignation variableAssignation, InputProvider inputProvider) {
-    this.variableAssignation = variableAssignation;
+  public LiteralTransformer(VariableMap variableMap, InputProvider inputProvider) {
+    this.variableMap = variableMap;
     this.inputProvider = inputProvider;
   }
 
@@ -52,7 +51,7 @@ public class LiteralTransformer implements ASTVisitor<LiteralNode> {
   @Override
   public LiteralNode visit(VariableNode node) {
     String variableName = node.getValue();
-    LiteralNode variableValue = variableAssignation.getVariable(variableName);
+    LiteralNode variableValue = variableMap.getVariable(variableName);
     return new LiteralNode(
         new ValueToken(
             variableValue.getType(),

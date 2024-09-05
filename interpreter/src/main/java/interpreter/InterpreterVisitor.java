@@ -5,17 +5,18 @@ import AST.nodes.*;
 import providers.inputProvider.InputProvider;
 import providers.printProvider.PrintProvider;
 import token.TokenType;
+import variableMap.VariableMap;
 
 public class InterpreterVisitor implements ASTVisitor<Void> {
-  private final VariableAssignation variableAssignation;
+  private final VariableMap variableMap;
   private final LiteralTransformer literalTransformer;
   private final PrintProvider printProvider;
   private final InputProvider inputProvider;
 
-  public InterpreterVisitor(VariableAssignation variableAssignation, PrintProvider printProvider, InputProvider inputProvider){
-    this.variableAssignation = variableAssignation;
+  public InterpreterVisitor(VariableMap variableMap, PrintProvider printProvider, InputProvider inputProvider){
+    this.variableMap = variableMap;
     this.printProvider = printProvider;
-    this.literalTransformer = new LiteralTransformer(variableAssignation, inputProvider);
+    this.literalTransformer = new LiteralTransformer(variableMap, inputProvider);
     this.inputProvider = inputProvider;
   }
 
@@ -40,7 +41,8 @@ public class InterpreterVisitor implements ASTVisitor<Void> {
   @Override
   public Void visit(AssignationNode node) {
     LiteralNode expression = node.getExpression().accept(literalTransformer);
-    variableAssignation.addVariable(node.getDeclaration().getNameToken().getValue(), expression);
+    // boolean mutable = node.getDeclaration().isMutable();
+    variableMap.addVariable(node.getDeclaration().getNameToken().getValue(), expression, true);
     return null;
   }
 
@@ -57,10 +59,10 @@ public class InterpreterVisitor implements ASTVisitor<Void> {
   @Override
   public Void visit(ReassignmentNode node) {
     LiteralNode expression = node.getExpression().accept(literalTransformer);
-    LiteralNode variable = variableAssignation.getVariable(node.getVariableNode().getValue());
+    LiteralNode variable = variableMap.getVariable(node.getVariableNode().getValue());
     TokenType variableType = variable.getType();
     if (variableType.equals(expression.getType())) {
-      variableAssignation.updateVariable(node.getVariableNode().getValue(), expression);
+      variableMap.updateVariable(node.getVariableNode().getValue(), expression);
     } else {
       throw new RuntimeException("Variable " + node.getVariableNode().getValue() + " is of type " + variableType +
               " and cannot be reassigned to type " + expression.getType());
