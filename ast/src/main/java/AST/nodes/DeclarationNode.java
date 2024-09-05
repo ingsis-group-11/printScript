@@ -30,6 +30,10 @@ public class DeclarationNode implements ASTNode {
     return declarationKeyWord;
   }
 
+  public boolean isMutable() {
+    return declarationKeyWord.getType() == token.TokenType.LET_KEYWORD;
+  }
+
   @Override
   public <T> T accept(ASTVisitor<T> visitor) {
     return visitor.visit(this);
