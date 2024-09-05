@@ -169,4 +169,18 @@ public class LexerTokenTypeTest {
     assertEquals(tokenIterator.next().getType(), TokenType.SEMICOLON);
   }
 
+  @Test
+  public void tokenizeReadInput() throws IOException {
+    //true false
+    String filePath = "src/test/resources/readInput.txt";
+    FileReaderIterator fileReaderIterator = new FileReaderIterator(new File(filePath));
+    Iterator<Token> tokenIterator = new TokenIterator(fileReaderIterator, "1.1");
+
+    assertEquals(tokenIterator.next().getType(), TokenType.READ_INPUT);
+    assertEquals(tokenIterator.next().getType(), TokenType.PARENTHESIS_OPEN);
+    assertEquals(tokenIterator.next().getType(), TokenType.STRING);
+    assertEquals(tokenIterator.next().getType(), TokenType.PARENTHESIS_CLOSE);
+    assertEquals(tokenIterator.next().getType(), TokenType.SEMICOLON);
+  }
+
 }

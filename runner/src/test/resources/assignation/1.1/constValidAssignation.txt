@@ -1,0 +1,2 @@
+const num:number = 15.7;
+println(num);
