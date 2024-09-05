@@ -48,7 +48,12 @@ public class ExpressionTypeVisitor implements ASTVisitor<TokenType> {
   }
 
   @Override
-  public TokenType visit(EmptyNode emptyNode) {
-    return null;
+  public TokenType visit(EmptyNode node) {
+    return TokenType.EMPTY;
+  }
+
+  @Override
+  public TokenType visit(ReadInputNode node) {
+    return node.getExpression().accept(this);
   }
 }

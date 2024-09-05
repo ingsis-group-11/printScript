@@ -100,6 +100,24 @@ public class SemanticVisitor implements ASTVisitor<SemanticResult> {
     return new SemanticSuccessResult();
   }
 
+  @Override
+  public SemanticResult visit(ReadInputNode node) {
+    ExpressionTypeVisitor expressionTypeVisitor = new ExpressionTypeVisitor();
+    TokenType expressionType = node.getExpression().accept(expressionTypeVisitor);
+    if (expressionType == TokenType.IDENTIFIER) {
+      return new SemanticSuccessResult();
+    } else if(expressionType == TokenType.STRING) {
+      return new SemanticSuccessResult();
+    }
+    return new SemanticErrorResult(
+            List.of(
+                    "Semantic error in "
+                            + node.getLine()
+                            + ":"
+                            + node.getColumn()
+                            + " Read input can only receive a string"));
+  }
+
   private static Boolean bothNumbersOrIdentifiers(
       OperatorNode operatorNode, ExpressionTypeVisitor expressionTypeVisitor) {
     if (operatorNode.getLeftNode().accept(expressionTypeVisitor) == TokenType.NUMBER
