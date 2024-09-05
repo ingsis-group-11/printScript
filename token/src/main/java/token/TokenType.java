@@ -8,6 +8,7 @@ public enum TokenType {
   STRING_TYPE,
   NUMBER_TYPE,
   BOOLEAN_TYPE,
+  BOOLEAN,
   IDENTIFIER,
   ASSIGN,
   SEMICOLON,
@@ -17,5 +18,6 @@ public enum TokenType {
   OPERATOR,
   WHITESPACE,
   LINE_BREAK,
+  READ_INPUT,
   EMPTY
 }

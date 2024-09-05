@@ -2,6 +2,7 @@ package interpreter;
 
 import AST.ASTVisitor;
 import AST.nodes.*;
+import providers.inputProvider.InputProvider;
 import providers.printProvider.PrintProvider;
 import token.TokenType;
 
@@ -9,12 +10,13 @@ public class InterpreterVisitor implements ASTVisitor<Void> {
   private final VariableAssignation variableAssignation;
   private final LiteralTransformer literalTransformer;
   private final PrintProvider printProvider;
+  private final InputProvider inputProvider;
 
-
-  public InterpreterVisitor(VariableAssignation variableAssignation, PrintProvider printProvider){
+  public InterpreterVisitor(VariableAssignation variableAssignation, PrintProvider printProvider, InputProvider inputProvider){
     this.variableAssignation = variableAssignation;
     this.printProvider = printProvider;
-    this.literalTransformer = new LiteralTransformer(variableAssignation);
+    this.literalTransformer = new LiteralTransformer(variableAssignation, inputProvider);
+    this.inputProvider = inputProvider;
   }
 
   @Override
@@ -68,6 +70,14 @@ public class InterpreterVisitor implements ASTVisitor<Void> {
 
   @Override
   public Void visit(EmptyNode emptyNode) {
+    return null;
+  }
+
+  @Override
+  public Void visit(ReadInputNode node) {
+    LiteralNode expression = node.getExpression().accept(literalTransformer);
+    String message = expression.getValue();
+    inputProvider.getInput(message);
     return null;
   }
 }

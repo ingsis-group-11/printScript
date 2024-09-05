@@ -2,6 +2,8 @@ package interpreter;
 
 import AST.ASTVisitor;
 import AST.nodes.*;
+import inputType.InputTypeTransformer;
+import providers.inputProvider.InputProvider;
 import token.TokenType;
 import token.ValueToken;
 
@@ -10,9 +12,11 @@ import java.util.ListResourceBundle;
 public class LiteralTransformer implements ASTVisitor<LiteralNode> {
 
   private final VariableAssignation variableAssignation;
+  private final InputProvider inputProvider;
 
-  public LiteralTransformer(VariableAssignation variableAssignation) {
+  public LiteralTransformer(VariableAssignation variableAssignation, InputProvider inputProvider) {
     this.variableAssignation = variableAssignation;
+    this.inputProvider = inputProvider;
   }
 
   @Override
@@ -65,6 +69,16 @@ public class LiteralTransformer implements ASTVisitor<LiteralNode> {
   @Override
   public LiteralNode visit(EmptyNode emptyNode) {
     return new LiteralNode(new ValueToken(emptyNode.getType(), "", null, null));
+  }
+
+  @Override
+  public LiteralNode visit(ReadInputNode node) {
+    LiteralNode expression = node.getExpression().accept(this);
+    String message = expression.getValue();
+    String input = inputProvider.getInput(message);
+    TokenType inputType = new InputTypeTransformer().detectInputType(input);
+    return new LiteralNode(
+            new ValueToken(inputType, input, node.getColumn(), node.getLine()));
   }
 
   private String parseCalc(String operator, LiteralNode left, LiteralNode right) {
