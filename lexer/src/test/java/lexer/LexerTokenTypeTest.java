@@ -131,4 +131,23 @@ public class LexerTokenTypeTest {
     assertEquals(tokenIterator.next().getType(), TokenType.SEMICOLON);
   }
 
+  @Test
+  public void tokenizeBooleanAssignmentCompleteCode() throws IOException {
+    // let a: boolean = true;
+    String filePath = "src/test/resources/boolean_declaration.txt";
+    FileReaderIterator fileReaderIterator = new FileReaderIterator(new File(filePath));
+    Iterator<Token> tokenIterator = new TokenIterator(fileReaderIterator, "1.1");
+    assertEquals(tokenIterator.next().getType(), TokenType.LET_KEYWORD);
+    assertEquals(tokenIterator.next().getType(), TokenType.WHITESPACE);
+    assertEquals(tokenIterator.next().getType(), TokenType.IDENTIFIER);
+    assertEquals(tokenIterator.next().getType(), TokenType.COLON);
+    assertEquals(tokenIterator.next().getType(), TokenType.WHITESPACE);
+    assertEquals(tokenIterator.next().getType(), TokenType.BOOLEAN_TYPE);
+    assertEquals(tokenIterator.next().getType(), TokenType.WHITESPACE);
+    assertEquals(tokenIterator.next().getType(), TokenType.ASSIGN);
+    assertEquals(tokenIterator.next().getType(), TokenType.WHITESPACE);
+    assertEquals(tokenIterator.next().getType(), TokenType.BOOLEAN);
+    assertEquals(tokenIterator.next().getType(), TokenType.SEMICOLON);
+  }
+
 }

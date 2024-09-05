@@ -100,4 +100,16 @@ public class LexerTokenValueTest {
     assertEquals(tokenIterator.next().getValue(), ")");
     assertEquals(tokenIterator.next().getValue(), ";");
   }
+
+  @Test
+  public void tokenizeBooleanTest() throws IOException {
+    //true false
+    String filePath = "src/test/resources/boolean.txt";
+    FileReaderIterator fileReaderIterator = new FileReaderIterator(new File(filePath));
+    Iterator<Token> tokenIterator = new TokenIterator(fileReaderIterator, "1.1");
+
+    assertEquals(tokenIterator.next().getValue(), "true");
+    assertEquals(tokenIterator.next().getValue(), " ");
+    assertEquals(tokenIterator.next().getValue(), "false");
+  }
 }

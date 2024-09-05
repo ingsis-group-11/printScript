@@ -13,7 +13,7 @@ public class ExpressionFactory {
   private static ASTNode parsePrimaryExpression(TokenStream tokenStream) {
     Token token = tokenStream.getCurrentToken();
     if (token != null) {
-      if (token.getType() == TokenType.NUMBER || token.getType() == TokenType.STRING) {
+      if (token.getType() == TokenType.NUMBER || token.getType() == TokenType.STRING || token.getType() == TokenType.BOOLEAN) {
         tokenStream.advance();
         return new LiteralNode(token);
       } else if (token.getType() == TokenType.IDENTIFIER) {

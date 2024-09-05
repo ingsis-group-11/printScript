@@ -76,6 +76,7 @@ public class LiteralTransformer implements ASTVisitor<LiteralNode> {
         if (leftType == TokenType.STRING || rightType == TokenType.STRING) {
           yield left.getValue() + right.getValue();
         }
+        checkInvalidOperation(left, right, leftType, rightType, operator);
         if(isDouble(left.getValue()) || isDouble(right.getValue())) {
           yield String.valueOf(parseToDouble(left.getValue()) + parseToDouble(right.getValue()));
         }
@@ -111,7 +112,8 @@ public class LiteralTransformer implements ASTVisitor<LiteralNode> {
       TokenType leftType,
       TokenType rightType,
       String operator) {
-    if (leftType == TokenType.STRING || rightType == TokenType.STRING) {
+    if ((leftType == TokenType.STRING || leftType == TokenType.BOOLEAN)
+        || (rightType == TokenType.STRING || rightType == TokenType.BOOLEAN)) {
       throw new RuntimeException(
           "Invalid operation: "
               + left.getValue()

@@ -23,6 +23,11 @@ public class MapReader1_1 implements MapReader{
     tokenMap.put(":", TokenType.COLON);
     tokenMap.put(" ", TokenType.WHITESPACE);
     tokenMap.put("\n", TokenType.LINE_BREAK);
+    tokenMap.put("if", TokenType.IF_KEYWORD);
+    tokenMap.put("else", TokenType.ELSE_KEYWORD);
+    tokenMap.put("true", TokenType.BOOLEAN);
+    tokenMap.put("false", TokenType.BOOLEAN);
+    tokenMap.put("boolean", TokenType.BOOLEAN_TYPE);
   }
 
   public TokenType getTokenType(String word) {

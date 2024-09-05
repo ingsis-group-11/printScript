@@ -2,6 +2,7 @@ package parser;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import AST.ExpressionTypeVisitor;
 import AST.nodes.*;
 
 import java.util.Iterator;
@@ -104,7 +105,7 @@ public class ParserTest {
   }
 
   @Test
-  public void testSyntaxParseResignationPrint() {
+  public void testSyntaxParseResignationStringPrint() {
     // GIVEN
     // let name: string;
     // name = "John"
@@ -138,6 +139,69 @@ public class ParserTest {
     ASTNode secondAST = nodes.next();
     assertInstanceOf(ReassignmentNode.class, secondAST);
 
+  }
+
+  @Test
+  public void ParseBooleanAssignation() {
+    List<Token> tokens =
+        List.of(
+            new ValueToken(TokenType.LET_KEYWORD, "let", 1, 1),
+            new ValueToken(TokenType.WHITESPACE, " ", 4, 1),
+            new ValueToken(TokenType.IDENTIFIER, "bool", 5, 1),
+            new ValueToken(TokenType.COLON, ":", 9, 1),
+            new ValueToken(TokenType.WHITESPACE, " ", 10, 1),
+            new ValueToken(TokenType.BOOLEAN_TYPE, "boolean", 11, 1),
+            new ValueToken(TokenType.WHITESPACE, " ", 17, 1),
+            new ValueToken(TokenType.ASSIGN, "=", 18, 1),
+            new ValueToken(TokenType.WHITESPACE, " ", 19, 1),
+            new ValueToken(TokenType.BOOLEAN, "true", 20, 1),
+            new ValueToken(TokenType.SEMICOLON, ";", 27, 1));
+
+    // WHEN
+    Iterator<Token> tokenIterator = tokens.iterator();
+    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator);
+    ASTNode firstAST = nodes.next();
+    assertInstanceOf(AssignationNode.class, firstAST);
+    assertEquals(TokenType.BOOLEAN, firstAST.accept(new ExpressionTypeVisitor()));
+  }
+
+  @Test
+  public void testSyntaxParseResignationBooleanPrint() {
+    // GIVEN
+    // let bool: boolean;
+    // bool = true;
+    // println(bool);
+    List<Token> tokens =
+        List.of(
+            new ValueToken(TokenType.LET_KEYWORD, "let", 0, 0),
+            new ValueToken(TokenType.IDENTIFIER, "bool", 4, 0),
+            new ValueToken(TokenType.COLON, ":", 8, 0),
+            new ValueToken(TokenType.BOOLEAN_TYPE, "boolean", 10, 0),
+            new ValueToken(TokenType.SEMICOLON, ";", 17, 0),
+            new ValueToken(TokenType.LINE_BREAK, "\n", 17, 0),
+            new ValueToken(TokenType.IDENTIFIER, "bool", 4, 0),
+            new ValueToken(TokenType.ASSIGN, "=", 8, 0),
+            new ValueToken(TokenType.BOOLEAN, "true", 10, 0),
+            new ValueToken(TokenType.SEMICOLON, ";", 17, 0),
+            new ValueToken(TokenType.LINE_BREAK, "\n", 17, 0),
+            new ValueToken(TokenType.PRINT_KEYWORD, "println", 1, 1),
+            new ValueToken(TokenType.PARENTHESIS_OPEN, "(", 8, 1),
+            new ValueToken(TokenType.IDENTIFIER, "bool", 9, 1),
+            new ValueToken(TokenType.PARENTHESIS_CLOSE, ")", 13, 1),
+            new ValueToken(TokenType.SEMICOLON, ";", 14, 1)
+        );
+
+
+    // WHEN
+    Iterator<Token> tokenIterator = tokens.iterator();
+    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator);
+    ASTNode firstAST = nodes.next();
+    assertInstanceOf(AssignationNode.class, firstAST);
+    ASTNode secondAST = nodes.next();
+    assertInstanceOf(ReassignmentNode.class, secondAST);
+    assertEquals(TokenType.BOOLEAN, secondAST.accept(new ExpressionTypeVisitor()));
+    ASTNode thirdAST = nodes.next();
+    assertInstanceOf(PrintNode.class, thirdAST);
 
   }
 
