@@ -112,4 +112,18 @@ public class LexerTokenValueTest {
     assertEquals(tokenIterator.next().getValue(), " ");
     assertEquals(tokenIterator.next().getValue(), "false");
   }
+
+  @Test
+  public void tokenizeReadInput() throws IOException {
+    //true false
+    String filePath = "src/test/resources/readInput.txt";
+    FileReaderIterator fileReaderIterator = new FileReaderIterator(new File(filePath));
+    Iterator<Token> tokenIterator = new TokenIterator(fileReaderIterator, "1.1");
+
+    assertEquals(tokenIterator.next().getValue(), "readInput");
+    assertEquals(tokenIterator.next().getValue(), "(");
+    assertEquals(tokenIterator.next().getValue(), "Test");
+    assertEquals(tokenIterator.next().getValue(), ")");
+    assertEquals(tokenIterator.next().getValue(), ";");
+  }
 }

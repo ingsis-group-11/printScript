@@ -41,8 +41,8 @@ public class InterpreterVisitor implements ASTVisitor<Void> {
   @Override
   public Void visit(AssignationNode node) {
     LiteralNode expression = node.getExpression().accept(literalTransformer);
-    // boolean mutable = node.getDeclaration().isMutable();
-    variableMap.addVariable(node.getDeclaration().getNameToken().getValue(), expression, true);
+    boolean mutable = node.getDeclaration().isMutable();
+    variableMap.addVariable(node.getDeclaration().getNameToken().getValue(), expression, mutable);
     return null;
   }
 

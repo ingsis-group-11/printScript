@@ -67,7 +67,7 @@ public class LiteralTransformer implements ASTVisitor<LiteralNode> {
 
   @Override
   public LiteralNode visit(EmptyNode emptyNode) {
-    return new LiteralNode(new ValueToken(emptyNode.getType(), "", null, null));
+    return new LiteralNode(new ValueToken(emptyNode.getType(), null, null, null));
   }
 
   @Override
