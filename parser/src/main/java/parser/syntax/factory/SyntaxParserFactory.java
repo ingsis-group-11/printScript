@@ -1,16 +1,18 @@
-package parser.syntax;
+package parser.syntax.factory;
 
+import parser.syntax.SyntaxParser;
+import parser.syntax.TokenStream;
 import parser.syntax.provider.ProviderType;
 import parser.syntax.provider.SyntaxParserProvider;
 import token.Token;
 import token.TokenType;
 
-import java.util.EnumSet;
+import java.util.Set;
 
 public class SyntaxParserFactory {
-  private final EnumSet<? extends ProviderType> providerTypes;
+  private final Set<? extends ProviderType> providerTypes;
 
-  public SyntaxParserFactory(EnumSet<ProviderType> providerTypes) {
+  public SyntaxParserFactory(Set<? extends ProviderType> providerTypes) {
     this.providerTypes = providerTypes;
   }
 
@@ -23,8 +25,7 @@ public class SyntaxParserFactory {
       Token firstToken = tokens.getCurrentToken();
       if (firstToken.getType() != TokenType.LINE_BREAK && firstToken.getType() != TokenType.WHITESPACE) {
         break;
-      }
-      else {
+      } else {
         tokens.advance();
       }
     }

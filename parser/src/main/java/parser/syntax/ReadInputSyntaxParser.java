@@ -2,6 +2,7 @@ package parser.syntax;
 
 import AST.nodes.ASTNode;
 import AST.nodes.ReadInputNode;
+import parser.syntax.factory.ExpressionFactory;
 import parser.syntax.result.SyntaxErrorResult;
 import parser.syntax.result.SyntaxResult;
 import parser.syntax.result.SyntaxSuccessResult;

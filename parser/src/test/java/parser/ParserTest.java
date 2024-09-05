@@ -36,7 +36,7 @@ public class ParserTest {
 
     // WHEN
     Iterator<Token> tokenIterator = tokens.iterator();
-    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator);
+    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator,"1.0");
     ASTNode firstAST = nodes.next();
     assertInstanceOf(AssignationNode.class, firstAST);
   }
@@ -62,7 +62,7 @@ public class ParserTest {
             new ValueToken(TokenType.SEMICOLON, ";", 27, 1));
 
     Iterator<Token> tokenIterator = tokens.iterator();
-    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator);
+    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator,"1.0");
     ASTNode firstAST = nodes.next();
     assertInstanceOf(AssignationNode.class, firstAST);
   }
@@ -79,7 +79,7 @@ public class ParserTest {
 
     // WHEN
     Iterator<Token> tokenIterator = tokens.iterator();
-    Parser parser = new Parser();
+    Parser parser = new Parser("1.0");
     RuntimeException exception = assertThrows(RuntimeException.class, () -> parser.parse(tokenIterator));
     assertEquals("Syntax errors:\n" +
         "Expected '(' at column 9 line 1\n", exception.getMessage());
@@ -99,7 +99,7 @@ public class ParserTest {
 
     // WHEN
     Iterator<Token> tokenIterator = tokens.iterator();
-    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator);
+    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator,"1.0");
     ASTNode firstAST = nodes.next();
     assertInstanceOf(AssignationNode.class, firstAST);
   }
@@ -133,7 +133,7 @@ public class ParserTest {
 
     // WHEN
     Iterator<Token> tokenIterator = tokens.iterator();
-    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator);
+    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator,"1.0");
     ASTNode firstAST = nodes.next();
     assertInstanceOf(AssignationNode.class, firstAST);
     ASTNode secondAST = nodes.next();
@@ -159,7 +159,7 @@ public class ParserTest {
 
     // WHEN
     Iterator<Token> tokenIterator = tokens.iterator();
-    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator);
+    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator,"1.0");
     ASTNode firstAST = nodes.next();
     assertInstanceOf(AssignationNode.class, firstAST);
     assertEquals(TokenType.BOOLEAN, firstAST.accept(new ExpressionTypeVisitor()));
@@ -194,7 +194,7 @@ public class ParserTest {
 
     // WHEN
     Iterator<Token> tokenIterator = tokens.iterator();
-    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator);
+    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator,"1.1");
     ASTNode firstAST = nodes.next();
     assertInstanceOf(AssignationNode.class, firstAST);
     ASTNode secondAST = nodes.next();

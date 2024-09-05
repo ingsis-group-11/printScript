@@ -27,7 +27,7 @@ public class ValidationCommand implements Runnable {
     try {
       FileReaderIterator fileIterator = new FileReaderIterator(new File(sourceFile));
       Iterator<Token> tokens = new TokenIterator(fileIterator, version);
-      Iterator<ASTNode> nodes = new ASTIterator(tokens);
+      Iterator<ASTNode> nodes = new ASTIterator(tokens, version);
       while (nodes.hasNext()){
         nodes.next();
       }
