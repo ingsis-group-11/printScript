@@ -6,12 +6,14 @@ import token.Token;
 public class DeclarationNode implements ASTNode {
   private final Token type;
   private final Token name;
+  private final Token declarationKeyWord;
   private final Integer line;
   private final Integer column;
 
-  public DeclarationNode(Token type, Token name, Integer line, Integer column) {
+  public DeclarationNode(Token type, Token name, Token declarationKeyWord, Integer line, Integer column) {
     this.type = type;
     this.name = name;
+    this.declarationKeyWord = declarationKeyWord;
     this.line = line;
     this.column = column;
   }
@@ -22,6 +24,10 @@ public class DeclarationNode implements ASTNode {
 
   public Token getNameToken() {
     return name;
+  }
+
+  public Token getDeclarationKeyWord() {
+    return declarationKeyWord;
   }
 
   @Override

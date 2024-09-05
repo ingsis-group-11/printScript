@@ -97,4 +97,30 @@ public class AssignationSyntaxParserTest {
     assertEquals(
         "bye", ((LiteralNode) ((OperatorNode) ((AssignationNode) firstAST).getExpression()).getRightNode()).getValue());
   }
+
+  @Test
+  public void testConstDeclaration(){
+
+    List<Token> tokens =
+        List.of(
+        new ValueToken(TokenType.CONST_KEYWORD, "const", 1, 1),
+        new ValueToken(TokenType.WHITESPACE, " ", 17, 1),
+        new ValueToken(TokenType.IDENTIFIER, "name", 5, 1),
+        new ValueToken(TokenType.COLON, ":", 8, 0),
+        new ValueToken(TokenType.STRING_TYPE, "string", 11, 1),
+        new ValueToken(TokenType.WHITESPACE, " ", 17, 1),
+        new ValueToken(TokenType.ASSIGN, "=", 18, 1),
+        new ValueToken(TokenType.WHITESPACE, " ", 17, 1),
+        new ValueToken(TokenType.STRING, "Olive", 20, 1),
+            new ValueToken(TokenType.SEMICOLON, ";", 22, 0)
+        );
+
+    // WHEN
+    Iterator<Token> tokenIterator = tokens.iterator();
+    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator);
+    ASTNode firstAST = nodes.next();
+    assertInstanceOf(AssignationNode.class, firstAST);
+    assertEquals("Olive", ((LiteralNode) ((AssignationNode) firstAST).getExpression()).getValue());
+
+  }
 }

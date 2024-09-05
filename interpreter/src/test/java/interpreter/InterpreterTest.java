@@ -25,6 +25,7 @@ public class InterpreterTest {
                 new DeclarationNode(
                     new ValueToken(TokenType.STRING_TYPE, "string", 10, 0),
                     new ValueToken(TokenType.IDENTIFIER, "name", 4, 0),
+                    new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
                     1,
                     0),
                 new LiteralNode(new ValueToken(TokenType.STRING, "Olive", 19, 0)),
@@ -51,6 +52,7 @@ public class InterpreterTest {
                 new DeclarationNode(
                         new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 0),
                         new ValueToken(TokenType.IDENTIFIER, "a", 4, 0),
+                    new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
                         1,
                         0),
                 new LiteralNode(new ValueToken(TokenType.NUMBER, "5", 19, 0)),
@@ -60,6 +62,7 @@ public class InterpreterTest {
                 new DeclarationNode(
                         new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 0),
                         new ValueToken(TokenType.IDENTIFIER, "b", 4, 0),
+                    new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
                         1,
                         0),
                 new LiteralNode(new ValueToken(TokenType.NUMBER, "3", 19, 0)),
@@ -91,6 +94,7 @@ public class InterpreterTest {
                 new DeclarationNode(
                     new ValueToken(TokenType.STRING_TYPE, "string", 10, 0),
                     new ValueToken(TokenType.IDENTIFIER, "name", 4, 0),
+                    new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
                     0,
                     0),
                 new LiteralNode(new ValueToken(TokenType.STRING, "a", 19, 0)),
@@ -100,6 +104,7 @@ public class InterpreterTest {
                 new DeclarationNode(
                     new ValueToken(TokenType.STRING_TYPE, "string", 10, 0),
                     new ValueToken(TokenType.IDENTIFIER, "name", 4, 0),
+                    new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
                     1,
                     0),
                 new LiteralNode(new ValueToken(TokenType.STRING, "b", 19, 0)),
@@ -120,7 +125,9 @@ public class InterpreterTest {
       List<ASTNode> astNodes = List.of(
               new AssignationNode(
                       new DeclarationNode(new ValueToken(TokenType.STRING_TYPE, "string", 10, 0),
-                              new ValueToken(TokenType.IDENTIFIER, "name", 4, 0), 0, 0)
+                              new ValueToken(TokenType.IDENTIFIER, "name", 4, 0), new ValueToken(TokenType.LET_KEYWORD,
+                          "let", 20, 1), 0, 0)
+
                       , new LiteralNode(new ValueToken(TokenType.STRING, "a", 19, 0)),
                       1, 1
               ), new ReassignmentNode(
@@ -144,7 +151,8 @@ public class InterpreterTest {
         List<ASTNode> astNodes = List.of(
                 new AssignationNode(
                         new DeclarationNode(new ValueToken(TokenType.STRING_TYPE, "string", 10, 0),
-                                new ValueToken(TokenType.IDENTIFIER, "name", 4, 0), 0, 0)
+                                new ValueToken(TokenType.IDENTIFIER, "name", 4, 0),
+                            new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),0, 0)
                         , new LiteralNode(new ValueToken(TokenType.STRING, "a", 19, 0)),
                         1,1
                 ), new ReassignmentNode(
@@ -169,7 +177,8 @@ public class InterpreterTest {
     List<ASTNode> astNodes = List.of(
         new AssignationNode(
             new DeclarationNode(new ValueToken(TokenType.BOOLEAN_TYPE, "boolean", 10, 0),
-                new ValueToken(TokenType.IDENTIFIER, "bool", 4, 0), 0, 0)
+                new ValueToken(TokenType.IDENTIFIER, "bool", 4, 0),
+                new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),0, 0)
             , new LiteralNode(new ValueToken(TokenType.BOOLEAN, "true", 19, 0)),
             1,1
         ), new ReassignmentNode(
@@ -198,6 +207,7 @@ public class InterpreterTest {
                     new DeclarationNode(
                             new ValueToken(TokenType.STRING_TYPE, "string", 10, 0),
                             new ValueToken(TokenType.IDENTIFIER, "a", 4, 0),
+                        new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
                             1,
                             0),
                     new LiteralNode(new ValueToken(TokenType.STRING, "Hello", 19, 0)),
@@ -207,6 +217,7 @@ public class InterpreterTest {
                     new DeclarationNode(
                             new ValueToken(TokenType.STRING_TYPE, "string", 10, 0),
                             new ValueToken(TokenType.IDENTIFIER, "b", 4, 0),
+                        new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
                             1,
                             0),
                     new LiteralNode(new ValueToken(TokenType.STRING, "World", 19, 0)),
@@ -236,6 +247,7 @@ public class InterpreterTest {
                     new DeclarationNode(
                             new ValueToken(TokenType.STRING_TYPE, "string", 10, 1),
                             new ValueToken(TokenType.IDENTIFIER, "a", 4, 1),
+                            new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
                             1,
                             0),
                     new LiteralNode(new ValueToken(TokenType.STRING, "Hello ", 19, 1)),
@@ -245,6 +257,7 @@ public class InterpreterTest {
                     new DeclarationNode(
                             new ValueToken(TokenType.STRING_TYPE, "string", 10, 1),
                             new ValueToken(TokenType.IDENTIFIER, "b", 4, 1),
+                            new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
                             1,
                             0),
                     new OperatorNode("*",
@@ -269,6 +282,7 @@ public class InterpreterTest {
                     new DeclarationNode(
                             new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 1),
                             new ValueToken(TokenType.IDENTIFIER, "a", 4, 1),
+                            new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
                             1,
                             0),
                     new OperatorNode("-",
@@ -293,6 +307,7 @@ public class InterpreterTest {
                     new DeclarationNode(
                             new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 1),
                             new ValueToken(TokenType.IDENTIFIER, "a", 4, 1),
+                            new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
                             1,
                             0),
                     new OperatorNode("-",
@@ -318,6 +333,7 @@ public class InterpreterTest {
                     new DeclarationNode(
                             new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 1),
                             new ValueToken(TokenType.IDENTIFIER, "a", 4, 1),
+                            new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
                             1,
                             0),
                     new LiteralNode(new ValueToken(TokenType.NUMBER, "5", 19, 1)),
@@ -327,6 +343,7 @@ public class InterpreterTest {
                     new DeclarationNode(
                             new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 1),
                             new ValueToken(TokenType.IDENTIFIER, "b", 4, 1),
+                            new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
                             1,
                             0),
                     new OperatorNode("*",
@@ -353,6 +370,7 @@ public class InterpreterTest {
                     new DeclarationNode(
                             new ValueToken(TokenType.NUMBER_TYPE, "string", 10, 0),
                             new ValueToken(TokenType.IDENTIFIER, "a", 4, 0),
+                        new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
                             1,
                             0),
                     new LiteralNode(new ValueToken(TokenType.NUMBER, "10", 19, 0)),
@@ -362,6 +380,7 @@ public class InterpreterTest {
                     new DeclarationNode(
                             new ValueToken(TokenType.NUMBER_TYPE, "string", 10, 0),
                             new ValueToken(TokenType.IDENTIFIER, "b", 4, 0),
+                        new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
                             1,
                             0),
                     new LiteralNode(new ValueToken(TokenType.NUMBER, "2", 19, 0)),
@@ -391,6 +410,7 @@ public class InterpreterTest {
                     new DeclarationNode(
                             new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 1),
                             new ValueToken(TokenType.IDENTIFIER, "a", 4, 1),
+                        new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
                             1,
                             0),
                     new EmptyNode(TokenType.NUMBER),
@@ -417,6 +437,7 @@ public class InterpreterTest {
                     new DeclarationNode(
                             new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 1),
                             new ValueToken(TokenType.IDENTIFIER, "a", 4, 1),
+                        new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
                             1,
                             0),
                     new EmptyNode(TokenType.NUMBER),

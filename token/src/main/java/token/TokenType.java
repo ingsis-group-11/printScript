@@ -21,5 +21,6 @@ public enum TokenType {
   READ_INPUT,
   IF_KEYWORD,
   ELSE_KEYWORD,
-  EMPTY
+  EMPTY,
+  CONST_KEYWORD
 }
