@@ -5,10 +5,10 @@ public enum TokenType {
   PRINT_KEYWORD,
   STRING,
   NUMBER,
+  BOOLEAN,
   STRING_TYPE,
   NUMBER_TYPE,
   BOOLEAN_TYPE,
-  BOOLEAN,
   IDENTIFIER,
   ASSIGN,
   SEMICOLON,
@@ -19,5 +19,7 @@ public enum TokenType {
   WHITESPACE,
   LINE_BREAK,
   READ_INPUT,
+  IF_KEYWORD,
+  ELSE_KEYWORD,
   EMPTY
 }
