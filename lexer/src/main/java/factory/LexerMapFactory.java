@@ -2,6 +2,7 @@ package factory;
 
 import lexer.MapReader;
 import lexer.MapReader1_0;
+import lexer.MapReader1_1;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,6 +12,7 @@ public class LexerMapFactory {
 
   public LexerMapFactory() {
     mapReaders.put("1.0", new MapReader1_0());
+    mapReaders.put("1.1", new MapReader1_1());
   }
 
   public MapReader getLexerMap(String version){
