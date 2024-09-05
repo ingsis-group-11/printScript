@@ -5,11 +5,12 @@ import providers.inputProvider.InputProvider;
 import providers.inputProvider.TestInputProvider;
 import providers.printProvider.PrintProvider;
 import providers.printProvider.TestPrintProvider;
+import variableMap.VariableMap;
 
 import java.util.Iterator;
 
 public class Interpreter {
-  private final VariableAssignation variableAssignation = new VariableAssignation();
+  private final VariableMap variableMap = new VariableMap();
   private final InputProvider inputProvider;
   private final PrintProvider printProvider;
 
@@ -34,7 +35,7 @@ public class Interpreter {
   }
 
   public void interpret(Iterator<ASTNode> astIterator) {
-    InterpreterVisitor interpreterVisitor = new InterpreterVisitor(variableAssignation, printProvider, inputProvider);
+    InterpreterVisitor interpreterVisitor = new InterpreterVisitor(variableMap, printProvider, inputProvider);
     while(astIterator.hasNext()) {
       astIterator.next().accept(interpreterVisitor);
     }
