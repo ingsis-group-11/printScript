@@ -3,6 +3,7 @@ package runner;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
@@ -19,7 +20,7 @@ public class PrintRunnerTest {
   public void simpleNumberPrint() throws IOException {
     TestPrintProvider printProvider = new TestPrintProvider();
     Runner runner = new Runner();
-    runner.run("src/test/resources/print/simpleNumberPrint.txt","1.0", printProvider);
+    runner.run(new FileInputStream("src/test/resources/print/simpleNumberPrint.txt"),"1.0", printProvider);
     String expected = expectedTransformer.transform(List.of("10"));
     assertEquals(expected, printProvider.getMessages().next());
   }
@@ -28,7 +29,7 @@ public class PrintRunnerTest {
   public void simpleStringPrint() throws IOException {
     TestPrintProvider printProvider = new TestPrintProvider();
     Runner runner = new Runner();
-    runner.run("src/test/resources/print/simpleStringPrint.txt","1.0", printProvider);
+    runner.run(new FileInputStream("src/test/resources/print/simpleStringPrint.txt"),"1.0", printProvider);
     String expected = expectedTransformer.transform(List.of("Hello World"));
     assertEquals(expected, printProvider.getMessages().next());
   }
@@ -37,7 +38,7 @@ public class PrintRunnerTest {
   public void complexStringPrint() throws IOException {
     TestPrintProvider printProvider = new TestPrintProvider();
     Runner runner = new Runner();
-    runner.run("src/test/resources/print/complexStringPrint.txt","1.0", printProvider);
+    runner.run(new FileInputStream("src/test/resources/print/complexStringPrint.txt"),"1.0", printProvider);
     String expected = expectedTransformer.transform(List.of("Hello & World! 20"));
     assertEquals(expected, printProvider.getMessages().next());
   }
@@ -46,7 +47,7 @@ public class PrintRunnerTest {
   public void additionNumberPrint() throws IOException {
     TestPrintProvider printProvider = new TestPrintProvider();
     Runner runner = new Runner();
-    runner.run("src/test/resources/print/additionNumberPrint.txt","1.0", printProvider);
+    runner.run(new FileInputStream("src/test/resources/print/additionNumberPrint.txt"),"1.0", printProvider);
     String expected = expectedTransformer.transform(List.of("10"));
     assertEquals(expected, printProvider.getMessages().next());
   }
@@ -55,7 +56,7 @@ public class PrintRunnerTest {
   public void subtractionNumberPrint() throws IOException {
     TestPrintProvider printProvider = new TestPrintProvider();
     Runner runner = new Runner();
-    runner.run("src/test/resources/print/subtractionNumberPrint.txt","1.0", printProvider);
+    runner.run(new FileInputStream("src/test/resources/print/subtractionNumberPrint.txt"),"1.0", printProvider);
     String expected = expectedTransformer.transform(List.of("10"));
     assertEquals(expected, printProvider.getMessages().next());
   }
@@ -64,7 +65,7 @@ public class PrintRunnerTest {
   public void multiplicationNumberPrint() throws IOException {
     TestPrintProvider printProvider = new TestPrintProvider();
     Runner runner = new Runner();
-    runner.run("src/test/resources/print/multiplicationNumberPrint.txt","1.0", printProvider);
+    runner.run(new FileInputStream("src/test/resources/print/multiplicationNumberPrint.txt"),"1.0", printProvider);
     String expected = expectedTransformer.transform(List.of("10"));
     assertEquals(expected, printProvider.getMessages().next());
   }
@@ -73,7 +74,7 @@ public class PrintRunnerTest {
   public void divisionNumberPrint() throws IOException {
     TestPrintProvider printProvider = new TestPrintProvider();
     Runner runner = new Runner();
-    runner.run("src/test/resources/print/divisionNumberPrint.txt","1.0", printProvider);
+    runner.run(new FileInputStream("src/test/resources/print/divisionNumberPrint.txt"),"1.0", printProvider);
     String expected = expectedTransformer.transform(List.of("10"));
     assertEquals(expected, printProvider.getMessages().next());
   }
@@ -82,7 +83,7 @@ public class PrintRunnerTest {
   public void additionStringPrint() throws IOException {
     TestPrintProvider printProvider = new TestPrintProvider();
     Runner runner = new Runner();
-    runner.run("src/test/resources/print/additionStringPrint.txt","1.0", printProvider);
+    runner.run(new FileInputStream("src/test/resources/print/additionStringPrint.txt"),"1.0", printProvider);
     String expected = expectedTransformer.transform(List.of("Hello World"));
     assertEquals(expected, printProvider.getMessages().next());
   }
@@ -94,7 +95,7 @@ public class PrintRunnerTest {
     assertThrows(
         RuntimeException.class,
         () -> {
-          runner.run("src/test/resources/print/subtractionStringPrint.txt","1.0", printProvider);
+          runner.run(new FileInputStream("src/test/resources/print/subtractionStringPrint.txt"),"1.0", printProvider);
         });
   }
 
@@ -105,7 +106,7 @@ public class PrintRunnerTest {
     assertThrows(
         RuntimeException.class,
         () -> {
-          runner.run("src/test/resources/print/multiplicationStringPrint.txt","1.0", printProvider);
+          runner.run(new FileInputStream("src/test/resources/print/multiplicationStringPrint.txt"),"1.0", printProvider);
         });
   }
 
@@ -116,7 +117,7 @@ public class PrintRunnerTest {
     assertThrows(
         RuntimeException.class,
         () -> {
-          runner.run("src/test/resources/print/divisionStringPrint.txt","1.0", printProvider);
+          runner.run(new FileInputStream("src/test/resources/print/divisionStringPrint.txt"),"1.0", printProvider);
         });
   }
 
@@ -124,7 +125,7 @@ public class PrintRunnerTest {
   public void additionStringNumberPrint() throws IOException {
     TestPrintProvider printProvider = new TestPrintProvider();
     Runner runner = new Runner();
-    runner.run("src/test/resources/print/additionStringNumberPrint.txt","1.0", printProvider);
+    runner.run(new FileInputStream("src/test/resources/print/additionStringNumberPrint.txt"),"1.0", printProvider);
     String expected = expectedTransformer.transform(List.of("Hello 10"));
     assertEquals(expected, printProvider.getMessages().next());
   }
@@ -136,7 +137,7 @@ public class PrintRunnerTest {
     assertThrows(
         RuntimeException.class,
         () -> {
-          runner.run("src/test/resources/print/subtractionStringNumberPrint.txt","1.0", printProvider);
+          runner.run(new FileInputStream("src/test/resources/print/subtractionStringNumberPrint.txt"),"1.0", printProvider);
         });
   }
 
@@ -147,7 +148,7 @@ public class PrintRunnerTest {
     assertThrows(
         RuntimeException.class,
         () -> {
-          runner.run("src/test/resources/print/multiplicationStringNumberPrint.txt","1.0", printProvider);
+          runner.run(new FileInputStream("src/test/resources/print/multiplicationStringNumberPrint.txt"),"1.0", printProvider);
         });
   }
 
@@ -158,7 +159,7 @@ public class PrintRunnerTest {
     assertThrows(
         RuntimeException.class,
         () -> {
-          runner.run("src/test/resources/print/divisionStringNumberPrint.txt","1.0", printProvider);
+          runner.run(new FileInputStream("src/test/resources/print/divisionStringNumberPrint.txt"),"1.0", printProvider);
         });
   }
 
@@ -166,7 +167,7 @@ public class PrintRunnerTest {
   public void combinedNumberOperations() throws IOException {
     TestPrintProvider printProvider = new TestPrintProvider();
     Runner runner = new Runner();
-    runner.run("src/test/resources/print/combinedNumberOperations.txt","1.0", printProvider);
+    runner.run(new FileInputStream("src/test/resources/print/combinedNumberOperations.txt"),"1.0", printProvider);
     String expected = expectedTransformer.transform(List.of("48"));
     assertEquals(expected, printProvider.getMessages().next());
   }
@@ -175,7 +176,7 @@ public class PrintRunnerTest {
   public void combinedNumberOperationsWithParenthesis() throws IOException {
     TestPrintProvider printProvider = new TestPrintProvider();
     Runner runner = new Runner();
-    runner.run("src/test/resources/print/combinedNumberOperationsWithParenthesis.txt","1.0", printProvider);
+    runner.run(new FileInputStream("src/test/resources/print/combinedNumberOperationsWithParenthesis.txt"),"1.0", printProvider);
     String expected = expectedTransformer.transform(List.of("30"));
     assertEquals(expected, printProvider.getMessages().next());
   }
@@ -184,7 +185,7 @@ public class PrintRunnerTest {
   public void multiplePrints() throws IOException {
     TestPrintProvider printProvider = new TestPrintProvider();
     Runner runner = new Runner();
-    runner.run("src/test/resources/print/multiplePrints.txt","1.0", printProvider);
+    runner.run(new FileInputStream("src/test/resources/print/multiplePrints.txt"),"1.0", printProvider);
     String expected = expectedTransformer.transform(List.of("10.0", "Hello", "20.0", "World"));
     Iterator<String> actual = printProvider.getMessages();
     assertEquals(expected, actual.next() + actual.next() + actual.next() + actual.next());

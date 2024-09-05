@@ -6,12 +6,13 @@ import iterator.TokenIterator;
 import parser.iterator.ASTIterator;
 import token.Token;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Iterator;
 
 public class LinterRunner {
   public void linterRun(String filePath, String configRulesPath, String version) throws IOException {
-    FileReaderIterator fileIterator = new FileReaderIterator(new File(filePath));
+    FileReaderIterator fileIterator = new FileReaderIterator(new FileInputStream(filePath));
     Iterator<Token> tokens = new TokenIterator(fileIterator, version);
     Iterator<ASTNode> nodes = new ASTIterator(tokens, version);
     Linter linter = new Linter();

@@ -6,6 +6,8 @@ import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 import runner.Runner;
 
+import java.io.FileInputStream;
+
 @Command(name = "execute", description = "Executes a printScript file")
 public class ExecutionCommand implements Runnable {
 
@@ -20,7 +22,7 @@ public class ExecutionCommand implements Runnable {
     try {
       ConsolePrintProvider printProvider = new ConsolePrintProvider();
       Runner runner = new Runner();
-      runner.run(sourceFile,version, printProvider);
+      runner.run(new FileInputStream(sourceFile),version, printProvider);
     } catch (Exception e) {
       System.err.print(e);
       System.exit(1);
