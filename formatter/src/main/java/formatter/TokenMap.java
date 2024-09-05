@@ -19,6 +19,10 @@ public class TokenMap {
     tokenMap.put(TokenType.STRING_TYPE, new TypesFormatter());
     tokenMap.put(TokenType.STRING, new StringFormatter());
     tokenMap.put(TokenType.NUMBER, new TypesFormatter());
+    tokenMap.put(TokenType.BOOLEAN, new TypesFormatter());
+    tokenMap.put(TokenType.BOOLEAN_TYPE, new TypesFormatter());
+    tokenMap.put(TokenType.IF_KEYWORD, new IfFormatter());
+    tokenMap.put(TokenType.BRACKET_OPEN, new BracketFormatter());
   }
 
   public TokenFormatter getTokenFormatter(TokenType tokenType) {

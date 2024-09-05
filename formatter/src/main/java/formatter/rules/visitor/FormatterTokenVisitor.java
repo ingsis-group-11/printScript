@@ -3,6 +3,7 @@ package formatter.rules.visitor;
 import formatter.rules.assign.SpacesBetweenAssign;
 import formatter.rules.colon.SpaceAfterColon;
 import formatter.rules.colon.SpaceBeforeColon;
+import formatter.rules.conditional.IfRule;
 import formatter.rules.identifier.Identifier;
 import formatter.rules.semicolon.LineBreakAfterSemicolon;
 import formatter.rules.print.LinebreakBeforePrint;
@@ -80,6 +81,18 @@ public class FormatterTokenVisitor implements RuleVisitor {
     List<Token> result = new ArrayList<>();
     result.add(new ValueToken(TokenType.STRING, '"' + token.getValue() + '"', token.getColumn() + 1,
         token.getLine()));
+    return result;
+  }
+
+  @Override
+  public List<Token> visit(IfRule ifRule, List<Token> tokens, int indentationLevel) {
+    Token token = tokens.getLast();
+    List<Token> result = new ArrayList<>();
+    result.add(new ValueToken(TokenType.LINE_BREAK, "\n", token.getColumn() + 1, token.getLine()));
+    for (int i = 1; i <= indentationLevel; i++) {
+      result.add(new ValueToken(TokenType.WHITESPACE, "  ", token.getColumn() + i,
+          token.getLine() + 1));
+    }
     return result;
   }
 

@@ -3,6 +3,7 @@ package formatter.rules.visitor;
 import formatter.rules.assign.SpacesBetweenAssign;
 import formatter.rules.colon.SpaceAfterColon;
 import formatter.rules.colon.SpaceBeforeColon;
+import formatter.rules.conditional.IfRule;
 import formatter.rules.identifier.Identifier;
 import formatter.rules.semicolon.LineBreakAfterSemicolon;
 import formatter.rules.print.LinebreakBeforePrint;
@@ -21,4 +22,5 @@ public interface RuleVisitor {
   List<Token> visit(Identifier identifier, List<Token> tokens);
   List<Token> visit(Types types, List<Token> tokens);
   List<Token> visit(StringQuotes stringQuotes, List<Token> tokens);
+  List<Token> visit(IfRule ifRule, List<Token> tokens, int indentationLevel);
 }

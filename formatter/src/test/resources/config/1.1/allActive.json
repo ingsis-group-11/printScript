@@ -1,0 +1,24 @@
+{
+  "rules": [
+    {
+      "type": "spaceBeforeColon",
+      "active": true
+    },
+    {
+      "type": "spaceAfterColon",
+      "active": true
+    },
+    {
+      "type": "spacesBetweenAssign",
+      "active": true
+    },
+    {
+      "type": "linebreakBeforePrint",
+      "active": true
+    },
+    {
+      "type": "indentationsOnIf",
+      "value": 2
+    }
+  ]
+}

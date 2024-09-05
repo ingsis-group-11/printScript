@@ -3,6 +3,7 @@ package formatter;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import formatter.rules.*;
+import formatter.rules.bracket.IndentationOnIf;
 import formatter.rules.identifier.Identifier;
 import formatter.rules.semicolon.LineBreakAfterSemicolon;
 import formatter.rules.types.StringQuotes;
@@ -23,10 +24,15 @@ public class RulesReader {
 
     for (JsonNode ruleNode : rulesNode) {
       String type = ruleNode.get("type").asText();
-      boolean active = ruleNode.get("active").asBoolean();
-      if (active) {
-        Rule rule = rulesMap.getRule(type);
-        activeRules.add(rule);
+      if (ruleNode.has("active")) {
+        boolean active = ruleNode.get("active").asBoolean();
+        if (active) {
+          Rule rule = rulesMap.getRule(type);
+          activeRules.add(rule);
+        }
+      } else {
+        int value = ruleNode.get("value").asInt();
+        activeRules.add(new IndentationOnIf(value));
       }
     }
     return activeRules;
