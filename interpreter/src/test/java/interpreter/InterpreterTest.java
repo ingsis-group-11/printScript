@@ -160,6 +160,33 @@ public class InterpreterTest {
     }
 
   @Test
+  public void testReassignmentOfVariableBoolean() {
+    //GIVEN
+    // let bool: boolean = true;
+    // bool = false;
+    // println(bool);
+    TestPrintProvider printProvider = new TestPrintProvider();
+    List<ASTNode> astNodes = List.of(
+        new AssignationNode(
+            new DeclarationNode(new ValueToken(TokenType.BOOLEAN_TYPE, "boolean", 10, 0),
+                new ValueToken(TokenType.IDENTIFIER, "bool", 4, 0), 0, 0)
+            , new LiteralNode(new ValueToken(TokenType.BOOLEAN, "true", 19, 0)),
+            1,1
+        ), new ReassignmentNode(
+            new VariableNode(new ValueToken(TokenType.IDENTIFIER, "bool", 8, 1)),
+            new LiteralNode(new ValueToken(TokenType.BOOLEAN, "false", 19, 0)),
+            1,1
+        ),
+        new PrintNode(
+            new VariableNode(new ValueToken(TokenType.IDENTIFIER, "bool", 8, 1)), 1, 1)
+    );
+
+    Interpreter interpreter = new Interpreter(printProvider);
+    interpreter.interpret(astNodes.iterator());
+    assertEquals("false\n", printProvider.getMessages().next());
+  }
+
+  @Test
   public void testInvalidDivisionAtPrint() {
     // GIVEN
     // let a: string = "Hello ";

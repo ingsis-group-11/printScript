@@ -47,8 +47,7 @@ public class AssignationSyntaxParser implements SyntaxParser {
     tokenStream.expect(TokenType.IDENTIFIER, "Expected identifier");
     tokenStream.expect(TokenType.COLON, "Expected ':'");
     Token typeToken = tokenStream.getCurrentToken();
-    if (typeToken.getType() != TokenType.STRING_TYPE
-        && typeToken.getType() != TokenType.NUMBER_TYPE) {
+    if (!DeclarationTypeValidator.isValidDeclarationType(typeToken.getType())) {
       tokenStream.getErrorMessages().add("Expected type to be 'string' or 'number'");
     } else {
       tokenStream.advance();
