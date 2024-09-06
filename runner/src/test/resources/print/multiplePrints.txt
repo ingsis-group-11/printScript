@@ -1,4 +1,4 @@
-println("10.0");
+println(10.0);
 println("Hello");
-println("20.0");
+println(20.0);
 println("World");

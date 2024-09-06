@@ -1,8 +1,9 @@
-package parser.syntax;
+package parser.syntax.parsers;
 
 import AST.nodes.ASTNode;
 import AST.nodes.ReassignmentNode;
 import AST.nodes.VariableNode;
+import parser.syntax.TokenStream;
 import parser.syntax.factory.ExpressionFactory;
 import parser.syntax.result.SyntaxErrorResult;
 import parser.syntax.result.SyntaxResult;

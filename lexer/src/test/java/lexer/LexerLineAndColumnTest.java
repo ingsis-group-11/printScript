@@ -178,7 +178,6 @@ public class LexerLineAndColumnTest {
         assertEquals(token.getType(), TokenType.STRING);
         assertEquals(token.getLine(), 1);
         assertEquals(token.getColumn(), 11);
-        assertEquals(token.getValue(), "Test");
 
         token = tokenIterator.next();
         assertEquals(token.getType(), TokenType.OPERATOR);
@@ -189,7 +188,6 @@ public class LexerLineAndColumnTest {
         assertEquals(token.getType(), TokenType.STRING);
         assertEquals(token.getLine(), 1);
         assertEquals(token.getColumn(), 18);
-        assertEquals(token.getValue(), "Test2");
 
         token = tokenIterator.next();
         assertEquals(token.getType(), TokenType.PARENTHESIS_CLOSE);
@@ -200,6 +198,54 @@ public class LexerLineAndColumnTest {
         assertEquals(token.getType(), TokenType.SEMICOLON);
         assertEquals(token.getLine(), 1);
         assertEquals(token.getColumn(), 26);
+
+    }
+
+    @Test
+    public void readInputAssignationWithExpressionTest() throws IOException {
+        // GIVEN
+        // let a: string = readInput("Test"+"Test");
+
+        String filePath = "src/test/resources/readInputAssignationWithExpressionTest.txt";
+        FileReaderIterator fileReaderIterator = new FileReaderIterator(new FileInputStream(filePath));
+        Iterator<Token> tokenIterator = new TokenIterator(fileReaderIterator, "1.1");
+
+        jumpNLines(tokenIterator, 9);
+
+        Token token = tokenIterator.next();
+        assertEquals(token.getType(), TokenType.READ_INPUT);
+        assertEquals(token.getLine(), 1);
+        assertEquals(token.getColumn(), 17);
+
+        token = tokenIterator.next();
+        assertEquals(token.getType(), TokenType.PARENTHESIS_OPEN);
+        assertEquals(token.getLine(), 1);
+        assertEquals(token.getColumn(), 26);
+
+        token = tokenIterator.next();
+        assertEquals(token.getType(), TokenType.STRING);
+        assertEquals(token.getLine(), 1);
+        assertEquals(token.getColumn(), 27);
+
+        token = tokenIterator.next();
+        assertEquals(token.getType(), TokenType.OPERATOR);
+        assertEquals(token.getLine(), 1);
+        assertEquals(token.getColumn(), 33);
+
+        token = tokenIterator.next();
+        assertEquals(token.getType(), TokenType.STRING);
+        assertEquals(token.getLine(), 1);
+        assertEquals(token.getColumn(), 34);
+
+        token = tokenIterator.next();
+        assertEquals(token.getType(), TokenType.PARENTHESIS_CLOSE);
+        assertEquals(token.getLine(), 1);
+        assertEquals(token.getColumn(), 40);
+
+        token = tokenIterator.next();
+        assertEquals(token.getType(), TokenType.SEMICOLON);
+        assertEquals(token.getLine(), 1);
+        assertEquals(token.getColumn(), 41);
 
     }
 

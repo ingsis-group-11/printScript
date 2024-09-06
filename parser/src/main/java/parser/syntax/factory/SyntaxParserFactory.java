@@ -1,6 +1,6 @@
 package parser.syntax.factory;
 
-import parser.syntax.SyntaxParser;
+import parser.syntax.parsers.SyntaxParser;
 import parser.syntax.TokenStream;
 import parser.syntax.provider.ProviderType;
 import parser.syntax.provider.SyntaxParserProvider;
