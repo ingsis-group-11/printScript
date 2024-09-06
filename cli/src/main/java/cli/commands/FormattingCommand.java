@@ -30,7 +30,7 @@ public class FormattingCommand implements Runnable {
       formatterRunner.format(inputFile, configFile, fileWriter, version);
       System.out.println("File has been formatted :)");
     } catch (Exception e) {
-      System.err.print(e);
+      System.err.print(e.getMessage());
       System.exit(1);
     }
   }

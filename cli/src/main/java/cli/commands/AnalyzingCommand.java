@@ -5,6 +5,8 @@ import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 import picocli.CommandLine.Command;
 
+import java.io.FileInputStream;
+
 
 @Command(name = "analyze", description = "Analyze a printScript file using a config file")
 public class AnalyzingCommand implements Runnable {
@@ -23,10 +25,10 @@ public class AnalyzingCommand implements Runnable {
     System.out.println("Analyzing file...");
     try {
       LinterRunner linterRunner = new LinterRunner();
-      linterRunner.linterRun(sourceFile, configFile, version);
+      linterRunner.linterRun(new FileInputStream(sourceFile), new FileInputStream(configFile), version);
       System.out.println("File has no linter errors :)");
     } catch (Exception e) {
-      System.err.print(e);
+      System.err.print(e.getMessage());
       System.exit(1);
     }
   }

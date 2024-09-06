@@ -18,7 +18,7 @@ public class Runner {
   public void run(InputStream inputStream, String version) throws IOException {
     FileReaderIterator fileIterator = new FileReaderIterator(inputStream);
     Iterator<Token> tokens = new TokenIterator(fileIterator, version);
-    Iterator<ASTNode> ASTNodes = new ASTIterator(tokens);
+    Iterator<ASTNode> ASTNodes = new ASTIterator(tokens, version);
     new Interpreter().interpret(ASTNodes);
   }
 
@@ -34,7 +34,7 @@ public class Runner {
   public void run(InputStream inputStream, String version, InputProvider inputProvider) throws IOException {
     FileReaderIterator fileIterator = new FileReaderIterator(inputStream);
     Iterator<Token> tokens = new TokenIterator(fileIterator, version);
-    Iterator<ASTNode> ASTNodes = new ASTIterator(tokens);
+    Iterator<ASTNode> ASTNodes = new ASTIterator(tokens, version);
     new Interpreter(inputProvider).interpret(ASTNodes);
   }
 
@@ -42,7 +42,7 @@ public class Runner {
   public void run(InputStream inputStream, String version, PrintProvider printProvider, InputProvider inputProvider) throws IOException {
     FileReaderIterator fileIterator = new FileReaderIterator(inputStream);
     Iterator<Token> tokens = new TokenIterator(fileIterator, version);
-    Iterator<ASTNode> ASTNodes = new ASTIterator(tokens);
+    Iterator<ASTNode> ASTNodes = new ASTIterator(tokens, version);
     new Interpreter(inputProvider, printProvider).interpret(ASTNodes);
   }
 }
