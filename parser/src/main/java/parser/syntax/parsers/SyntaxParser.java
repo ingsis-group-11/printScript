@@ -1,5 +1,6 @@
-package parser.syntax;
+package parser.syntax.parsers;
 
+import parser.syntax.TokenStream;
 import parser.syntax.result.SyntaxResult;
 
 public interface SyntaxParser {

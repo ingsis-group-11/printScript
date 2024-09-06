@@ -1,7 +1,8 @@
-package parser.syntax;
+package parser.syntax.parsers;
 
 import AST.nodes.ASTNode;
 import AST.nodes.ReadInputNode;
+import parser.syntax.TokenStream;
 import parser.syntax.factory.ExpressionFactory;
 import parser.syntax.result.SyntaxErrorResult;
 import parser.syntax.result.SyntaxResult;
@@ -21,11 +22,13 @@ public class ReadInputSyntaxParser implements SyntaxParser {
   }
 
   private ASTNode parseReadInput(TokenStream tokenStream) {
+    int line = tokenStream.getCurrentToken().getLine();
+    int column = tokenStream.getCurrentToken().getColumn();
     tokenStream.expect(TokenType.READ_INPUT, "Expected 'readInput'");
     tokenStream.expect(TokenType.PARENTHESIS_OPEN, "Expected '('");
     ASTNode expressionNode = ExpressionFactory.createExpression(tokenStream);
     tokenStream.expect(TokenType.PARENTHESIS_CLOSE, "Expected ')'");
     tokenStream.expect(TokenType.SEMICOLON, "Expected ';'");
-    return new ReadInputNode(expressionNode, expressionNode.getLine(), expressionNode.getColumn());
+    return new ReadInputNode(expressionNode, line, column);
   }
 }

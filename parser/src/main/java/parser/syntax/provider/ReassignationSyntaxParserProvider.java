@@ -1,7 +1,7 @@
 package parser.syntax.provider;
 
-import parser.syntax.ReassignationSyntaxParser;
-import parser.syntax.SyntaxParser;
+import parser.syntax.parsers.ReassignationSyntaxParser;
+import parser.syntax.parsers.SyntaxParser;
 import parser.syntax.TokenStream;
 import token.TokenType;
 

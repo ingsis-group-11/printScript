@@ -3,7 +3,7 @@ package parser;
 import AST.nodes.ASTNode;
 import parser.semantic.SemanticAnalyzer;
 import parser.semantic.result.SemanticResult;
-import parser.syntax.SyntaxParser;
+import parser.syntax.parsers.SyntaxParser;
 import parser.syntax.factory.SyntaxParserFactory;
 import parser.syntax.provider.ProviderType;
 import parser.syntax.resolver.ParserVersionResolver;
