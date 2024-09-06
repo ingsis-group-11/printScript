@@ -626,4 +626,37 @@ public class InterpreterTest {
     interpreter.interpret(astNodes.iterator());
     assertEquals("\"hola\"\n", printProvider.getMessages().next());
   }
+
+  @Test
+  public void testReassignmentWithInput(){
+    // Given
+    // let a: number = readInput("Ingrese a: "); -> 5
+    // a = readInput("Ingrese a: "); -> hola
+
+    List<ASTNode> astNodes = List.of(
+            new AssignationNode(
+                    new DeclarationNode(
+                            new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 1),
+                            new ValueToken(TokenType.IDENTIFIER, "a", 4, 1),
+                            new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                            1,
+                            0),
+                    new ReadInputNode(new LiteralNode(new ValueToken(TokenType.STRING, "Ingrese a: ", 8, 2)),
+                            2,
+                            1),
+                    2,
+                    1),
+            new ReassignmentNode(
+                    new VariableNode(new ValueToken(TokenType.IDENTIFIER, "a", 8, 2)),
+                    new ReadInputNode(new LiteralNode(new ValueToken(TokenType.STRING, "Ingrese a: ", 8, 2)),
+                            2,
+                            1),
+                    2,
+                    1)
+    );
+
+    InputProvider inputProvider = new TestInputProvider(List.of("5", "hola"));
+    Interpreter interpreter = new Interpreter(inputProvider);
+    assertThrows(RuntimeException.class, () -> interpreter.interpret(astNodes.iterator()));
+  }
 }
