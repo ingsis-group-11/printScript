@@ -24,7 +24,7 @@ public class ExecutionCommand implements Runnable {
       Runner runner = new Runner();
       runner.run(new FileInputStream(sourceFile),version, printProvider);
     } catch (Exception e) {
-      System.err.print(e);
+      System.err.print(e.getMessage());
       System.exit(1);
     }
   }

@@ -9,7 +9,6 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.Parameters;
 import token.Token;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.util.Iterator;
 
@@ -34,7 +33,8 @@ public class ValidationCommand implements Runnable {
       }
       System.out.println("File has no semantic or syntax errors :)");
     } catch (Exception e) {
-      throw new RuntimeException(e);
+      System.err.print(e.getMessage());
+      System.exit(1);
     }
   }
 }
