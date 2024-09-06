@@ -2,15 +2,15 @@
   "rules": [
     {
       "type": "camelCase",
-      "active": false
-    },
-    {
-      "type": "printPreventExpression",
       "active": true
     },
     {
-      "type": "readInputPreventExpression",
+      "type": "printPreventExpression",
       "active": false
+    },
+    {
+      "type": "readInputPreventExpression",
+      "active": true
     }
   ]
 }

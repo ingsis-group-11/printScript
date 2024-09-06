@@ -1,0 +1,1 @@
+let camelCase: string = readInput("Test");
