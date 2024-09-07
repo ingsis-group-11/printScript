@@ -1,6 +1,6 @@
 package linter.rulesMap;
 
-import linter.rules.CamelCaseRule;
+import linter.rules.IdentifierFormatRule;
 import linter.rules.PrintPreventExpressionRule;
 import linter.rules.Rule;
 
@@ -11,8 +11,8 @@ public class RuleMap1_0 implements RulesMap {
   Map<String, Rule> ruleMap = new HashMap<>();
 
   public RuleMap1_0() {
-    ruleMap.put("camelCase", new CamelCaseRule());
-    ruleMap.put("printPreventExpression", new PrintPreventExpressionRule());
+    ruleMap.put("identifier_format", new IdentifierFormatRule());
+    ruleMap.put("mandatory-variable-or-literal-in-println", new PrintPreventExpressionRule());
   }
 
   @Override

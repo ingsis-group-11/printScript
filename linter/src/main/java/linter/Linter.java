@@ -1,28 +1,22 @@
 package linter;
 
 import AST.nodes.ASTNode;
-import fileReader.InputStreamToString;
 import linter.result.FailedLinterResult;
 import linter.result.LinterResult;
 import linter.rules.Rule;
-import linter.rules.validator.RuleValidator;
-import linter.rulesMap.RuleMapFactory;
-import linter.rulesMap.RulesMap;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Linter {
-  public void lint(ASTNode node, List<Rule> rules) throws IOException {
+  public void lint(ASTNode node, List<Rule> rules) {
     checkRules(rules, node);
   }
 
   private void checkRules(List<Rule> rules, ASTNode node) {
-    RuleValidator validator = new RuleValidator();
     List<String> errors = new ArrayList<>();
     for (Rule rule : rules) {
-      LinterResult result = rule.accept(validator, node);
+      LinterResult result = rule.lint(node);
       if(result.hasErrors()) {
         errors.addAll(((FailedLinterResult) result).getErrors());
       }

@@ -7,21 +7,21 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class CamelCaseTests {
+public class SnakeCaseTests {
 
   @Test
-  public void camelCaseActiveSuccessTest() throws IOException {
-    String configFilePath = "src/test/resources/config/1.0/configCamelCaseActive.json";
-    String filePath = "src/test/resources/printScript/1.0/camelCase.txt";
+  public void snakeCaseActiveSuccessTest() throws IOException {
+    String configFilePath = "src/test/resources/config/1.0/configSnakeCaseActive.json";
+    String filePath = "src/test/resources/printScript/1.0/snakeCase.txt";
 
     LinterRunner linterRunner = new LinterRunner();
     linterRunner.linterRun(new FileInputStream(filePath), new FileInputStream(configFilePath),"1.0");
   }
 
   @Test
-  public void camelCaseActiveFailTest() {
-    String configFilePath = "src/test/resources/config/1.0/configCamelCaseActive.json";
-    String filePath = "src/test/resources/printScript/1.0/snakeCase.txt";
+  public void snakeCaseActiveFailTest() {
+    String configFilePath = "src/test/resources/config/1.0/configSnakeCaseActive.json";
+    String filePath = "src/test/resources/printScript/1.0/camelCase.txt";
 
     LinterRunner linterRunner = new LinterRunner();
     assertThrows(
@@ -32,7 +32,7 @@ public class CamelCaseTests {
   }
 
   @Test
-  public void camelCaseDisabledSuccessTest() throws IOException {
+  public void snakeCaseDisabledSuccessTest() throws IOException {
     String configFilePath = "src/test/resources/config/1.0/configAllDisabled.json";
     String filePath = "src/test/resources/printScript/1.0/snakeCase.txt";
 

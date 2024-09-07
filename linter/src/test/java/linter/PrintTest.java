@@ -12,7 +12,7 @@ public class PrintTest {
   @Test
   public void printActiveSuccessTest() throws IOException {
     String configFilePath = "src/test/resources/config/1.0/configPrintExpressionActive.json";
-    String filePath = "src/test/resources/printScript/printWithoutExpression.txt";
+    String filePath = "src/test/resources/printScript/1.0/printWithoutExpression.txt";
 
     LinterRunner linterRunner = new LinterRunner();
     linterRunner.linterRun(new FileInputStream(filePath), new FileInputStream(configFilePath),"1.0");
@@ -21,7 +21,7 @@ public class PrintTest {
   @Test
   public void PrintActiveFailTest() {
     String configFilePath = "src/test/resources/config/1.0/configPrintExpressionActive.json";
-    String filePath = "src/test/resources/printScript/printWithExpression.txt";
+    String filePath = "src/test/resources/printScript/1.0/printWithExpression.txt";
 
     LinterRunner linterRunner = new LinterRunner();
     assertThrows(
@@ -34,7 +34,7 @@ public class PrintTest {
   @Test
   public void printDisabledSuccessTest() throws IOException {
     String configFilePath = "src/test/resources/config/1.0/configAllDisabled.json";
-    String filePath = "src/test/resources/printScript/printWithExpression.txt";
+    String filePath = "src/test/resources/printScript/1.0/printWithExpression.txt";
 
     LinterRunner linterRunner = new LinterRunner();
     linterRunner.linterRun(new FileInputStream(filePath), new FileInputStream(configFilePath),"1.0");

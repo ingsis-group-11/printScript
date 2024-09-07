@@ -17,16 +17,15 @@ public class RulesReader {
         List<Rule> activeRules = new ArrayList<>();
 
         ObjectMapper mapper = new ObjectMapper();
-        JsonNode rulesNode = mapper.readTree(jsonString).get("rules");
+        JsonNode rootNode = mapper.readTree(jsonString);
 
-        for (JsonNode ruleNode : rulesNode) {
-            String type = ruleNode.get("type").asText();
-            boolean active = ruleNode.get("active").asBoolean();
-            if (active) {
-                Rule rule = rulesMap.getRule(type);
-                activeRules.add(rule);
-            }
-        }
+        rootNode.fields().forEachRemaining(entry -> {
+            String key = entry.getKey();
+            JsonNode value = entry.getValue();
+            Rule rule = rulesMap.getRule(key);
+            rule.setValue(value.asText());
+            activeRules.add(rule);
+        });
         return activeRules;
     }
 }
