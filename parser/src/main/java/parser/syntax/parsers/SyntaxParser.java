@@ -5,5 +5,5 @@ import parser.syntax.result.SyntaxResult;
 
 public interface SyntaxParser {
 
-  SyntaxResult syntaxParse(TokenStream tokens);
+  SyntaxResult syntaxParse(TokenStream tokens, String version);
 }

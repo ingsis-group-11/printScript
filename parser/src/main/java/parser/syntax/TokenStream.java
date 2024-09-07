@@ -50,9 +50,9 @@ public class TokenStream {
       String message =
           errorMessage
               + (currentToken != null
-              ? " at column " + currentToken.getColumn() + " line " + currentToken.getLine()
+              ? " at column " + (lastToken.getColumn() + lastToken.getValue().length()) + " line " + currentToken.getLine()
               : " at column "
-              + (lastToken != null ? lastToken.getColumn() : "unknown")
+              + (lastToken != null ? (lastToken.getColumn() + lastToken.getValue().length()) : "unknown")
               + " line "
               + (lastToken != null ? lastToken.getLine() : "unknown"));
       errorMessages.add(message);

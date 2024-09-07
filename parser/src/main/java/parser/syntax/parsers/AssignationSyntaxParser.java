@@ -16,8 +16,8 @@ import token.TokenType;
 public class AssignationSyntaxParser implements SyntaxParser {
 
   @Override
-  public SyntaxResult syntaxParse(TokenStream tokens) {
-    ASTNode result = parseAssignation(tokens);
+  public SyntaxResult syntaxParse(TokenStream tokens, String version) {
+    ASTNode result = parseAssignation(tokens, version);
     if (tokens.getErrorMessages().isEmpty()) {
       return new SyntaxSuccessResult(result);
     } else {
@@ -25,7 +25,7 @@ public class AssignationSyntaxParser implements SyntaxParser {
     }
   }
 
-  private ASTNode parseAssignation(TokenStream tokenStream) {
+  private ASTNode parseAssignation(TokenStream tokenStream, String version) {
     ASTNode expressionNode;
 
 
@@ -38,14 +38,15 @@ public class AssignationSyntaxParser implements SyntaxParser {
     }
     DeclarationNode declarationNode = parseDeclaration(tokenStream);
 
-    if (tokenStream.getCurrentToken().getType() == TokenType.SEMICOLON) {
+    if (tokenStream.getCurrentToken().getType() != TokenType.ASSIGN) {
+      tokenStream.expect(TokenType.SEMICOLON, "Expected ';'");
       TokenType type = resolveEmptyType(declarationNode.getTypeToken().getType());
 
       expressionNode = new EmptyNode(type);
     }
     else {
       tokenStream.expect(TokenType.ASSIGN, "Expected '='");
-      expressionNode = ExpressionFactory.createExpression(tokenStream);
+      expressionNode = ExpressionFactory.createExpression(tokenStream, version);
       tokenStream.expect(TokenType.SEMICOLON, "Expected ';'");
     }
 

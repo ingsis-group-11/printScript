@@ -19,7 +19,6 @@ public class ParserTest {
   public void testParser() {
     // GIVEN
     // let name: string = "Olive";
-    // println(name);
     List<Token> tokens =
         List.of(
             new ValueToken(TokenType.LET_KEYWORD, "let", 1, 1),
@@ -82,7 +81,7 @@ public class ParserTest {
     Parser parser = new Parser("1.0");
     RuntimeException exception = assertThrows(RuntimeException.class, () -> parser.parse(tokenIterator));
     assertEquals("Syntax errors:\n" +
-        "Expected '(' at column 9 line 1\n", exception.getMessage());
+        "Expected '(' at column 8 line 1\n", exception.getMessage());
   }
 
   @Test
@@ -178,7 +177,7 @@ public class ParserTest {
             new ValueToken(TokenType.COLON, ":", 8, 0),
             new ValueToken(TokenType.BOOLEAN_TYPE, "boolean", 10, 0),
             new ValueToken(TokenType.SEMICOLON, ";", 17, 0),
-            new ValueToken(TokenType.LINE_BREAK, "\n", 17, 0),
+            new ValueToken(TokenType.LINE_BREAK, "\n", 18, 0),
             new ValueToken(TokenType.IDENTIFIER, "bool", 4, 0),
             new ValueToken(TokenType.ASSIGN, "=", 8, 0),
             new ValueToken(TokenType.BOOLEAN, "true", 10, 0),
@@ -203,6 +202,34 @@ public class ParserTest {
     ASTNode thirdAST = nodes.next();
     assertInstanceOf(PrintNode.class, thirdAST);
 
+  }
+
+  @Test
+  public void testReadInputParser() {
+    // GIVEN
+    // let name: string = readInput("Enter your name: ");
+    List<Token> tokens =
+        List.of(
+            new ValueToken(TokenType.LET_KEYWORD, "let", 1, 1),
+            new ValueToken(TokenType.WHITESPACE, " ", 4, 1),
+            new ValueToken(TokenType.IDENTIFIER, "name", 5, 1),
+            new ValueToken(TokenType.COLON, ":", 9, 1),
+            new ValueToken(TokenType.WHITESPACE, " ", 10, 1),
+            new ValueToken(TokenType.STRING_TYPE, "string", 11, 1),
+            new ValueToken(TokenType.WHITESPACE, " ", 17, 1),
+            new ValueToken(TokenType.ASSIGN, "=", 18, 1),
+            new ValueToken(TokenType.WHITESPACE, " ", 19, 1),
+            new ValueToken(TokenType.READ_INPUT, "readInput", 20, 1),
+            new ValueToken(TokenType.PARENTHESIS_OPEN, "(", 29, 1),
+            new ValueToken(TokenType.STRING, "Enter your name: ", 30, 1),
+            new ValueToken(TokenType.PARENTHESIS_CLOSE, ")", 47, 1),
+            new ValueToken(TokenType.SEMICOLON, ";", 48, 1));
+
+    // WHEN
+    Iterator<Token> tokenIterator = tokens.iterator();
+    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator, "1.1");
+    ASTNode firstAST = nodes.next();
+    assertInstanceOf(AssignationNode.class, firstAST);
   }
 
 }

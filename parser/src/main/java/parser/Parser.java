@@ -61,7 +61,7 @@ public class Parser {
     Set<ProviderType> providerTypes = ParserVersionResolver.getParserProviderTypes(version);
     SyntaxParserFactory factory = new SyntaxParserFactory(providerTypes);
     SyntaxParser syntaxParser = factory.getSyntaxParser(tokenStream);
-    return syntaxParser.syntaxParse(tokenStream);
+    return syntaxParser.syntaxParse(tokenStream, version);
   }
 
   public void resolveSyntaxErrors(SyntaxErrorResult syntaxError) {
