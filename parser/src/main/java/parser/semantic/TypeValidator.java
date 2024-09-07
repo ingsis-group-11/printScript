@@ -10,6 +10,10 @@ public class TypeValidator {
             return true;
         } else if (variableType == TokenType.BOOLEAN_TYPE && expressionType == TokenType.BOOLEAN) {
             return true;
-        } else return expressionType == TokenType.IDENTIFIER;
+        } else if(expressionType == TokenType.IDENTIFIER){
+            return true;
+        } else {
+            return expressionType == TokenType.READ_INPUT;
+        }
     }
 }
