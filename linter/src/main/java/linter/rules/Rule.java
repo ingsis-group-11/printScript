@@ -2,8 +2,8 @@ package linter.rules;
 
 import AST.nodes.ASTNode;
 import linter.result.LinterResult;
-import linter.rules.validator.RuleVisitor;
 
 public interface Rule {
-    LinterResult accept(RuleVisitor visitor, ASTNode node);
+    void setValue(String value);
+    LinterResult lint(ASTNode node);
 }

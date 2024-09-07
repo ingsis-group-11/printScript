@@ -1,13 +1,40 @@
 package linter.rules;
 
 import AST.nodes.ASTNode;
+import AST.nodes.OperatorNode;
+import AST.nodes.PrintNode;
+import linter.result.FailedLinterResult;
 import linter.result.LinterResult;
-import linter.rules.validator.RuleVisitor;
+import linter.result.SuccessLinterResult;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class PrintPreventExpressionRule implements Rule {
+  private String value;
+
   @Override
-  public LinterResult accept(RuleVisitor visitor, ASTNode node) {
-    return visitor.visit(this, node);
+  public void setValue(String value) {
+    this.value = value;
+  }
+
+  @Override
+  public LinterResult lint(ASTNode node) {
+    if(Objects.equals(value, "false")){
+      return new SuccessLinterResult();
+    }
+    List<String> errors = new ArrayList<>();
+    if (node instanceof PrintNode printNode){
+      ASTNode expression = printNode.getExpression();
+      if (expression instanceof OperatorNode) {
+        int line = printNode.getLine();
+        int column = printNode.getColumn();
+        errors.add("println statement at " + line + ":" + column + " has an expression");
+      }
+    }
+
+    return errors.isEmpty() ? new SuccessLinterResult() : new FailedLinterResult(errors);
   }
 
 }
