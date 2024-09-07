@@ -5,5 +5,5 @@ import linter.rules.Rule;
 
 
 public interface RulesMap {
-  public Rule getRule(String ruleName);
+  Rule getRule(String ruleName);
 }

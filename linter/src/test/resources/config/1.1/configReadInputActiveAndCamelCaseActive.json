@@ -1,16 +1,4 @@
 {
-  "rules": [
-    {
-      "type": "camelCase",
-      "active": true
-    },
-    {
-      "type": "printPreventExpression",
-      "active": false
-    },
-    {
-      "type": "readInputPreventExpression",
-      "active": true
-    }
-  ]
+  "identifier_format" : "camel case",
+  "mandatory-variable-or-literal-in-readInput" : true
 }

@@ -1,12 +1,4 @@
 {
-  "rules": [
-    {
-      "type": "camelCase",
-      "active": true
-    },
-    {
-      "type": "printPreventExpression",
-      "active": false
-    }
-  ]
+  "identifier_format" : "camel case",
+  "mandatory-variable-or-literal-in-println" : false
 }
