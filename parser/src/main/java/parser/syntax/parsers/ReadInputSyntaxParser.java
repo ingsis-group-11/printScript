@@ -12,8 +12,8 @@ import token.TokenType;
 public class ReadInputSyntaxParser implements SyntaxParser {
 
   @Override
-  public SyntaxResult syntaxParse(TokenStream tokens) {
-    ASTNode result = parseReadInput(tokens);
+  public SyntaxResult syntaxParse(TokenStream tokens, String version) {
+    ASTNode result = parseReadInput(tokens, version);
     if (tokens.getErrorMessages().isEmpty()) {
       return new SyntaxSuccessResult(result);
     } else {
@@ -21,12 +21,12 @@ public class ReadInputSyntaxParser implements SyntaxParser {
     }
   }
 
-  private ASTNode parseReadInput(TokenStream tokenStream) {
+  private ASTNode parseReadInput(TokenStream tokenStream, String version) {
     int line = tokenStream.getCurrentToken().getLine();
     int column = tokenStream.getCurrentToken().getColumn();
     tokenStream.expect(TokenType.READ_INPUT, "Expected 'readInput'");
     tokenStream.expect(TokenType.PARENTHESIS_OPEN, "Expected '('");
-    ASTNode expressionNode = ExpressionFactory.createExpression(tokenStream);
+    ASTNode expressionNode = ExpressionFactory.createExpression(tokenStream, version);
     tokenStream.expect(TokenType.PARENTHESIS_CLOSE, "Expected ')'");
     tokenStream.expect(TokenType.SEMICOLON, "Expected ';'");
     return new ReadInputNode(expressionNode, line, column);

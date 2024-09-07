@@ -14,8 +14,8 @@ import token.TokenType;
 public class ReassignationSyntaxParser implements SyntaxParser {
 
   @Override
-  public SyntaxResult syntaxParse(TokenStream tokens) {
-    ASTNode result = parseReassignment(tokens);
+  public SyntaxResult syntaxParse(TokenStream tokens, String version) {
+    ASTNode result = parseReassignment(tokens, version);
     if (tokens.getErrorMessages().isEmpty()) {
       return new SyntaxSuccessResult(result);
     } else {
@@ -23,10 +23,10 @@ public class ReassignationSyntaxParser implements SyntaxParser {
     }
   }
 
-  private ASTNode parseReassignment(TokenStream tokenStream) {
+  private ASTNode parseReassignment(TokenStream tokenStream, String version) {
     VariableNode variableNode = parseVariable(tokenStream);
     tokenStream.expect(TokenType.ASSIGN, "Expected '='");
-    ASTNode expressionNode = ExpressionFactory.createExpression(tokenStream);
+    ASTNode expressionNode = ExpressionFactory.createExpression(tokenStream, version);
     tokenStream.expect(TokenType.SEMICOLON, "Expected ';'");
     return new ReassignmentNode(
         variableNode, expressionNode, expressionNode.getLine(), expressionNode.getColumn());
