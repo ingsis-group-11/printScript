@@ -1,6 +1,5 @@
 package formatter;
 
-import fileReader.FileReader;
 import formatter.rules.Rule;
 import formatter.tokenFormatter.TokenFormatter;
 import token.Token;
@@ -13,8 +12,8 @@ import java.util.List;
 public class Formatter {
   TokenOutput tokenOutput = new TokenOutput();
 
-  public String formatFile(Iterator<Token> tokens, String configPathRules) throws IOException {
-    List<Rule> rules = getRules(configPathRules);
+  public String formatFile(Iterator<Token> tokens, String jsonString) throws IOException {
+    List<Rule> rules = getRules(jsonString);
     TokenMap tokenMap = new TokenMap();
 
     Token token = tokens.next();
@@ -32,10 +31,8 @@ public class Formatter {
     }
   }
 
-  private List<Rule> getRules(String path) throws IOException {
+  private List<Rule> getRules(String jsonString) throws IOException {
     RulesReader rulesReader = new RulesReader();
-    FileReader fileReader = new FileReader();
-    String jsonString = fileReader.read(path);
     List<Rule> rules = rulesReader.loadRulesFromJson(jsonString);
     return rules;
   }

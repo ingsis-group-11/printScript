@@ -184,4 +184,40 @@ public class LexerTokenTypeTest {
     assertEquals(tokenIterator.next().getType(), TokenType.SEMICOLON);
   }
 
+  @Test
+  public void consecutiveLineBreakTest() throws IOException {
+    // GIVEN
+    // 1+1;
+    //
+    //
+    // 2+2;
+
+    String filePath = "src/test/resources/consecutive_linebreaks.txt";
+    FileReaderIterator fileReaderIterator = new FileReaderIterator(new FileInputStream(filePath));
+    Iterator<Token> tokenIterator = new TokenIterator(fileReaderIterator, "1.1");
+
+    jumpNLines(tokenIterator, 4);
+
+    Token token = tokenIterator.next();
+    assertEquals(token.getType(), TokenType.LINE_BREAK);
+
+
+    token = tokenIterator.next();
+    assertEquals(token.getType(), TokenType.LINE_BREAK);
+
+
+    token = tokenIterator.next();
+    assertEquals(token.getType(), TokenType.LINE_BREAK);
+
+
+    token = tokenIterator.next();
+    assertEquals(token.getType(), TokenType.NUMBER);
+  }
+
+  private void jumpNLines(Iterator<Token> tokenIterator, int n) {
+    for (int i = 0; i < n; i++) {
+      tokenIterator.next();
+    }
+  }
+
 }

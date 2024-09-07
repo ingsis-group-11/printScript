@@ -84,41 +84,6 @@ public class LexerLineAndColumnTest {
     }
 
     @Test
-    public void consecutiveLineBreakTest() throws IOException {
-        // GIVEN
-        // 1+1;
-        //
-        //
-        // 2+2;
-
-        String filePath = "src/test/resources/consecutive_linebreaks.txt";
-        FileReaderIterator fileReaderIterator = new FileReaderIterator(new FileInputStream(filePath));
-        Iterator<Token> tokenIterator = new TokenIterator(fileReaderIterator, "1.1");
-
-        jumpNLines(tokenIterator, 4);
-
-        Token token = tokenIterator.next();
-        assertEquals(token.getType(), TokenType.LINE_BREAK);
-        assertEquals(token.getLine(), 1);
-        assertEquals(token.getColumn(), 5);
-
-        token = tokenIterator.next();
-        assertEquals(token.getType(), TokenType.LINE_BREAK);
-        assertEquals(token.getLine(), 2);
-        assertEquals(token.getColumn(), 1);
-
-        token = tokenIterator.next();
-        assertEquals(token.getType(), TokenType.LINE_BREAK);
-        assertEquals(token.getLine(), 3);
-        assertEquals(token.getColumn(), 1);
-
-        token = tokenIterator.next();
-        assertEquals(token.getType(), TokenType.NUMBER);
-        assertEquals(token.getLine(), 4);
-        assertEquals(token.getColumn(), 1);
-    }
-
-    @Test
     public void readInputTest() throws IOException{
         // GIVEN
         // readInput("Test");

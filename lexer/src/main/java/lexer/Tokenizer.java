@@ -60,7 +60,7 @@ public class Tokenizer {
       currentChar = '\0';
     } else {
       currentChar = input.next();
-      if (!isLineBreak()) {
+      if (!isCarriageReturn()) {
         column++;
       }
     }
