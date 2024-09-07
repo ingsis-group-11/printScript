@@ -13,11 +13,12 @@ import parser.syntax.result.SyntaxSuccessResult;
 import token.Token;
 import parser.syntax.TokenStream;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 public class Parser {
-
   private final String version;
 
   public Parser(String version){
