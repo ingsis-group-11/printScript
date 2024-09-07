@@ -17,6 +17,7 @@ public class SemanticAssignationTest {
                   new DeclarationNode(
                           new ValueToken(TokenType.STRING_TYPE, "string", 10, 0),
                           new ValueToken(TokenType.IDENTIFIER, "name", 4, 0),
+                          new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
                           1,
                           0),
                   new LiteralNode(new ValueToken(TokenType.STRING, "Olive", 19, 0)),
@@ -34,6 +35,7 @@ public class SemanticAssignationTest {
                     new DeclarationNode(
                             new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 0),
                             new ValueToken(TokenType.IDENTIFIER, "num", 4, 0),
+                            new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
                             1,
                             0),
                     new LiteralNode(new ValueToken(TokenType.NUMBER, "10", 19, 0)),
@@ -51,6 +53,7 @@ public class SemanticAssignationTest {
                     new DeclarationNode(
                             new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 0),
                             new ValueToken(TokenType.IDENTIFIER, "name", 4, 0),
+                            new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
                             1,
                             0),
                     new LiteralNode(new ValueToken(TokenType.STRING, "Olive", 19, 0)),
@@ -68,6 +71,7 @@ public class SemanticAssignationTest {
                     new DeclarationNode(
                             new ValueToken(TokenType.STRING_TYPE, "string", 10, 0),
                             new ValueToken(TokenType.IDENTIFIER, "num", 4, 0),
+                            new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
                             1,
                             0),
                     new LiteralNode(new ValueToken(TokenType.NUMBER, "10", 19, 0)),
@@ -85,6 +89,7 @@ public class SemanticAssignationTest {
                     new DeclarationNode(
                             new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 0),
                             new ValueToken(TokenType.IDENTIFIER, "name", 4, 0),
+                            new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
                             1,
                             0),
                     new LiteralNode(new ValueToken(TokenType.IDENTIFIER, "a", 19, 0)),

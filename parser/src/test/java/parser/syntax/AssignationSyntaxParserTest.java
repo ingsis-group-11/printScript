@@ -31,7 +31,7 @@ public class AssignationSyntaxParserTest {
 
     // WHEN
     Iterator<Token> tokenIterator = tokens.iterator();
-    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator);
+    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator,"1.0");
     ASTNode firstAST = nodes.next();
     assertInstanceOf(AssignationNode.class, firstAST);
     assertEquals("John", ((LiteralNode) ((AssignationNode) firstAST).getExpression()).getValue());
@@ -57,7 +57,7 @@ public class AssignationSyntaxParserTest {
 
     // WHEN
     Iterator<Token> tokenIterator = tokens.iterator();
-    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator);
+    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator,"1.0");
     ASTNode firstAST = nodes.next();
     assertInstanceOf(AssignationNode.class, firstAST);
     assertEquals("25", ((LiteralNode) ((AssignationNode) firstAST).getExpression()).getValue());
@@ -88,7 +88,7 @@ public class AssignationSyntaxParserTest {
 
     // WHEN
     Iterator<Token> tokenIterator = tokens.iterator();
-    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator);
+    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator,"1.0");
     ASTNode firstAST = nodes.next();
     assertInstanceOf(AssignationNode.class, firstAST);
     assertEquals(
@@ -96,5 +96,31 @@ public class AssignationSyntaxParserTest {
         ((OperatorNode) ((AssignationNode) firstAST).getExpression()).getOperator());
     assertEquals(
         "bye", ((LiteralNode) ((OperatorNode) ((AssignationNode) firstAST).getExpression()).getRightNode()).getValue());
+  }
+
+  @Test
+  public void testConstDeclaration(){
+
+    List<Token> tokens =
+        List.of(
+        new ValueToken(TokenType.CONST_KEYWORD, "const", 1, 1),
+        new ValueToken(TokenType.WHITESPACE, " ", 17, 1),
+        new ValueToken(TokenType.IDENTIFIER, "name", 5, 1),
+        new ValueToken(TokenType.COLON, ":", 8, 0),
+        new ValueToken(TokenType.STRING_TYPE, "string", 11, 1),
+        new ValueToken(TokenType.WHITESPACE, " ", 17, 1),
+        new ValueToken(TokenType.ASSIGN, "=", 18, 1),
+        new ValueToken(TokenType.WHITESPACE, " ", 17, 1),
+        new ValueToken(TokenType.STRING, "Olive", 20, 1),
+            new ValueToken(TokenType.SEMICOLON, ";", 22, 0)
+        );
+
+    // WHEN
+    Iterator<Token> tokenIterator = tokens.iterator();
+    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator,"1.1");
+    ASTNode firstAST = nodes.next();
+    assertInstanceOf(AssignationNode.class, firstAST);
+    assertEquals("Olive", ((LiteralNode) ((AssignationNode) firstAST).getExpression()).getValue());
+
   }
 }

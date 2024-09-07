@@ -6,6 +6,8 @@ import picocli.CommandLine.Option;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Parameters;
 
+import java.io.FileInputStream;
+
 @Command(name = "format", description = "Format a printScript file using a config file")
 public class FormattingCommand implements Runnable {
 
@@ -27,10 +29,10 @@ public class FormattingCommand implements Runnable {
     try {
       FormatterRunner formatterRunner = new FormatterRunner();
       FileWriter fileWriter = new FileWriter(outputFile);
-      formatterRunner.format(inputFile, configFile, fileWriter, version);
+      formatterRunner.format(new FileInputStream(inputFile), new FileInputStream(configFile), fileWriter, version);
       System.out.println("File has been formatted :)");
     } catch (Exception e) {
-      System.err.print(e);
+      System.err.print(e.getMessage());
       System.exit(1);
     }
   }

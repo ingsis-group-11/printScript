@@ -1,29 +1,28 @@
-package parser.syntax;
+package parser.syntax.factory;
 
-import AST.nodes.*;
+import AST.nodes.ASTNode;
+import AST.nodes.OperatorNode;
+import parser.syntax.TokenStream;
+import parser.syntax.handler.PrimaryExpressionHandler;
 import token.Token;
 import token.TokenType;
 
-public class ExpressionFactory {
+import java.util.Map;
 
-  public static ASTNode createExpression(TokenStream tokenStream) {
+public class ExpressionFactory {
+  private static Map<TokenType, PrimaryExpressionHandler> handlers;
+
+  public static ASTNode createExpression(TokenStream tokenStream, String version) {
+    handlers = HandlerMapFactory.getHandlerMap(version);
     return parseBinaryExpression(tokenStream, 0);
   }
 
   private static ASTNode parsePrimaryExpression(TokenStream tokenStream) {
     Token token = tokenStream.getCurrentToken();
     if (token != null) {
-      if (token.getType() == TokenType.NUMBER || token.getType() == TokenType.STRING) {
-        tokenStream.advance();
-        return new LiteralNode(token);
-      } else if (token.getType() == TokenType.IDENTIFIER) {
-        tokenStream.advance();
-        return new VariableNode(token);
-      } else if (token.getType() == TokenType.PARENTHESIS_OPEN) {
-        tokenStream.advance();
-        ASTNode expression = parseBinaryExpression(tokenStream, 0);
-        tokenStream.expect(TokenType.PARENTHESIS_CLOSE, "Expected ')'");
-        return expression;
+      PrimaryExpressionHandler handler = handlers.get(token.getType());
+      if (handler != null) {
+        return handler.handle(tokenStream, token);
       }
     }
     assert token != null;
@@ -31,7 +30,7 @@ public class ExpressionFactory {
         "Invalid expression " + token.getValue() + " at column " + token.getColumn() + " line " + token.getLine());
   }
 
-  private static ASTNode parseBinaryExpression(TokenStream tokenStream, int precedence) {
+  public static ASTNode parseBinaryExpression(TokenStream tokenStream, int precedence) {
     ASTNode left = parsePrimaryExpression(tokenStream);
     return parseBinaryExpressionRecursive(tokenStream, left, precedence);
   }

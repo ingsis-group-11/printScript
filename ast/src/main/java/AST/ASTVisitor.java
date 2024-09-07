@@ -18,4 +18,6 @@ public interface ASTVisitor<T> {
   T visit(ReassignmentNode node);
 
   T visit(EmptyNode emptyNode);
+
+  T visit(ReadInputNode readInputNode);
 }

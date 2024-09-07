@@ -7,10 +7,6 @@
     {
       "type": "printPreventExpression",
       "active": false
-    },
-    {
-      "type": "readInputPreventExpression",
-      "active": false
     }
   ]
 }

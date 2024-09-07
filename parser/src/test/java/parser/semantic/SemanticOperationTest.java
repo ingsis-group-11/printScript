@@ -17,8 +17,10 @@ public class SemanticOperationTest {
                     new DeclarationNode(
                             new ValueToken(TokenType.STRING_TYPE, "string", 10, 1),
                             new ValueToken(TokenType.IDENTIFIER, "name", 4, 1),
+                            new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
                             1,
                             1),
+
                     new OperatorNode("+",
                             new LiteralNode(new ValueToken(TokenType.STRING, "Olive", 20, 1)),
                             new LiteralNode(new ValueToken(TokenType.STRING, "Olive", 29, 1)),
@@ -38,6 +40,8 @@ public class SemanticOperationTest {
                     new DeclarationNode(
                             new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 1),
                             new ValueToken(TokenType.IDENTIFIER, "sum", 4, 1),
+                        new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+
                             1,
                             1),
                     new OperatorNode("+",
@@ -59,6 +63,7 @@ public class SemanticOperationTest {
                     new DeclarationNode(
                             new ValueToken(TokenType.STRING_TYPE, "string", 10, 1),
                             new ValueToken(TokenType.IDENTIFIER, "name", 4, 1),
+                        new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
                             1,
                             1),
                     new OperatorNode("*",
@@ -80,6 +85,7 @@ public class SemanticOperationTest {
                     new DeclarationNode(
                             new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 1),
                             new ValueToken(TokenType.IDENTIFIER, "sum", 4, 1),
+                        new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
                             1,
                             1),
                     new OperatorNode("+",

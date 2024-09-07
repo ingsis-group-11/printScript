@@ -5,6 +5,7 @@ public enum TokenType {
   PRINT_KEYWORD,
   STRING,
   NUMBER,
+  BOOLEAN,
   STRING_TYPE,
   NUMBER_TYPE,
   BOOLEAN_TYPE,
@@ -17,5 +18,9 @@ public enum TokenType {
   OPERATOR,
   WHITESPACE,
   LINE_BREAK,
-  EMPTY
+  READ_INPUT,
+  IF_KEYWORD,
+  ELSE_KEYWORD,
+  EMPTY,
+  CONST_KEYWORD
 }

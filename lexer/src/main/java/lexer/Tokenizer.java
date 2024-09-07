@@ -56,11 +56,13 @@ public class Tokenizer {
   }
 
   private void advance() {
-    column++;
     if (!input.hasNext()) {
       currentChar = '\0';
     } else {
       currentChar = input.next();
+      if (!isCarriageReturn()) {
+        column++;
+      }
     }
   }
 

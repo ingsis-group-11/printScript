@@ -2,6 +2,7 @@ package linter;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -10,32 +11,32 @@ public class PrintTest {
 
   @Test
   public void printActiveSuccessTest() throws IOException {
-    String configFilePath = "src/test/resources/config/configPrintExpressionActive.json";
+    String configFilePath = "src/test/resources/config/1.0/configPrintExpressionActive.json";
     String filePath = "src/test/resources/printScript/printWithoutExpression.txt";
 
     LinterRunner linterRunner = new LinterRunner();
-    linterRunner.linterRun(filePath, configFilePath,"1.0");
+    linterRunner.linterRun(new FileInputStream(filePath), new FileInputStream(configFilePath),"1.0");
   }
 
   @Test
   public void PrintActiveFailTest() {
-    String configFilePath = "src/test/resources/config/configPrintExpressionActive.json";
+    String configFilePath = "src/test/resources/config/1.0/configPrintExpressionActive.json";
     String filePath = "src/test/resources/printScript/printWithExpression.txt";
 
     LinterRunner linterRunner = new LinterRunner();
     assertThrows(
             RuntimeException.class,
             () -> {
-              linterRunner.linterRun(filePath, configFilePath,"1.0");
+              linterRunner.linterRun(new FileInputStream(filePath), new FileInputStream(configFilePath),"1.0");
             });
   }
 
   @Test
   public void printDisabledSuccessTest() throws IOException {
-    String configFilePath = "src/test/resources/config/configAllDisabled.json";
+    String configFilePath = "src/test/resources/config/1.0/configAllDisabled.json";
     String filePath = "src/test/resources/printScript/printWithExpression.txt";
 
     LinterRunner linterRunner = new LinterRunner();
-    linterRunner.linterRun(filePath, configFilePath,"1.0");
+    linterRunner.linterRun(new FileInputStream(filePath), new FileInputStream(configFilePath),"1.0");
   }
 }

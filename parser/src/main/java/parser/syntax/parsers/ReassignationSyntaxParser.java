@@ -1,8 +1,10 @@
-package parser.syntax;
+package parser.syntax.parsers;
 
 import AST.nodes.ASTNode;
 import AST.nodes.ReassignmentNode;
 import AST.nodes.VariableNode;
+import parser.syntax.TokenStream;
+import parser.syntax.factory.ExpressionFactory;
 import parser.syntax.result.SyntaxErrorResult;
 import parser.syntax.result.SyntaxResult;
 import parser.syntax.result.SyntaxSuccessResult;
@@ -12,8 +14,8 @@ import token.TokenType;
 public class ReassignationSyntaxParser implements SyntaxParser {
 
   @Override
-  public SyntaxResult syntaxParse(TokenStream tokens) {
-    ASTNode result = parseReassignment(tokens);
+  public SyntaxResult syntaxParse(TokenStream tokens, String version) {
+    ASTNode result = parseReassignment(tokens, version);
     if (tokens.getErrorMessages().isEmpty()) {
       return new SyntaxSuccessResult(result);
     } else {
@@ -21,10 +23,10 @@ public class ReassignationSyntaxParser implements SyntaxParser {
     }
   }
 
-  private ASTNode parseReassignment(TokenStream tokenStream) {
+  private ASTNode parseReassignment(TokenStream tokenStream, String version) {
     VariableNode variableNode = parseVariable(tokenStream);
     tokenStream.expect(TokenType.ASSIGN, "Expected '='");
-    ASTNode expressionNode = ExpressionFactory.createExpression(tokenStream);
+    ASTNode expressionNode = ExpressionFactory.createExpression(tokenStream, version);
     tokenStream.expect(TokenType.SEMICOLON, "Expected ';'");
     return new ReassignmentNode(
         variableNode, expressionNode, expressionNode.getLine(), expressionNode.getColumn());

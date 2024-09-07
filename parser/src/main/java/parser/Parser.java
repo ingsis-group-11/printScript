@@ -2,20 +2,28 @@ package parser;
 
 import AST.nodes.ASTNode;
 import parser.semantic.SemanticAnalyzer;
-import parser.semantic.result.SemanticErrorResult;
 import parser.semantic.result.SemanticResult;
-import parser.syntax.SyntaxParser;
-import parser.syntax.SyntaxParserFactory;
+import parser.syntax.parsers.SyntaxParser;
+import parser.syntax.factory.SyntaxParserFactory;
 import parser.syntax.provider.ProviderType;
+import parser.syntax.resolver.ParserVersionResolver;
 import parser.syntax.result.SyntaxErrorResult;
 import parser.syntax.result.SyntaxResult;
 import parser.syntax.result.SyntaxSuccessResult;
 import token.Token;
 import parser.syntax.TokenStream;
-import java.util.EnumSet;
+
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 public class Parser {
+  private final String version;
+
+  public Parser(String version){
+    this.version = version;
+  }
 
   public ASTNode parse(Iterator<Token> tokens) {
     ASTNode node = null;
@@ -47,14 +55,14 @@ public class Parser {
   }
 
   private SyntaxResult syntaxParser(TokenStream tokenStream) {
-    return createTree(tokenStream);
+    return createTree(tokenStream, version);
   }
 
-  private SyntaxResult createTree(TokenStream tokenStream) {
-    EnumSet<ProviderType> providerTypes = EnumSet.allOf(ProviderType.class);
+  private SyntaxResult createTree(TokenStream tokenStream, String version) {
+    Set<ProviderType> providerTypes = ParserVersionResolver.getParserProviderTypes(version);
     SyntaxParserFactory factory = new SyntaxParserFactory(providerTypes);
     SyntaxParser syntaxParser = factory.getSyntaxParser(tokenStream);
-    return syntaxParser.syntaxParse(tokenStream);
+    return syntaxParser.syntaxParse(tokenStream, version);
   }
 
   public void resolveSyntaxErrors(SyntaxErrorResult syntaxError) {
