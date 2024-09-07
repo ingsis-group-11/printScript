@@ -11,7 +11,7 @@ application {
 
 shadowJar {
     archiveBaseName.set('printScriptCLI')
-    archiveVersion.set('1.0')
+    archiveVersion.set('1.1')
     archiveClassifier.set('') // Ensure no classifier is used to avoid multiple JARs
     manifest {
         attributes 'Main-Class': 'cli.Cli'
