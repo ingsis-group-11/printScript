@@ -1,9 +1,9 @@
-let boolean : bool = true;
-if (boolean) {
-  let name:string="John";
-  let age:number=25;
-  let isAdult:bool=true;
+let bool : boolean = true;
+if (bool) {
+  let name : string = "John";
+  let age : number = 25;
+  let isAdult : boolean = true;
   if (isAdult) {
-     let message:string="You are an adult";
+     let message : string = "You are an adult";
   }
 }

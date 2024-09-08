@@ -1,5 +1,5 @@
-let boolean:bool=true;
-if (boolean) {
+let bool:boolean=true;
+if (bool) {
     let name:string="John";
     let age:number=25;
     let isAdult:bool=true;
