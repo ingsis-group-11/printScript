@@ -33,6 +33,11 @@ public class TokenStream {
   }
 
   public Token getCurrentToken() {
+
+    if (currentToken.getType() == TokenType.LINE_BREAK || currentToken.getType() == TokenType.WHITESPACE) {
+      advance();
+    }
+
     return currentToken;
   }
 
