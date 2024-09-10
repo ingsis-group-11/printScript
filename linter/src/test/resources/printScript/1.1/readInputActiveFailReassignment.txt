@@ -1,0 +1,2 @@
+let input: string = "Hello";
+input = readInput("Something"+"Here");

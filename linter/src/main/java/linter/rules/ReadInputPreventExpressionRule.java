@@ -3,6 +3,7 @@ package linter.rules;
 import AST.nodes.ASTNode;
 import AST.nodes.OperatorNode;
 import AST.nodes.ReadInputNode;
+import linter.nodeFinder.ReadInputNodeFinder;
 import linter.result.FailedLinterResult;
 import linter.result.LinterResult;
 import linter.result.SuccessLinterResult;
@@ -25,7 +26,12 @@ public class ReadInputPreventExpressionRule implements Rule {
       return new SuccessLinterResult();
     }
     List<String> errors = new ArrayList<>();
-    if (node instanceof ReadInputNode readInputNode){
+
+    ReadInputNodeFinder readInputNodeFinder = new ReadInputNodeFinder();
+    node.accept(readInputNodeFinder);
+    List<ReadInputNode> readInputNodes = readInputNodeFinder.getReadInputNodes();
+
+    for (ReadInputNode readInputNode : readInputNodes) {
       ASTNode expression = readInputNode.getExpression();
       if (expression instanceof OperatorNode) {
         int line = readInputNode.getLine();
