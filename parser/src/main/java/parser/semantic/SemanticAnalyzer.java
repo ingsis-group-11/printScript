@@ -15,14 +15,10 @@ public class SemanticAnalyzer {
   }
 
   public SemanticResult analyze(ASTNode node) {
-    List<String> messages = new ArrayList<>();
       SemanticResult result = node.accept(semanticVisitor);
       if (result.hasErrors()) {
-        messages.addAll(result.messages());
+        throw new RuntimeException("Semantic analysis failed: " + result.message());
       }
-    if (messages.isEmpty()) {
       return new SemanticSuccessResult();
-    }
-    return new SemanticErrorResult(messages);
   }
 }

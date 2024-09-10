@@ -8,8 +8,6 @@ import parser.syntax.TokenStream;
 import parser.syntax.factory.ExpressionFactory;
 import parser.syntax.factory.SyntaxParserFactory;
 import parser.syntax.provider.ProviderType1_1;
-import parser.syntax.result.SyntaxResult;
-import parser.syntax.result.SyntaxSuccessResult;
 import token.TokenType;
 
 import java.util.ArrayList;
@@ -18,7 +16,7 @@ import java.util.Set;
 
 public class IfSyntaxParser implements SyntaxParser {
   @Override
-  public SyntaxResult syntaxParse(TokenStream tokens, String version) {
+  public ASTNode syntaxParse(TokenStream tokens, String version) {
 
     tokens.expect(TokenType.IF_KEYWORD, "Expected 'if'");
 
@@ -26,7 +24,7 @@ public class IfSyntaxParser implements SyntaxParser {
 
     ASTNode condition = ExpressionFactory.createExpression(tokens, version);
     if (!(condition instanceof LiteralNode)) {
-      throw new IllegalArgumentException("Condition must be a boolean literal expression");
+      throw new RuntimeException("Condition must be a boolean literal expression");
     }
 
     tokens.expect(TokenType.PARENTHESIS_CLOSE, "Expected ')'");
@@ -61,7 +59,7 @@ public class IfSyntaxParser implements SyntaxParser {
         tokens.getLastToken().getColumn()
     );
 
-    return new SyntaxSuccessResult(ifNode);
+    return ifNode;
   }
 
   private BlockNode parseBlock(TokenStream tokens, String version) {
@@ -69,12 +67,8 @@ public class IfSyntaxParser implements SyntaxParser {
     SyntaxParserFactory syntaxParserFactory = new SyntaxParserFactory(Set.of(ProviderType1_1.values()));
     while (tokens.getCurrentToken().getType() != TokenType.BRACE_CLOSE) {
       SyntaxParser parser = syntaxParserFactory.getSyntaxParser(tokens);
-      SyntaxResult result = parser.syntaxParse(tokens, version);
-      if (result instanceof SyntaxSuccessResult) {
-        block.add(((SyntaxSuccessResult) result).astNode());
-      } else {
-        throw new IllegalArgumentException("Failed to parse statement in block");
-      }
+      ASTNode result = parser.syntaxParse(tokens, version);
+      block.add(result);
     }
     return new BlockNode(block);
   }

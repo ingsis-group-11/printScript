@@ -6,8 +6,7 @@ import parser.semantic.result.SemanticResult;
 import token.TokenType;
 import token.ValueToken;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SemanticAssignationTest {
   @Test
@@ -60,8 +59,7 @@ public class SemanticAssignationTest {
                     1,
                     1);
     SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
-    SemanticResult semanticError = semanticAnalyzer.analyze(assignmentNode);
-    assertTrue(semanticError.hasErrors());
+    assertThrows(RuntimeException.class, () -> semanticAnalyzer.analyze(assignmentNode));
   }
 
   @Test
@@ -78,8 +76,7 @@ public class SemanticAssignationTest {
                     1,
                     1);
     SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
-    SemanticResult semanticError = semanticAnalyzer.analyze(assignmentNode);
-    assertTrue(semanticError.hasErrors());
+    assertThrows(RuntimeException.class, () -> semanticAnalyzer.analyze(assignmentNode));
   }
 
   @Test
