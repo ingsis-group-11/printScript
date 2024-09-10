@@ -1,15 +1,12 @@
 package parser.syntax.map;
 
-import parser.syntax.handler.LiteralExpressionHandler;
-import parser.syntax.handler.ParenthesisExpressionHandler;
-import parser.syntax.handler.PrimaryExpressionHandler;
-import parser.syntax.handler.VariableExpressionHandler;
+import parser.syntax.handler.*;
 import token.TokenType;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class HandlerMap1_0 {
+public class ExpressionHandlerMap1_1 {
   public static Map<TokenType, PrimaryExpressionHandler> getHandlers() {
     Map<TokenType, PrimaryExpressionHandler> handlers = new HashMap<>();
     handlers.put(TokenType.NUMBER, new LiteralExpressionHandler());
@@ -17,6 +14,7 @@ public class HandlerMap1_0 {
     handlers.put(TokenType.BOOLEAN, new LiteralExpressionHandler());
     handlers.put(TokenType.IDENTIFIER, new VariableExpressionHandler());
     handlers.put(TokenType.PARENTHESIS_OPEN, new ParenthesisExpressionHandler());
+    handlers.put(TokenType.READ_INPUT, new ReadInputExpressionHandler());
     return handlers;
   }
 }

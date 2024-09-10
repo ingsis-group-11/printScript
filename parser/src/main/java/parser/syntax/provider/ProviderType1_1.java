@@ -24,6 +24,12 @@ public enum ProviderType1_1 implements ProviderType {
     public SyntaxParserProvider getProvider() {
       return new ReadInputSyntaxParserProvider();
     }
+  },
+  IF {
+    @Override
+    public SyntaxParserProvider getProvider() {
+      return new IfSyntaxParserProvider();
+    }
   };
 
   @Override

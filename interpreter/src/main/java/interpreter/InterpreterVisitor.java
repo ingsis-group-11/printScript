@@ -82,4 +82,14 @@ public class InterpreterVisitor implements ASTVisitor<Void> {
     inputProvider.getInput(message);
     return null;
   }
+
+  @Override
+  public Void visit(IfNode ifNode) {
+    return null;
+  }
+
+  @Override
+  public Void visit(BlockNode blockNode) {
+    return null;
+  }
 }

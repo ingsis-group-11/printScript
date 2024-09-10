@@ -13,7 +13,7 @@ public class ExpressionFactory {
   private static Map<TokenType, PrimaryExpressionHandler> handlers;
 
   public static ASTNode createExpression(TokenStream tokenStream, String version) {
-    handlers = HandlerMapFactory.getHandlerMap(version);
+    handlers = ExpressionHandlerMapFactory.getHandlerMap(version);
     return parseBinaryExpression(tokenStream, 0);
   }
 
