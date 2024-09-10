@@ -133,7 +133,17 @@ public class SemanticVisitor implements ASTVisitor<SemanticResult> {
 
   @Override
   public SemanticResult visit(IfNode ifNode) {
-    if (ifNode.getCondition().accept(new ExpressionTypeVisitor()) == TokenType.BOOLEAN) {
+    ExpressionTypeVisitor expressionTypeVisitor = new ExpressionTypeVisitor();
+    TokenType conditionType = ifNode.getCondition().accept(expressionTypeVisitor);
+    if (conditionType == TokenType.BOOLEAN || conditionType == TokenType.IDENTIFIER) {
+      SemanticResult ifBlockResult = ifNode.getIfBlock().accept(this);
+      if (ifBlockResult instanceof SemanticErrorResult) {
+        return ifBlockResult;
+      }
+      SemanticResult elseBlockResult = ifNode.getElseBlock().accept(this);
+      if (elseBlockResult instanceof SemanticErrorResult) {
+        return elseBlockResult;
+      }
       return new SemanticSuccessResult();
     }
     return new SemanticErrorResult(
@@ -141,12 +151,19 @@ public class SemanticVisitor implements ASTVisitor<SemanticResult> {
                 + ifNode.getCondition().getLine()
                 + ":"
                 + ifNode.getCondition().getColumn()
-                + " Condition must be a boolean literal expression");
+                + " Condition must be a boolean or identifier");
   }
 
   @Override
   public SemanticResult visit(BlockNode blockNode) {
-    return null;
+    List<ASTNode> nodes = blockNode.getStatements();
+    for (ASTNode node : nodes) {
+      SemanticResult result = node.accept(this);
+      if (result instanceof SemanticErrorResult) {
+        return result;
+      }
+    }
+    return new SemanticSuccessResult();
   }
 
   private static Boolean bothNumbersOrIdentifiers(
