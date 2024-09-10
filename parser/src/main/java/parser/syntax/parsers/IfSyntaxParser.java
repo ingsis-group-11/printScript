@@ -49,7 +49,7 @@ public class IfSyntaxParser implements SyntaxParser {
     }
 
     IfNode ifNode = new IfNode(
-        (LiteralNode) condition,
+        condition,
         ifBlock,
         elseBlock,
         tokens.getLastToken().getLine(),
