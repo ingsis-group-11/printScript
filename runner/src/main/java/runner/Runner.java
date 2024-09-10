@@ -15,6 +15,13 @@ import parser.iterator.ASTIterator;
 import token.Token;
 
 public class Runner {
+  public void run(InputStream inputStream, String version) throws IOException {
+    FileReaderIterator fileIterator = new FileReaderIterator(inputStream);
+    Iterator<Token> tokens = new TokenIterator(fileIterator, version);
+    ASTIterator ASTNodes = new ASTIterator(tokens, version);
+    new Interpreter().interpret(ASTNodes);
+  }
+
   //When you use printProvider
   public void run(InputStream inputStream, String version, PrintProvider printProvider) throws IOException {
     FileReaderIterator fileIterator = new FileReaderIterator(inputStream);

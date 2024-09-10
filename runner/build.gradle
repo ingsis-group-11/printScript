@@ -13,3 +13,8 @@ dependencies {
     implementation project(':filereader')
     implementation project(':providers')
 }
+
+test {
+    environment "TEST_ENV", "Test variable"
+    environment "ANOTHER_ENV", "Another test variable"
+}

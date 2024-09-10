@@ -1,8 +1,6 @@
 package parser.semantic.result;
 
-import java.util.List;
-
-public record SemanticErrorResult(List<String> messages) implements SemanticResult {
+public record SemanticErrorResult(String message) implements SemanticResult {
 
   @Override
   public boolean hasErrors() {

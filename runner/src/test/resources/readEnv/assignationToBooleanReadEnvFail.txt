@@ -1,0 +1,1 @@
+let a: boolean = readEnv("TEST_ENV");

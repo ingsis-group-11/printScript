@@ -1,8 +1,6 @@
 package parser.syntax;
 
 import java.util.Iterator;
-import java.util.ArrayList;
-import java.util.List;
 import token.Token;
 import token.TokenType;
 
@@ -10,7 +8,6 @@ public class TokenStream {
   private final Iterator<Token> iterator;
   private Token currentToken;
   private Token lastToken;
-  private final List<String> errorMessages = new ArrayList<>();
 
   public TokenStream(Iterator<Token> iterator) {
     this.iterator = iterator;
@@ -33,6 +30,11 @@ public class TokenStream {
   }
 
   public Token getCurrentToken() {
+
+    if (currentToken.getType() == TokenType.LINE_BREAK || currentToken.getType() == TokenType.WHITESPACE) {
+      advance();
+    }
+
     return currentToken;
   }
 
@@ -55,13 +57,9 @@ public class TokenStream {
               + (lastToken != null ? (lastToken.getColumn() + lastToken.getValue().length()) : "unknown")
               + " line "
               + (lastToken != null ? lastToken.getLine() : "unknown"));
-      errorMessages.add(message);
+      throw new RuntimeException(message);
     } else {
       advance();
     }
-  }
-
-  public List<String> getErrorMessages() {
-    return errorMessages;
   }
 }

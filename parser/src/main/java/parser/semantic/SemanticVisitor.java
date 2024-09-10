@@ -42,7 +42,6 @@ public class SemanticVisitor implements ASTVisitor<SemanticResult> {
 
 
     return new SemanticErrorResult(
-        List.of(
             "Semantic error in "
                 + node.getLine()
                 + ":"
@@ -50,7 +49,7 @@ public class SemanticVisitor implements ASTVisitor<SemanticResult> {
                 + " Variable type is "
                 + variableType
                 + " but value is "
-                + expressionType));
+                + expressionType);
   }
 
   @Override
@@ -64,24 +63,22 @@ public class SemanticVisitor implements ASTVisitor<SemanticResult> {
           yield new SemanticSuccessResult();
         } else {
           yield new SemanticErrorResult(
-              List.of(
                   "Semantic error in "
                       + node.getLine()
                       + ":"
                       + node.getColumn()
                       + " Operator "
                       + operator
-                      + " can only be applied to numbers"));
+                      + " can only be applied to numbers");
         }
       }
       default ->
           new SemanticErrorResult(
-              List.of(
                   "Semantic error in "
                       + node.getLine()
                       + ":"
                       + node.getColumn()
-                      + " Operator not recognized"));
+                      + " Operator not recognized");
     };
   }
 
@@ -110,12 +107,46 @@ public class SemanticVisitor implements ASTVisitor<SemanticResult> {
       return new SemanticSuccessResult();
     }
     return new SemanticErrorResult(
-            List.of(
                     "Semantic error in "
                             + node.getLine()
                             + ":"
                             + node.getColumn()
-                            + " Read input can only receive a string"));
+                            + " readInput can only receive a string");
+  }
+
+  @Override
+  public SemanticResult visit(ReadEnvNode node) {
+    ExpressionTypeVisitor expressionTypeVisitor = new ExpressionTypeVisitor();
+    TokenType expressionType = node.getExpression().accept(expressionTypeVisitor);
+    if (expressionType == TokenType.IDENTIFIER) {
+      return new SemanticSuccessResult();
+    } else if(expressionType == TokenType.STRING) {
+      return new SemanticSuccessResult();
+    }
+    return new SemanticErrorResult(
+                    "Semantic error in "
+                            + node.getLine()
+                            + ":"
+                            + node.getColumn()
+                            + " readEnv can only receive a string");
+  }
+
+  @Override
+  public SemanticResult visit(IfNode ifNode) {
+    if (ifNode.getCondition().accept(new ExpressionTypeVisitor()) == TokenType.BOOLEAN) {
+      return new SemanticSuccessResult();
+    }
+    return new SemanticErrorResult(
+            "Semantic error in "
+                + ifNode.getCondition().getLine()
+                + ":"
+                + ifNode.getCondition().getColumn()
+                + " Condition must be a boolean literal expression");
+  }
+
+  @Override
+  public SemanticResult visit(BlockNode blockNode) {
+    return null;
   }
 
   private static Boolean bothNumbersOrIdentifiers(

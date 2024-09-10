@@ -82,4 +82,25 @@ public class InterpreterVisitor implements ASTVisitor<Void> {
     inputProvider.getInput(message);
     return null;
   }
+
+  @Override
+  public Void visit(ReadEnvNode node) {
+    LiteralNode expression = node.getExpression().accept(literalTransformer);
+    String variableName = expression.getValue();
+    String input = System.getenv(variableName);
+    if(input == null) {
+      throw new RuntimeException("Environment variable " + variableName + " not found");
+    }
+    return null;
+  }
+  
+  @Override
+  public Void visit(IfNode ifNode) {
+    return null;
+  }
+
+  @Override
+  public Void visit(BlockNode blockNode) {
+    return null;
+  }
 }

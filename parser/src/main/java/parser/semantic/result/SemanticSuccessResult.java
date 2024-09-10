@@ -1,7 +1,5 @@
 package parser.semantic.result;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class SemanticSuccessResult implements SemanticResult {
 
@@ -11,7 +9,7 @@ public class SemanticSuccessResult implements SemanticResult {
   }
 
   @Override
-  public List<String> messages() {
-    return new ArrayList<>();
+  public String message() {
+    return "";
   }
 }
