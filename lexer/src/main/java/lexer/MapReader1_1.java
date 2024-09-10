@@ -14,6 +14,7 @@ public class MapReader1_1 implements MapReader{
     tokenMap.put("string", TokenType.STRING_TYPE);
     tokenMap.put("number", TokenType.NUMBER_TYPE);
     tokenMap.put("readInput", TokenType.READ_INPUT);
+    tokenMap.put("readEnv", TokenType.READ_ENV);
     tokenMap.put(";", TokenType.SEMICOLON);
     tokenMap.put("=", TokenType.ASSIGN);
     tokenMap.put("+", TokenType.OPERATOR);

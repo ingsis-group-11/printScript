@@ -1,10 +1,16 @@
 package cli.commands;
 
+import cli.ParserObserver;
+import parser.Observer;
+import providers.inputProvider.ConsoleInputProvider;
 import providers.printProvider.ConsolePrintProvider;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 import runner.Runner;
+
+import java.io.FileInputStream;
+import java.util.List;
 
 @Command(name = "execute", description = "Executes a printScript file")
 public class ExecutionCommand implements Runnable {
@@ -18,11 +24,14 @@ public class ExecutionCommand implements Runnable {
   @Override
   public void run() {
     try {
+      List<Observer> parserObservers = List.of(new ParserObserver());
       ConsolePrintProvider printProvider = new ConsolePrintProvider();
+      ConsoleInputProvider consoleInputProvider = new ConsoleInputProvider();
       Runner runner = new Runner();
-      runner.run(sourceFile,version, printProvider);
+      runner.run(new FileInputStream(sourceFile),version, printProvider, consoleInputProvider, parserObservers);
+      System.out.println();
     } catch (Exception e) {
-      System.err.print(e);
+      System.err.print(e.getMessage());
       System.exit(1);
     }
   }

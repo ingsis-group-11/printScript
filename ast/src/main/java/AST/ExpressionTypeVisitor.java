@@ -1,6 +1,7 @@
 package AST;
 
 import AST.nodes.*;
+import com.sun.jdi.InvalidTypeException;
 import token.TokenType;
 
 public class ExpressionTypeVisitor implements ASTVisitor<TokenType> {
@@ -27,6 +28,10 @@ public class ExpressionTypeVisitor implements ASTVisitor<TokenType> {
 
   @Override
   public TokenType visit(OperatorNode node) {
+    if (node.getLeftNode().accept(this) == TokenType.BOOLEAN
+            || node.getRightNode().accept(this) == TokenType.BOOLEAN) {
+      throw new RuntimeException("Type boolean cannot be operated");
+    }
     if (node.getLeftNode().accept(this) == TokenType.NUMBER
         && node.getRightNode().accept(this) == TokenType.NUMBER) {
       return TokenType.NUMBER;
@@ -54,6 +59,21 @@ public class ExpressionTypeVisitor implements ASTVisitor<TokenType> {
 
   @Override
   public TokenType visit(ReadInputNode node) {
-    return node.getExpression().accept(this);
+    return TokenType.READ_INPUT;
+  }
+
+  @Override
+  public TokenType visit(ReadEnvNode readEnvNode) {
+    return TokenType.STRING;
+  }
+
+  @Override
+  public TokenType visit(IfNode ifNode) {
+    return null;
+  }
+
+  @Override
+  public TokenType visit(BlockNode blockNode) {
+    return null;
   }
 }

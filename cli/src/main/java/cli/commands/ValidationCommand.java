@@ -1,6 +1,6 @@
 package cli.commands;
 
-import AST.nodes.ASTNode;
+import cli.ParserObserver;
 import fileReader.FileReaderIterator;
 import iterator.TokenIterator;
 import parser.iterator.ASTIterator;
@@ -9,7 +9,7 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.Parameters;
 import token.Token;
 
-import java.io.File;
+import java.io.FileInputStream;
 import java.util.Iterator;
 
 @Command(name = "validate", description = "Validates the semantic and syntax errors in a printScript file")
@@ -25,15 +25,18 @@ public class ValidationCommand implements Runnable {
   public void run() {
     System.out.println("Validating file...");
     try {
-      FileReaderIterator fileIterator = new FileReaderIterator(new File(sourceFile));
+      ParserObserver parserObserver = new ParserObserver();
+      FileReaderIterator fileIterator = new FileReaderIterator(new FileInputStream(sourceFile));
       Iterator<Token> tokens = new TokenIterator(fileIterator, version);
-      Iterator<ASTNode> nodes = new ASTIterator(tokens);
+      ASTIterator nodes = new ASTIterator(tokens, version);
+      nodes.addObserver(parserObserver);
       while (nodes.hasNext()){
         nodes.next();
       }
-      System.out.println("File has no semantic or syntax errors :)");
+      System.out.println("\nFile has no semantic or syntax errors :)");
     } catch (Exception e) {
-      throw new RuntimeException(e);
+      System.err.print(e.getMessage());
+      System.exit(1);
     }
   }
 }

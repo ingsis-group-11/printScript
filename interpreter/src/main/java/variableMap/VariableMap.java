@@ -53,6 +53,9 @@ public class VariableMap {
         if(variable.getType() != value.getType()) {
           throw new RuntimeException("Variable " + name + " is of type " + variable.getType() + " and can't be updated to type " + value.getType());
         }
+        if(!mutable) {
+          throw new RuntimeException("Variable " + name + " is of type const and can't be updated");
+        }
         scope.put(name, new VariableAssignation(value, mutable));
         return;
       }

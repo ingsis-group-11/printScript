@@ -41,8 +41,8 @@ public class InterpreterVisitor implements ASTVisitor<Void> {
   @Override
   public Void visit(AssignationNode node) {
     LiteralNode expression = node.getExpression().accept(literalTransformer);
-    // boolean mutable = node.getDeclaration().isMutable();
-    variableMap.addVariable(node.getDeclaration().getNameToken().getValue(), expression, true);
+    boolean mutable = node.getDeclaration().isMutable();
+    variableMap.addVariable(node.getDeclaration().getNameToken().getValue(), expression, mutable);
     return null;
   }
 
@@ -80,6 +80,27 @@ public class InterpreterVisitor implements ASTVisitor<Void> {
     LiteralNode expression = node.getExpression().accept(literalTransformer);
     String message = expression.getValue();
     inputProvider.getInput(message);
+    return null;
+  }
+
+  @Override
+  public Void visit(ReadEnvNode node) {
+    LiteralNode expression = node.getExpression().accept(literalTransformer);
+    String variableName = expression.getValue();
+    String input = System.getenv(variableName);
+    if(input == null) {
+      throw new RuntimeException("Environment variable " + variableName + " not found");
+    }
+    return null;
+  }
+  
+  @Override
+  public Void visit(IfNode ifNode) {
+    return null;
+  }
+
+  @Override
+  public Void visit(BlockNode blockNode) {
     return null;
   }
 }

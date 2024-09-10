@@ -67,7 +67,7 @@ public class LiteralTransformer implements ASTVisitor<LiteralNode> {
 
   @Override
   public LiteralNode visit(EmptyNode emptyNode) {
-    return new LiteralNode(new ValueToken(emptyNode.getType(), "", null, null));
+    return new LiteralNode(new ValueToken(emptyNode.getType(), null, null, null));
   }
 
   @Override
@@ -78,6 +78,28 @@ public class LiteralTransformer implements ASTVisitor<LiteralNode> {
     TokenType inputType = new InputTypeTransformer().detectInputType(input);
     return new LiteralNode(
             new ValueToken(inputType, input, node.getColumn(), node.getLine()));
+  }
+
+  @Override
+  public LiteralNode visit(ReadEnvNode node) {
+    LiteralNode expression = node.getExpression().accept(this);
+    String variableName = expression.getValue();
+    String env = System.getenv(variableName);
+    if(env == null) {
+      throw new RuntimeException("Environment variable " + variableName + " not found");
+    }
+    return new LiteralNode(
+            new ValueToken(TokenType.STRING, env, node.getColumn(), node.getLine()));
+  }
+  
+  @Override
+  public LiteralNode visit(IfNode ifNode) {
+    return null;
+  }
+
+  @Override
+  public LiteralNode visit(BlockNode blockNode) {
+    return null;
   }
 
   private String parseCalc(String operator, LiteralNode left, LiteralNode right) {

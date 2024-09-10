@@ -1,0 +1,1 @@
+println(readEnv("NOT_EXISTING_ENV"));

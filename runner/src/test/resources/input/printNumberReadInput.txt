@@ -1,0 +1,2 @@
+let num: number = readInput("Test");
+println(num);

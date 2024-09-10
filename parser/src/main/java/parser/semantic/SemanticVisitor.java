@@ -115,7 +115,44 @@ public class SemanticVisitor implements ASTVisitor<SemanticResult> {
                             + node.getLine()
                             + ":"
                             + node.getColumn()
-                            + " Read input can only receive a string"));
+                            + " readInput can only receive a string"));
+  }
+
+  @Override
+  public SemanticResult visit(ReadEnvNode node) {
+    ExpressionTypeVisitor expressionTypeVisitor = new ExpressionTypeVisitor();
+    TokenType expressionType = node.getExpression().accept(expressionTypeVisitor);
+    if (expressionType == TokenType.IDENTIFIER) {
+      return new SemanticSuccessResult();
+    } else if(expressionType == TokenType.STRING) {
+      return new SemanticSuccessResult();
+    }
+    return new SemanticErrorResult(
+            List.of(
+                    "Semantic error in "
+                            + node.getLine()
+                            + ":"
+                            + node.getColumn()
+                            + " readEnv can only receive a string"));
+  }
+
+  @Override
+  public SemanticResult visit(IfNode ifNode) {
+    if (ifNode.getCondition().accept(new ExpressionTypeVisitor()) == TokenType.BOOLEAN) {
+      return new SemanticSuccessResult();
+    }
+    return new SemanticErrorResult(
+        List.of(
+            "Semantic error in "
+                + ifNode.getCondition().getLine()
+                + ":"
+                + ifNode.getCondition().getColumn()
+                + " Condition must be a boolean literal expression"));
+  }
+
+  @Override
+  public SemanticResult visit(BlockNode blockNode) {
+    return null;
   }
 
   private static Boolean bothNumbersOrIdentifiers(
