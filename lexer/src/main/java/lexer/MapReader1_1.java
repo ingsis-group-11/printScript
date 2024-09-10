@@ -13,8 +13,6 @@ public class MapReader1_1 implements MapReader{
     tokenMap.put("println", TokenType.PRINT_KEYWORD);
     tokenMap.put("string", TokenType.STRING_TYPE);
     tokenMap.put("number", TokenType.NUMBER_TYPE);
-    tokenMap.put("readInput", TokenType.READ_INPUT);
-    tokenMap.put("readEnv", TokenType.READ_ENV);
     tokenMap.put(";", TokenType.SEMICOLON);
     tokenMap.put("=", TokenType.ASSIGN);
     tokenMap.put("+", TokenType.OPERATOR);
@@ -26,6 +24,10 @@ public class MapReader1_1 implements MapReader{
     tokenMap.put(":", TokenType.COLON);
     tokenMap.put(" ", TokenType.WHITESPACE);
     tokenMap.put("\n", TokenType.LINE_BREAK);
+    tokenMap.put("readInput", TokenType.READ_INPUT);
+    tokenMap.put("readEnv", TokenType.READ_ENV);
+    tokenMap.put("{", TokenType.BRACE_OPEN);
+    tokenMap.put("}", TokenType.BRACE_CLOSE);
     tokenMap.put("if", TokenType.IF_KEYWORD);
     tokenMap.put("else", TokenType.ELSE_KEYWORD);
     tokenMap.put("true", TokenType.BOOLEAN);
