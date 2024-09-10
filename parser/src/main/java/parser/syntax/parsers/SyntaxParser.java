@@ -1,9 +1,9 @@
 package parser.syntax.parsers;
 
+import AST.nodes.ASTNode;
 import parser.syntax.TokenStream;
-import parser.syntax.result.SyntaxResult;
 
 public interface SyntaxParser {
 
-  SyntaxResult syntaxParse(TokenStream tokens, String version);
+  ASTNode syntaxParse(TokenStream tokens, String version);
 }

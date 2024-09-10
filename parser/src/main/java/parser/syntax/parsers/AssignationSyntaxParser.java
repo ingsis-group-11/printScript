@@ -7,22 +7,15 @@ import AST.nodes.EmptyNode;
 import parser.syntax.TokenStream;
 import parser.syntax.factory.ExpressionFactory;
 import parser.syntax.resolver.DeclarationTypeValidator;
-import parser.syntax.result.SyntaxErrorResult;
-import parser.syntax.result.SyntaxResult;
-import parser.syntax.result.SyntaxSuccessResult;
 import token.Token;
 import token.TokenType;
 
 public class AssignationSyntaxParser implements SyntaxParser {
 
   @Override
-  public SyntaxResult syntaxParse(TokenStream tokens, String version) {
+  public ASTNode syntaxParse(TokenStream tokens, String version) {
     ASTNode result = parseAssignation(tokens, version);
-    if (tokens.getErrorMessages().isEmpty()) {
-      return new SyntaxSuccessResult(result);
-    } else {
-      return new SyntaxErrorResult(tokens.getErrorMessages());
-    }
+    return result;
   }
 
   private ASTNode parseAssignation(TokenStream tokenStream, String version) {
@@ -61,7 +54,7 @@ public class AssignationSyntaxParser implements SyntaxParser {
     tokenStream.expect(TokenType.COLON, "Expected ':'");
     Token typeToken = tokenStream.getCurrentToken();
     if (!DeclarationTypeValidator.isValidDeclarationType(typeToken.getType())) {
-      tokenStream.getErrorMessages().add("Expected type to be 'string' or 'number'");
+      throw new RuntimeException("Expected type to be 'string' or 'number'");
     } else {
       tokenStream.advance();
     }

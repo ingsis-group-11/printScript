@@ -5,22 +5,15 @@ import AST.nodes.ReassignmentNode;
 import AST.nodes.VariableNode;
 import parser.syntax.TokenStream;
 import parser.syntax.factory.ExpressionFactory;
-import parser.syntax.result.SyntaxErrorResult;
-import parser.syntax.result.SyntaxResult;
-import parser.syntax.result.SyntaxSuccessResult;
 import token.Token;
 import token.TokenType;
 
 public class ReassignationSyntaxParser implements SyntaxParser {
 
   @Override
-  public SyntaxResult syntaxParse(TokenStream tokens, String version) {
+  public ASTNode syntaxParse(TokenStream tokens, String version) {
     ASTNode result = parseReassignment(tokens, version);
-    if (tokens.getErrorMessages().isEmpty()) {
-      return new SyntaxSuccessResult(result);
-    } else {
-      return new SyntaxErrorResult(tokens.getErrorMessages());
-    }
+    return result;
   }
 
   private ASTNode parseReassignment(TokenStream tokenStream, String version) {
