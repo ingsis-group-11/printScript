@@ -91,6 +91,16 @@ public class LiteralTransformer implements ASTVisitor<LiteralNode> {
     return new LiteralNode(
             new ValueToken(TokenType.STRING, env, node.getColumn(), node.getLine()));
   }
+  
+  @Override
+  public LiteralNode visit(IfNode ifNode) {
+    return null;
+  }
+
+  @Override
+  public LiteralNode visit(BlockNode blockNode) {
+    return null;
+  }
 
   private String parseCalc(String operator, LiteralNode left, LiteralNode right) {
     TokenType leftType = left.getType();

@@ -91,6 +91,15 @@ public class InterpreterVisitor implements ASTVisitor<Void> {
     if(input == null) {
       throw new RuntimeException("Environment variable " + variableName + " not found");
     }
+  }
+  
+  @Override
+  public Void visit(IfNode ifNode) {
+    return null;
+  }
+
+  @Override
+  public Void visit(BlockNode blockNode) {
     return null;
   }
 }
