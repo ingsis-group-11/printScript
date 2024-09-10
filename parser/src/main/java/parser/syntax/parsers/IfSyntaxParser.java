@@ -23,9 +23,6 @@ public class IfSyntaxParser implements SyntaxParser {
     tokens.expect(TokenType.PARENTHESIS_OPEN, "Expected '('");
 
     ASTNode condition = ExpressionFactory.createExpression(tokens, version);
-    if (!(condition instanceof LiteralNode)) {
-      throw new RuntimeException("Condition must be a boolean literal expression");
-    }
 
     tokens.expect(TokenType.PARENTHESIS_CLOSE, "Expected ')'");
 
