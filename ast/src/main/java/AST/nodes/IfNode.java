@@ -4,13 +4,13 @@ import AST.ASTVisitor;
 
 
 public class IfNode implements ASTNode {
-  private final LiteralNode condition;
+  private final ASTNode condition;
   private final BlockNode ifBlock;
   private final BlockNode elseBlock;
   private final Integer line;
   private final Integer column;
 
-  public IfNode(LiteralNode condition, BlockNode ifBlock, BlockNode elseBlock, Integer line, Integer column) {
+  public IfNode(ASTNode condition, BlockNode ifBlock, BlockNode elseBlock, Integer line, Integer column) {
     this.condition = condition;
     this.ifBlock = ifBlock;
     this.elseBlock = elseBlock;
@@ -18,7 +18,7 @@ public class IfNode implements ASTNode {
     this.column = column;
   }
 
-  public LiteralNode getCondition() {
+  public ASTNode getCondition() {
     return condition;
   }
 
