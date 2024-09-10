@@ -15,6 +15,7 @@ public class ExpressionHandlerMap1_1 {
     handlers.put(TokenType.IDENTIFIER, new VariableExpressionHandler());
     handlers.put(TokenType.PARENTHESIS_OPEN, new ParenthesisExpressionHandler());
     handlers.put(TokenType.READ_INPUT, new ReadInputExpressionHandler());
+    handlers.put(TokenType.READ_ENV, new ReadEnvExpressionHandler());
     return handlers;
   }
 }

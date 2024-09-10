@@ -81,6 +81,18 @@ public class LiteralTransformer implements ASTVisitor<LiteralNode> {
   }
 
   @Override
+  public LiteralNode visit(ReadEnvNode node) {
+    LiteralNode expression = node.getExpression().accept(this);
+    String variableName = expression.getValue();
+    String env = System.getenv(variableName);
+    if(env == null) {
+      throw new RuntimeException("Environment variable " + variableName + " not found");
+    }
+    return new LiteralNode(
+            new ValueToken(TokenType.STRING, env, node.getColumn(), node.getLine()));
+  }
+  
+  @Override
   public LiteralNode visit(IfNode ifNode) {
     return null;
   }

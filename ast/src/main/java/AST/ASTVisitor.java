@@ -21,6 +21,8 @@ public interface ASTVisitor<T> {
 
   T visit(ReadInputNode readInputNode);
 
+  T visit(ReadEnvNode readEnvNode);
+  
   T visit(IfNode ifNode);
 
   T visit(BlockNode blockNode);

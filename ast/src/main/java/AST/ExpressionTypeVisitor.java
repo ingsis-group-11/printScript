@@ -63,6 +63,11 @@ public class ExpressionTypeVisitor implements ASTVisitor<TokenType> {
   }
 
   @Override
+  public TokenType visit(ReadEnvNode readEnvNode) {
+    return TokenType.STRING;
+  }
+
+  @Override
   public TokenType visit(IfNode ifNode) {
     return null;
   }

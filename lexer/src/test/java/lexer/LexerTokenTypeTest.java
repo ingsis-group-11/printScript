@@ -172,7 +172,7 @@ public class LexerTokenTypeTest {
 
   @Test
   public void tokenizeReadInput() throws IOException {
-    //true false
+    //readInput("Test");
     String filePath = "src/test/resources/readInput.txt";
     FileReaderIterator fileReaderIterator = new FileReaderIterator(new FileInputStream(filePath));
     Iterator<Token> tokenIterator = new TokenIterator(fileReaderIterator, "1.1");
@@ -212,6 +212,42 @@ public class LexerTokenTypeTest {
 
     token = tokenIterator.next();
     assertEquals(token.getType(), TokenType.NUMBER);
+  }
+
+  @Test
+  public void tokenizeReadEnv() throws IOException {
+    //readEnv("TEST");
+    String filePath = "src/test/resources/readEnv.txt";
+    FileReaderIterator fileReaderIterator = new FileReaderIterator(new FileInputStream(filePath));
+    Iterator<Token> tokenIterator = new TokenIterator(fileReaderIterator, "1.1");
+
+    assertEquals(tokenIterator.next().getType(), TokenType.READ_ENV);
+    assertEquals(tokenIterator.next().getType(), TokenType.PARENTHESIS_OPEN);
+    assertEquals(tokenIterator.next().getType(), TokenType.STRING);
+    assertEquals(tokenIterator.next().getType(), TokenType.PARENTHESIS_CLOSE);
+    assertEquals(tokenIterator.next().getType(), TokenType.SEMICOLON);
+  }
+
+  @Test
+  public void tokenizeAssignationReadEnv() throws IOException {
+    //let a: string = readEnv("TEST");
+    String filePath = "src/test/resources/readEnvAssignation.txt";
+    FileReaderIterator fileReaderIterator = new FileReaderIterator(new FileInputStream(filePath));
+    Iterator<Token> tokenIterator = new TokenIterator(fileReaderIterator, "1.1");
+    assertEquals(tokenIterator.next().getType(), TokenType.LET_KEYWORD);
+    assertEquals(tokenIterator.next().getType(), TokenType.WHITESPACE);
+    assertEquals(tokenIterator.next().getType(), TokenType.IDENTIFIER);
+    assertEquals(tokenIterator.next().getType(), TokenType.COLON);
+    assertEquals(tokenIterator.next().getType(), TokenType.WHITESPACE);
+    assertEquals(tokenIterator.next().getType(), TokenType.STRING_TYPE);
+    assertEquals(tokenIterator.next().getType(), TokenType.WHITESPACE);
+    assertEquals(tokenIterator.next().getType(), TokenType.ASSIGN);
+    assertEquals(tokenIterator.next().getType(), TokenType.WHITESPACE);
+    assertEquals(tokenIterator.next().getType(), TokenType.READ_ENV);
+    assertEquals(tokenIterator.next().getType(), TokenType.PARENTHESIS_OPEN);
+    assertEquals(tokenIterator.next().getType(), TokenType.STRING);
+    assertEquals(tokenIterator.next().getType(), TokenType.PARENTHESIS_CLOSE);
+    assertEquals(tokenIterator.next().getType(), TokenType.SEMICOLON);
   }
 
   private void jumpNLines(Iterator<Token> tokenIterator, int n) {

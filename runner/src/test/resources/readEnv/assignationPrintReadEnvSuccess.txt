@@ -1,0 +1,2 @@
+let a: string = readEnv("TEST_ENV");
+println(a);

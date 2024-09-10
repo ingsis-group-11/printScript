@@ -89,6 +89,92 @@ public class InterpreterTest {
   }
 
   @Test
+  public void testDivisionWithDouble() {
+    // GIVEN
+    // let a: number = 10;
+    // let b: number = 2.5;
+    // println(a / b);
+    TestPrintProvider printProvider = new TestPrintProvider();
+    List<ASTNode> astNodes = List.of(
+            new AssignationNode(
+                    new DeclarationNode(
+                            new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 0),
+                            new ValueToken(TokenType.IDENTIFIER, "a", 4, 0),
+                            new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                            1,
+                            0),
+                    new LiteralNode(new ValueToken(TokenType.NUMBER, "10", 19, 0)),
+                    1,
+                    1),
+            new AssignationNode(
+                    new DeclarationNode(
+                            new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 0),
+                            new ValueToken(TokenType.IDENTIFIER, "b", 4, 0),
+                            new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                            1,
+                            0),
+                    new LiteralNode(new ValueToken(TokenType.NUMBER, "2.5", 19, 0)),
+                    1,
+                    1),
+            new PrintNode(
+                    new OperatorNode("/",
+                            new VariableNode(new ValueToken(TokenType.IDENTIFIER, "a", 8, 1)),
+                            new VariableNode(new ValueToken(TokenType.IDENTIFIER, "b", 8, 1)),
+                            1,
+                            1),
+                    1,
+                    1)
+    );
+    Interpreter interpreter = new Interpreter(printProvider);
+    interpreter.interpret(astNodes.iterator());
+
+    assertEquals("4\n", printProvider.getMessages().next());
+  }
+
+  @Test
+  public void testDivisionWithDoubles() {
+    // GIVEN
+    // let a: number = 10.0;
+    // let b: number = 2.5;
+    // println(a / b);
+    TestPrintProvider printProvider = new TestPrintProvider();
+    List<ASTNode> astNodes = List.of(
+            new AssignationNode(
+                    new DeclarationNode(
+                            new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 0),
+                            new ValueToken(TokenType.IDENTIFIER, "a", 4, 0),
+                            new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                            1,
+                            0),
+                    new LiteralNode(new ValueToken(TokenType.NUMBER, "10.0", 19, 0)),
+                    1,
+                    1),
+            new AssignationNode(
+                    new DeclarationNode(
+                            new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 0),
+                            new ValueToken(TokenType.IDENTIFIER, "b", 4, 0),
+                            new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                            1,
+                            0),
+                    new LiteralNode(new ValueToken(TokenType.NUMBER, "2.5", 19, 0)),
+                    1,
+                    1),
+            new PrintNode(
+                    new OperatorNode("/",
+                            new VariableNode(new ValueToken(TokenType.IDENTIFIER, "a", 8, 1)),
+                            new VariableNode(new ValueToken(TokenType.IDENTIFIER, "b", 8, 1)),
+                            1,
+                            1),
+                    1,
+                    1)
+    );
+    Interpreter interpreter = new Interpreter(printProvider);
+    interpreter.interpret(astNodes.iterator());
+
+    assertEquals("4\n", printProvider.getMessages().next());
+  }
+
+  @Test
   public void testCreationOfTheSameVariable() {
     // GIVEN
     // let name: string = "a";
