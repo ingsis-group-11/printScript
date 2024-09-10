@@ -10,10 +10,21 @@ import token.ValueToken;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ReadInputTest {
+  @Test
+  public void testSimpleValidReadEnv(){
+    // GIVEN
+    // readInput("Test");
+    List<ASTNode> astNodes = List.of(
+            new ReadInputNode(new LiteralNode(new ValueToken(TokenType.STRING, "Test", 8, 2)),1,1) );
+    TestInputProvider inputProvider = new TestInputProvider(List.of("Hello"));
+    Interpreter interpreter = new Interpreter(inputProvider);
+    interpreter.interpret(astNodes.iterator());
+    assertFalse(inputProvider.hasInputsToRead());
+  }
+
   @Test
   public void testInvalidTypeReadInput() {
     // GIVEN

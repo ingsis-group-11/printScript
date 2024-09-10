@@ -20,4 +20,6 @@ public interface ASTVisitor<T> {
   T visit(EmptyNode emptyNode);
 
   T visit(ReadInputNode readInputNode);
+
+  T visit(ReadEnvNode readEnvNode);
 }

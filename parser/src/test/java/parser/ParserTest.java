@@ -232,4 +232,37 @@ public class ParserTest {
     assertInstanceOf(AssignationNode.class, firstAST);
   }
 
+  @Test
+  public void testReadEnvParser() {
+    // GIVEN
+    // let name: string = readEnv("TEST");
+    List<Token> tokens =
+            List.of(
+                    new ValueToken(TokenType.LET_KEYWORD, "let", 1, 1),
+                    new ValueToken(TokenType.WHITESPACE, " ", 4, 1),
+                    new ValueToken(TokenType.IDENTIFIER, "name", 5, 1),
+                    new ValueToken(TokenType.COLON, ":", 9, 1),
+                    new ValueToken(TokenType.WHITESPACE, " ", 10, 1),
+                    new ValueToken(TokenType.STRING_TYPE, "string", 11, 1),
+                    new ValueToken(TokenType.WHITESPACE, " ", 17, 1),
+                    new ValueToken(TokenType.ASSIGN, "=", 18, 1),
+                    new ValueToken(TokenType.WHITESPACE, " ", 19, 1),
+                    new ValueToken(TokenType.READ_ENV, "readEnv", 20, 1),
+                    new ValueToken(TokenType.PARENTHESIS_OPEN, "(", 29, 1),
+                    new ValueToken(TokenType.STRING, "TEST", 30, 1),
+                    new ValueToken(TokenType.PARENTHESIS_CLOSE, ")", 47, 1),
+                    new ValueToken(TokenType.SEMICOLON, ";", 48, 1));
+
+    // WHEN
+    Iterator<Token> tokenIterator = tokens.iterator();
+    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator, "1.1");
+    ASTNode firstAST = nodes.next();
+    if(firstAST instanceof AssignationNode assignationNode){
+      assertInstanceOf(ReadEnvNode.class, assignationNode.getExpression());
+    }
+    else {
+      fail();
+    }
+  }
+
 }
