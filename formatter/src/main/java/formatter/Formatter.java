@@ -12,8 +12,7 @@ import java.util.List;
 public class Formatter {
   TokenOutput tokenOutput = new TokenOutput();
 
-  public String formatFile(Iterator<Token> tokens, String jsonString) throws IOException {
-    List<Rule> rules = getRules(jsonString);
+  public String formatFile(Iterator<Token> tokens, List<Rule> rules) throws IOException {
     TokenMap tokenMap = new TokenMap();
 
     Token token = tokens.next();
@@ -29,11 +28,5 @@ public class Formatter {
     else {
       return token.getValue() + " ";
     }
-  }
-
-  private List<Rule> getRules(String jsonString) throws IOException {
-    RulesReader rulesReader = new RulesReader();
-    List<Rule> rules = rulesReader.loadRulesFromJson(jsonString);
-    return rules;
   }
 }

@@ -1,20 +1,19 @@
 package formatter.rules.bracket;
 
-import formatter.rules.conditional.IfRule;
-import formatter.rules.visitor.RuleVisitor;
 import token.Token;
 
 import java.util.List;
 
-public class IndentationOnIf implements IfRule {
-  private final int indentationLevel;
+public class IndentationOnIf implements BracketRule {
+  public String value;
 
-  public IndentationOnIf(int indentationLevel) {
-    this.indentationLevel = indentationLevel;
+  @Override
+  public void setValue(String value) {
+    this.value = value;
   }
 
   @Override
-  public List<Token> accept(RuleVisitor visitor, List<Token> tokens) {
-    return visitor.visit(this, tokens, indentationLevel);
+  public List<Token> format(List<Token> tokens) {
+    return List.of();
   }
 }

@@ -1,20 +1,19 @@
 package formatter;
 
-import fileReader.InputStreamToString;
+import formatter.rules.Rule;
 import token.Token;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Iterator;
+import java.util.List;
 
 public class FormatterIterator implements Iterator<String> {
   private final Formatter formatter;
   private final Iterator<Token> iterator;
+  private final List<Rule> rules;
 
-  private final String jsonString;
-
-  public FormatterIterator(Iterator<Token> iterator, InputStream configRules) {
-    this.jsonString = new InputStreamToString().read(configRules);
+  public FormatterIterator(Iterator<Token> iterator, List<Rule> rules) {
+    this.rules = rules;
     this.formatter = new Formatter();
     this.iterator = iterator;
   }
@@ -28,7 +27,7 @@ public class FormatterIterator implements Iterator<String> {
   public String next() {
     String result;
     try {
-      result = formatter.formatFile(iterator, jsonString);
+      result = formatter.formatFile(iterator, rules);
     } catch (IOException e) {
       throw new RuntimeException(e);
     }

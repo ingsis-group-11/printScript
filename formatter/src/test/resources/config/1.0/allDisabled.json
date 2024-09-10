@@ -1,20 +1,6 @@
 {
-  "rules": [
-    {
-      "type": "spaceBeforeColon",
-      "active": false
-    },
-    {
-      "type": "spaceAfterColon",
-      "active": false
-    },
-    {
-      "type": "spacesBetweenAssign",
-      "active": false
-    },
-    {
-      "type": "linebreakBeforePrint",
-      "active": false
-    }
-  ]
+  "line-breaks-after-println" : 0,
+  "enforce-spacing-around-equals" : false,
+  "enforce-spacing-before-colon-in-declaration" : false,
+  "enforce-spacing-after-colon-in-declaration" : false
 }
