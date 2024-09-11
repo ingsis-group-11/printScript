@@ -24,8 +24,6 @@ public enum TokenType {
   EMPTY,
   CONST_KEYWORD,
   READ_ENV,
-  BRACKET_OPEN,
-  BRACKET_CLOSE,
   BRACE_OPEN,
   BRACE_CLOSE,
 }
