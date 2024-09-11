@@ -99,7 +99,7 @@ public class FormatterTest {
 
   @Test
   public void testBracketOnSameLineAsif() throws IOException {
-    String inputFilePath = "src/test/resources/cases/1.1/bracketOnSameLineAsifInput.txt";
+    String inputFilePath = "src/test/resources/cases/1.1/bracketOnSameLineAsIfInput.txt";
     String configPathRules = "src/test/resources/config/1.1/allActive.json";
 
     FormatterRunner formatterRunner = new FormatterRunner();
