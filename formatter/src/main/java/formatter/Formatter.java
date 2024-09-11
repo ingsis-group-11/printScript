@@ -15,12 +15,13 @@ public class Formatter {
   TokenListFactory tokenListFactory = new TokenListFactory();
 
   public String formatFile(Iterator<ASTNode> nodes, List<Rule> rules) throws IOException {
-    ASTMap tokenMap = new ASTMap();
+    ASTMap nodeMap = new ASTMap();
 
     ASTNode node = nodes.next();
+    tokenListFactory.addRules(rules);
     List<Token> tokens = node.accept(tokenListFactory);
-    if (tokenMap.containsNode(node)) {
-      NodeFormatter tokenFormatter = tokenMap.getNodeFormatter(node);
+    if (nodeMap.containsNode(node)) {
+      NodeFormatter tokenFormatter = nodeMap.getNodeFormatter(node);
       return tokenOutput.toString(tokenFormatter.formatToken(tokens, rules));
     }
     else {

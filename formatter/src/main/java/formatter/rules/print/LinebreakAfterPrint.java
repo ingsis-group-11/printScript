@@ -21,10 +21,10 @@ public class LinebreakAfterPrint implements PrintRule {
     public List<Token> format(List<Token> tokens) {
     int lineBreaks = Integer.parseInt(value);
     List<Token> result = new ArrayList<>(tokens);
-    int printIndex = tokenIndex.getIndex(tokens, TokenType.PRINT_KEYWORD);
-    for (int i = 0; i < lineBreaks; i++) {
-      result.add(printIndex + 1, new ValueToken(TokenType.LINE_BREAK, "\n", tokens.get(printIndex).getColumn(),
-          tokens.get(printIndex).getLine() + i));
+    int printEndIndex = tokenIndex.getIndex(tokens, TokenType.SEMICOLON);
+    for (int i = 0; i < lineBreaks - 1; i++) {
+      result.add(printEndIndex + 1, new ValueToken(TokenType.LINE_BREAK, "\n", tokens.get(printEndIndex).getColumn(),
+          tokens.get(printEndIndex).getLine() + i));
     }
     return result;
     }

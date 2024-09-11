@@ -8,6 +8,7 @@ import linter.rulesMap.RuleMapFactory;
 import linter.rulesMap.RulesMap;
 import parser.Observer;
 import parser.iterator.ASTIterator;
+import providers.iterator.PrintScriptIterator;
 import token.Token;
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,14 +19,14 @@ public class LinterRunner {
 
   public void linterRun(InputStream input, InputStream configRules, String version) throws IOException {
     FileReaderIterator fileIterator = new FileReaderIterator(input);
-    TokenIterator tokens = new TokenIterator(fileIterator, version);
+    PrintScriptIterator<Token> tokens = new TokenIterator(fileIterator, version);
     Iterator<ASTNode> nodes = new ASTIterator(tokens, version);
     run(configRules, version, nodes);
   }
 
   public void linterRun(InputStream input, InputStream configRules, String version, List<Observer> observers) throws IOException {
     FileReaderIterator fileIterator = new FileReaderIterator(input);
-    TokenIterator tokens = new TokenIterator(fileIterator, version);
+    PrintScriptIterator<Token> tokens = new TokenIterator(fileIterator, version);
     Iterator<ASTNode> nodes = new ASTIterator(tokens, version, observers);
     run(configRules, version, nodes);
   }

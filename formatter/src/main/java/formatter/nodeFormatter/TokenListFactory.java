@@ -2,6 +2,8 @@ package formatter.nodeFormatter;
 
 import AST.ASTVisitor;
 import AST.nodes.*;
+import formatter.ASTMap;
+import formatter.rules.Rule;
 import token.Token;
 import token.TokenType;
 import token.ValueToken;
@@ -10,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TokenListFactory implements ASTVisitor<List<Token>> {
+  private List<Rule> rules;
+
   @Override
   public List<Token> visit(DeclarationNode node) {
     List<Token> result = new ArrayList<>();
@@ -31,6 +35,7 @@ public class TokenListFactory implements ASTVisitor<List<Token>> {
   @Override
   public List<Token> visit(PrintNode node) {
     List<Token> result = new ArrayList<>();
+    result.add(new ValueToken(TokenType.PRINT_KEYWORD, "println", node.getColumn(), node.getLine()));
     result.add(new ValueToken(TokenType.PARENTHESIS_OPEN, "(", node.getLine(), node.getColumn()));
     result.addAll(node.getExpression().accept(this));
     result.add(new ValueToken(TokenType.PARENTHESIS_CLOSE, ")", node.getLine(), node.getColumn()));
@@ -49,9 +54,7 @@ public class TokenListFactory implements ASTVisitor<List<Token>> {
 
   @Override
   public List<Token> visit(OperatorNode node) {
-    List<Token> result = new ArrayList<>();
-    result.add(new ValueToken(TokenType.PARENTHESIS_OPEN, "(", node.getColumn(), node.getLine()));
-    result.addAll(node.getLeftNode().accept(this));
+    List<Token> result = new ArrayList<>(node.getLeftNode().accept(this));
     result.add(new ValueToken(TokenType.WHITESPACE, " ", node.getLeftNode().getColumn() + 1,
         node.getLeftNode().getLine()));
     result.add(new ValueToken(TokenType.OPERATOR, node.getOperator(), node.getLeftNode().getColumn() + 1,
@@ -59,7 +62,6 @@ public class TokenListFactory implements ASTVisitor<List<Token>> {
     result.add(new ValueToken(TokenType.WHITESPACE, " ", node.getRightNode().getColumn() + 1,
         node.getRightNode().getLine()));
     result.addAll(node.getRightNode().accept(this));
-    result.add(new ValueToken(TokenType.PARENTHESIS_CLOSE, ")", node.getRightNode().getColumn(), node.getLine()));
     return result;
   }
 
@@ -105,20 +107,21 @@ public class TokenListFactory implements ASTVisitor<List<Token>> {
         ifNode.getLine()));
     result.add(new ValueToken(TokenType.BRACKET_OPEN, "{", ifNode.getCondition().getColumn() + 2,
         ifNode.getLine()));
+    result.add(new ValueToken(TokenType.LINE_BREAK, "\n", 0, ifNode.getLine() + 1));
     result.addAll(ifNode.getIfBlock().accept(this));
-    result.add(new ValueToken(TokenType.BRACKET_CLOSE, "}", ifNode.getIfBlock().getColumn() + 1,
-        ifNode.getLine()));
-    result.add(new ValueToken(TokenType.WHITESPACE, " ", ifNode.getIfBlock().getColumn() + 2,
-        ifNode.getLine()));
-    if (ifNode.getElseBlock() != null) {
+    result.add(new ValueToken(TokenType.BRACKET_CLOSE, "}", 2,
+        ifNode.getLine() + 1));
+    if (!ifNode.getElseBlock().getStatements().isEmpty()) {
+      result.add(new ValueToken(TokenType.WHITESPACE, " ", ifNode.getIfBlock().getColumn() + 2,
+          ifNode.getLine()));
       result.add(new ValueToken(TokenType.ELSE_KEYWORD, "else", ifNode.getIfBlock().getColumn() + 3,
           ifNode.getLine()));
       result.add(new ValueToken(TokenType.WHITESPACE, " ", ifNode.getIfBlock().getColumn() + 7,
           ifNode.getLine()));
-      result.add(new ValueToken(TokenType.BRACKET_OPEN, "{", ifNode.getIfBlock().getColumn() + 8,
+      result.add(new ValueToken(TokenType.BRACE_OPEN, "{", ifNode.getIfBlock().getColumn() + 8,
           ifNode.getLine()));
       result.addAll(ifNode.getElseBlock().accept(this));
-      result.add(new ValueToken(TokenType.BRACKET_CLOSE, "}", ifNode.getElseBlock().getColumn() + 1,
+      result.add(new ValueToken(TokenType.BRACE_CLOSE, "}", ifNode.getElseBlock().getColumn() + 1,
           ifNode.getLine()));
     }
     return result;
@@ -127,9 +130,15 @@ public class TokenListFactory implements ASTVisitor<List<Token>> {
   @Override
   public List<Token> visit(BlockNode blockNode) {
     List<Token> result = new ArrayList<>();
+    ASTMap nodeMap = new ASTMap();
     for (ASTNode node : blockNode.getStatements()) {
-      result.addAll(node.accept(this));
+      NodeFormatter nodeFormatter = nodeMap.getNodeFormatter(node);
+      result.addAll(nodeFormatter.formatToken(node.accept(this), rules));
     }
     return result;
+  }
+
+  public void addRules(List<Rule> rules) {
+    this.rules = rules;
   }
 }

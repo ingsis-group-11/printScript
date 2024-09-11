@@ -74,6 +74,30 @@ public class FormatterTest {
   }
 
   @Test
+  public void testSpacesInOperator() throws IOException {
+    String inputFilePath = "src/test/resources/cases/1.0/spacesInOperatorInput.txt";
+    String configPathRules = "src/test/resources/config/1.0/allActive.json";
+
+    FormatterRunner formatterRunner = new FormatterRunner();
+    TestWriter testWriter = new TestWriter();
+    String expected = fileReader.read("src/test/resources/cases/1.0/spacesInOperatorOutput.txt");
+    formatterRunner.format(new FileInputStream(inputFilePath), new FileInputStream(configPathRules), testWriter,"1.0");
+    assertEquals(expected, testWriter.getOutput());
+  }
+
+  @Test
+  public void testLineBreakAfterPrint() throws IOException {
+    String inputFilePath = "src/test/resources/cases/1.0/lineBreakAfterPrintInput.txt";
+    String configPathRules = "src/test/resources/config/1.0/allActive.json";
+
+    FormatterRunner formatterRunner = new FormatterRunner();
+    TestWriter testWriter = new TestWriter();
+    String expected = fileReader.read("src/test/resources/cases/1.0/lineBreakAfterPrintOutput.txt");
+    formatterRunner.format(new FileInputStream(inputFilePath), new FileInputStream(configPathRules), testWriter,"1.0");
+    assertEquals(expected, testWriter.getOutput());
+  }
+
+  @Test
   public void testBracketOnSameLineAsif() throws IOException {
     String inputFilePath = "src/test/resources/cases/1.1/bracketOnSameLineAsifInput.txt";
     String configPathRules = "src/test/resources/config/1.1/allActive.json";
