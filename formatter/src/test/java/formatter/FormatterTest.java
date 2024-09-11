@@ -104,7 +104,7 @@ public class FormatterTest {
 
     FormatterRunner formatterRunner = new FormatterRunner();
     TestWriter testWriter = new TestWriter();
-    String expected = fileReader.read("src/test/resources/cases/1.1/bracketOnSameLineAsifOutput.txt");
+    String expected = fileReader.read("src/test/resources/cases/1.1/bracketOnSameLineAsIfOutput.txt");
     formatterRunner.format(new FileInputStream(inputFilePath), new FileInputStream(configPathRules), testWriter,"1.1");
     assertEquals(expected, testWriter.getOutput());
   }
