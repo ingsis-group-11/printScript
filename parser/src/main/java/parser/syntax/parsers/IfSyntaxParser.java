@@ -3,7 +3,6 @@ package parser.syntax.parsers;
 import AST.nodes.ASTNode;
 import AST.nodes.BlockNode;
 import AST.nodes.IfNode;
-import AST.nodes.LiteralNode;
 import parser.syntax.TokenStream;
 import parser.syntax.factory.ExpressionFactory;
 import parser.syntax.factory.SyntaxParserFactory;
@@ -19,32 +18,45 @@ public class IfSyntaxParser implements SyntaxParser {
   public ASTNode syntaxParse(TokenStream tokens, String version) {
 
     tokens.expect(TokenType.IF_KEYWORD, "Expected 'if'");
+    tokens.advance();
 
     tokens.expect(TokenType.PARENTHESIS_OPEN, "Expected '('");
+    tokens.advance();
 
     ASTNode condition = ExpressionFactory.createExpression(tokens, version);
 
     tokens.expect(TokenType.PARENTHESIS_CLOSE, "Expected ')'");
+    tokens.advance();
 
     tokens.expect(TokenType.BRACE_OPEN, "Expected '{'");
+    tokens.advance();
 
     BlockNode ifBlock = parseBlock(tokens, version);
 
     tokens.expect(TokenType.BRACE_CLOSE, "Expected '}'");
+    tokens.advance();
+
 
     BlockNode elseBlock = new BlockNode(new ArrayList<>());
+
     if (tokens.hasNext()) {
 
-      if (tokens.getCurrentToken().getType() == TokenType.ELSE_KEYWORD) {
-
+      if (tokens.getCurrentToken().getType() == TokenType.LINE_BREAK) {
         tokens.advance();
-
-        tokens.expect(TokenType.BRACE_OPEN, "Expected '{'");
-
-        elseBlock = parseBlock(tokens, version);
-
-        tokens.expect(TokenType.BRACE_CLOSE, "Expected '}'");
       }
+
+        if (tokens.getCurrentToken().getType() == TokenType.ELSE_KEYWORD) {
+
+          tokens.advance();
+
+          tokens.expect(TokenType.BRACE_OPEN, "Expected '{'");
+          tokens.advance();
+
+          elseBlock = parseBlock(tokens, version);
+
+          tokens.expect(TokenType.BRACE_CLOSE, "Expected '}'");
+          tokens.advance();
+        }
 
     }
 
@@ -52,8 +64,8 @@ public class IfSyntaxParser implements SyntaxParser {
         condition,
         ifBlock,
         elseBlock,
-        tokens.getLastToken().getLine(),
-        tokens.getLastToken().getColumn()
+        tokens.getCurrentToken().getLine(),
+        tokens.getCurrentToken().getColumn()
     );
 
     return ifNode;
@@ -66,6 +78,7 @@ public class IfSyntaxParser implements SyntaxParser {
       SyntaxParser parser = syntaxParserFactory.getSyntaxParser(tokens);
       ASTNode result = parser.syntaxParse(tokens, version);
       block.add(result);
+      tokens.advance();
     }
     return new BlockNode(block);
   }

@@ -17,10 +17,18 @@ public class ReadEnvSyntaxParser implements SyntaxParser {
     int line = tokenStream.getCurrentToken().getLine();
     int column = tokenStream.getCurrentToken().getColumn();
     tokenStream.expect(TokenType.READ_ENV, "Expected 'readEnv'");
+    tokenStream.advance();
+
     tokenStream.expect(TokenType.PARENTHESIS_OPEN, "Expected '('");
+    tokenStream.advance();
+
     ASTNode expressionNode = ExpressionFactory.createExpression(tokenStream, version);
+
     tokenStream.expect(TokenType.PARENTHESIS_CLOSE, "Expected ')'");
+    tokenStream.advance();
+
     tokenStream.expect(TokenType.SEMICOLON, "Expected ';'");
+    tokenStream.advance();
     return new ReadEnvNode(expressionNode, line, column);
   }
 }

@@ -5,6 +5,7 @@ import AST.nodes.ReadEnvNode;
 import AST.nodes.ReadInputNode;
 import org.junit.jupiter.api.Test;
 import parser.iterator.ASTIterator;
+import parser.iterator.TestTokenIterator;
 import token.Token;
 import token.TokenType;
 import token.ValueToken;
@@ -28,7 +29,7 @@ public class ReadEnvSyntaxParserTest {
                     new ValueToken(TokenType.SEMICOLON, ";", 14, 1));
 
     // WHEN
-    Iterator<Token> tokenIterator = tokens.iterator();
+    TestTokenIterator tokenIterator = new TestTokenIterator(tokens);
     Iterator<ASTNode> nodes = new ASTIterator(tokenIterator,"1.1");
     ASTNode firstAST = nodes.next();
     assertInstanceOf(ReadEnvNode.class, firstAST);
@@ -45,7 +46,7 @@ public class ReadEnvSyntaxParserTest {
                     new ValueToken(TokenType.SEMICOLON, ";", 14, 1));
 
     // WHEN
-    Iterator<Token> tokenIterator = tokens.iterator();
+    TestTokenIterator tokenIterator = new TestTokenIterator(tokens);
     Iterator<ASTNode> nodes = new ASTIterator(tokenIterator,"1.1");
     assertThrows(RuntimeException.class, () -> nodes.next());
   }

@@ -19,8 +19,13 @@ public class ReassignationSyntaxParser implements SyntaxParser {
   private ASTNode parseReassignment(TokenStream tokenStream, String version) {
     VariableNode variableNode = parseVariable(tokenStream);
     tokenStream.expect(TokenType.ASSIGN, "Expected '='");
+    tokenStream.advance();
+
     ASTNode expressionNode = ExpressionFactory.createExpression(tokenStream, version);
+
     tokenStream.expect(TokenType.SEMICOLON, "Expected ';'");
+    tokenStream.advance();
+
     return new ReassignmentNode(
         variableNode, expressionNode, expressionNode.getLine(), expressionNode.getColumn());
   }

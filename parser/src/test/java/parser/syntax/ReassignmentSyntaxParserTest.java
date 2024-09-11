@@ -8,6 +8,7 @@ import AST.nodes.AssignationNode;
 import AST.nodes.ReassignmentNode;
 import org.junit.jupiter.api.Test;
 import parser.iterator.ASTIterator;
+import parser.iterator.TestTokenIterator;
 import token.Token;
 import token.TokenType;
 import token.ValueToken;
@@ -40,7 +41,7 @@ public class ReassignmentSyntaxParserTest {
             new ValueToken(TokenType.SEMICOLON, ";", 38, 0));
 
     // WHEN
-    Iterator<Token> tokenIterator = tokens.iterator();
+    TestTokenIterator tokenIterator = new TestTokenIterator(tokens);
     Iterator<ASTNode> nodes = new ASTIterator(tokenIterator,"1.0");    ASTNode firstAST = nodes.next();
     assertInstanceOf(AssignationNode.class, firstAST);
     ASTNode secondAST = nodes.next();
