@@ -6,6 +6,7 @@ import parser.syntax.parsers.SyntaxParser;
 import parser.syntax.factory.SyntaxParserFactory;
 import parser.syntax.provider.ProviderType;
 import parser.syntax.resolver.ParserVersionResolver;
+import providers.iterator.PrintScriptIterator;
 import token.Token;
 import parser.syntax.TokenStream;
 
@@ -19,7 +20,7 @@ public class Parser {
     this.version = version;
   }
 
-  public ASTNode parse(Iterator<Token> tokens) {
+  public ASTNode parse(PrintScriptIterator<Token> tokens) {
     TokenStream tokenStream = new TokenStream(tokens);
     // Syntax analysis
     ASTNode syntaxResult = syntaxParser(tokenStream);

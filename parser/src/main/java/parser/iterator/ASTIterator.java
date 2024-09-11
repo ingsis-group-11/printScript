@@ -3,6 +3,7 @@ package parser.iterator;
 import AST.nodes.ASTNode;
 import parser.Observer;
 import parser.Parser;
+import providers.iterator.PrintScriptIterator;
 import token.Token;
 
 import java.util.ArrayList;
@@ -12,15 +13,15 @@ import java.util.NoSuchElementException;
 
 public class ASTIterator implements Iterator<ASTNode> {
   private final Parser parser;
-  private final Iterator<Token> iterator;
+  private final PrintScriptIterator<Token> iterator;
   private List<Observer> observers = new ArrayList<>();
 
-  public ASTIterator (Iterator<Token> iterator, String version){
+  public ASTIterator (PrintScriptIterator<Token> iterator, String version){
     this.parser = new Parser(version);
     this.iterator = iterator;
   }
 
-  public ASTIterator (Iterator<Token> iterator, String version, List<Observer> observers){
+  public ASTIterator (PrintScriptIterator<Token> iterator, String version, List<Observer> observers){
     this.parser = new Parser(version);
     this.iterator = iterator;
     this.observers = observers;
