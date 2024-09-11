@@ -18,14 +18,14 @@ public class LinterRunner {
 
   public void linterRun(InputStream input, InputStream configRules, String version) throws IOException {
     FileReaderIterator fileIterator = new FileReaderIterator(input);
-    Iterator<Token> tokens = new TokenIterator(fileIterator, version);
+    TokenIterator tokens = new TokenIterator(fileIterator, version);
     Iterator<ASTNode> nodes = new ASTIterator(tokens, version);
     run(configRules, version, nodes);
   }
 
   public void linterRun(InputStream input, InputStream configRules, String version, List<Observer> observers) throws IOException {
     FileReaderIterator fileIterator = new FileReaderIterator(input);
-    Iterator<Token> tokens = new TokenIterator(fileIterator, version);
+    TokenIterator tokens = new TokenIterator(fileIterator, version);
     Iterator<ASTNode> nodes = new ASTIterator(tokens, version, observers);
     run(configRules, version, nodes);
   }

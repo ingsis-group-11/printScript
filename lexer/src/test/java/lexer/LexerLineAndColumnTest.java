@@ -22,9 +22,9 @@ public class LexerLineAndColumnTest {
         // 10 / 2
         String filePath = "src/test/resources/multiple_operations.txt";
         FileReaderIterator fileReaderIterator = new FileReaderIterator(new FileInputStream(filePath));
-        Iterator<Token> tokenIterator = new TokenIterator(fileReaderIterator, "1.1");
+        TokenIterator tokenIterator = new TokenIterator(fileReaderIterator, "1.1");
 
-        Token token = tokenIterator.next();
+        Token token = tokenIterator.current();
         assertEquals(token.getType(), TokenType.NUMBER);
         assertEquals(token.getLine(), 1);
         assertEquals(token.getColumn(), 1);
@@ -68,9 +68,9 @@ public class LexerLineAndColumnTest {
 
         String filePath = "src/test/resources/multiple_operations.txt";
         FileReaderIterator fileReaderIterator = new FileReaderIterator(new FileInputStream(filePath));
-        Iterator<Token> tokenIterator = new TokenIterator(fileReaderIterator, "1.1");
+        TokenIterator tokenIterator = new TokenIterator(fileReaderIterator, "1.1");
 
-        Token token = tokenIterator.next();
+        Token token = tokenIterator.current();
         assertEquals(token.getType(), TokenType.NUMBER);
         assertEquals(token.getLine(), 1);
         assertEquals(token.getColumn(), 1);
@@ -90,9 +90,9 @@ public class LexerLineAndColumnTest {
 
         String filePath = "src/test/resources/readInput.txt";
         FileReaderIterator fileReaderIterator = new FileReaderIterator(new FileInputStream(filePath));
-        Iterator<Token> tokenIterator = new TokenIterator(fileReaderIterator, "1.1");
+        TokenIterator tokenIterator = new TokenIterator(fileReaderIterator, "1.1");
 
-        Token token = tokenIterator.next();
+        Token token = tokenIterator.current();
         assertEquals(token.getType(), TokenType.READ_INPUT);
         assertEquals(token.getLine(), 1);
         assertEquals(token.getColumn(), 1);
@@ -127,9 +127,9 @@ public class LexerLineAndColumnTest {
 
         String filePath = "src/test/resources/readInput_with_expression.txt";
         FileReaderIterator fileReaderIterator = new FileReaderIterator(new FileInputStream(filePath));
-        Iterator<Token> tokenIterator = new TokenIterator(fileReaderIterator, "1.1");
+        TokenIterator tokenIterator = new TokenIterator(fileReaderIterator, "1.1");
 
-        Token token = tokenIterator.next();
+        Token token = tokenIterator.current();
         assertEquals(token.getType(), TokenType.READ_INPUT);
         assertEquals(token.getLine(), 1);
         assertEquals(token.getColumn(), 1);
@@ -173,11 +173,11 @@ public class LexerLineAndColumnTest {
 
         String filePath = "src/test/resources/readInputAssignationWithExpressionTest.txt";
         FileReaderIterator fileReaderIterator = new FileReaderIterator(new FileInputStream(filePath));
-        Iterator<Token> tokenIterator = new TokenIterator(fileReaderIterator, "1.1");
+        TokenIterator tokenIterator = new TokenIterator(fileReaderIterator, "1.1");
 
         jumpNLines(tokenIterator, 9);
 
-        Token token = tokenIterator.next();
+        Token token = tokenIterator.current();
         assertEquals(token.getType(), TokenType.READ_INPUT);
         assertEquals(token.getLine(), 1);
         assertEquals(token.getColumn(), 17);
@@ -214,7 +214,7 @@ public class LexerLineAndColumnTest {
 
     }
 
-    private void jumpNLines(Iterator<Token> tokenIterator, int n) {
+    private void jumpNLines(TokenIterator tokenIterator, int n) {
         for (int i = 0; i < n; i++) {
             tokenIterator.next();
         }
