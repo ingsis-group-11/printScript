@@ -11,13 +11,13 @@ public class ASTMap {
 
   public ASTMap() {
     ASTMap.put(ASTTypes.ASSIGNATION_NODE, new AssignationFormatter());
-    ASTMap.put(ASTTypes.REASSIGNMENT_NODE, new DeclarationFormatter());
+    ASTMap.put(ASTTypes.REASSIGNMENT_NODE, new AssignationFormatter());
     ASTMap.put(ASTTypes.PRINT_NODE, new PrintFormatter());
-    ASTMap.put(ASTTypes.IF_NODE, new PrintFormatter());
+    ASTMap.put(ASTTypes.IF_NODE, new IfFormatter());
   }
 
   public NodeFormatter getNodeFormatter(ASTNode node) {
-    ASTTypes type = node.accept(new ASTTypeVisitor());
+    ASTTypes type = new ASTTypeVisitor().getType(node);
     if (type == null) {
       throw new RuntimeException("Node type not found");
     }
@@ -25,7 +25,7 @@ public class ASTMap {
   }
 
   public boolean containsNode(ASTNode node) {
-    ASTTypes type = node.accept(new ASTTypeVisitor());
+    ASTTypes type = new ASTTypeVisitor().getType(node);
     if (type == null) {
       return false;
     }

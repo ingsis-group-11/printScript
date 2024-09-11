@@ -1,7 +1,6 @@
-package formatter.rules.declaration;
+package formatter.rules.assignation;
 
 import formatter.rules.TokenIndex;
-import formatter.rules.assignation.AssignationRule;
 import token.Token;
 import token.TokenType;
 import token.ValueToken;

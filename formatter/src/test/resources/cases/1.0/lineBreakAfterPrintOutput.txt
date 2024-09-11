@@ -1,3 +1,2 @@
-if (true) {
 let name : string = "John";
-}
+println("Hello, name!");

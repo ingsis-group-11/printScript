@@ -9,6 +9,7 @@ import formatter.rulesMap.RulesMapFactory;
 import formatter.rulesMap.RulesReader;
 import iterator.TokenIterator;
 import parser.iterator.ASTIterator;
+import providers.iterator.PrintScriptIterator;
 import token.Token;
 
 import java.io.IOException;
@@ -21,7 +22,7 @@ public class FormatterRunner {
   public void format(InputStream inputStream, InputStream configRules, OutputProvider outputProvider, String version)
       throws IOException {
     FileReaderIterator fileIterator = new FileReaderIterator(inputStream);
-    Iterator<Token> tokens = new TokenIterator(fileIterator, version);
+    PrintScriptIterator<Token> tokens = new TokenIterator(fileIterator, version);
     Iterator<ASTNode> nodes = new ASTIterator(tokens, version);
     outputProvider.write(new FormatterIterator(nodes, getRules(configRules, version)));
   }

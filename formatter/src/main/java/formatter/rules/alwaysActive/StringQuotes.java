@@ -21,6 +21,9 @@ public class StringQuotes implements AlwaysActiveRules {
   public List<Token> format(List<Token> tokens) {
     List<Token> result = new ArrayList<>(tokens);
     int stringIndex = tokenIndex.getIndex(tokens, TokenType.STRING);
+    if (stringIndex == -1) {
+      return tokens;
+    }
     Token token = tokens.get(stringIndex);
     result.remove(stringIndex);
     result.add(stringIndex, new ValueToken(TokenType.STRING, '"' + token.getValue() + '"', token.getColumn() + 1,
