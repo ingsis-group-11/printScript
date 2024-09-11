@@ -14,7 +14,7 @@ public class IfFormatter implements NodeFormatter {
     if (rules.isEmpty()) return tokens;
     List<Token> result = tokens;
     for (Rule rule : rules) {
-      if (rule instanceof IfRule || rule instanceof AlwaysActiveRules) {
+      if (rule instanceof IfRule) {
         result = rule.format(result);
       }
     }

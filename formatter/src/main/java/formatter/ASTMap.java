@@ -17,7 +17,7 @@ public class ASTMap {
   }
 
   public NodeFormatter getNodeFormatter(ASTNode node) {
-    ASTTypes type = node.accept(new ASTTypeVisitor());
+    ASTTypes type = new ASTTypeVisitor().getType(node);
     if (type == null) {
       throw new RuntimeException("Node type not found");
     }
@@ -25,7 +25,7 @@ public class ASTMap {
   }
 
   public boolean containsNode(ASTNode node) {
-    ASTTypes type = node.accept(new ASTTypeVisitor());
+    ASTTypes type = new ASTTypeVisitor().getType(node);
     if (type == null) {
       return false;
     }

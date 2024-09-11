@@ -3,6 +3,7 @@ package formatter.nodeFormatter;
 import AST.ASTVisitor;
 import AST.nodes.*;
 import formatter.ASTMap;
+import formatter.rules.Rule;
 import token.Token;
 import token.TokenType;
 import token.ValueToken;
@@ -11,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TokenListFactory implements ASTVisitor<List<Token>> {
+  private List<Rule> rules;
+
   @Override
   public List<Token> visit(DeclarationNode node) {
     List<Token> result = new ArrayList<>();
@@ -132,9 +135,12 @@ public class TokenListFactory implements ASTVisitor<List<Token>> {
     ASTMap nodeMap = new ASTMap();
     for (ASTNode node : blockNode.getStatements()) {
       NodeFormatter nodeFormatter = nodeMap.getNodeFormatter(node);
-      nodeFormatter
-      result.addAll(node.accept(this));
+      result.addAll(nodeFormatter.formatToken(node.accept(this), rules));
     }
     return result;
+  }
+
+  public void addRules(List<Rule> rules) {
+    this.rules = rules;
   }
 }

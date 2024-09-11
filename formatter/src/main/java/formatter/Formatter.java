@@ -18,6 +18,7 @@ public class Formatter {
     ASTMap nodeMap = new ASTMap();
 
     ASTNode node = nodes.next();
+    tokenListFactory.addRules(rules);
     List<Token> tokens = node.accept(tokenListFactory);
     if (nodeMap.containsNode(node)) {
       NodeFormatter tokenFormatter = nodeMap.getNodeFormatter(node);
