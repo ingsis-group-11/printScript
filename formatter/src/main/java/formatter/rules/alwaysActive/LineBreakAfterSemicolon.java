@@ -1,7 +1,7 @@
-package formatter.rules.colon;
+package formatter.rules.alwaysActive;
 
 import formatter.rules.TokenIndex;
-import formatter.rules.Rule;
+import formatter.rules.declaration.DeclarationRule;
 import token.Token;
 import token.TokenType;
 import token.ValueToken;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class SpaceBeforeColon implements ColonRule {
+public class LineBreakAfterSemicolon implements AlwaysActiveRules {
   private final TokenIndex tokenIndex = new TokenIndex();
   public String value;
 
@@ -25,9 +25,9 @@ public class SpaceBeforeColon implements ColonRule {
       return tokens;
     }
     List<Token> result = new ArrayList<>(tokens);
-    int colonIndex = tokenIndex.getIndex(tokens, TokenType.COLON);
-    result.add(colonIndex, new ValueToken(TokenType.WHITESPACE, " ", tokens.get(colonIndex).getColumn(),
-        tokens.get(colonIndex).getLine()));
+    int semicolonIndex = tokenIndex.getIndex(tokens, TokenType.SEMICOLON);
+    result.add(semicolonIndex + 1, new ValueToken(TokenType.LINE_BREAK, "\n",
+        tokens.get(semicolonIndex).getColumn() + 1, tokens.get(semicolonIndex).getLine()));
     return result;
   }
 }

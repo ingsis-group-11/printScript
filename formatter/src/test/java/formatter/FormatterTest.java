@@ -62,18 +62,6 @@ public class FormatterTest {
   }
 
   @Test
-  public void testLineBreakAfterSemiColonFile() throws IOException {
-    String inputFilePath = "src/test/resources/cases/1.0/lineBreakAfterSemiColonInput.txt";
-    String configPathRules = "src/test/resources/config/1.0/allDisabled.json";
-
-    FormatterRunner formatterRunner = new FormatterRunner();
-    TestWriter testWriter = new TestWriter();
-    String expected = fileReader.read("src/test/resources/cases/1.0/lineBreakAfterSemiColonOutput.txt");
-    formatterRunner.format(new FileInputStream(inputFilePath), new FileInputStream(configPathRules), testWriter,"1.0");
-    assertEquals(expected, testWriter.getOutput());
-  }
-
-  @Test
   public void testAllDisabledFile() throws IOException {
     String inputFilePath = "src/test/resources/cases/1.0/allDisabledInput.txt";
     String configPathRules = "src/test/resources/config/1.0/allDisabled.json";
@@ -82,6 +70,18 @@ public class FormatterTest {
     TestWriter testWriter = new TestWriter();
     String expected = fileReader.read("src/test/resources/cases/1.0/allDisabledOutput.txt");
     formatterRunner.format(new FileInputStream(inputFilePath), new FileInputStream(configPathRules), testWriter,"1.0");
+    assertEquals(expected, testWriter.getOutput());
+  }
+
+  @Test
+  public void testBracketOnSameLineAsif() throws IOException {
+    String inputFilePath = "src/test/resources/cases/1.1/bracketOnSameLineAsifInput.txt";
+    String configPathRules = "src/test/resources/config/1.1/allActive.json";
+
+    FormatterRunner formatterRunner = new FormatterRunner();
+    TestWriter testWriter = new TestWriter();
+    String expected = fileReader.read("src/test/resources/cases/1.1/bracketOnSameLineAsifOutput.txt");
+    formatterRunner.format(new FileInputStream(inputFilePath), new FileInputStream(configPathRules), testWriter,"1.1");
     assertEquals(expected, testWriter.getOutput());
   }
 }

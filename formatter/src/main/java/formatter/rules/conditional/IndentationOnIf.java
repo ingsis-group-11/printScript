@@ -1,10 +1,10 @@
-package formatter.rules.bracket;
+package formatter.rules.conditional;
 
 import token.Token;
 
 import java.util.List;
 
-public class IndentationOnIf implements BracketRule {
+public class IndentationOnIf implements IfRule {
   public String value;
 
   @Override

@@ -1,6 +1,7 @@
-package formatter.rules.colon;
+package formatter.rules.declaration;
 
 import formatter.rules.TokenIndex;
+import formatter.rules.assignation.AssignationRule;
 import token.Token;
 import token.TokenType;
 import token.ValueToken;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class SpaceAfterColon implements ColonRule {
+public class SpaceBeforeColon implements AssignationRule {
   private final TokenIndex tokenIndex = new TokenIndex();
   public String value;
 
@@ -25,7 +26,7 @@ public class SpaceAfterColon implements ColonRule {
     }
     List<Token> result = new ArrayList<>(tokens);
     int colonIndex = tokenIndex.getIndex(tokens, TokenType.COLON);
-    result.add(new ValueToken(TokenType.WHITESPACE, " ", tokens.get(colonIndex).getColumn() + 1,
+    result.add(colonIndex, new ValueToken(TokenType.WHITESPACE, " ", tokens.get(colonIndex).getColumn(),
         tokens.get(colonIndex).getLine()));
     return result;
   }

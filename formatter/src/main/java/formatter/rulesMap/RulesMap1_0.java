@@ -1,9 +1,9 @@
 package formatter.rulesMap;
 
 import formatter.rules.*;
-import formatter.rules.assign.SpacesBetweenAssign;
-import formatter.rules.colon.SpaceAfterColon;
-import formatter.rules.colon.SpaceBeforeColon;
+import formatter.rules.assignation.SpacesBetweenAssign;
+import formatter.rules.declaration.SpaceAfterColon;
+import formatter.rules.declaration.SpaceBeforeColon;
 import formatter.rules.print.LinebreakAfterPrint;
 
 import java.util.HashMap;

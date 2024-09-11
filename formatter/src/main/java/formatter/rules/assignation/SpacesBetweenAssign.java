@@ -1,6 +1,7 @@
-package formatter.rules.assign;
+package formatter.rules.assignation;
 
 import formatter.rules.TokenIndex;
+import formatter.rules.declaration.DeclarationRule;
 import token.Token;
 import token.TokenType;
 import token.ValueToken;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class SpacesBetweenAssign implements AssignRule {
+public class SpacesBetweenAssign implements AssignationRule, DeclarationRule {
   private final TokenIndex tokenIndex = new TokenIndex();
   public String value;
 
