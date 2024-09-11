@@ -96,7 +96,32 @@ public class TokenListFactory implements ASTVisitor<List<Token>> {
 
   @Override
   public List<Token> visit(IfNode ifNode) {
-    return null;
+    List<Token> result = new ArrayList<>();
+    result.add(new ValueToken(TokenType.IF_KEYWORD, "if", ifNode.getColumn(), ifNode.getLine()));
+    result.add(new ValueToken(TokenType.WHITESPACE, " ", ifNode.getColumn() + 1, ifNode.getLine()));
+    result.add(new ValueToken(TokenType.PARENTHESIS_OPEN, "(", ifNode.getColumn() + 2, ifNode.getLine()));
+    result.addAll(ifNode.getCondition().accept(this));
+    result.add(new ValueToken(TokenType.PARENTHESIS_CLOSE, ")", ifNode.getCondition().getColumn() + 1,
+        ifNode.getLine()));
+    result.add(new ValueToken(TokenType.BRACKET_OPEN, "{", ifNode.getCondition().getColumn() + 2,
+        ifNode.getLine()));
+    result.addAll(ifNode.getIfBlock().accept(this));
+    result.add(new ValueToken(TokenType.BRACKET_CLOSE, "}", ifNode.getIfBlock().getColumn() + 1,
+        ifNode.getLine()));
+    result.add(new ValueToken(TokenType.WHITESPACE, " ", ifNode.getIfBlock().getColumn() + 2,
+        ifNode.getLine()));
+    if (ifNode.getElseBlock() != null) {
+      result.add(new ValueToken(TokenType.ELSE_KEYWORD, "else", ifNode.getIfBlock().getColumn() + 3,
+          ifNode.getLine()));
+      result.add(new ValueToken(TokenType.WHITESPACE, " ", ifNode.getIfBlock().getColumn() + 7,
+          ifNode.getLine()));
+      result.add(new ValueToken(TokenType.BRACKET_OPEN, "{", ifNode.getIfBlock().getColumn() + 8,
+          ifNode.getLine()));
+      result.addAll(ifNode.getElseBlock().accept(this));
+      result.add(new ValueToken(TokenType.BRACKET_CLOSE, "}", ifNode.getElseBlock().getColumn() + 1,
+          ifNode.getLine()));
+    }
+    return result;
   }
 
   @Override
