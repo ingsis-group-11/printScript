@@ -1,0 +1,5 @@
+const booleanValue: boolean = true;
+if(booleanValue) {
+    println("if statement working correctly");
+}
+println("outside of conditional");
