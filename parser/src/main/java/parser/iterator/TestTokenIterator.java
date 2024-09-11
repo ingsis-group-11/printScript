@@ -10,10 +10,12 @@ public class TestTokenIterator implements PrintScriptIterator<Token> {
 
   private final Iterator<Token> iterator;
   private Token currentToken;
+  private Token lastToken;
 
   public TestTokenIterator(List<Token> tokens){
 
     this.iterator = tokens.iterator();
+    this.lastToken = null;
     if (iterator.hasNext()) {
       currentToken = iterator.next();
     }
@@ -29,6 +31,7 @@ public class TestTokenIterator implements PrintScriptIterator<Token> {
 
   @Override
   public Token next() {
+    lastToken = currentToken;
     currentToken = iterator.next();
     return currentToken;
   }
@@ -36,5 +39,10 @@ public class TestTokenIterator implements PrintScriptIterator<Token> {
   @Override
   public Token current() {
     return currentToken;
+  }
+
+  @Override
+  public Token last() {
+    return lastToken;
   }
 }

@@ -37,9 +37,8 @@ public class TokenStream {
   public void expect(TokenType type, String errorMessage) {
     Token current = iterator.current();
     if (current == null || !match(type)) {
-      assert current != null;
-      String message =
-          errorMessage + " at column " + current.getColumn() + " line " + current.getLine();
+      Token last = iterator.last();
+      String message = errorMessage + " at column " + (last.getColumn() + last.getValue().length()) + " line " + last.getLine();
       throw new RuntimeException(message);
     }
   }
