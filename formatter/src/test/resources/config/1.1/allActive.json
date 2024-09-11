@@ -3,5 +3,6 @@
   "enforce-spacing-around-equals" : true,
   "enforce-spacing-before-colon-in-declaration" : true,
   "enforce-spacing-after-colon-in-declaration" : true,
-  "if-brace-same-line" : true
+  "if-brace-same-line" : true,
+  "indent-inside-if" : 2
 }
