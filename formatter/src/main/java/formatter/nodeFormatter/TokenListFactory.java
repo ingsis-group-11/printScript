@@ -4,6 +4,7 @@ import AST.ASTVisitor;
 import AST.nodes.*;
 import formatter.ASTMap;
 import formatter.rules.Rule;
+import formatter.rules.conditional.IndentationInsideIf;
 import token.Token;
 import token.TokenType;
 import token.ValueToken;
@@ -130,13 +131,20 @@ public class TokenListFactory implements ASTVisitor<List<Token>> {
   @Override
   public List<Token> visit(BlockNode blockNode) {
     List<Token> result = new ArrayList<>();
+    List<Rule> newRules = removeIndentationRule(this.rules);
     ASTMap nodeMap = new ASTMap();
     for (ASTNode node : blockNode.getStatements()) {
-      if (node instanceof IfNode) {
-        result.addAll(node.accept(this));
-      } else {
         NodeFormatter nodeFormatter = nodeMap.getNodeFormatter(node);
-        result.addAll(nodeFormatter.formatToken(node.accept(this), rules));
+        result.addAll(nodeFormatter.formatToken(node.accept(this), newRules));
+    }
+    return result;
+  }
+
+  private List<Rule> removeIndentationRule(List<Rule> rules) {
+    List<Rule> result = new ArrayList<>(rules);
+    for (Rule rule : rules) {
+      if (rule instanceof IndentationInsideIf) {
+        result.remove(rule);
       }
     }
     return result;
