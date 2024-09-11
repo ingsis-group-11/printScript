@@ -1,0 +1,5 @@
+const booleanValue: boolean = true;
+if(booleanValue) {
+    let variableInsideIf: string = "you can't see me outside this if";
+}
+println(variableInsideIf);
