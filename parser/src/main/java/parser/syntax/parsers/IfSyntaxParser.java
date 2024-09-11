@@ -78,7 +78,6 @@ public class IfSyntaxParser implements SyntaxParser {
       SyntaxParser parser = syntaxParserFactory.getSyntaxParser(tokens);
       ASTNode result = parser.syntaxParse(tokens, version);
       block.add(result);
-      tokens.advance();
     }
     return new BlockNode(block);
   }

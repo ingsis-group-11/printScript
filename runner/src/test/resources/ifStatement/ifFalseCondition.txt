@@ -1,5 +1,3 @@
-const booleanValue: boolean = false;
-if(booleanValue) {
+if (booleanValue) {
     println("if statement is not working correctly");
 }
-println("if statement is working correctly");

@@ -33,8 +33,6 @@ public class MapReader1_1 implements MapReader{
     tokenMap.put("true", TokenType.BOOLEAN);
     tokenMap.put("false", TokenType.BOOLEAN);
     tokenMap.put("boolean", TokenType.BOOLEAN_TYPE);
-    tokenMap.put("{", TokenType.BRACKET_OPEN);
-    tokenMap.put("}", TokenType.BRACKET_CLOSE);
   }
 
   public TokenType getTokenType(String word) {
