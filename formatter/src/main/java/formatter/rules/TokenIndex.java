@@ -14,4 +14,13 @@ public class TokenIndex {
     }
     return -1;
   }
+
+  public int getIndex(List<Token> tokens, TokenType type, int start) {
+    for (int i = start; i < tokens.size(); i++) {
+      if (tokens.get(i).getType() == type) {
+        return i;
+      }
+    }
+    return -1;
+  }
 }

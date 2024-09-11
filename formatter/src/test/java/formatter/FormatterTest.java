@@ -108,4 +108,16 @@ public class FormatterTest {
     formatterRunner.format(new FileInputStream(inputFilePath), new FileInputStream(configPathRules), testWriter,"1.1");
     assertEquals(expected, testWriter.getOutput());
   }
+
+  @Test
+  public void test2IndentationInsideIf() throws IOException {
+    String inputFilePath = "src/test/resources/cases/1.1/2indentationSpaceInput.txt";
+    String configPathRules = "src/test/resources/config/1.1/allActive.json";
+
+    FormatterRunner formatterRunner = new FormatterRunner();
+    TestWriter testWriter = new TestWriter();
+    String expected = fileReader.read("src/test/resources/cases/1.1/2indentationSpaceOutput.txt");
+    formatterRunner.format(new FileInputStream(inputFilePath), new FileInputStream(configPathRules), testWriter,"1.1");
+    assertEquals(expected, testWriter.getOutput());
+  }
 }

@@ -1,7 +1,6 @@
 package formatter.rules.alwaysActive;
 
 import formatter.rules.TokenIndex;
-import formatter.rules.declaration.DeclarationRule;
 import token.Token;
 import token.TokenType;
 import token.ValueToken;
