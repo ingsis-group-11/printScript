@@ -74,7 +74,7 @@ public class ParserTest {
     List<Token> tokens =
         List.of(
             new ValueToken(TokenType.PRINT_KEYWORD, "println", 1, 1),
-            new ValueToken(TokenType.STRING, "Hello", 9, 1),
+            new ValueToken(TokenType.STRING, "Hello", 8, 1),
             new ValueToken(TokenType.PARENTHESIS_CLOSE, ")", 13, 1),
             new ValueToken(TokenType.SEMICOLON, ";", 14, 1));
 
@@ -82,7 +82,7 @@ public class ParserTest {
     TestTokenIterator tokenIterator = new TestTokenIterator(tokens);
     Parser parser = new Parser("1.0");
     RuntimeException exception = assertThrows(RuntimeException.class, () -> parser.parse(tokenIterator));
-    assertEquals("Expected '(' at column 9 line 1", exception.getMessage());
+    assertEquals("Expected '(' at column 8 line 1", exception.getMessage());
   }
 
   @Test

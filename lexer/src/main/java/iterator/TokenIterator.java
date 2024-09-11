@@ -13,10 +13,12 @@ public class TokenIterator implements PrintScriptIterator<Token> {
     private final Lexer lexer;
     private final FileReaderIterator inputIterator;
     private Token currentToken;
+    private Token lastToken;
 
     public TokenIterator(FileReaderIterator inputIterator, String version) {
         this.inputIterator = inputIterator;
         this.lexer = new Lexer(inputIterator, version);
+        this.lastToken = null;
         if (inputIterator.hasNext()) {
             this.currentToken = this.next();
         }
@@ -36,6 +38,7 @@ public class TokenIterator implements PrintScriptIterator<Token> {
         }
         LexingResult result = lexer.lex();
         if (result instanceof SuccessfulResult) {
+            lastToken = currentToken;
             currentToken = ((SuccessfulResult) result).token();
             return ((SuccessfulResult) result).token();
         } else {
@@ -46,5 +49,10 @@ public class TokenIterator implements PrintScriptIterator<Token> {
     @Override
     public Token current(){
         return currentToken;
+    }
+
+    @Override
+    public Token last(){
+        return lastToken;
     }
 }
