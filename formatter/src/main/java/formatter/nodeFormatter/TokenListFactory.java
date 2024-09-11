@@ -35,6 +35,7 @@ public class TokenListFactory implements ASTVisitor<List<Token>> {
   @Override
   public List<Token> visit(PrintNode node) {
     List<Token> result = new ArrayList<>();
+    result.add(new ValueToken(TokenType.PRINT_KEYWORD, "println", node.getColumn(), node.getLine()));
     result.add(new ValueToken(TokenType.PARENTHESIS_OPEN, "(", node.getLine(), node.getColumn()));
     result.addAll(node.getExpression().accept(this));
     result.add(new ValueToken(TokenType.PARENTHESIS_CLOSE, ")", node.getLine(), node.getColumn()));
@@ -53,9 +54,7 @@ public class TokenListFactory implements ASTVisitor<List<Token>> {
 
   @Override
   public List<Token> visit(OperatorNode node) {
-    List<Token> result = new ArrayList<>();
-    result.add(new ValueToken(TokenType.PARENTHESIS_OPEN, "(", node.getColumn(), node.getLine()));
-    result.addAll(node.getLeftNode().accept(this));
+    List<Token> result = new ArrayList<>(node.getLeftNode().accept(this));
     result.add(new ValueToken(TokenType.WHITESPACE, " ", node.getLeftNode().getColumn() + 1,
         node.getLeftNode().getLine()));
     result.add(new ValueToken(TokenType.OPERATOR, node.getOperator(), node.getLeftNode().getColumn() + 1,
@@ -63,7 +62,6 @@ public class TokenListFactory implements ASTVisitor<List<Token>> {
     result.add(new ValueToken(TokenType.WHITESPACE, " ", node.getRightNode().getColumn() + 1,
         node.getRightNode().getLine()));
     result.addAll(node.getRightNode().accept(this));
-    result.add(new ValueToken(TokenType.PARENTHESIS_CLOSE, ")", node.getRightNode().getColumn(), node.getLine()));
     return result;
   }
 
