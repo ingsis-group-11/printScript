@@ -15,7 +15,8 @@ public class TokenStream {
 
     if (iterator.hasNext()) {
       iterator.next();
-      while (iterator.current().getType() == TokenType.WHITESPACE) {
+      while ((iterator.current().getType() == TokenType.WHITESPACE || iterator.current().getType() == TokenType.LINE_BREAK)
+          && iterator.hasNext()) {
         iterator.next();
       }
     }
