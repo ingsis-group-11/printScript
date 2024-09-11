@@ -26,15 +26,13 @@ public class MapReader1_1 implements MapReader{
     tokenMap.put("\n", TokenType.LINE_BREAK);
     tokenMap.put("readInput", TokenType.READ_INPUT);
     tokenMap.put("readEnv", TokenType.READ_ENV);
-    tokenMap.put("{", TokenType.BRACE_OPEN);
-    tokenMap.put("}", TokenType.BRACE_CLOSE);
     tokenMap.put("if", TokenType.IF_KEYWORD);
     tokenMap.put("else", TokenType.ELSE_KEYWORD);
     tokenMap.put("true", TokenType.BOOLEAN);
     tokenMap.put("false", TokenType.BOOLEAN);
     tokenMap.put("boolean", TokenType.BOOLEAN_TYPE);
-    tokenMap.put("{", TokenType.BRACKET_OPEN);
-    tokenMap.put("}", TokenType.BRACKET_CLOSE);
+    tokenMap.put("{", TokenType.BRACE_OPEN);
+    tokenMap.put("}", TokenType.BRACE_CLOSE);
   }
 
   public TokenType getTokenType(String word) {

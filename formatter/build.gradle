@@ -9,6 +9,7 @@ dependencies {
     implementation project(':token')
     implementation project(':ast')
     implementation project(':filereader')
+    implementation project(':providers')
     implementation project(':lexer')
     implementation project(':parser')
 }

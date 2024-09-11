@@ -2,6 +2,7 @@ package formatter.rulesMap;
 
 import formatter.rules.*;
 import formatter.rules.assignation.SpacesBetweenAssign;
+import formatter.rules.conditional.BracketOnSameLineAsIf;
 import formatter.rules.conditional.IndentationOnIf;
 import formatter.rules.declaration.SpaceAfterColon;
 import formatter.rules.declaration.SpaceBeforeColon;
@@ -19,7 +20,7 @@ public class RulesMap1_1 implements RulesMap {
     ruleMap.put("enforce-spacing-after-colon-in-declaration", new SpaceAfterColon());
     ruleMap.put("enforce-spacing-around-equals", new SpacesBetweenAssign());
     ruleMap.put("line-breaks-after-println", new LinebreakAfterPrint());
-    ruleMap.put("if-brace-same-line", new IndentationOnIf());
+    ruleMap.put("if-brace-same-line", new BracketOnSameLineAsIf());
   }
 
   @Override
