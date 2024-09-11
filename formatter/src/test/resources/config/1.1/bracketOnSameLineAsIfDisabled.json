@@ -1,0 +1,8 @@
+{
+  "line-breaks-after-println" : 0,
+  "enforce-spacing-around-equals" : true,
+  "enforce-spacing-before-colon-in-declaration" : true,
+  "enforce-spacing-after-colon-in-declaration" : true,
+  "if-brace-same-line" : false,
+  "indent-inside-if" : 2
+}

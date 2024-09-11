@@ -110,6 +110,18 @@ public class FormatterTest {
   }
 
   @Test
+  public void testBracketOnSameLineAsifDisabled() throws IOException {
+    String inputFilePath = "src/test/resources/cases/1.1/bracketOnSameLineAsIfInputDisabledInput.txt";
+    String configPathRules = "src/test/resources/config/1.1/bracketOnSameLineAsIfDisabled.json";
+
+    FormatterRunner formatterRunner = new FormatterRunner();
+    TestWriter testWriter = new TestWriter();
+    String expected = fileReader.read("src/test/resources/cases/1.1/bracketOnSameLineAsIfInputDisabledOutput.txt");
+    formatterRunner.format(new FileInputStream(inputFilePath), new FileInputStream(configPathRules), testWriter,"1.1");
+    assertEquals(expected, testWriter.getOutput());
+  }
+
+  @Test
   public void test2IndentationInsideIf() throws IOException {
     String inputFilePath = "src/test/resources/cases/1.1/2indentationSpaceInput.txt";
     String configPathRules = "src/test/resources/config/1.1/allActiveIndentation2.json";
