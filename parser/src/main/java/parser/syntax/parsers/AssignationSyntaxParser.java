@@ -33,14 +33,17 @@ public class AssignationSyntaxParser implements SyntaxParser {
 
     if (tokenStream.getCurrentToken().getType() != TokenType.ASSIGN) {
       tokenStream.expect(TokenType.SEMICOLON, "Expected ';'");
+      tokenStream.advance();
       TokenType type = resolveEmptyType(declarationNode.getTypeToken().getType());
 
       expressionNode = new EmptyNode(type);
     }
     else {
       tokenStream.expect(TokenType.ASSIGN, "Expected '='");
+      tokenStream.advance();
       expressionNode = ExpressionFactory.createExpression(tokenStream, version);
       tokenStream.expect(TokenType.SEMICOLON, "Expected ';'");
+      tokenStream.advance();
     }
 
     return new AssignationNode(
@@ -48,13 +51,16 @@ public class AssignationSyntaxParser implements SyntaxParser {
   }
 
   private DeclarationNode parseDeclaration(TokenStream tokenStream) {
-    Token keyWordToken = tokenStream.getLastToken();
+    Token keyWordToken = tokenStream.getCurrentToken();
+    tokenStream.advance();
     Token nameToken = tokenStream.getCurrentToken();
     tokenStream.expect(TokenType.IDENTIFIER, "Expected identifier");
+    tokenStream.advance();
     tokenStream.expect(TokenType.COLON, "Expected ':'");
+    tokenStream.advance();
     Token typeToken = tokenStream.getCurrentToken();
     if (!DeclarationTypeValidator.isValidDeclarationType(typeToken.getType())) {
-      throw new RuntimeException("Expected type to be 'string' or 'number'");
+      throw new RuntimeException("Unsupported type: " + typeToken.getType().toString());
     } else {
       tokenStream.advance();
     }

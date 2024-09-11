@@ -4,6 +4,7 @@ import AST.nodes.*;
 import org.junit.jupiter.api.Test;
 import parser.Parser;
 import parser.iterator.ASTIterator;
+import parser.iterator.TestTokenIterator;
 import token.Token;
 import token.TokenType;
 import token.ValueToken;
@@ -26,7 +27,7 @@ public class PrintSyntaxParserTest {
                     new ValueToken(TokenType.SEMICOLON, ";", 14, 1));
 
     // WHEN
-    Iterator<Token> tokenIterator = tokens.iterator();
+    TestTokenIterator tokenIterator = new TestTokenIterator(tokens);
     Iterator<ASTNode> nodes = new ASTIterator(tokenIterator,"1.0");
     ASTNode firstAST = nodes.next();
     assertInstanceOf(PrintNode.class, firstAST);
@@ -43,7 +44,7 @@ public class PrintSyntaxParserTest {
                     new ValueToken(TokenType.SEMICOLON, ";", 14, 1));
 
     // WHEN
-    Iterator<Token> tokenIterator = tokens.iterator();
+    TestTokenIterator tokenIterator = new TestTokenIterator(tokens);
     Parser parser = new Parser("1.0");
     assertThrows(RuntimeException.class, () -> parser.parse(tokenIterator));
   }

@@ -7,6 +7,7 @@ import parser.iterator.ASTIterator;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Parameters;
+import providers.iterator.PrintScriptIterator;
 import token.Token;
 
 import java.io.FileInputStream;
@@ -27,7 +28,7 @@ public class ValidationCommand implements Runnable {
     try {
       ParserObserver parserObserver = new ParserObserver();
       FileReaderIterator fileIterator = new FileReaderIterator(new FileInputStream(sourceFile));
-      Iterator<Token> tokens = new TokenIterator(fileIterator, version);
+      PrintScriptIterator<Token> tokens = new TokenIterator(fileIterator, version);
       ASTIterator nodes = new ASTIterator(tokens, version);
       nodes.addObserver(parserObserver);
       while (nodes.hasNext()){

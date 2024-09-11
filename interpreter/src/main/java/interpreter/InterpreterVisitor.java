@@ -93,14 +93,35 @@ public class InterpreterVisitor implements ASTVisitor<Void> {
     }
     return null;
   }
-  
+
   @Override
   public Void visit(IfNode ifNode) {
+
+    ASTNode conditionNode = ifNode.getCondition();
+    LiteralNode conditionLiteral = conditionNode.accept(literalTransformer);
+
+    if (conditionLiteral.getType() != TokenType.BOOLEAN) {
+      throw new RuntimeException("Condition in if statement must be a Boolean");
+    }
+
+    boolean conditionValue = Boolean.parseBoolean(conditionLiteral.getValue());
+
+    if (conditionValue) {
+      ifNode.getIfBlock().accept(this);
+    } else {
+      ifNode.getElseBlock().accept(this);
+    }
+
     return null;
   }
 
   @Override
   public Void visit(BlockNode blockNode) {
+    variableMap.enterScope();
+    for (ASTNode node : blockNode.getStatements()) {
+      node.accept(this);
+    }
+    variableMap.exitScope();
     return null;
   }
 }

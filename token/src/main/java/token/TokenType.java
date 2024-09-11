@@ -22,8 +22,8 @@ public enum TokenType {
   IF_KEYWORD,
   ELSE_KEYWORD,
   EMPTY,
-  READ_ENV,
   CONST_KEYWORD,
+  READ_ENV,
   BRACE_OPEN,
   BRACE_CLOSE,
 }
