@@ -1,9 +1,7 @@
 package linter.nodeFinder;
 
-
 import AST.ASTVisitor;
 import AST.nodes.*;
-
 import java.util.ArrayList;
 import java.util.List;
 

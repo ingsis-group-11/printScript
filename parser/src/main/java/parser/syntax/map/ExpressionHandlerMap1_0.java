@@ -1,13 +1,12 @@
 package parser.syntax.map;
 
+import java.util.HashMap;
+import java.util.Map;
 import parser.syntax.handler.LiteralExpressionHandler;
 import parser.syntax.handler.ParenthesisExpressionHandler;
 import parser.syntax.handler.PrimaryExpressionHandler;
 import parser.syntax.handler.VariableExpressionHandler;
 import token.TokenType;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class ExpressionHandlerMap1_0 {
   public static Map<TokenType, PrimaryExpressionHandler> getHandlers() {

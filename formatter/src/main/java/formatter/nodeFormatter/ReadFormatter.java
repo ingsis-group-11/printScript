@@ -2,11 +2,10 @@ package formatter.nodeFormatter;
 
 import formatter.rules.Rule;
 import formatter.rules.alwaysActive.AlwaysActiveRules;
+import java.util.List;
 import token.Token;
 
-import java.util.List;
-
-public class ReadFormatter implements NodeFormatter{
+public class ReadFormatter implements NodeFormatter {
   @Override
   public List<Token> formatToken(List<Token> tokens, List<Rule> rules) {
 

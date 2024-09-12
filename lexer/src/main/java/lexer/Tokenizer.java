@@ -46,13 +46,15 @@ public class Tokenizer {
 
     String charAsString = Character.toString(currentChar);
     if (mapReader.containsKey(charAsString)) {
-      SuccessfulResult result = new SuccessfulResult(new ValueToken(mapReader.getTokenType(charAsString), charAsString, column, line));
+      SuccessfulResult result =
+          new SuccessfulResult(
+              new ValueToken(mapReader.getTokenType(charAsString), charAsString, column, line));
       advance();
       return result;
     }
 
-    return new UnsuccessfulResult("Invalid character: " + currentChar + " at " + line + ":" + column);
-
+    return new UnsuccessfulResult(
+        "Invalid character: " + currentChar + " at " + line + ":" + column);
   }
 
   private void advance() {
@@ -74,7 +76,8 @@ public class Tokenizer {
       advance();
     }
     String value = result.toString();
-    return new SuccessfulResult(new ValueToken(mapReader.getTokenType(value), value, newColumn, line));
+    return new SuccessfulResult(
+        new ValueToken(mapReader.getTokenType(value), value, newColumn, line));
   }
 
   private LexingResult number() {
@@ -84,7 +87,8 @@ public class Tokenizer {
       result.append(currentChar);
       advance();
     }
-    return new SuccessfulResult(new ValueToken(TokenType.NUMBER, result.toString(), newColumn, line));
+    return new SuccessfulResult(
+        new ValueToken(TokenType.NUMBER, result.toString(), newColumn, line));
   }
 
   private LexingResult string() {
@@ -96,7 +100,8 @@ public class Tokenizer {
       advance();
     }
     advance();
-    return new SuccessfulResult(new ValueToken(TokenType.STRING, result.toString(), newColumn, line));
+    return new SuccessfulResult(
+        new ValueToken(TokenType.STRING, result.toString(), newColumn, line));
   }
 
   private boolean isCarriageReturn() {
@@ -110,7 +115,8 @@ public class Tokenizer {
       lineBreak();
       return new SuccessfulResult(valueToken);
     } else {
-      ValueToken valueToken = new ValueToken(TokenType.WHITESPACE, String.valueOf(currentChar), column, line);
+      ValueToken valueToken =
+          new ValueToken(TokenType.WHITESPACE, String.valueOf(currentChar), column, line);
       advance();
       return new SuccessfulResult(valueToken);
     }

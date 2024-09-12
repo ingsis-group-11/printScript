@@ -1,8 +1,8 @@
 package parser.syntax.provider;
 
+import parser.syntax.TokenStream;
 import parser.syntax.parsers.AssignationSyntaxParser;
 import parser.syntax.parsers.SyntaxParser;
-import parser.syntax.TokenStream;
 import token.TokenType;
 
 public class AssignationSyntaxParserProvider implements SyntaxParserProvider {
@@ -17,5 +17,4 @@ public class AssignationSyntaxParserProvider implements SyntaxParserProvider {
   public SyntaxParser createParser() {
     return new AssignationSyntaxParser();
   }
-
 }

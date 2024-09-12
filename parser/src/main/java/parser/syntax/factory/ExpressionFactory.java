@@ -2,12 +2,11 @@ package parser.syntax.factory;
 
 import AST.nodes.ASTNode;
 import AST.nodes.OperatorNode;
+import java.util.Map;
 import parser.syntax.TokenStream;
 import parser.syntax.handler.PrimaryExpressionHandler;
 import token.Token;
 import token.TokenType;
-
-import java.util.Map;
 
 public class ExpressionFactory {
   private static Map<TokenType, PrimaryExpressionHandler> handlers;
@@ -27,7 +26,12 @@ public class ExpressionFactory {
     }
     assert token != null;
     throw new IllegalArgumentException(
-        "Invalid expression " + token.getValue() + " at column " + token.getColumn() + " line " + token.getLine());
+        "Invalid expression "
+            + token.getValue()
+            + " at column "
+            + token.getColumn()
+            + " line "
+            + token.getLine());
   }
 
   public static ASTNode parseBinaryExpression(TokenStream tokenStream, int precedence) {

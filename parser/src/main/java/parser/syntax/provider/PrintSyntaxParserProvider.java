@@ -1,11 +1,11 @@
 package parser.syntax.provider;
 
+import parser.syntax.TokenStream;
 import parser.syntax.parsers.PrintSyntaxParser;
 import parser.syntax.parsers.SyntaxParser;
-import parser.syntax.TokenStream;
 import token.TokenType;
 
-public class PrintSyntaxParserProvider implements SyntaxParserProvider{
+public class PrintSyntaxParserProvider implements SyntaxParserProvider {
 
   @Override
   public boolean supports(TokenStream tokens) {

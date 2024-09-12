@@ -1,13 +1,12 @@
 package parser.syntax.factory;
 
-import parser.syntax.parsers.SyntaxParser;
+import java.util.Set;
 import parser.syntax.TokenStream;
+import parser.syntax.parsers.SyntaxParser;
 import parser.syntax.provider.ProviderType;
 import parser.syntax.provider.SyntaxParserProvider;
 import token.Token;
 import token.TokenType;
-
-import java.util.Set;
 
 public class SyntaxParserFactory {
   private final Set<? extends ProviderType> providerTypes;
@@ -23,7 +22,8 @@ public class SyntaxParserFactory {
 
     while (tokens.hasNext()) {
       Token firstToken = tokens.getCurrentToken();
-      if (firstToken.getType() != TokenType.LINE_BREAK && firstToken.getType() != TokenType.WHITESPACE) {
+      if (firstToken.getType() != TokenType.LINE_BREAK
+          && firstToken.getType() != TokenType.WHITESPACE) {
         break;
       } else {
         tokens.advance();

@@ -1,10 +1,9 @@
 package parser.iterator;
 
-import providers.iterator.PrintScriptIterator;
-import token.Token;
-
 import java.util.Iterator;
 import java.util.List;
+import providers.iterator.PrintScriptIterator;
+import token.Token;
 
 public class TestTokenIterator implements PrintScriptIterator<Token> {
 
@@ -12,14 +11,13 @@ public class TestTokenIterator implements PrintScriptIterator<Token> {
   private Token currentToken;
   private Token lastToken;
 
-  public TestTokenIterator(List<Token> tokens){
+  public TestTokenIterator(List<Token> tokens) {
 
     this.iterator = tokens.iterator();
     this.lastToken = null;
     if (iterator.hasNext()) {
       currentToken = iterator.next();
-    }
-    else {
+    } else {
       currentToken = null;
     }
   }

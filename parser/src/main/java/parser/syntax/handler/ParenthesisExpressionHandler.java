@@ -10,7 +10,7 @@ public class ParenthesisExpressionHandler implements PrimaryExpressionHandler {
   @Override
   public ASTNode handle(TokenStream tokenStream, Token token) {
     tokenStream.advance();
-    ASTNode expression =ExpressionFactory.parseBinaryExpression(tokenStream, 0);
+    ASTNode expression = ExpressionFactory.parseBinaryExpression(tokenStream, 0);
     tokenStream.expect(TokenType.PARENTHESIS_CLOSE, "Expected ')'");
     tokenStream.advance();
     return expression;

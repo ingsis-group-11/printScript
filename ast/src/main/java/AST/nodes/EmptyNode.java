@@ -6,14 +6,13 @@ import token.TokenType;
 public class EmptyNode implements ASTNode {
   private final TokenType variableType;
 
-  public EmptyNode (TokenType type) {
+  public EmptyNode(TokenType type) {
     this.variableType = type;
   }
 
   public TokenType getType() {
     return variableType;
   }
-
 
   @Override
   public <T> T accept(ASTVisitor<T> visitor) {

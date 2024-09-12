@@ -1,14 +1,13 @@
 package formatter;
 
-import fileReader.FileReader;
-import providers.outputProvider.TestWriter;
-import org.junit.jupiter.api.Test;
-import runner.FormatterRunner;
+import static org.junit.jupiter.api.Assertions.*;
 
+import fileReader.FileReader;
 import java.io.FileInputStream;
 import java.io.IOException;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import providers.outputProvider.TestWriter;
+import runner.FormatterRunner;
 
 public class FormatterTest {
   private final FileReader fileReader = new FileReader();
@@ -21,7 +20,10 @@ public class FormatterTest {
     FormatterRunner formatterRunner = new FormatterRunner();
     TestWriter testWriter = new TestWriter();
     String expected = fileReader.read("src/test/resources/cases/1.0/allActiveOutput.txt");
-    formatterRunner.format(new FileInputStream(inputFilePath), new FileInputStream(configPathRules), testWriter,
+    formatterRunner.format(
+        new FileInputStream(inputFilePath),
+        new FileInputStream(configPathRules),
+        testWriter,
         "1.0");
     assertEquals(expected, testWriter.getOutput());
   }
@@ -33,8 +35,13 @@ public class FormatterTest {
 
     FormatterRunner formatterRunner = new FormatterRunner();
     TestWriter testWriter = new TestWriter();
-    String expected = fileReader.read("src/test/resources/cases/1.0/spaceBeforeColonDisabledOutput.txt");
-    formatterRunner.format(new FileInputStream(inputFilePath), new FileInputStream(configPathRules), testWriter,"1.0");
+    String expected =
+        fileReader.read("src/test/resources/cases/1.0/spaceBeforeColonDisabledOutput.txt");
+    formatterRunner.format(
+        new FileInputStream(inputFilePath),
+        new FileInputStream(configPathRules),
+        testWriter,
+        "1.0");
     assertEquals(expected, testWriter.getOutput());
   }
 
@@ -45,8 +52,13 @@ public class FormatterTest {
 
     FormatterRunner formatterRunner = new FormatterRunner();
     TestWriter testWriter = new TestWriter();
-    String expected = fileReader.read("src/test/resources/cases/1.0/spaceAfterColonDisabledOutput.txt");
-    formatterRunner.format(new FileInputStream(inputFilePath), new FileInputStream(configPathRules), testWriter, "1.0");
+    String expected =
+        fileReader.read("src/test/resources/cases/1.0/spaceAfterColonDisabledOutput.txt");
+    formatterRunner.format(
+        new FileInputStream(inputFilePath),
+        new FileInputStream(configPathRules),
+        testWriter,
+        "1.0");
     assertEquals(expected, testWriter.getOutput());
   }
 
@@ -57,8 +69,13 @@ public class FormatterTest {
 
     FormatterRunner formatterRunner = new FormatterRunner();
     TestWriter testWriter = new TestWriter();
-    String expected = fileReader.read("src/test/resources/cases/1.0/spaceBetweenAssignDisabledOutput.txt");
-    formatterRunner.format(new FileInputStream(inputFilePath), new FileInputStream(configPathRules), testWriter, "1.0");
+    String expected =
+        fileReader.read("src/test/resources/cases/1.0/spaceBetweenAssignDisabledOutput.txt");
+    formatterRunner.format(
+        new FileInputStream(inputFilePath),
+        new FileInputStream(configPathRules),
+        testWriter,
+        "1.0");
     assertEquals(expected, testWriter.getOutput());
   }
 
@@ -70,7 +87,11 @@ public class FormatterTest {
     FormatterRunner formatterRunner = new FormatterRunner();
     TestWriter testWriter = new TestWriter();
     String expected = fileReader.read("src/test/resources/cases/1.0/allDisabledOutput.txt");
-    formatterRunner.format(new FileInputStream(inputFilePath), new FileInputStream(configPathRules), testWriter,"1.0");
+    formatterRunner.format(
+        new FileInputStream(inputFilePath),
+        new FileInputStream(configPathRules),
+        testWriter,
+        "1.0");
     assertEquals(expected, testWriter.getOutput());
   }
 
@@ -82,7 +103,11 @@ public class FormatterTest {
     FormatterRunner formatterRunner = new FormatterRunner();
     TestWriter testWriter = new TestWriter();
     String expected = fileReader.read("src/test/resources/cases/1.0/spacesInOperatorOutput.txt");
-    formatterRunner.format(new FileInputStream(inputFilePath), new FileInputStream(configPathRules), testWriter,"1.0");
+    formatterRunner.format(
+        new FileInputStream(inputFilePath),
+        new FileInputStream(configPathRules),
+        testWriter,
+        "1.0");
     assertEquals(expected, testWriter.getOutput());
   }
 
@@ -94,7 +119,11 @@ public class FormatterTest {
     FormatterRunner formatterRunner = new FormatterRunner();
     TestWriter testWriter = new TestWriter();
     String expected = fileReader.read("src/test/resources/cases/1.0/lineBreakAfterPrintOutput.txt");
-    formatterRunner.format(new FileInputStream(inputFilePath), new FileInputStream(configPathRules), testWriter,"1.0");
+    formatterRunner.format(
+        new FileInputStream(inputFilePath),
+        new FileInputStream(configPathRules),
+        testWriter,
+        "1.0");
     assertEquals(expected, testWriter.getOutput());
   }
 
@@ -105,20 +134,32 @@ public class FormatterTest {
 
     FormatterRunner formatterRunner = new FormatterRunner();
     TestWriter testWriter = new TestWriter();
-    String expected = fileReader.read("src/test/resources/cases/1.1/bracketOnSameLineAsIfOutput.txt");
-    formatterRunner.format(new FileInputStream(inputFilePath), new FileInputStream(configPathRules), testWriter,"1.1");
+    String expected =
+        fileReader.read("src/test/resources/cases/1.1/bracketOnSameLineAsIfOutput.txt");
+    formatterRunner.format(
+        new FileInputStream(inputFilePath),
+        new FileInputStream(configPathRules),
+        testWriter,
+        "1.1");
     assertEquals(expected, testWriter.getOutput());
   }
 
   @Test
   public void testBracketOnSameLineAsifDisabled() throws IOException {
-    String inputFilePath = "src/test/resources/cases/1.1/bracketOnSameLineAsIfInputDisabledInput.txt";
+    String inputFilePath =
+        "src/test/resources/cases/1.1/bracketOnSameLineAsIfInputDisabledInput.txt";
     String configPathRules = "src/test/resources/config/1.1/bracketOnSameLineAsIfDisabled.json";
 
     FormatterRunner formatterRunner = new FormatterRunner();
     TestWriter testWriter = new TestWriter();
-    String expected = fileReader.read("src/test/resources/cases/1.1/bracketOnSameLineAsIfInputDisabledOutput.txt");
-    formatterRunner.format(new FileInputStream(inputFilePath), new FileInputStream(configPathRules), testWriter,"1.1");
+    String expected =
+        fileReader.read(
+            "src/test/resources/cases/1.1/bracketOnSameLineAsIfInputDisabledOutput.txt");
+    formatterRunner.format(
+        new FileInputStream(inputFilePath),
+        new FileInputStream(configPathRules),
+        testWriter,
+        "1.1");
     assertEquals(expected, testWriter.getOutput());
   }
 
@@ -130,7 +171,11 @@ public class FormatterTest {
     FormatterRunner formatterRunner = new FormatterRunner();
     TestWriter testWriter = new TestWriter();
     String expected = fileReader.read("src/test/resources/cases/1.1/2indentationSpaceOutput.txt");
-    formatterRunner.format(new FileInputStream(inputFilePath), new FileInputStream(configPathRules), testWriter,"1.1");
+    formatterRunner.format(
+        new FileInputStream(inputFilePath),
+        new FileInputStream(configPathRules),
+        testWriter,
+        "1.1");
     assertEquals(expected, testWriter.getOutput());
   }
 
@@ -142,7 +187,11 @@ public class FormatterTest {
     FormatterRunner formatterRunner = new FormatterRunner();
     TestWriter testWriter = new TestWriter();
     String expected = fileReader.read("src/test/resources/cases/1.1/3indentationSpaceOutput.txt");
-    formatterRunner.format(new FileInputStream(inputFilePath), new FileInputStream(configPathRules), testWriter,"1.1");
+    formatterRunner.format(
+        new FileInputStream(inputFilePath),
+        new FileInputStream(configPathRules),
+        testWriter,
+        "1.1");
     assertEquals(expected, testWriter.getOutput());
   }
 
@@ -154,7 +203,11 @@ public class FormatterTest {
     FormatterRunner formatterRunner = new FormatterRunner();
     TestWriter testWriter = new TestWriter();
     String expected = fileReader.read("src/test/resources/cases/1.1/simpleInputOutput.txt");
-    formatterRunner.format(new FileInputStream(inputFilePath), new FileInputStream(configPathRules), testWriter, "1.1");
+    formatterRunner.format(
+        new FileInputStream(inputFilePath),
+        new FileInputStream(configPathRules),
+        testWriter,
+        "1.1");
     assertEquals(expected, testWriter.getOutput());
   }
 
@@ -166,7 +219,11 @@ public class FormatterTest {
     FormatterRunner formatterRunner = new FormatterRunner();
     TestWriter testWriter = new TestWriter();
     String expected = fileReader.read("src/test/resources/cases/1.1/simpleEnvironmentOutput.txt");
-    formatterRunner.format(new FileInputStream(inputFilePath), new FileInputStream(configPathRules), testWriter, "1.1");
+    formatterRunner.format(
+        new FileInputStream(inputFilePath),
+        new FileInputStream(configPathRules),
+        testWriter,
+        "1.1");
     assertEquals(expected, testWriter.getOutput());
   }
 
@@ -178,7 +235,11 @@ public class FormatterTest {
     FormatterRunner formatterRunner = new FormatterRunner();
     TestWriter testWriter = new TestWriter();
     String expected = fileReader.read("src/test/resources/cases/1.1/elseOutput.txt");
-    formatterRunner.format(new FileInputStream(inputFilePath), new FileInputStream(configPathRules), testWriter, "1.1");
+    formatterRunner.format(
+        new FileInputStream(inputFilePath),
+        new FileInputStream(configPathRules),
+        testWriter,
+        "1.1");
     assertEquals(expected, testWriter.getOutput());
   }
 }

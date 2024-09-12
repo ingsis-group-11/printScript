@@ -1,12 +1,11 @@
 package linter;
 
-import org.junit.jupiter.api.Test;
-import runner.LinterRunner;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.Test;
+import runner.LinterRunner;
 
 public class ReadInputTests {
   @Test
@@ -15,7 +14,8 @@ public class ReadInputTests {
     String filePath = "src/test/resources/printScript/1.1/readInputActiveSuccessTest.txt";
 
     LinterRunner linterRunner = new LinterRunner();
-    linterRunner.linterRun(new FileInputStream(filePath), new FileInputStream(configFilePath), "1.1");
+    linterRunner.linterRun(
+        new FileInputStream(filePath), new FileInputStream(configFilePath), "1.1");
   }
 
   @Test
@@ -24,7 +24,8 @@ public class ReadInputTests {
     String filePath = "src/test/resources/printScript/1.1/readInputActiveSuccessTest.txt";
 
     LinterRunner linterRunner = new LinterRunner();
-    linterRunner.linterRun(new FileInputStream(filePath), new FileInputStream(configFilePath), "1.1");
+    linterRunner.linterRun(
+        new FileInputStream(filePath), new FileInputStream(configFilePath), "1.1");
   }
 
   @Test
@@ -34,19 +35,23 @@ public class ReadInputTests {
 
     LinterRunner linterRunner = new LinterRunner();
     assertThrows(
-            RuntimeException.class,
-            () -> {
-              linterRunner.linterRun(new FileInputStream(filePath), new FileInputStream(configFilePath),"1.1");
-            });
+        RuntimeException.class,
+        () -> {
+          linterRunner.linterRun(
+              new FileInputStream(filePath), new FileInputStream(configFilePath), "1.1");
+        });
   }
 
   @Test
   public void readInputActiveAndCamelCaseActiveSuccessTest() throws IOException {
-    String configFilePath = "src/test/resources/config/1.1/configReadInputActiveAndCamelCaseActive.json";
-    String filePath = "src/test/resources/printScript/1.1/readInputActiveAndCamelCaseActiveSuccessTest.txt";
+    String configFilePath =
+        "src/test/resources/config/1.1/configReadInputActiveAndCamelCaseActive.json";
+    String filePath =
+        "src/test/resources/printScript/1.1/readInputActiveAndCamelCaseActiveSuccessTest.txt";
 
     LinterRunner linterRunner = new LinterRunner();
-    linterRunner.linterRun(new FileInputStream(filePath), new FileInputStream(configFilePath),"1.1");
+    linterRunner.linterRun(
+        new FileInputStream(filePath), new FileInputStream(configFilePath), "1.1");
   }
 
   @Test
@@ -56,23 +61,26 @@ public class ReadInputTests {
 
     LinterRunner linterRunner = new LinterRunner();
     assertThrows(
-            RuntimeException.class,
-            () -> {
-              linterRunner.linterRun(new FileInputStream(filePath), new FileInputStream(configFilePath),"1.1");
-            });
+        RuntimeException.class,
+        () -> {
+          linterRunner.linterRun(
+              new FileInputStream(filePath), new FileInputStream(configFilePath), "1.1");
+        });
   }
 
   @Test
   public void readInputActiveOperationFailAssignmentTest() {
     String configFilePath = "src/test/resources/config/1.1/configReadInputActive.json";
-    String filePath = "src/test/resources/printScript/1.1/readInputActiveOperationFailAssignment.txt";
+    String filePath =
+        "src/test/resources/printScript/1.1/readInputActiveOperationFailAssignment.txt";
 
     LinterRunner linterRunner = new LinterRunner();
     assertThrows(
-            RuntimeException.class,
-            () -> {
-              linterRunner.linterRun(new FileInputStream(filePath), new FileInputStream(configFilePath),"1.1");
-            });
+        RuntimeException.class,
+        () -> {
+          linterRunner.linterRun(
+              new FileInputStream(filePath), new FileInputStream(configFilePath), "1.1");
+        });
   }
 
   @Test
@@ -82,10 +90,11 @@ public class ReadInputTests {
 
     LinterRunner linterRunner = new LinterRunner();
     assertThrows(
-            RuntimeException.class,
-            () -> {
-              linterRunner.linterRun(new FileInputStream(filePath), new FileInputStream(configFilePath),"1.1");
-            });
+        RuntimeException.class,
+        () -> {
+          linterRunner.linterRun(
+              new FileInputStream(filePath), new FileInputStream(configFilePath), "1.1");
+        });
   }
 
   @Test
@@ -95,9 +104,10 @@ public class ReadInputTests {
 
     LinterRunner linterRunner = new LinterRunner();
     assertThrows(
-            RuntimeException.class,
-            () -> {
-              linterRunner.linterRun(new FileInputStream(filePath), new FileInputStream(configFilePath),"1.1");
-            });
+        RuntimeException.class,
+        () -> {
+          linterRunner.linterRun(
+              new FileInputStream(filePath), new FileInputStream(configFilePath), "1.1");
+        });
   }
 }

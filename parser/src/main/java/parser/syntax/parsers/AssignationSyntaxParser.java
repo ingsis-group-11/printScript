@@ -21,12 +21,9 @@ public class AssignationSyntaxParser implements SyntaxParser {
   private ASTNode parseAssignation(TokenStream tokenStream, String version) {
     ASTNode expressionNode;
 
-
     if (tokenStream.getCurrentToken().getType() == TokenType.CONST_KEYWORD) {
       tokenStream.expect(TokenType.CONST_KEYWORD, "Expected 'const'");
-    }
-
-    else {
+    } else {
       tokenStream.expect(TokenType.LET_KEYWORD, "Expected 'let'");
     }
     DeclarationNode declarationNode = parseDeclaration(tokenStream);
@@ -37,8 +34,7 @@ public class AssignationSyntaxParser implements SyntaxParser {
       TokenType type = resolveEmptyType(declarationNode.getTypeToken().getType());
 
       expressionNode = new EmptyNode(type);
-    }
-    else {
+    } else {
       tokenStream.expect(TokenType.ASSIGN, "Expected '='");
       tokenStream.advance();
       expressionNode = ExpressionFactory.createExpression(tokenStream, version);
@@ -64,7 +60,8 @@ public class AssignationSyntaxParser implements SyntaxParser {
     } else {
       tokenStream.advance();
     }
-    return new DeclarationNode(typeToken, nameToken, keyWordToken, nameToken.getLine(), nameToken.getColumn());
+    return new DeclarationNode(
+        typeToken, nameToken, keyWordToken, nameToken.getLine(), nameToken.getColumn());
   }
 
   private TokenType resolveEmptyType(TokenType type) {

@@ -1,16 +1,15 @@
 package runner.printScript;
 
-import org.junit.jupiter.api.Test;
-import providers.printProvider.TestPrintProvider;
-import runner.Runner;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.Test;
+import providers.printProvider.TestPrintProvider;
+import runner.Runner;
 
 public class IfTest {
   private final ExpectedTransformer expectedTransformer = new ExpectedTransformer();
@@ -19,7 +18,10 @@ public class IfTest {
   public void ifFalseCondition() throws IOException {
     TestPrintProvider testPrintProvider = new TestPrintProvider();
     Runner runner = new Runner();
-    runner.run(new FileInputStream("src/test/resources/ifStatement/ifFalseCondition.txt"),"1.1", testPrintProvider);
+    runner.run(
+        new FileInputStream("src/test/resources/ifStatement/ifFalseCondition.txt"),
+        "1.1",
+        testPrintProvider);
     String expected = expectedTransformer.transform(List.of("outside of conditional"));
     assertEquals(expected, testPrintProvider.getMessages().next());
   }
@@ -28,7 +30,10 @@ public class IfTest {
   public void ifTrueCondition() throws IOException {
     TestPrintProvider testPrintProvider = new TestPrintProvider();
     Runner runner = new Runner();
-    runner.run(new FileInputStream("src/test/resources/ifStatement/ifTrueCondition.txt"),"1.1", testPrintProvider);
+    runner.run(
+        new FileInputStream("src/test/resources/ifStatement/ifTrueCondition.txt"),
+        "1.1",
+        testPrintProvider);
     String expected = expectedTransformer.transform(List.of("if statement working correctly"));
     assertEquals(expected, testPrintProvider.getMessages().next());
   }
@@ -37,7 +42,10 @@ public class IfTest {
   public void ifPrint() throws IOException {
     TestPrintProvider testPrintProvider = new TestPrintProvider();
     Runner runner = new Runner();
-    runner.run(new FileInputStream("src/test/resources/ifStatement/ifPrint.txt"),"1.1", testPrintProvider);
+    runner.run(
+        new FileInputStream("src/test/resources/ifStatement/ifPrint.txt"),
+        "1.1",
+        testPrintProvider);
     String expected = expectedTransformer.transform(List.of("else statement working correctly"));
     Iterator<String> messages = testPrintProvider.getMessages();
     assertEquals(expected, messages.next());
@@ -45,27 +53,31 @@ public class IfTest {
     assertEquals(expected2, messages.next());
     String expected3 = expectedTransformer.transform(List.of("outside of conditional"));
     assertEquals(expected3, messages.next());
-
   }
 
   @Test
   public void elsePrint() throws IOException {
     TestPrintProvider testPrintProvider = new TestPrintProvider();
     Runner runner = new Runner();
-    runner.run(new FileInputStream("src/test/resources/ifStatement/elsePrint.txt"),"1.1", testPrintProvider);
+    runner.run(
+        new FileInputStream("src/test/resources/ifStatement/elsePrint.txt"),
+        "1.1",
+        testPrintProvider);
     String expected = expectedTransformer.transform(List.of("else statement working correctly"));
     Iterator<String> messages = testPrintProvider.getMessages();
     assertEquals(expected, messages.next());
     String expected2 = expectedTransformer.transform(List.of("outside of conditional"));
     assertEquals(expected2, messages.next());
-
   }
 
   @Test
   public void nestedIf() throws IOException {
     TestPrintProvider testPrintProvider = new TestPrintProvider();
     Runner runner = new Runner();
-    runner.run(new FileInputStream("src/test/resources/ifStatement/nestedIf.txt"),"1.1", testPrintProvider);
+    runner.run(
+        new FileInputStream("src/test/resources/ifStatement/nestedIf.txt"),
+        "1.1",
+        testPrintProvider);
 
     Iterator<String> messages = testPrintProvider.getMessages();
     String expected = expectedTransformer.transform(List.of("nested if working correctly"));
@@ -80,7 +92,10 @@ public class IfTest {
     assertThrows(
         RuntimeException.class,
         () -> {
-          runner.run(new FileInputStream("src/test/resources/ifStatement/printVariableOutsideScope.txt"),"1.1", testPrintProvider);
+          runner.run(
+              new FileInputStream("src/test/resources/ifStatement/printVariableOutsideScope.txt"),
+              "1.1",
+              testPrintProvider);
         });
   }
 }

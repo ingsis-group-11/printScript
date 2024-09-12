@@ -1,6 +1,5 @@
 package parser.semantic.result;
 
-
 public class SemanticSuccessResult implements SemanticResult {
 
   @Override

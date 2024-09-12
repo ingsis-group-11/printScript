@@ -3,14 +3,13 @@ package linter.rules;
 import AST.nodes.ASTNode;
 import AST.nodes.OperatorNode;
 import AST.nodes.ReadInputNode;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import linter.nodeFinder.ReadInputNodeFinder;
 import linter.result.FailedLinterResult;
 import linter.result.LinterResult;
 import linter.result.SuccessLinterResult;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 public class ReadInputPreventExpressionRule implements Rule {
   private String value;
@@ -22,7 +21,7 @@ public class ReadInputPreventExpressionRule implements Rule {
 
   @Override
   public LinterResult lint(ASTNode node) {
-    if(Objects.equals(value, "false")){
+    if (Objects.equals(value, "false")) {
       return new SuccessLinterResult();
     }
     List<String> errors = new ArrayList<>();

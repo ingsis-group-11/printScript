@@ -2,13 +2,12 @@ package linter.rules;
 
 import AST.nodes.ASTNode;
 import AST.nodes.AssignationNode;
-import linter.result.FailedLinterResult;
-import linter.result.LinterResult;
-import linter.result.SuccessLinterResult;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import linter.result.FailedLinterResult;
+import linter.result.LinterResult;
+import linter.result.SuccessLinterResult;
 
 public class IdentifierFormatRule implements Rule {
   private String value;
@@ -19,10 +18,10 @@ public class IdentifierFormatRule implements Rule {
   }
 
   @Override
-  public LinterResult lint(ASTNode node){
-    if(Objects.equals(value, "camel case")){
+  public LinterResult lint(ASTNode node) {
+    if (Objects.equals(value, "camel case")) {
       return getCamelCaseResult(node);
-    }else if(Objects.equals(value, "snake case")){
+    } else if (Objects.equals(value, "snake case")) {
       return getSnakeCaseResult(node);
     }
     throw new RuntimeException("Invalid value for identifier_format rule");
@@ -30,12 +29,13 @@ public class IdentifierFormatRule implements Rule {
 
   private LinterResult getSnakeCaseResult(ASTNode node) {
     List<String> errors = new ArrayList<>();
-    if (node instanceof AssignationNode assignationNode){
+    if (node instanceof AssignationNode assignationNode) {
       String variableName = assignationNode.getDeclaration().getNameToken().getValue();
       if (!isSnakeCase(variableName)) {
         int line = assignationNode.getDeclaration().getNameToken().getLine();
         int column = assignationNode.getDeclaration().getNameToken().getColumn();
-        errors.add("Variable " + variableName + " is not in snake_case format at " + line + ":" + column);
+        errors.add(
+            "Variable " + variableName + " is not in snake_case format at " + line + ":" + column);
       }
     }
 
@@ -44,12 +44,13 @@ public class IdentifierFormatRule implements Rule {
 
   private LinterResult getCamelCaseResult(ASTNode node) {
     List<String> errors = new ArrayList<>();
-    if (node instanceof AssignationNode assignationNode){
+    if (node instanceof AssignationNode assignationNode) {
       String variableName = assignationNode.getDeclaration().getNameToken().getValue();
       if (!isCamelCase(variableName)) {
         int line = assignationNode.getDeclaration().getNameToken().getLine();
         int column = assignationNode.getDeclaration().getNameToken().getColumn();
-        errors.add("Variable " + variableName + " is not in camelCase format at " + line + ":" + column);
+        errors.add(
+            "Variable " + variableName + " is not in camelCase format at " + line + ":" + column);
       }
     }
 

@@ -2,8 +2,6 @@ package formatter;
 
 import AST.nodes.ASTNode;
 import formatter.rules.Rule;
-import token.Token;
-
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;

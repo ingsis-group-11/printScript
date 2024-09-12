@@ -1,16 +1,14 @@
 package lexer;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-
+import static org.junit.jupiter.api.Assertions.*;
 
 import fileReader.FileReaderIterator;
 import iterator.TokenIterator;
+import java.io.FileInputStream;
+import java.io.IOException;
 import org.junit.jupiter.api.Test;
 import token.Token;
 import token.TokenType;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class LexerTokenTypeTest {
 
@@ -32,8 +30,8 @@ public class LexerTokenTypeTest {
 
   @Test
   public void tokenizeMultipleOperationTest() throws IOException {
-    //5 + 3;
-    //10 / 2;
+    // 5 + 3;
+    // 10 / 2;
     String filePath = "src/test/resources/multiple_operations.txt";
     FileReaderIterator fileReaderIterator = new FileReaderIterator(new FileInputStream(filePath));
     TokenIterator tokenIterator = new TokenIterator(fileReaderIterator, "1.0");
@@ -56,9 +54,9 @@ public class LexerTokenTypeTest {
 
   @Test
   public void tokenizeCompleteCode() throws IOException {
-    //let a: string = "Hello ";
-    //let b: string = "World!";
-    //println("Result: "+a+b);
+    // let a: string = "Hello ";
+    // let b: string = "World!";
+    // println("Result: "+a+b);
 
     String filePath = "src/test/resources/complete.txt";
     FileReaderIterator fileReaderIterator = new FileReaderIterator(new FileInputStream(filePath));
@@ -100,12 +98,10 @@ public class LexerTokenTypeTest {
     assertEquals(tokenIterator.next().getType(), TokenType.SEMICOLON);
   }
 
-
-
   @Test
   public void tokenizeReassignmentCompleteCode() throws IOException {
-    //let name: string = "John";
-    //name = "Doe";
+    // let name: string = "John";
+    // name = "Doe";
 
     String filePath = "src/test/resources/reassignment.txt";
     FileReaderIterator fileReaderIterator = new FileReaderIterator(new FileInputStream(filePath));
@@ -171,7 +167,7 @@ public class LexerTokenTypeTest {
 
   @Test
   public void tokenizeReadInput() throws IOException {
-    //readInput("Test");
+    // readInput("Test");
     String filePath = "src/test/resources/readInput.txt";
     FileReaderIterator fileReaderIterator = new FileReaderIterator(new FileInputStream(filePath));
     TokenIterator tokenIterator = new TokenIterator(fileReaderIterator, "1.1");
@@ -200,14 +196,11 @@ public class LexerTokenTypeTest {
     Token token = tokenIterator.current();
     assertEquals(token.getType(), TokenType.LINE_BREAK);
 
-
     token = tokenIterator.next();
     assertEquals(token.getType(), TokenType.LINE_BREAK);
 
-
     token = tokenIterator.next();
     assertEquals(token.getType(), TokenType.LINE_BREAK);
-
 
     token = tokenIterator.next();
     assertEquals(token.getType(), TokenType.NUMBER);
@@ -215,7 +208,7 @@ public class LexerTokenTypeTest {
 
   @Test
   public void tokenizeReadEnv() throws IOException {
-    //readEnv("TEST");
+    // readEnv("TEST");
     String filePath = "src/test/resources/readEnv.txt";
     FileReaderIterator fileReaderIterator = new FileReaderIterator(new FileInputStream(filePath));
     TokenIterator tokenIterator = new TokenIterator(fileReaderIterator, "1.1");
@@ -229,7 +222,7 @@ public class LexerTokenTypeTest {
 
   @Test
   public void tokenizeAssignationReadEnv() throws IOException {
-    //let a: string = readEnv("TEST");
+    // let a: string = readEnv("TEST");
     String filePath = "src/test/resources/readEnvAssignation.txt";
     FileReaderIterator fileReaderIterator = new FileReaderIterator(new FileInputStream(filePath));
     TokenIterator tokenIterator = new TokenIterator(fileReaderIterator, "1.1");
@@ -254,5 +247,4 @@ public class LexerTokenTypeTest {
       tokenIterator.next();
     }
   }
-
 }

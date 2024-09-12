@@ -1,10 +1,9 @@
 package parser.syntax.resolver;
 
+import java.util.Set;
 import parser.syntax.provider.ProviderType;
 import parser.syntax.provider.ProviderType1_0;
 import parser.syntax.provider.ProviderType1_1;
-
-import java.util.Set;
 
 public class ParserVersionResolver {
 

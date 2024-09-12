@@ -1,10 +1,9 @@
 package lexer;
 
+import java.util.HashMap;
 import token.TokenType;
 
-import java.util.HashMap;
-
-public class MapReader1_1 implements MapReader{
+public class MapReader1_1 implements MapReader {
   HashMap<String, TokenType> tokenMap = new HashMap<>();
 
   public MapReader1_1() {

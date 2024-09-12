@@ -1,12 +1,11 @@
 package formatter.rules.alwaysActive;
 
 import formatter.rules.TokenIndex;
+import java.util.ArrayList;
+import java.util.List;
 import token.Token;
 import token.TokenType;
 import token.ValueToken;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class StringQuotes implements AlwaysActiveRules {
   private final TokenIndex tokenIndex = new TokenIndex();
@@ -26,8 +25,13 @@ public class StringQuotes implements AlwaysActiveRules {
     }
     Token token = tokens.get(stringIndex);
     result.remove(stringIndex);
-    result.add(stringIndex, new ValueToken(TokenType.STRING, '"' + token.getValue() + '"', token.getColumn() + 1,
-        token.getLine()));
+    result.add(
+        stringIndex,
+        new ValueToken(
+            TokenType.STRING,
+            '"' + token.getValue() + '"',
+            token.getColumn() + 1,
+            token.getLine()));
     return result;
   }
 }

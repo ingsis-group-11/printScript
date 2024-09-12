@@ -1,13 +1,12 @@
 package formatter.rules.assignation;
 
 import formatter.rules.TokenIndex;
-import token.Token;
-import token.TokenType;
-import token.ValueToken;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import token.Token;
+import token.TokenType;
+import token.ValueToken;
 
 public class SpaceAfterColon implements AssignationRule {
   private final TokenIndex tokenIndex = new TokenIndex();
@@ -25,8 +24,13 @@ public class SpaceAfterColon implements AssignationRule {
     }
     List<Token> result = new ArrayList<>(tokens);
     int colonIndex = tokenIndex.getIndex(tokens, TokenType.COLON);
-    result.add(colonIndex + 1, new ValueToken(TokenType.WHITESPACE, " ", tokens.get(colonIndex).getColumn() + 1,
-        tokens.get(colonIndex).getLine()));
+    result.add(
+        colonIndex + 1,
+        new ValueToken(
+            TokenType.WHITESPACE,
+            " ",
+            tokens.get(colonIndex).getColumn() + 1,
+            tokens.get(colonIndex).getLine()));
     return result;
   }
 }

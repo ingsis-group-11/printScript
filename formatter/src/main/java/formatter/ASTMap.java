@@ -2,7 +2,6 @@ package formatter;
 
 import AST.nodes.ASTNode;
 import formatter.nodeFormatter.*;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,5 +33,3 @@ public class ASTMap {
     return ASTMap.containsKey(type);
   }
 }
-
-

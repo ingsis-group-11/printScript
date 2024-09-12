@@ -1,11 +1,10 @@
 package formatter.rules.conditional;
 
+import java.util.ArrayList;
+import java.util.List;
 import token.Token;
 import token.TokenType;
 import token.ValueToken;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class IndentationInsideIf implements IfRule {
   public String value;
@@ -44,9 +43,9 @@ public class IndentationInsideIf implements IfRule {
           indentationLevel--;
           addIndentation(formattedTokens, indentationLevel, token);
           formattedTokens.add(token);
-          if (i < tokensSize - 2 &&
-              tokens.get(i + 1).getType() == TokenType.WHITESPACE &&
-              tokens.get(i + 2).getType() == TokenType.ELSE_KEYWORD) {
+          if (i < tokensSize - 2
+              && tokens.get(i + 1).getType() == TokenType.WHITESPACE
+              && tokens.get(i + 2).getType() == TokenType.ELSE_KEYWORD) {
             newLine = false;
           } else if (i < tokensSize - 1) {
             addLineBreak(formattedTokens, token);
@@ -87,7 +86,9 @@ public class IndentationInsideIf implements IfRule {
   private void addIndentation(List<Token> tokens, int level, Token baseToken) {
     if (level > 0) {
       String indentation = " ".repeat(level * Integer.parseInt(value));
-      Token indentToken = new ValueToken(TokenType.WHITESPACE, indentation, baseToken.getLine(), baseToken.getColumn());
+      Token indentToken =
+          new ValueToken(
+              TokenType.WHITESPACE, indentation, baseToken.getLine(), baseToken.getColumn());
       tokens.add(indentToken);
     }
   }

@@ -1,11 +1,10 @@
 package linter.rulesMap;
 
+import java.util.HashMap;
+import java.util.Map;
 import linter.rules.IdentifierFormatRule;
 import linter.rules.PrintPreventExpressionRule;
 import linter.rules.Rule;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class RuleMap1_0 implements RulesMap {
   Map<String, Rule> ruleMap = new HashMap<>();

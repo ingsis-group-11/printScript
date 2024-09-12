@@ -76,8 +76,7 @@ public class LiteralTransformer implements ASTVisitor<LiteralNode> {
     String message = expression.getValue();
     String input = inputProvider.getInput(message);
     TokenType inputType = new InputTypeTransformer().detectInputType(input);
-    return new LiteralNode(
-            new ValueToken(inputType, input, node.getColumn(), node.getLine()));
+    return new LiteralNode(new ValueToken(inputType, input, node.getColumn(), node.getLine()));
   }
 
   @Override
@@ -85,13 +84,12 @@ public class LiteralTransformer implements ASTVisitor<LiteralNode> {
     LiteralNode expression = node.getExpression().accept(this);
     String variableName = expression.getValue();
     String env = System.getenv(variableName);
-    if(env == null) {
+    if (env == null) {
       throw new RuntimeException("Environment variable " + variableName + " not found");
     }
-    return new LiteralNode(
-            new ValueToken(TokenType.STRING, env, node.getColumn(), node.getLine()));
+    return new LiteralNode(new ValueToken(TokenType.STRING, env, node.getColumn(), node.getLine()));
   }
-  
+
   @Override
   public LiteralNode visit(IfNode ifNode) {
     return null;
@@ -107,36 +105,38 @@ public class LiteralTransformer implements ASTVisitor<LiteralNode> {
     TokenType rightType = right.getType();
     Operators operatorEnum = Operators.fromSymbol(operator);
     return switch (operatorEnum) {
-        case ADDITION -> {
+      case ADDITION -> {
         if (leftType == TokenType.STRING || rightType == TokenType.STRING) {
           yield left.getValue() + right.getValue();
         }
         checkInvalidOperation(left, right, leftType, rightType, operator);
-        if(isDouble(left.getValue()) || isDouble(right.getValue())) {
+        if (isDouble(left.getValue()) || isDouble(right.getValue())) {
           yield String.valueOf(parseToDouble(left.getValue()) + parseToDouble(right.getValue()));
         }
         yield String.valueOf(parseToInteger(left.getValue()) + parseToInteger(right.getValue()));
       }
-        case SUBTRACTION -> {
+      case SUBTRACTION -> {
         checkInvalidOperation(left, right, leftType, rightType, operator);
-        if(isDouble(left.getValue()) || isDouble(right.getValue())) {
+        if (isDouble(left.getValue()) || isDouble(right.getValue())) {
           yield String.valueOf(parseToDouble(left.getValue()) - parseToDouble(right.getValue()));
         }
         yield String.valueOf(parseToInteger(left.getValue()) - parseToInteger(right.getValue()));
       }
-        case MULTIPLICATION -> {
+      case MULTIPLICATION -> {
         checkInvalidOperation(left, right, leftType, rightType, operator);
-          if(isDouble(left.getValue()) || isDouble(right.getValue())) {
-            yield String.valueOf(parseToDouble(left.getValue()) * parseToDouble(right.getValue()));
-          }
-          yield String.valueOf(parseToInteger(left.getValue()) * parseToInteger(right.getValue()));
+        if (isDouble(left.getValue()) || isDouble(right.getValue())) {
+          yield String.valueOf(parseToDouble(left.getValue()) * parseToDouble(right.getValue()));
+        }
+        yield String.valueOf(parseToInteger(left.getValue()) * parseToInteger(right.getValue()));
       }
-        case DIVISION -> {
+      case DIVISION -> {
         checkInvalidOperation(left, right, leftType, rightType, operator);
-          if(isDouble(left.getValue()) || isDouble(right.getValue())) {
-            yield String.valueOf(divide(parseToDouble(left.getValue()), parseToDouble(right.getValue())));
-          }
-          yield String.valueOf(divide(parseToInteger(left.getValue()), parseToInteger(right.getValue())));
+        if (isDouble(left.getValue()) || isDouble(right.getValue())) {
+          yield String.valueOf(
+              divide(parseToDouble(left.getValue()), parseToDouble(right.getValue())));
+        }
+        yield String.valueOf(
+            divide(parseToInteger(left.getValue()), parseToInteger(right.getValue())));
       }
     };
   }

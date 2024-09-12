@@ -1,10 +1,9 @@
 package parser.syntax.map;
 
-import parser.syntax.handler.*;
-import token.TokenType;
-
 import java.util.HashMap;
 import java.util.Map;
+import parser.syntax.handler.*;
+import token.TokenType;
 
 public class ExpressionHandlerMap1_1 {
   public static Map<TokenType, PrimaryExpressionHandler> getHandlers() {

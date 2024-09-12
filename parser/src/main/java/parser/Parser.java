@@ -1,22 +1,20 @@
 package parser;
 
 import AST.nodes.ASTNode;
+import java.util.Set;
 import parser.semantic.SemanticAnalyzer;
-import parser.syntax.parsers.SyntaxParser;
+import parser.syntax.TokenStream;
 import parser.syntax.factory.SyntaxParserFactory;
+import parser.syntax.parsers.SyntaxParser;
 import parser.syntax.provider.ProviderType;
 import parser.syntax.resolver.ParserVersionResolver;
 import providers.iterator.PrintScriptIterator;
 import token.Token;
-import parser.syntax.TokenStream;
-
-import java.util.Iterator;
-import java.util.Set;
 
 public class Parser {
   private final String version;
 
-  public Parser(String version){
+  public Parser(String version) {
     this.version = version;
   }
 
@@ -44,6 +42,4 @@ public class Parser {
     SyntaxParser syntaxParser = factory.getSyntaxParser(tokenStream);
     return syntaxParser.syntaxParse(tokenStream, version);
   }
-
-
 }

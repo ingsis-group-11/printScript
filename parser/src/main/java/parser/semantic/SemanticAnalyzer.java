@@ -1,9 +1,6 @@
 package parser.semantic;
 
 import AST.nodes.ASTNode;
-import java.util.ArrayList;
-import java.util.List;
-import parser.semantic.result.SemanticErrorResult;
 import parser.semantic.result.SemanticResult;
 import parser.semantic.result.SemanticSuccessResult;
 
@@ -15,10 +12,10 @@ public class SemanticAnalyzer {
   }
 
   public SemanticResult analyze(ASTNode node) {
-      SemanticResult result = node.accept(semanticVisitor);
-      if (result.hasErrors()) {
-        throw new RuntimeException("Semantic analysis failed: " + result.message());
-      }
-      return new SemanticSuccessResult();
+    SemanticResult result = node.accept(semanticVisitor);
+    if (result.hasErrors()) {
+      throw new RuntimeException("Semantic analysis failed: " + result.message());
+    }
+    return new SemanticSuccessResult();
   }
 }

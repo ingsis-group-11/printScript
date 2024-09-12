@@ -15,7 +15,8 @@ public class TokenStream {
 
     if (iterator.hasNext()) {
       iterator.next();
-      while ((iterator.current().getType() == TokenType.WHITESPACE || iterator.current().getType() == TokenType.LINE_BREAK)
+      while ((iterator.current().getType() == TokenType.WHITESPACE
+              || iterator.current().getType() == TokenType.LINE_BREAK)
           && iterator.hasNext()) {
         iterator.next();
       }
@@ -38,7 +39,12 @@ public class TokenStream {
     Token current = iterator.current();
     if (current == null || !match(type)) {
       Token last = iterator.last();
-      String message = errorMessage + " at column " + (last.getColumn() + last.getValue().length()) + " line " + last.getLine();
+      String message =
+          errorMessage
+              + " at column "
+              + (last.getColumn() + last.getValue().length())
+              + " line "
+              + last.getLine();
       throw new RuntimeException(message);
     }
   }

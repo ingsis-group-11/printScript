@@ -13,7 +13,8 @@ public class InterpreterVisitor implements ASTVisitor<Void> {
   private final PrintProvider printProvider;
   private final InputProvider inputProvider;
 
-  public InterpreterVisitor(VariableMap variableMap, PrintProvider printProvider, InputProvider inputProvider){
+  public InterpreterVisitor(
+      VariableMap variableMap, PrintProvider printProvider, InputProvider inputProvider) {
     this.variableMap = variableMap;
     this.printProvider = printProvider;
     this.literalTransformer = new LiteralTransformer(variableMap, inputProvider);
@@ -64,8 +65,13 @@ public class InterpreterVisitor implements ASTVisitor<Void> {
     if (variableType.equals(expression.getType())) {
       variableMap.updateVariable(node.getVariableNode().getValue(), expression);
     } else {
-      throw new RuntimeException("Variable " + node.getVariableNode().getValue() + " is of type " + variableType +
-              " and cannot be reassigned to type " + expression.getType());
+      throw new RuntimeException(
+          "Variable "
+              + node.getVariableNode().getValue()
+              + " is of type "
+              + variableType
+              + " and cannot be reassigned to type "
+              + expression.getType());
     }
     return null;
   }
@@ -88,7 +94,7 @@ public class InterpreterVisitor implements ASTVisitor<Void> {
     LiteralNode expression = node.getExpression().accept(literalTransformer);
     String variableName = expression.getValue();
     String input = System.getenv(variableName);
-    if(input == null) {
+    if (input == null) {
       throw new RuntimeException("Environment variable " + variableName + " not found");
     }
     return null;

@@ -1,15 +1,14 @@
 package runner.printScript;
 
-import org.junit.jupiter.api.Test;
-import providers.printProvider.TestPrintProvider;
-import runner.Runner;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.Test;
+import providers.printProvider.TestPrintProvider;
+import runner.Runner;
 
 public class ConstAssignationTest {
   private final ExpectedTransformer expectedTransformer = new ExpectedTransformer();
@@ -18,7 +17,10 @@ public class ConstAssignationTest {
   public void constValidAssignationTest() throws IOException {
     TestPrintProvider printProvider = new TestPrintProvider();
     Runner runner = new Runner();
-    runner.run(new FileInputStream("src/test/resources/assignation/1.1/constValidAssignation.txt"),"1.1", printProvider);
+    runner.run(
+        new FileInputStream("src/test/resources/assignation/1.1/constValidAssignation.txt"),
+        "1.1",
+        printProvider);
     String expected = expectedTransformer.transform(List.of("15.7"));
     assertEquals(expected, printProvider.getMessages().next());
   }
@@ -28,9 +30,13 @@ public class ConstAssignationTest {
     TestPrintProvider printProvider = new TestPrintProvider();
     Runner runner = new Runner();
     assertThrows(
-            RuntimeException.class,
-            () -> {
-              runner.run(new FileInputStream("src/test/resources/assignation/1.1/constInvalidResignationTest.txt"),"1.1", printProvider);
-            });
+        RuntimeException.class,
+        () -> {
+          runner.run(
+              new FileInputStream(
+                  "src/test/resources/assignation/1.1/constInvalidResignationTest.txt"),
+              "1.1",
+              printProvider);
+        });
   }
 }

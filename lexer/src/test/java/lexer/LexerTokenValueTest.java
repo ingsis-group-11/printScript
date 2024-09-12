@@ -1,24 +1,19 @@
 package lexer;
 
-import fileReader.FileReaderIterator;
-import iterator.TokenIterator;
-import org.junit.jupiter.api.Test;
-import token.Token;
-import token.TokenType;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Iterator;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+
+import fileReader.FileReaderIterator;
+import iterator.TokenIterator;
+import java.io.FileInputStream;
+import java.io.IOException;
+import org.junit.jupiter.api.Test;
 
 public class LexerTokenValueTest {
 
   @Test
   public void tokenizeOneOperationTest() throws IOException {
-    //5 + 3;
+    // 5 + 3;
     String filePath = "src/test/resources/operation.txt";
     FileReaderIterator fileReaderIterator = new FileReaderIterator(new FileInputStream(filePath));
     TokenIterator tokenIterator = new TokenIterator(fileReaderIterator, "1.0");
@@ -34,8 +29,8 @@ public class LexerTokenValueTest {
 
   @Test
   public void tokenizeMultipleOperationTest() throws IOException {
-    //5 + 3;
-    //10 / 2;
+    // 5 + 3;
+    // 10 / 2;
     String filePath = "src/test/resources/multiple_operations.txt";
     FileReaderIterator fileReaderIterator = new FileReaderIterator(new FileInputStream(filePath));
     TokenIterator tokenIterator = new TokenIterator(fileReaderIterator, "1.0");
@@ -58,9 +53,9 @@ public class LexerTokenValueTest {
 
   @Test
   public void tokenizeCompleteCode() throws IOException {
-    //let a: string = "Hello ";
-    //let b: string = "World!";
-    //println("Result: "+a+b);
+    // let a: string = "Hello ";
+    // let b: string = "World!";
+    // println("Result: "+a+b);
 
     String filePath = "src/test/resources/complete.txt";
     FileReaderIterator fileReaderIterator = new FileReaderIterator(new FileInputStream(filePath));
@@ -104,7 +99,7 @@ public class LexerTokenValueTest {
 
   @Test
   public void tokenizeBooleanTest() throws IOException {
-    //true false
+    // true false
     String filePath = "src/test/resources/boolean.txt";
     FileReaderIterator fileReaderIterator = new FileReaderIterator(new FileInputStream(filePath));
     TokenIterator tokenIterator = new TokenIterator(fileReaderIterator, "1.1");
@@ -116,7 +111,7 @@ public class LexerTokenValueTest {
 
   @Test
   public void tokenizeReadInput() throws IOException {
-    //true false
+    // true false
     String filePath = "src/test/resources/readInput.txt";
     FileReaderIterator fileReaderIterator = new FileReaderIterator(new FileInputStream(filePath));
     TokenIterator tokenIterator = new TokenIterator(fileReaderIterator, "1.1");

@@ -34,22 +34,19 @@ public class SemanticVisitor implements ASTVisitor<SemanticResult> {
 
     if (node.getExpression() instanceof EmptyNode) {
       return new SemanticSuccessResult();
-    }
-
-    else if (TypeValidator.validateType(variableType, expressionType)) {
+    } else if (TypeValidator.validateType(variableType, expressionType)) {
       return new SemanticSuccessResult();
     }
 
-
     return new SemanticErrorResult(
-            "Semantic error in "
-                + node.getLine()
-                + ":"
-                + node.getColumn()
-                + " Variable type is "
-                + variableType
-                + " but value is "
-                + expressionType);
+        "Semantic error in "
+            + node.getLine()
+            + ":"
+            + node.getColumn()
+            + " Variable type is "
+            + variableType
+            + " but value is "
+            + expressionType);
   }
 
   @Override
@@ -63,22 +60,22 @@ public class SemanticVisitor implements ASTVisitor<SemanticResult> {
           yield new SemanticSuccessResult();
         } else {
           yield new SemanticErrorResult(
-                  "Semantic error in "
-                      + node.getLine()
-                      + ":"
-                      + node.getColumn()
-                      + " Operator "
-                      + operator
-                      + " can only be applied to numbers");
+              "Semantic error in "
+                  + node.getLine()
+                  + ":"
+                  + node.getColumn()
+                  + " Operator "
+                  + operator
+                  + " can only be applied to numbers");
         }
       }
       default ->
           new SemanticErrorResult(
-                  "Semantic error in "
-                      + node.getLine()
-                      + ":"
-                      + node.getColumn()
-                      + " Operator not recognized");
+              "Semantic error in "
+                  + node.getLine()
+                  + ":"
+                  + node.getColumn()
+                  + " Operator not recognized");
     };
   }
 
@@ -103,15 +100,15 @@ public class SemanticVisitor implements ASTVisitor<SemanticResult> {
     TokenType expressionType = node.getExpression().accept(expressionTypeVisitor);
     if (expressionType == TokenType.IDENTIFIER) {
       return new SemanticSuccessResult();
-    } else if(expressionType == TokenType.STRING) {
+    } else if (expressionType == TokenType.STRING) {
       return new SemanticSuccessResult();
     }
     return new SemanticErrorResult(
-                    "Semantic error in "
-                            + node.getLine()
-                            + ":"
-                            + node.getColumn()
-                            + " readInput can only receive a string");
+        "Semantic error in "
+            + node.getLine()
+            + ":"
+            + node.getColumn()
+            + " readInput can only receive a string");
   }
 
   @Override
@@ -120,15 +117,15 @@ public class SemanticVisitor implements ASTVisitor<SemanticResult> {
     TokenType expressionType = node.getExpression().accept(expressionTypeVisitor);
     if (expressionType == TokenType.IDENTIFIER) {
       return new SemanticSuccessResult();
-    } else if(expressionType == TokenType.STRING) {
+    } else if (expressionType == TokenType.STRING) {
       return new SemanticSuccessResult();
     }
     return new SemanticErrorResult(
-                    "Semantic error in "
-                            + node.getLine()
-                            + ":"
-                            + node.getColumn()
-                            + " readEnv can only receive a string");
+        "Semantic error in "
+            + node.getLine()
+            + ":"
+            + node.getColumn()
+            + " readEnv can only receive a string");
   }
 
   @Override
@@ -147,11 +144,11 @@ public class SemanticVisitor implements ASTVisitor<SemanticResult> {
       return new SemanticSuccessResult();
     }
     return new SemanticErrorResult(
-            "Semantic error in "
-                + ifNode.getCondition().getLine()
-                + ":"
-                + ifNode.getCondition().getColumn()
-                + " Condition must be a boolean or identifier");
+        "Semantic error in "
+            + ifNode.getCondition().getLine()
+            + ":"
+            + ifNode.getCondition().getColumn()
+            + " Condition must be a boolean or identifier");
   }
 
   @Override
@@ -172,9 +169,9 @@ public class SemanticVisitor implements ASTVisitor<SemanticResult> {
         && operatorNode.getRightNode().accept(expressionTypeVisitor) == TokenType.NUMBER) {
       return true;
     } else if ((operatorNode.getLeftNode().accept(expressionTypeVisitor) == TokenType.IDENTIFIER
-        && operatorNode.getRightNode().accept(expressionTypeVisitor) == TokenType.NUMBER)
-    || (operatorNode.getLeftNode().accept(expressionTypeVisitor) == TokenType.NUMBER
-        && operatorNode.getRightNode().accept(expressionTypeVisitor) == TokenType.IDENTIFIER)){
+            && operatorNode.getRightNode().accept(expressionTypeVisitor) == TokenType.NUMBER)
+        || (operatorNode.getLeftNode().accept(expressionTypeVisitor) == TokenType.NUMBER
+            && operatorNode.getRightNode().accept(expressionTypeVisitor) == TokenType.IDENTIFIER)) {
       return true;
     }
     return false;
