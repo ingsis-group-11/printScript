@@ -1,6 +1,6 @@
 package formatter;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import fileReader.FileReader;
 import java.io.FileInputStream;

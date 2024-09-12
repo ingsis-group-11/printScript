@@ -1,11 +1,11 @@
-package formatter.rulesMap;
+package formatter.rulesmap;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fileReader.InputStreamToString;
-import formatter.rules.*;
-import formatter.rules.alwaysActive.LineBreakAfterSemicolon;
-import formatter.rules.alwaysActive.StringQuotes;
+import formatter.rules.Rule;
+import formatter.rules.alwaysactive.LineBreakAfterSemicolon;
+import formatter.rules.alwaysactive.StringQuotes;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;

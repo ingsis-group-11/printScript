@@ -1,8 +1,20 @@
-package formatter.nodeFormatter;
+package formatter.nodeformatter;
 
 import AST.ASTVisitor;
-import AST.nodes.*;
-import formatter.ASTMap;
+import AST.nodes.ASTNode;
+import AST.nodes.AssignationNode;
+import AST.nodes.BlockNode;
+import AST.nodes.DeclarationNode;
+import AST.nodes.EmptyNode;
+import AST.nodes.IfNode;
+import AST.nodes.LiteralNode;
+import AST.nodes.OperatorNode;
+import AST.nodes.PrintNode;
+import AST.nodes.ReadEnvNode;
+import AST.nodes.ReadInputNode;
+import AST.nodes.ReassignmentNode;
+import AST.nodes.VariableNode;
+import formatter.AstMap;
 import formatter.rules.Rule;
 import formatter.rules.conditional.IndentationInsideIf;
 import java.util.ArrayList;
@@ -214,7 +226,7 @@ public class TokenListFactory implements ASTVisitor<List<Token>> {
   public List<Token> visit(BlockNode blockNode) {
     List<Token> result = new ArrayList<>();
     List<Rule> newRules = removeIndentationRule(this.rules);
-    ASTMap nodeMap = new ASTMap();
+    AstMap nodeMap = new AstMap();
     for (ASTNode node : blockNode.getStatements()) {
       NodeFormatter nodeFormatter = nodeMap.getNodeFormatter(node);
       result.addAll(nodeFormatter.formatToken(node.accept(this), newRules));

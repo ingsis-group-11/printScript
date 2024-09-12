@@ -1,18 +1,20 @@
-package formatter.nodeFormatter;
+package formatter.nodeformatter;
 
 import formatter.rules.Rule;
-import formatter.rules.alwaysActive.AlwaysActiveRules;
+import formatter.rules.conditional.IfRule;
 import java.util.List;
 import token.Token;
 
-public class ReadFormatter implements NodeFormatter {
+public class IfFormatter implements NodeFormatter {
+
   @Override
   public List<Token> formatToken(List<Token> tokens, List<Rule> rules) {
-
-    if (rules.isEmpty()) return tokens;
+    if (rules.isEmpty()) {
+      return tokens;
+    }
     List<Token> result = tokens;
     for (Rule rule : rules) {
-      if (rule instanceof AlwaysActiveRules) {
+      if (rule instanceof IfRule) {
         result = rule.format(result);
       }
     }

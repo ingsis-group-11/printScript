@@ -1,4 +1,4 @@
-package formatter.rulesMap;
+package formatter.rulesmap;
 
 import formatter.rules.Rule;
 
