@@ -24,12 +24,12 @@ public class ObserversTests {
     TestPrintProvider testPrintProvider = new TestPrintProvider();
     String expected = expectedTransformer.transform(List.of("47.63"));
     Runner runner = new Runner();
+    runner.setObservers(observers);
     runner.run(
         new FileInputStream("src/test/resources/input/printNumberReadInput.txt"),
         "1.1",
         testPrintProvider,
-        testInputProvider,
-        observers);
+        testInputProvider);
     assertFalse(testInputProvider.hasInputsToRead());
     assertEquals(expected, testPrintProvider.getMessages().next());
     assertEquals(List.of(" █ ", " █ "), runnerTestObserver.getMessages());

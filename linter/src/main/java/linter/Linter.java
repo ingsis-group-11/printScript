@@ -2,12 +2,19 @@ package linter;
 
 import ast.nodes.AstNode;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import linter.result.LinterResult;
 import linter.rules.Rule;
 
 public class Linter {
-  public void lint(AstNode node, List<Rule> rules) {
+  public void lintRun(Iterator<AstNode> nodes, List<Rule> rules) {
+    while (nodes.hasNext()) {
+      lint(nodes.next(), rules);
+    }
+  }
+
+  private void lint(AstNode node, List<Rule> rules) {
     List<String> errors = new ArrayList<>();
     for (Rule rule : rules) {
       LinterResult result = rule.lint(node);
