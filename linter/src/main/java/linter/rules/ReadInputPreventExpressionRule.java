@@ -6,7 +6,7 @@ import AST.nodes.ReadInputNode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import linter.nodeFinder.ReadInputNodeFinder;
+import linter.nodefinder.ReadInputNodeFinder;
 import linter.result.FailedLinterResult;
 import linter.result.LinterResult;
 import linter.result.SuccessLinterResult;
@@ -26,9 +26,7 @@ public class ReadInputPreventExpressionRule implements Rule {
     }
     List<String> errors = new ArrayList<>();
 
-    ReadInputNodeFinder readInputNodeFinder = new ReadInputNodeFinder();
-    node.accept(readInputNodeFinder);
-    List<ReadInputNode> readInputNodes = readInputNodeFinder.getReadInputNodes();
+    List<ReadInputNode> readInputNodes = node.accept(new ReadInputNodeFinder());
 
     for (ReadInputNode readInputNode : readInputNodes) {
       ASTNode expression = readInputNode.getExpression();

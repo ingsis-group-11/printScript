@@ -14,6 +14,7 @@ public class FailedLinterResult implements LinterResult {
     return true;
   }
 
+  @Override
   public List<String> getErrors() {
     return errors;
   }

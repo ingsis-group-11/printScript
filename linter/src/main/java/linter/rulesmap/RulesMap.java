@@ -1,4 +1,4 @@
-package linter.rulesMap;
+package linter.rulesmap;
 
 import linter.rules.Rule;
 
