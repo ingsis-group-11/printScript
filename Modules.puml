@@ -1,63 +1,60 @@
 @startuml
 
-' Define the components
+' Definir los componentes
 component Token
 component FileReader
 component Providers
+component AST
+
+package "Lexer, Parser e Interpreter" {
+    component Lexer {
+    }
+
+    component Parser {
+        [Parser] --> AST
+    }
+
+    component Interpreter {
+        [Interpreter] --> AST
+    }
+}
+
+package "Linter y Formatter" {
+    component Formatter {
+    }
+
+    component Linter {
+    }
+}
+
+package "Runner y CLI" {
+    component Runner {
+        [Runner] -down-> Token
+        [Runner] -down-> AST
+        [Runner] --> "Lexer, Parser e Interpreter"
+        [Runner] -up-> "Linter y Formatter"
+        [Runner] --> FileReader
+    }
+
+    component CLI {
+        [CLI] --> Runner
+    }
+}
 
 component AST {
-    [AST] --> Token
+    [AST] -> Token
 }
 
-component Parser {
-    [Parser] --> Token
-    [Parser] --> AST
-    [Parser] --> Providers
-}
+"Lexer, Parser e Interpreter" -down-> Token
+"Lexer, Parser e Interpreter" --> Providers
+"Linter y Formatter" -down-> Token
+"Linter y Formatter" --> FileReader
+"Linter y Formatter" --> AST
+"Linter y Formatter" --> Providers
+Providers <-- "Runner y CLI"
 
-component Lexer {
-    [Lexer] --> Token
-    [Lexer] --> Providers
-}
 
-component Formatter {
-    [Formatter] --> Token
-    [Formatter] --> AST
-    [Formatter] --> FileReader
-    [Formatter] --> Providers
-}
-
-component Interpreter {
-    [Interpreter] --> AST
-    [Interpreter] --> Token
-    [Interpreter] --> Providers
-}
-
-component Linter {
-    [Linter] --> Token
-    [Linter] --> AST
-    [Linter] --> FileReader
-    [Linter] --> Providers
-}
-
-component Runner {
-    [Runner] --> Token
-    [Runner] --> AST
-    [Runner] --> Lexer
-    [Runner] --> Parser
-    [Runner] --> Interpreter
-    [Runner] --> Formatter
-    [Runner] --> FileReader
-    [Runner] --> Providers
-    [Runner] --> Linter
-}
-
-component CLI {
-    [CLI] --> Runner
-    [CLI] --> Providers
-}
-
-' Organize the layout
+' Organizar el layout
 left to right direction
 top to bottom direction
 

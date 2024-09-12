@@ -1,6 +1,7 @@
 package lexer;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import iterator.FileReaderIterator;
 import iterator.TokenIterator;
@@ -191,7 +192,7 @@ public class LexerTokenTypeTest {
     FileReaderIterator fileReaderIterator = new FileReaderIterator(new FileInputStream(filePath));
     TokenIterator tokenIterator = new TokenIterator(fileReaderIterator, "1.1");
 
-    jumpNLines(tokenIterator, 4);
+    jumpLines(tokenIterator, 4);
 
     Token token = tokenIterator.current();
     assertEquals(token.getType(), TokenType.LINE_BREAK);
@@ -242,7 +243,7 @@ public class LexerTokenTypeTest {
     assertEquals(tokenIterator.next().getType(), TokenType.SEMICOLON);
   }
 
-  private void jumpNLines(TokenIterator tokenIterator, int n) {
+  private void jumpLines(TokenIterator tokenIterator, int n) {
     for (int i = 0; i < n; i++) {
       tokenIterator.next();
     }
