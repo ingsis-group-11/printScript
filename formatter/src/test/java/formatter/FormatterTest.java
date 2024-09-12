@@ -112,6 +112,22 @@ public class FormatterTest {
   }
 
   @Test
+  public void testNotAssignedVariable() throws IOException {
+    String inputFilePath = "src/test/resources/cases/1.0/notAssignedVariableInput.txt";
+    String configPathRules = "src/test/resources/config/1.0/allActive.json";
+
+    FormatterRunner formatterRunner = new FormatterRunner();
+    TestWriter testWriter = new TestWriter();
+    String expected = fileReader.read("src/test/resources/cases/1.0/notAssignedVariableOutput.txt");
+    formatterRunner.format(
+        new FileInputStream(inputFilePath),
+        new FileInputStream(configPathRules),
+        testWriter,
+        "1.0");
+    assertEquals(expected, testWriter.getOutput());
+  }
+
+  @Test
   public void testLineBreakAfterPrint() throws IOException {
     String inputFilePath = "src/test/resources/cases/1.0/lineBreakAfterPrintInput.txt";
     String configPathRules = "src/test/resources/config/1.0/allActive.json";

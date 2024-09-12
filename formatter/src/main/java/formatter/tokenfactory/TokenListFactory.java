@@ -25,7 +25,7 @@ import token.TokenType;
 
 public class TokenListFactory implements ASTVisitor<List<Token>> {
   private List<Rule> rules;
-  private TokenFactory tokenFactory = new TokenFactory();
+  private final TokenFactory tokenFactory = new TokenFactory();
 
   @Override
   public List<Token> visit(DeclarationNode node) {
@@ -75,11 +75,11 @@ public class TokenListFactory implements ASTVisitor<List<Token>> {
   @Override
   public List<Token> visit(AssignationNode node) {
     List<Token> result = new ArrayList<>(node.getDeclaration().accept(this));
-    result.add(tokenFactory.createToken(TokenType.ASSIGN, "=", node.getColumn(), node.getLine()));
+    if (!(node.getExpression() instanceof EmptyNode)) {
+      result.add(tokenFactory.createToken(TokenType.ASSIGN, "=", node.getColumn(), node.getLine()));
+    }
     result.addAll(node.getExpression().accept(this));
-    result.add(
-        tokenFactory.createToken(
-            TokenType.SEMICOLON, ";", node.getExpression().getColumn(), node.getLine()));
+    result.add(tokenFactory.createToken(TokenType.SEMICOLON, ";", result.size(), node.getLine()));
     return result;
   }
 
@@ -128,11 +128,7 @@ public class TokenListFactory implements ASTVisitor<List<Token>> {
 
   @Override
   public List<Token> visit(EmptyNode emptyNode) {
-    List<Token> result = new ArrayList<>();
-    result.add(
-        tokenFactory.createToken(
-            TokenType.SEMICOLON, ";", emptyNode.getColumn(), emptyNode.getLine()));
-    return result;
+    return List.of();
   }
 
   @Override
