@@ -6,4 +6,5 @@ public enum ASTTypes {
   PRINT_NODE,
   IF_NODE,
   READ_INPUT_NODE,
+  READ_ENV_NODE
 }

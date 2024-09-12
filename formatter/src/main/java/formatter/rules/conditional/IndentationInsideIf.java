@@ -1,6 +1,5 @@
 package formatter.rules.conditional;
 
-import formatter.rules.TokenIndex;
 import token.Token;
 import token.TokenType;
 import token.ValueToken;
@@ -9,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class IndentationInsideIf implements IfRule {
-  private final TokenIndex tokenIndex = new TokenIndex();
   public String value;
 
   @Override
@@ -46,11 +44,14 @@ public class IndentationInsideIf implements IfRule {
           indentationLevel--;
           addIndentation(formattedTokens, indentationLevel, token);
           formattedTokens.add(token);
-          // Solo agregar line break si no es el último brace_close
-          if (i < tokensSize - 1) {
+          if (i < tokensSize - 2 &&
+              tokens.get(i + 1).getType() == TokenType.WHITESPACE &&
+              tokens.get(i + 2).getType() == TokenType.ELSE_KEYWORD) {
+            newLine = false;
+          } else if (i < tokensSize - 1) {
             addLineBreak(formattedTokens, token);
+            newLine = true;
           }
-          newLine = true;
           break;
 
         case SEMICOLON:
@@ -67,7 +68,7 @@ public class IndentationInsideIf implements IfRule {
           break;
 
         case WHITESPACE:
-          formattedTokens.add(token); // Preservar el token WHITESPACE
+          formattedTokens.add(token);
           break;
 
         default:
@@ -96,11 +97,3 @@ public class IndentationInsideIf implements IfRule {
     tokens.add(lineBreakToken);
   }
 }
-
-
-// if () {
-//   let a: number = 1;
-//   if () {
-//    println("Hello");
-//   }
-// }
