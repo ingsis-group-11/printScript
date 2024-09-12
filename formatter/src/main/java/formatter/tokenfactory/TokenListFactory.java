@@ -1,19 +1,19 @@
 package formatter.tokenfactory;
 
-import AST.ASTVisitor;
-import AST.nodes.ASTNode;
-import AST.nodes.AssignationNode;
-import AST.nodes.BlockNode;
-import AST.nodes.DeclarationNode;
-import AST.nodes.EmptyNode;
-import AST.nodes.IfNode;
-import AST.nodes.LiteralNode;
-import AST.nodes.OperatorNode;
-import AST.nodes.PrintNode;
-import AST.nodes.ReadEnvNode;
-import AST.nodes.ReadInputNode;
-import AST.nodes.ReassignmentNode;
-import AST.nodes.VariableNode;
+import ast.AstVisitor;
+import ast.nodes.AssignationNode;
+import ast.nodes.AstNode;
+import ast.nodes.BlockNode;
+import ast.nodes.DeclarationNode;
+import ast.nodes.EmptyNode;
+import ast.nodes.IfNode;
+import ast.nodes.LiteralNode;
+import ast.nodes.OperatorNode;
+import ast.nodes.PrintNode;
+import ast.nodes.ReadEnvNode;
+import ast.nodes.ReadInputNode;
+import ast.nodes.ReassignmentNode;
+import ast.nodes.VariableNode;
 import formatter.AstMap;
 import formatter.nodeformatter.NodeFormatter;
 import formatter.rules.Rule;
@@ -23,7 +23,7 @@ import java.util.List;
 import token.Token;
 import token.TokenType;
 
-public class TokenListFactory implements ASTVisitor<List<Token>> {
+public class TokenListFactory implements AstVisitor<List<Token>> {
   private List<Rule> rules;
   private final TokenFactory tokenFactory = new TokenFactory();
 
@@ -239,7 +239,7 @@ public class TokenListFactory implements ASTVisitor<List<Token>> {
     List<Token> result = new ArrayList<>();
     List<Rule> newRules = removeIndentationRule(this.rules);
     AstMap nodeMap = new AstMap();
-    for (ASTNode node : blockNode.getStatements()) {
+    for (AstNode node : blockNode.getStatements()) {
       NodeFormatter nodeFormatter = nodeMap.getNodeFormatter(node);
       result.addAll(nodeFormatter.formatToken(node.accept(this), newRules));
     }

@@ -1,6 +1,6 @@
 package runner;
 
-import AST.nodes.ASTNode;
+import ast.nodes.AstNode;
 import iterator.FileReaderIterator;
 import iterator.TokenIterator;
 import java.io.IOException;
@@ -23,7 +23,7 @@ public class LinterRunner {
       throws IOException {
     FileReaderIterator fileIterator = new FileReaderIterator(input);
     PrintScriptIterator<Token> tokens = new TokenIterator(fileIterator, version);
-    Iterator<ASTNode> nodes = new AstIterator(tokens, version);
+    Iterator<AstNode> nodes = new AstIterator(tokens, version);
     run(configRules, version, nodes);
   }
 
@@ -32,17 +32,17 @@ public class LinterRunner {
       throws IOException {
     FileReaderIterator fileIterator = new FileReaderIterator(input);
     PrintScriptIterator<Token> tokens = new TokenIterator(fileIterator, version);
-    Iterator<ASTNode> nodes = new AstIterator(tokens, version, observers);
+    Iterator<AstNode> nodes = new AstIterator(tokens, version, observers);
     run(configRules, version, nodes);
   }
 
-  private void run(InputStream configRules, String version, Iterator<ASTNode> nodes)
+  private void run(InputStream configRules, String version, Iterator<AstNode> nodes)
       throws IOException {
     Linter linter = new Linter();
     RulesMap rulesMap = new RuleMapFactory().createRuleMap(version);
     List<Rule> rules = getRules(configRules, rulesMap);
     while (nodes.hasNext()) {
-      ASTNode node = nodes.next();
+      AstNode node = nodes.next();
       linter.lint(node, rules);
     }
   }

@@ -1,6 +1,6 @@
 package parser.iterator;
 
-import AST.nodes.ASTNode;
+import ast.nodes.AstNode;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -10,7 +10,7 @@ import providers.iterator.PrintScriptIterator;
 import providers.observer.Observer;
 import token.Token;
 
-public class AstIterator implements Iterator<ASTNode> {
+public class AstIterator implements Iterator<AstNode> {
   private final Parser parser;
   private final PrintScriptIterator<Token> iterator;
   private List<Observer> observers = new ArrayList<>();
@@ -43,7 +43,7 @@ public class AstIterator implements Iterator<ASTNode> {
   }
 
   @Override
-  public ASTNode next() {
+  public AstNode next() {
     if (!hasNext()) {
       throw new NoSuchElementException("No more tokens to parse");
     }

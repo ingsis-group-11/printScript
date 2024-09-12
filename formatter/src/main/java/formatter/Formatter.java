@@ -1,6 +1,6 @@
 package formatter;
 
-import AST.nodes.ASTNode;
+import ast.nodes.AstNode;
 import formatter.nodeformatter.NodeFormatter;
 import formatter.rules.Rule;
 import formatter.tokenfactory.TokenListFactory;
@@ -13,10 +13,10 @@ public class Formatter {
   TokenOutput tokenOutput = new TokenOutput();
   TokenListFactory tokenListFactory = new TokenListFactory();
 
-  public String formatFile(Iterator<ASTNode> nodes, List<Rule> rules) throws IOException {
+  public String formatFile(Iterator<AstNode> nodes, List<Rule> rules) throws IOException {
     AstMap nodeMap = new AstMap();
 
-    ASTNode node = nodes.next();
+    AstNode node = nodes.next();
     tokenListFactory.addRules(rules);
     List<Token> tokens = node.accept(tokenListFactory);
     if (nodeMap.containsNode(node)) {

@@ -1,15 +1,15 @@
-package AST.nodes;
+package ast.nodes;
 
-import AST.ASTVisitor;
+import ast.AstVisitor;
 
-public class AssignationNode implements ASTNode {
+public class AssignationNode implements AstNode {
   private final DeclarationNode declaration;
-  private final ASTNode expression;
+  private final AstNode expression;
   private final Integer line;
   private final Integer column;
 
   public AssignationNode(
-      DeclarationNode declaration, ASTNode expression, Integer line, Integer column) {
+      DeclarationNode declaration, AstNode expression, Integer line, Integer column) {
     this.declaration = declaration;
     this.expression = expression;
     this.line = line;
@@ -20,12 +20,12 @@ public class AssignationNode implements ASTNode {
     return declaration;
   }
 
-  public ASTNode getExpression() {
+  public AstNode getExpression() {
     return expression;
   }
 
   @Override
-  public <T> T accept(ASTVisitor<T> visitor) {
+  public <T> T accept(AstVisitor<T> visitor) {
     return visitor.visit(this);
   }
 

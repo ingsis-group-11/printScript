@@ -1,6 +1,6 @@
 package variablemap;
 
-import AST.nodes.LiteralNode;
+import ast.nodes.LiteralNode;
 import token.TokenType;
 
 public class VariableAssignation {

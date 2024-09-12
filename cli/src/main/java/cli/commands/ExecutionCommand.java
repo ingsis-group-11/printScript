@@ -6,10 +6,8 @@ import java.util.List;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
-
 import providers.inputprovider.ConsoleInputProvider;
 import providers.observer.Observer;
-
 import providers.printprovider.ConsolePrintProvider;
 import runner.Runner;
 

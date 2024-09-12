@@ -1,7 +1,7 @@
 package parser.syntax.parsers;
 
-import AST.nodes.ASTNode;
-import AST.nodes.ReadInputNode;
+import ast.nodes.AstNode;
+import ast.nodes.ReadInputNode;
 import parser.syntax.TokenStream;
 import parser.syntax.factory.ExpressionFactory;
 import token.TokenType;
@@ -9,12 +9,12 @@ import token.TokenType;
 public class ReadInputSyntaxParser implements SyntaxParser {
 
   @Override
-  public ASTNode syntaxParse(TokenStream tokens, String version) {
-    ASTNode result = parseReadInput(tokens, version);
+  public AstNode syntaxParse(TokenStream tokens, String version) {
+    AstNode result = parseReadInput(tokens, version);
     return result;
   }
 
-  private ASTNode parseReadInput(TokenStream tokenStream, String version) {
+  private AstNode parseReadInput(TokenStream tokenStream, String version) {
     int line = tokenStream.getCurrentToken().getLine();
     int column = tokenStream.getCurrentToken().getColumn();
     tokenStream.expect(TokenType.READ_INPUT, "Expected 'readInput'");
@@ -23,7 +23,7 @@ public class ReadInputSyntaxParser implements SyntaxParser {
     tokenStream.expect(TokenType.PARENTHESIS_OPEN, "Expected '('");
     tokenStream.advance();
 
-    ASTNode expressionNode = ExpressionFactory.createExpression(tokenStream, version);
+    AstNode expressionNode = ExpressionFactory.createExpression(tokenStream, version);
 
     tokenStream.expect(TokenType.PARENTHESIS_CLOSE, "Expected ')'");
     tokenStream.advance();

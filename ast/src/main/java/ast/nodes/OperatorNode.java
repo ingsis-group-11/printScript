@@ -1,15 +1,15 @@
-package AST.nodes;
+package ast.nodes;
 
-import AST.ASTVisitor;
+import ast.AstVisitor;
 
-public class OperatorNode implements ASTNode {
+public class OperatorNode implements AstNode {
   private final String operator;
-  private final ASTNode left;
-  private final ASTNode right;
+  private final AstNode left;
+  private final AstNode right;
   private final Integer line;
   private final Integer column;
 
-  public OperatorNode(String operator, ASTNode left, ASTNode right, Integer line, Integer column) {
+  public OperatorNode(String operator, AstNode left, AstNode right, Integer line, Integer column) {
     this.operator = operator;
     this.left = left;
     this.right = right;
@@ -21,11 +21,11 @@ public class OperatorNode implements ASTNode {
     return operator;
   }
 
-  public ASTNode getLeftNode() {
+  public AstNode getLeftNode() {
     return left;
   }
 
-  public ASTNode getRightNode() {
+  public AstNode getRightNode() {
     return right;
   }
 
@@ -40,7 +40,7 @@ public class OperatorNode implements ASTNode {
   }
 
   @Override
-  public <T> T accept(ASTVisitor<T> visitor) {
+  public <T> T accept(AstVisitor<T> visitor) {
     return visitor.visit(this);
   }
 }

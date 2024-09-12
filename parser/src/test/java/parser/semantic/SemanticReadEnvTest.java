@@ -1,8 +1,13 @@
 package parser.semantic;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import AST.nodes.*;
+import ast.nodes.AssignationNode;
+import ast.nodes.AstNode;
+import ast.nodes.DeclarationNode;
+import ast.nodes.LiteralNode;
+import ast.nodes.ReadEnvNode;
 import org.junit.jupiter.api.Test;
 import parser.semantic.result.SemanticResult;
 import token.TokenType;
@@ -12,7 +17,7 @@ public class SemanticReadEnvTest {
   @Test
   public void testValidSemanticReadEnv() {
     // let var: string = readEnv("TEST");
-    ASTNode assignmentNode =
+    AstNode assignmentNode =
         new AssignationNode(
             new DeclarationNode(
                 new ValueToken(TokenType.STRING_TYPE, "string", 10, 0),
@@ -31,7 +36,7 @@ public class SemanticReadEnvTest {
   @Test
   public void testInvalidSemanticReadEnv() {
     // let var: number = readEnv("TEST");
-    ASTNode assignmentNode =
+    AstNode assignmentNode =
         new AssignationNode(
             new DeclarationNode(
                 new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 0),

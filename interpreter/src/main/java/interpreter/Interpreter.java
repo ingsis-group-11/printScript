@@ -1,6 +1,6 @@
 package interpreter;
 
-import AST.nodes.ASTNode;
+import ast.nodes.AstNode;
 import java.util.Iterator;
 import providers.inputprovider.InputProvider;
 import providers.inputprovider.TestInputProvider;
@@ -33,7 +33,7 @@ public class Interpreter {
     this.printProvider = new TestPrintProvider();
   }
 
-  public void interpret(Iterator<ASTNode> astIterator) {
+  public void interpret(Iterator<AstNode> astIterator) {
     InterpreterVisitor interpreterVisitor =
         new InterpreterVisitor(variableMap, printProvider, inputProvider);
     while (astIterator.hasNext()) {

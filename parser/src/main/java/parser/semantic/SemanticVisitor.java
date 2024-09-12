@@ -1,27 +1,27 @@
 package parser.semantic;
 
-import AST.ASTVisitor;
-import AST.ExpressionTypeVisitor;
-import AST.nodes.ASTNode;
-import AST.nodes.AssignationNode;
-import AST.nodes.BlockNode;
-import AST.nodes.DeclarationNode;
-import AST.nodes.EmptyNode;
-import AST.nodes.IfNode;
-import AST.nodes.LiteralNode;
-import AST.nodes.OperatorNode;
-import AST.nodes.PrintNode;
-import AST.nodes.ReadEnvNode;
-import AST.nodes.ReadInputNode;
-import AST.nodes.ReassignmentNode;
-import AST.nodes.VariableNode;
+import ast.AstVisitor;
+import ast.ExpressionTypeVisitor;
+import ast.nodes.AssignationNode;
+import ast.nodes.AstNode;
+import ast.nodes.BlockNode;
+import ast.nodes.DeclarationNode;
+import ast.nodes.EmptyNode;
+import ast.nodes.IfNode;
+import ast.nodes.LiteralNode;
+import ast.nodes.OperatorNode;
+import ast.nodes.PrintNode;
+import ast.nodes.ReadEnvNode;
+import ast.nodes.ReadInputNode;
+import ast.nodes.ReassignmentNode;
+import ast.nodes.VariableNode;
 import java.util.List;
 import parser.semantic.result.SemanticErrorResult;
 import parser.semantic.result.SemanticResult;
 import parser.semantic.result.SemanticSuccessResult;
 import token.TokenType;
 
-public class SemanticVisitor implements ASTVisitor<SemanticResult> {
+public class SemanticVisitor implements AstVisitor<SemanticResult> {
 
   @Override
   public SemanticResult visit(DeclarationNode node) {
@@ -175,8 +175,8 @@ public class SemanticVisitor implements ASTVisitor<SemanticResult> {
 
   @Override
   public SemanticResult visit(BlockNode blockNode) {
-    List<ASTNode> nodes = blockNode.getStatements();
-    for (ASTNode node : nodes) {
+    List<AstNode> nodes = blockNode.getStatements();
+    for (AstNode node : nodes) {
       SemanticResult result = node.accept(this);
       if (result instanceof SemanticErrorResult) {
         return result;

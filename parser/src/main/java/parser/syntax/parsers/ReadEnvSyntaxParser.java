@@ -1,26 +1,26 @@
 package parser.syntax.parsers;
 
-import AST.nodes.ASTNode;
-import AST.nodes.ReadEnvNode;
+import ast.nodes.AstNode;
+import ast.nodes.ReadEnvNode;
 import parser.syntax.TokenStream;
 import parser.syntax.factory.ExpressionFactory;
 import token.TokenType;
 
 public class ReadEnvSyntaxParser implements SyntaxParser {
   @Override
-  public ASTNode syntaxParse(TokenStream tokens, String version) {
-    ASTNode result = parseReadInput(tokens, version);
+  public AstNode syntaxParse(TokenStream tokens, String version) {
+    AstNode result = parseReadInput(tokens, version);
     return result;
   }
 
-  private ASTNode parseReadInput(TokenStream tokenStream, String version) {
+  private AstNode parseReadInput(TokenStream tokenStream, String version) {
     tokenStream.expect(TokenType.READ_ENV, "Expected 'readEnv'");
     tokenStream.advance();
 
     tokenStream.expect(TokenType.PARENTHESIS_OPEN, "Expected '('");
     tokenStream.advance();
 
-    ASTNode expressionNode = ExpressionFactory.createExpression(tokenStream, version);
+    AstNode expressionNode = ExpressionFactory.createExpression(tokenStream, version);
     tokenStream.expect(TokenType.PARENTHESIS_CLOSE, "Expected ')'");
     tokenStream.advance();
     int line = tokenStream.getCurrentToken().getLine();

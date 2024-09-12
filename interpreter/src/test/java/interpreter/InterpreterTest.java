@@ -3,15 +3,15 @@ package interpreter;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import AST.nodes.ASTNode;
-import AST.nodes.AssignationNode;
-import AST.nodes.DeclarationNode;
-import AST.nodes.EmptyNode;
-import AST.nodes.LiteralNode;
-import AST.nodes.OperatorNode;
-import AST.nodes.PrintNode;
-import AST.nodes.ReassignmentNode;
-import AST.nodes.VariableNode;
+import ast.nodes.AssignationNode;
+import ast.nodes.AstNode;
+import ast.nodes.DeclarationNode;
+import ast.nodes.EmptyNode;
+import ast.nodes.LiteralNode;
+import ast.nodes.OperatorNode;
+import ast.nodes.PrintNode;
+import ast.nodes.ReassignmentNode;
+import ast.nodes.VariableNode;
 import java.util.Iterator;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -27,7 +27,7 @@ public class InterpreterTest {
     // let name: string = "Olive";
     // println(name);
     TestPrintProvider printProvider = new TestPrintProvider();
-    List<ASTNode> astNodes =
+    List<AstNode> astNodes =
         List.of(
             new AssignationNode(
                 new DeclarationNode(
@@ -55,7 +55,7 @@ public class InterpreterTest {
     // let b: number = 3;
     // println(a + b);
     TestPrintProvider printProvider = new TestPrintProvider();
-    List<ASTNode> astNodes =
+    List<AstNode> astNodes =
         List.of(
             new AssignationNode(
                 new DeclarationNode(
@@ -99,7 +99,7 @@ public class InterpreterTest {
     // let b: number = 2.5;
     // println(a / b);
     TestPrintProvider printProvider = new TestPrintProvider();
-    List<ASTNode> astNodes =
+    List<AstNode> astNodes =
         List.of(
             new AssignationNode(
                 new DeclarationNode(
@@ -143,7 +143,7 @@ public class InterpreterTest {
     // let b: number = 2.5;
     // println(a / b);
     TestPrintProvider printProvider = new TestPrintProvider();
-    List<ASTNode> astNodes =
+    List<AstNode> astNodes =
         List.of(
             new AssignationNode(
                 new DeclarationNode(
@@ -185,7 +185,7 @@ public class InterpreterTest {
     // GIVEN
     // let name: string = "a";
     // let name: string = "b";
-    List<ASTNode> astNodes =
+    List<AstNode> astNodes =
         List.of(
             new AssignationNode(
                 new DeclarationNode(
@@ -219,7 +219,7 @@ public class InterpreterTest {
     // name = "b";
     // println(name);
     TestPrintProvider printProvider = new TestPrintProvider();
-    List<ASTNode> astNodes =
+    List<AstNode> astNodes =
         List.of(
             new AssignationNode(
                 new DeclarationNode(
@@ -250,7 +250,7 @@ public class InterpreterTest {
     // GIVEN
     // let name: string = "a";
     // name = "b";
-    List<ASTNode> astNodes =
+    List<AstNode> astNodes =
         List.of(
             new AssignationNode(
                 new DeclarationNode(
@@ -281,7 +281,7 @@ public class InterpreterTest {
     // bool = false;
     // println(bool);
     TestPrintProvider printProvider = new TestPrintProvider();
-    List<ASTNode> astNodes =
+    List<AstNode> astNodes =
         List.of(
             new AssignationNode(
                 new DeclarationNode(
@@ -317,7 +317,7 @@ public class InterpreterTest {
     // let b: string = "World";
     // println(a / b);
     TestPrintProvider printProvider = new TestPrintProvider();
-    List<ASTNode> astNodes =
+    List<AstNode> astNodes =
         List.of(
             new AssignationNode(
                 new DeclarationNode(
@@ -358,7 +358,7 @@ public class InterpreterTest {
     // let a: string = "Hello ";
     // let b: string = a * 2;
     TestPrintProvider printProvider = new TestPrintProvider();
-    List<ASTNode> astNodes =
+    List<AstNode> astNodes =
         List.of(
             new AssignationNode(
                 new DeclarationNode(
@@ -394,7 +394,7 @@ public class InterpreterTest {
     // GIVEN
     // let a: number = "Hello" - 2;
     TestPrintProvider printProvider = new TestPrintProvider();
-    List<ASTNode> astNodes =
+    List<AstNode> astNodes =
         List.of(
             new AssignationNode(
                 new DeclarationNode(
@@ -420,7 +420,7 @@ public class InterpreterTest {
     // GIVEN
     // let a: number = 5 - 2;
     TestPrintProvider printProvider = new TestPrintProvider();
-    List<ASTNode> astNodes =
+    List<AstNode> astNodes =
         List.of(
             new AssignationNode(
                 new DeclarationNode(
@@ -447,7 +447,7 @@ public class InterpreterTest {
     // let a: number = 5;
     // let b: number = a * 2;
     TestPrintProvider printProvider = new TestPrintProvider();
-    List<ASTNode> astNodes =
+    List<AstNode> astNodes =
         List.of(
             new AssignationNode(
                 new DeclarationNode(
@@ -485,7 +485,7 @@ public class InterpreterTest {
     // let b: number = 2;
     // println(a / b);
     TestPrintProvider printProvider = new TestPrintProvider();
-    List<ASTNode> astNodes =
+    List<AstNode> astNodes =
         List.of(
             new AssignationNode(
                 new DeclarationNode(
@@ -526,7 +526,7 @@ public class InterpreterTest {
     // let a: number;
     // a = 5;
     TestPrintProvider printProvider = new TestPrintProvider();
-    List<ASTNode> astNodes =
+    List<AstNode> astNodes =
         List.of(
             new AssignationNode(
                 new DeclarationNode(
@@ -553,7 +553,7 @@ public class InterpreterTest {
     // let a: number;
     // a = "Hello";
     TestPrintProvider printProvider = new TestPrintProvider();
-    List<ASTNode> astNodes =
+    List<AstNode> astNodes =
         List.of(
             new AssignationNode(
                 new DeclarationNode(

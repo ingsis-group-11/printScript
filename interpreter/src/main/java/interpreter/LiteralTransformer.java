@@ -1,25 +1,25 @@
 package interpreter;
 
-import AST.ASTVisitor;
-import AST.nodes.AssignationNode;
-import AST.nodes.BlockNode;
-import AST.nodes.DeclarationNode;
-import AST.nodes.EmptyNode;
-import AST.nodes.IfNode;
-import AST.nodes.LiteralNode;
-import AST.nodes.OperatorNode;
-import AST.nodes.PrintNode;
-import AST.nodes.ReadEnvNode;
-import AST.nodes.ReadInputNode;
-import AST.nodes.ReassignmentNode;
-import AST.nodes.VariableNode;
+import ast.AstVisitor;
+import ast.nodes.AssignationNode;
+import ast.nodes.BlockNode;
+import ast.nodes.DeclarationNode;
+import ast.nodes.EmptyNode;
+import ast.nodes.IfNode;
+import ast.nodes.LiteralNode;
+import ast.nodes.OperatorNode;
+import ast.nodes.PrintNode;
+import ast.nodes.ReadEnvNode;
+import ast.nodes.ReadInputNode;
+import ast.nodes.ReassignmentNode;
+import ast.nodes.VariableNode;
 import inputyype.InputTypeTransformer;
 import providers.inputprovider.InputProvider;
 import token.TokenType;
 import token.ValueToken;
 import variablemap.VariableMap;
 
-public class LiteralTransformer implements ASTVisitor<LiteralNode> {
+public class LiteralTransformer implements AstVisitor<LiteralNode> {
 
   private final VariableMap variableMap;
   private final InputProvider inputProvider;

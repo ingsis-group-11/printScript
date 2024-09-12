@@ -1,15 +1,15 @@
-package AST.nodes;
+package ast.nodes;
 
-import AST.ASTVisitor;
+import ast.AstVisitor;
 
-public class ReassignmentNode implements ASTNode {
+public class ReassignmentNode implements AstNode {
   private final VariableNode variableNode;
-  private final ASTNode expression;
+  private final AstNode expression;
   private final Integer line;
   private final Integer column;
 
   public ReassignmentNode(
-      VariableNode variableNode, ASTNode expression, Integer line, Integer column) {
+      VariableNode variableNode, AstNode expression, Integer line, Integer column) {
     this.variableNode = variableNode;
     this.expression = expression;
     this.line = line;
@@ -30,12 +30,12 @@ public class ReassignmentNode implements ASTNode {
     return variableNode;
   }
 
-  public ASTNode getExpression() {
+  public AstNode getExpression() {
     return expression;
   }
 
   @Override
-  public <T> T accept(ASTVisitor<T> visitor) {
+  public <T> T accept(AstVisitor<T> visitor) {
     return visitor.visit(this);
   }
 }

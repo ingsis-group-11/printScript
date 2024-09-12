@@ -1,9 +1,9 @@
-package AST.nodes;
+package ast.nodes;
 
-import AST.ASTVisitor;
+import ast.AstVisitor;
 import token.TokenType;
 
-public class EmptyNode implements ASTNode {
+public class EmptyNode implements AstNode {
   private final TokenType variableType;
 
   public EmptyNode(TokenType type) {
@@ -15,7 +15,7 @@ public class EmptyNode implements ASTNode {
   }
 
   @Override
-  public <T> T accept(ASTVisitor<T> visitor) {
+  public <T> T accept(AstVisitor<T> visitor) {
     return visitor.visit(this);
   }
 

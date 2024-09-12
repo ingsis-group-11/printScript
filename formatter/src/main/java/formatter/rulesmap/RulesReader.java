@@ -2,7 +2,7 @@ package formatter.rulesmap;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import fileReader.InputStreamToString;
+import filereader.InputStreamToString;
 import formatter.rules.Rule;
 import formatter.rules.alwaysactive.LineBreakAfterSemicolon;
 import formatter.rules.alwaysactive.StringQuotes;
