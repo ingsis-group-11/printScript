@@ -1,4 +1,4 @@
-package formatter.rules.alwaysActive;
+package formatter.rules.alwaysactive;
 
 import formatter.rules.Rule;
 

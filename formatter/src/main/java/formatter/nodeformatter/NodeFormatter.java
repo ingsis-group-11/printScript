@@ -1,4 +1,4 @@
-package formatter.nodeFormatter;
+package formatter.nodeformatter;
 
 import formatter.rules.Rule;
 import java.util.List;

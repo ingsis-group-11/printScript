@@ -1,6 +1,6 @@
-package formatter.nodeFormatter;
+package formatter.nodeformatter;
 
-public enum ASTTypes {
+public enum AstTypes {
   REASSIGNMENT_NODE,
   ASSIGNATION_NODE,
   PRINT_NODE,

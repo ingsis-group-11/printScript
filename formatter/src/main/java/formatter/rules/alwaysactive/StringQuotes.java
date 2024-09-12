@@ -1,4 +1,4 @@
-package formatter.rules.alwaysActive;
+package formatter.rules.alwaysactive;
 
 import formatter.rules.TokenIndex;
 import java.util.ArrayList;
@@ -7,7 +7,7 @@ import token.Token;
 import token.TokenType;
 import token.ValueToken;
 
-public class LineBreakAfterSemicolon implements AlwaysActiveRules {
+public class StringQuotes implements AlwaysActiveRules {
   private final TokenIndex tokenIndex = new TokenIndex();
   public String value;
 
@@ -19,14 +19,19 @@ public class LineBreakAfterSemicolon implements AlwaysActiveRules {
   @Override
   public List<Token> format(List<Token> tokens) {
     List<Token> result = new ArrayList<>(tokens);
-    int semicolonIndex = tokenIndex.getIndex(tokens, TokenType.SEMICOLON);
+    int stringIndex = tokenIndex.getIndex(tokens, TokenType.STRING);
+    if (stringIndex == -1) {
+      return tokens;
+    }
+    Token token = tokens.get(stringIndex);
+    result.remove(stringIndex);
     result.add(
-        semicolonIndex + 1,
+        stringIndex,
         new ValueToken(
-            TokenType.LINE_BREAK,
-            "\n",
-            tokens.get(semicolonIndex).getColumn() + 1,
-            tokens.get(semicolonIndex).getLine()));
+            TokenType.STRING,
+            '"' + token.getValue() + '"',
+            token.getColumn() + 1,
+            token.getLine()));
     return result;
   }
 }
