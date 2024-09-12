@@ -192,7 +192,8 @@ public class LexerTokenTypeTest {
     FileReaderIterator fileReaderIterator = new FileReaderIterator(new FileInputStream(filePath));
     TokenIterator tokenIterator = new TokenIterator(fileReaderIterator, "1.1");
 
-    jumpLines(tokenIterator, 4);
+    jumpLines(tokenIterator, 3);
+    jumpLines(tokenIterator, 1);
 
     Token token = tokenIterator.current();
     assertEquals(token.getType(), TokenType.LINE_BREAK);
