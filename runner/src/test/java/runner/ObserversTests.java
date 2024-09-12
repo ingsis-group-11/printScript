@@ -1,13 +1,12 @@
 package runner;
 
 import org.junit.jupiter.api.Test;
-import parser.Observer;
+import providers.observer.Observer;
 import providers.inputProvider.TestInputProvider;
 import providers.printProvider.TestPrintProvider;
 import runner.observers.RunnerTestObserver;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 

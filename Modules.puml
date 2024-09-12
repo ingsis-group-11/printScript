@@ -1,0 +1,70 @@
+@startuml
+
+component Token
+component FileReader
+component Providers
+
+component AST {
+    [AST] --> Token
+}
+
+component Parser {
+    [Parser] --> Token
+    [Parser] --> AST
+    [Parser] --> Providers
+}
+
+component Lexer {
+    [Lexer] --> Token
+    [Lexer] --> FileReader
+    [Lexer] --> Providers
+}
+
+component Formatter {
+    [Formatter] --> Token
+    [Formatter] --> AST
+    [Formatter] --> FileReader
+    [Formatter] --> Providers
+    [Formatter] --> Lexer
+    [Formatter] --> Parser
+}
+
+component Interpreter {
+    [Interpreter] --> AST
+    [Interpreter] --> Token
+    [Interpreter] --> Providers
+}
+
+component Linter {
+    [Linter] --> AST
+    [Linter] --> Token
+    [Linter] --> FileReader
+    [Linter] --> Lexer
+    [Linter] --> Parser
+    [Linter] --> Providers
+}
+
+component Runner {
+    [Runner] --> Token
+    [Runner] --> AST
+    [Runner] --> Lexer
+    [Runner] --> Parser
+    [Runner] --> Interpreter
+    [Runner] --> FileReader
+    [Runner] --> Providers
+}
+
+component CLI {
+    [CLI] --> AST
+    [CLI] --> Token
+    [CLI] --> Parser
+    [CLI] --> Lexer
+    [CLI] --> Formatter
+    [CLI] --> Interpreter
+    [CLI] --> Linter
+    [CLI] --> FileReader
+    [CLI] --> Runner
+    [CLI] --> Providers
+}
+
+@enduml

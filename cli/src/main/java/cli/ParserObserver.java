@@ -1,6 +1,6 @@
 package cli;
 
-import parser.Observer;
+import providers.observer.Observer;
 
 public class ParserObserver implements Observer {
   @Override

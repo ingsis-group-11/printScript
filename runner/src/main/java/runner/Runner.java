@@ -4,15 +4,13 @@ import fileReader.FileReaderIterator;
 import interpreter.Interpreter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Iterator;
 import java.util.List;
 
-import parser.Observer;
+import providers.observer.Observer;
 import providers.inputProvider.InputProvider;
 import providers.printProvider.PrintProvider;
 import iterator.TokenIterator;
 import parser.iterator.ASTIterator;
-import token.Token;
 
 public class Runner {
   public void run(InputStream inputStream, String version) throws IOException {

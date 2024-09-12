@@ -13,6 +13,7 @@ dependencies {
     implementation project(':formatter')
     implementation project(':filereader')
     implementation project(':providers')
+    implementation project(':linter')
 }
 
 test {
