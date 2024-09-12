@@ -30,6 +30,7 @@ public class ValidationCommand implements Runnable {
       ValidationRunner validationRunner = new ValidationRunner();
       validationRunner.setObservers(parserObservers);
       validationRunner.validate(new FileInputStream(sourceFile), version);
+      System.out.println();
       System.out.println("\nFile has no semantic or syntax errors :)");
     } catch (Exception e) {
       System.err.print(e.getMessage());
