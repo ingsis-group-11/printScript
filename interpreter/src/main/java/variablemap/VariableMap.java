@@ -62,7 +62,7 @@ public class VariableMap {
         if (!mutable) {
           throw new RuntimeException("Variable " + name + " is of type const and can't be updated");
         }
-        scope.put(name, new VariableAssignation(value, mutable));
+        scope.put(name, new VariableAssignation(value, true));
         return;
       }
     }

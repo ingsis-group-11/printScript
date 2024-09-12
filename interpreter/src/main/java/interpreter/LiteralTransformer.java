@@ -114,21 +114,23 @@ public class LiteralTransformer implements ASTVisitor<LiteralNode> {
   private String parseCalc(String operator, LiteralNode left, LiteralNode right) {
     TokenType leftType = left.getType();
     TokenType rightType = right.getType();
+    String leftValue = left.getValue();
+    String rightValue = right.getValue();
     Operators operatorEnum = Operators.fromSymbol(operator);
     return switch (operatorEnum) {
       case ADDITION -> {
         if (leftType == TokenType.STRING || rightType == TokenType.STRING) {
-          yield left.getValue() + right.getValue();
+          yield leftValue + rightValue;
         }
         checkInvalidOperation(left, right, leftType, rightType, operator);
-        if (isDouble(left.getValue()) || isDouble(right.getValue())) {
-          yield String.valueOf(parseToDouble(left.getValue()) + parseToDouble(right.getValue()));
+        if (isDouble(leftValue) || isDouble(rightValue)) {
+          yield String.valueOf(parseToDouble(leftValue) + parseToDouble(rightValue));
         }
-        yield String.valueOf(parseToInteger(left.getValue()) + parseToInteger(right.getValue()));
+        yield String.valueOf(parseToInteger(leftValue) + parseToInteger(rightValue));
       }
       case SUBTRACTION -> {
         checkInvalidOperation(left, right, leftType, rightType, operator);
-        if (isDouble(left.getValue()) || isDouble(right.getValue())) {
+        if (isDouble(leftValue) || isDouble(right.getValue())) {
           yield String.valueOf(parseToDouble(left.getValue()) - parseToDouble(right.getValue()));
         }
         yield String.valueOf(parseToInteger(left.getValue()) - parseToInteger(right.getValue()));
