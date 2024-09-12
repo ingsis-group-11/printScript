@@ -89,7 +89,15 @@ public class TokenListFactory implements ASTVisitor<List<Token>> {
 
   @Override
   public List<Token> visit(ReadInputNode readInputNode) {
-    return null;
+
+    List<Token> result = new ArrayList<>();
+    result.add(new ValueToken(TokenType.READ_INPUT, "readInput", readInputNode.getColumn(), readInputNode.getLine()));
+    result.add(new ValueToken(TokenType.PARENTHESIS_OPEN, "(", readInputNode.getColumn() + 4, readInputNode.getLine()));
+    result.addAll(readInputNode.getExpression().accept(this));
+    result.add(new ValueToken(TokenType.PARENTHESIS_CLOSE, ")", readInputNode.getExpression().getColumn() + 1,
+        readInputNode.getLine()));
+    result.add(new ValueToken(TokenType.SEMICOLON, ";", readInputNode.getExpression().getColumn(), readInputNode.getLine()));
+    return result;
   }
 
   @Override

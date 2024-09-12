@@ -1,0 +1,9 @@
+const booleanValue: boolean = readInput("insert boolean: ");
+if(booleanValue) {
+    let variableInsideIf: string = readInput("insert string: ");
+    println("variable inside if: " + variableInsideIf);
+}
+else {
+    let variableInsideElse: string = readInput("insert string: ");
+    println("inside else: " + variableInsideElse);
+}

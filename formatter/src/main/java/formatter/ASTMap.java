@@ -14,6 +14,7 @@ public class ASTMap {
     ASTMap.put(ASTTypes.REASSIGNMENT_NODE, new AssignationFormatter());
     ASTMap.put(ASTTypes.PRINT_NODE, new PrintFormatter());
     ASTMap.put(ASTTypes.IF_NODE, new IfFormatter());
+    ASTMap.put(ASTTypes.READ_INPUT_NODE, new ReadInputFormatter());
   }
 
   public NodeFormatter getNodeFormatter(ASTNode node) {

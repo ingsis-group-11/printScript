@@ -28,6 +28,6 @@ public class ObserversTests {
     runner.run(new FileInputStream("src/test/resources/input/printNumberReadInput.txt"),"1.1",testPrintProvider, testInputProvider, observers);
     assertFalse(testInputProvider.hasInputsToRead());
     assertEquals(expected, testPrintProvider.getMessages().next());
-    assertEquals(List.of(".", "."), runnerTestObserver.getMessages());
+    assertEquals(List.of(" █ ", " █ "), runnerTestObserver.getMessages());
   }
 }

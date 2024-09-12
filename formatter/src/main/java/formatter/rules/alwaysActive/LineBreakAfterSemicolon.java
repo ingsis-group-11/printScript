@@ -20,9 +20,6 @@ public class LineBreakAfterSemicolon implements AlwaysActiveRules {
 
   @Override
   public List<Token> format(List<Token> tokens) {
-    if (Objects.equals(value, "false")) {
-      return tokens;
-    }
     List<Token> result = new ArrayList<>(tokens);
     int semicolonIndex = tokenIndex.getIndex(tokens, TokenType.SEMICOLON);
     result.add(semicolonIndex + 1, new ValueToken(TokenType.LINE_BREAK, "\n",
