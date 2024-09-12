@@ -3,18 +3,18 @@ package runner;
 import AST.nodes.ASTNode;
 import formatter.FormatterIterator;
 import formatter.rules.Rule;
-import formatter.rulesMap.RulesMap;
-import formatter.rulesMap.RulesMapFactory;
-import formatter.rulesMap.RulesReader;
+import formatter.rulesmap.RulesMap;
+import formatter.rulesmap.RulesMapFactory;
+import formatter.rulesmap.RulesReader;
 import iterator.FileReaderIterator;
 import iterator.TokenIterator;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
 import java.util.List;
-import parser.iterator.ASTIterator;
+import parser.iterator.AstIterator;
 import providers.iterator.PrintScriptIterator;
-import providers.outputProvider.OutputProvider;
+import providers.outputprovider.OutputProvider;
 import token.Token;
 
 public class FormatterRunner {
@@ -27,7 +27,7 @@ public class FormatterRunner {
       throws IOException {
     FileReaderIterator fileIterator = new FileReaderIterator(inputStream);
     PrintScriptIterator<Token> tokens = new TokenIterator(fileIterator, version);
-    Iterator<ASTNode> nodes = new ASTIterator(tokens, version);
+    Iterator<ASTNode> nodes = new AstIterator(tokens, version);
     outputProvider.write(new FormatterIterator(nodes, getRules(configRules, version)));
   }
 

@@ -2,9 +2,9 @@ package linter.rules;
 
 import AST.nodes.ASTNode;
 import AST.nodes.AssignationNode;
+import AST.nodes.DeclarationNode;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import linter.result.FailedLinterResult;
 import linter.result.LinterResult;
 import linter.result.SuccessLinterResult;
@@ -19,21 +19,13 @@ public class IdentifierFormatRule implements Rule {
 
   @Override
   public LinterResult lint(ASTNode node) {
-    if (Objects.equals(value, "camel case")) {
-      return getCamelCaseResult(node);
-    } else if (Objects.equals(value, "snake case")) {
-      return getSnakeCaseResult(node);
-    }
-    throw new RuntimeException("Invalid value for identifier_format rule");
-  }
-
-  private LinterResult getSnakeCaseResult(ASTNode node) {
     List<String> errors = new ArrayList<>();
     if (node instanceof AssignationNode assignationNode) {
-      String variableName = assignationNode.getDeclaration().getNameToken().getValue();
-      if (!isSnakeCase(variableName)) {
-        int line = assignationNode.getDeclaration().getNameToken().getLine();
-        int column = assignationNode.getDeclaration().getNameToken().getColumn();
+      DeclarationNode declarationNode = assignationNode.getDeclaration();
+      String variableName = declarationNode.getNameToken().getValue();
+      if (notIsOfType(variableName, value)) {
+        int line = declarationNode.getNameToken().getLine();
+        int column = declarationNode.getNameToken().getColumn();
         errors.add(
             "Variable " + variableName + " is not in snake_case format at " + line + ":" + column);
       }
@@ -42,19 +34,16 @@ public class IdentifierFormatRule implements Rule {
     return errors.isEmpty() ? new SuccessLinterResult() : new FailedLinterResult(errors);
   }
 
-  private LinterResult getCamelCaseResult(ASTNode node) {
-    List<String> errors = new ArrayList<>();
-    if (node instanceof AssignationNode assignationNode) {
-      String variableName = assignationNode.getDeclaration().getNameToken().getValue();
-      if (!isCamelCase(variableName)) {
-        int line = assignationNode.getDeclaration().getNameToken().getLine();
-        int column = assignationNode.getDeclaration().getNameToken().getColumn();
-        errors.add(
-            "Variable " + variableName + " is not in camelCase format at " + line + ":" + column);
+  private boolean notIsOfType(String variableName, String value) {
+    switch (value) {
+      case "camel case" -> {
+        return !isCamelCase(variableName);
       }
+      case "snake case" -> {
+        return !isSnakeCase(variableName);
+      }
+      default -> throw new RuntimeException("Invalid value for identifier_format rule");
     }
-
-    return errors.isEmpty() ? new SuccessLinterResult() : new FailedLinterResult(errors);
   }
 
   private boolean isCamelCase(String variableName) {

@@ -2,11 +2,15 @@ package interpreter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import AST.nodes.*;
+import AST.nodes.ASTNode;
+import AST.nodes.BlockNode;
+import AST.nodes.IfNode;
+import AST.nodes.LiteralNode;
+import AST.nodes.PrintNode;
 import java.util.Iterator;
 import java.util.List;
 import org.junit.jupiter.api.Test;
-import providers.printProvider.TestPrintProvider;
+import providers.printprovider.TestPrintProvider;
 import token.TokenType;
 import token.ValueToken;
 

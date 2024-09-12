@@ -20,7 +20,7 @@ public class PrintTest {
   }
 
   @Test
-  public void PrintActiveFailTest() {
+  public void printActiveFailTest() {
     String configFilePath = "src/test/resources/linter/config/1.0/configPrintExpressionActive.json";
     String filePath = "src/test/resources/linter/printScript/1.0/printWithExpression.txt";
 

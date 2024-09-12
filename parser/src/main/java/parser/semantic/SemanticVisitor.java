@@ -2,7 +2,19 @@ package parser.semantic;
 
 import AST.ASTVisitor;
 import AST.ExpressionTypeVisitor;
-import AST.nodes.*;
+import AST.nodes.ASTNode;
+import AST.nodes.AssignationNode;
+import AST.nodes.BlockNode;
+import AST.nodes.DeclarationNode;
+import AST.nodes.EmptyNode;
+import AST.nodes.IfNode;
+import AST.nodes.LiteralNode;
+import AST.nodes.OperatorNode;
+import AST.nodes.PrintNode;
+import AST.nodes.ReadEnvNode;
+import AST.nodes.ReadInputNode;
+import AST.nodes.ReassignmentNode;
+import AST.nodes.VariableNode;
 import java.util.List;
 import parser.semantic.result.SemanticErrorResult;
 import parser.semantic.result.SemanticResult;
@@ -54,7 +66,17 @@ public class SemanticVisitor implements ASTVisitor<SemanticResult> {
     ExpressionTypeVisitor expressionTypeVisitor = new ExpressionTypeVisitor();
     String operator = node.getOperator();
     return switch (operator) {
-      case "+" -> new SemanticSuccessResult();
+      case "+" ->
+          someBoolean(node, expressionTypeVisitor)
+              ? new SemanticErrorResult(
+                  "Semantic error in "
+                      + node.getLine()
+                      + ":"
+                      + node.getColumn()
+                      + " Operator "
+                      + operator
+                      + " can only be applied to numbers or strings")
+              : new SemanticSuccessResult();
       case "-", "*", "/" -> {
         if (bothNumbersOrIdentifiers(node, expressionTypeVisitor)) {
           yield new SemanticSuccessResult();
@@ -134,11 +156,11 @@ public class SemanticVisitor implements ASTVisitor<SemanticResult> {
     TokenType conditionType = ifNode.getCondition().accept(expressionTypeVisitor);
     if (conditionType == TokenType.BOOLEAN || conditionType == TokenType.IDENTIFIER) {
       SemanticResult ifBlockResult = ifNode.getIfBlock().accept(this);
-      if (ifBlockResult instanceof SemanticErrorResult) {
+      if (ifBlockResult.hasErrors()) {
         return ifBlockResult;
       }
       SemanticResult elseBlockResult = ifNode.getElseBlock().accept(this);
-      if (elseBlockResult instanceof SemanticErrorResult) {
+      if (elseBlockResult.hasErrors()) {
         return elseBlockResult;
       }
       return new SemanticSuccessResult();
@@ -163,7 +185,9 @@ public class SemanticVisitor implements ASTVisitor<SemanticResult> {
     return new SemanticSuccessResult();
   }
 
-  private static Boolean bothNumbersOrIdentifiers(
+  // * Helper methods
+
+  private Boolean bothNumbersOrIdentifiers(
       OperatorNode operatorNode, ExpressionTypeVisitor expressionTypeVisitor) {
     if (operatorNode.getLeftNode().accept(expressionTypeVisitor) == TokenType.NUMBER
         && operatorNode.getRightNode().accept(expressionTypeVisitor) == TokenType.NUMBER) {
@@ -175,5 +199,11 @@ public class SemanticVisitor implements ASTVisitor<SemanticResult> {
       return true;
     }
     return false;
+  }
+
+  private Boolean someBoolean(
+      OperatorNode operatorNode, ExpressionTypeVisitor expressionTypeVisitor) {
+    return operatorNode.getLeftNode().accept(expressionTypeVisitor) == TokenType.BOOLEAN
+        || operatorNode.getRightNode().accept(expressionTypeVisitor) == TokenType.BOOLEAN;
   }
 }
