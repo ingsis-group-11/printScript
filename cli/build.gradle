@@ -33,7 +33,6 @@ dependencies {
     implementation 'info.picocli:picocli:4.7.6'
     annotationProcessor 'info.picocli:picocli-codegen:4.7.6'
     implementation project(':formatter')
-    implementation project(':filereader')
     implementation project(':runner')
     implementation project(':providers')
 }

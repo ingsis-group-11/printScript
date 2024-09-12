@@ -3,7 +3,7 @@ package cli.commands;
 import cli.ParserObserver;
 import providers.observer.Observer;
 import providers.inputProvider.ConsoleInputProvider;
-import cli.ConsolePrintProvider;
+import providers.printProvider.ConsolePrintProvider;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;

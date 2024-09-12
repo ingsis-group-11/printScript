@@ -2,7 +2,7 @@ package runner;
 
 import AST.nodes.ASTNode;
 import fileReader.FileReaderIterator;
-import fileWriter.OutputProvider;
+import providers.outputProvider.OutputProvider;
 import formatter.FormatterIterator;
 import formatter.rules.Rule;
 import formatter.rulesMap.RulesMap;
