@@ -1,21 +1,21 @@
-package AST.nodes;
+package ast.nodes;
 
-import AST.ASTVisitor;
+import ast.AstVisitor;
 import java.util.List;
 
-public class BlockNode implements ASTNode {
-  private final List<ASTNode> statements;
+public class BlockNode implements AstNode {
+  private final List<AstNode> statements;
 
-  public BlockNode(List<ASTNode> statements) {
+  public BlockNode(List<AstNode> statements) {
     this.statements = statements;
   }
 
-  public List<ASTNode> getStatements() {
+  public List<AstNode> getStatements() {
     return statements;
   }
 
   @Override
-  public <T> T accept(ASTVisitor<T> visitor) {
+  public <T> T accept(AstVisitor<T> visitor) {
     return visitor.visit(this);
   }
 

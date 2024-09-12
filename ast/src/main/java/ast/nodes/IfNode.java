@@ -1,16 +1,16 @@
-package AST.nodes;
+package ast.nodes;
 
-import AST.ASTVisitor;
+import ast.AstVisitor;
 
-public class IfNode implements ASTNode {
-  private final ASTNode condition;
+public class IfNode implements AstNode {
+  private final AstNode condition;
   private final BlockNode ifBlock;
   private final BlockNode elseBlock;
   private final Integer line;
   private final Integer column;
 
   public IfNode(
-      ASTNode condition, BlockNode ifBlock, BlockNode elseBlock, Integer line, Integer column) {
+      AstNode condition, BlockNode ifBlock, BlockNode elseBlock, Integer line, Integer column) {
     this.condition = condition;
     this.ifBlock = ifBlock;
     this.elseBlock = elseBlock;
@@ -18,7 +18,7 @@ public class IfNode implements ASTNode {
     this.column = column;
   }
 
-  public ASTNode getCondition() {
+  public AstNode getCondition() {
     return condition;
   }
 
@@ -31,7 +31,7 @@ public class IfNode implements ASTNode {
   }
 
   @Override
-  public <T> T accept(ASTVisitor<T> visitor) {
+  public <T> T accept(AstVisitor<T> visitor) {
     return visitor.visit(this);
   }
 

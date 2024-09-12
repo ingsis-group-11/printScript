@@ -1,8 +1,8 @@
 package linter.rules;
 
-import AST.nodes.ASTNode;
-import AST.nodes.AssignationNode;
-import AST.nodes.DeclarationNode;
+import ast.nodes.AssignationNode;
+import ast.nodes.AstNode;
+import ast.nodes.DeclarationNode;
 import java.util.ArrayList;
 import java.util.List;
 import linter.result.FailedLinterResult;
@@ -18,7 +18,7 @@ public class IdentifierFormatRule implements Rule {
   }
 
   @Override
-  public LinterResult lint(ASTNode node) {
+  public LinterResult lint(AstNode node) {
     List<String> errors = new ArrayList<>();
     if (node instanceof AssignationNode assignationNode) {
       DeclarationNode declarationNode = assignationNode.getDeclaration();

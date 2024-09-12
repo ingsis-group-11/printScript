@@ -1,17 +1,17 @@
 package formatter;
 
-import AST.nodes.ASTNode;
-import AST.nodes.AssignationNode;
-import AST.nodes.IfNode;
-import AST.nodes.PrintNode;
-import AST.nodes.ReadEnvNode;
-import AST.nodes.ReadInputNode;
-import AST.nodes.ReassignmentNode;
+import ast.nodes.AssignationNode;
+import ast.nodes.AstNode;
+import ast.nodes.IfNode;
+import ast.nodes.PrintNode;
+import ast.nodes.ReadEnvNode;
+import ast.nodes.ReadInputNode;
+import ast.nodes.ReassignmentNode;
 import formatter.nodeformatter.AstTypes;
 
 public class AstTypeVisitor {
 
-  public AstTypes getType(ASTNode node) {
+  public AstTypes getType(AstNode node) {
     if (node instanceof AssignationNode) {
       return AstTypes.ASSIGNATION_NODE;
     }

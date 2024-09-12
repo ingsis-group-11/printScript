@@ -1,9 +1,20 @@
-package AST;
+package ast;
 
-import AST.nodes.*;
+import ast.nodes.AssignationNode;
+import ast.nodes.BlockNode;
+import ast.nodes.DeclarationNode;
+import ast.nodes.EmptyNode;
+import ast.nodes.IfNode;
+import ast.nodes.LiteralNode;
+import ast.nodes.OperatorNode;
+import ast.nodes.PrintNode;
+import ast.nodes.ReadEnvNode;
+import ast.nodes.ReadInputNode;
+import ast.nodes.ReassignmentNode;
+import ast.nodes.VariableNode;
 import token.TokenType;
 
-public class ExpressionTypeVisitor implements ASTVisitor<TokenType> {
+public class ExpressionTypeVisitor implements AstVisitor<TokenType> {
 
   @Override
   public TokenType visit(DeclarationNode node) {

@@ -2,9 +2,9 @@ package parser.syntax;
 
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
-import AST.nodes.ASTNode;
-import AST.nodes.AssignationNode;
-import AST.nodes.ReassignmentNode;
+import ast.nodes.AssignationNode;
+import ast.nodes.AstNode;
+import ast.nodes.ReassignmentNode;
 import java.util.Iterator;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -43,10 +43,10 @@ public class ReassignmentSyntaxParserTest {
 
     // WHEN
     TestTokenIterator tokenIterator = new TestTokenIterator(tokens);
-    Iterator<ASTNode> nodes = new AstIterator(tokenIterator, "1.0");
-    ASTNode firstAst = nodes.next();
+    Iterator<AstNode> nodes = new AstIterator(tokenIterator, "1.0");
+    AstNode firstAst = nodes.next();
     assertInstanceOf(AssignationNode.class, firstAst);
-    ASTNode secondAst = nodes.next();
+    AstNode secondAst = nodes.next();
     assertInstanceOf(ReassignmentNode.class, secondAst);
   }
 }

@@ -1,8 +1,12 @@
 package parser.semantic;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import AST.nodes.*;
+import ast.nodes.AssignationNode;
+import ast.nodes.AstNode;
+import ast.nodes.DeclarationNode;
+import ast.nodes.LiteralNode;
 import org.junit.jupiter.api.Test;
 import parser.semantic.result.SemanticResult;
 import token.TokenType;
@@ -11,7 +15,7 @@ import token.ValueToken;
 public class SemanticAssignationTest {
   @Test
   public void validStringAssignationTest() {
-    ASTNode assignmentNode =
+    AstNode assignmentNode =
         new AssignationNode(
             new DeclarationNode(
                 new ValueToken(TokenType.STRING_TYPE, "string", 10, 0),
@@ -29,7 +33,7 @@ public class SemanticAssignationTest {
 
   @Test
   public void validNumberAssignationTest() {
-    ASTNode assignmentNode =
+    AstNode assignmentNode =
         new AssignationNode(
             new DeclarationNode(
                 new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 0),
@@ -47,7 +51,7 @@ public class SemanticAssignationTest {
 
   @Test
   public void invalidStringAssignationTest() {
-    ASTNode assignmentNode =
+    AstNode assignmentNode =
         new AssignationNode(
             new DeclarationNode(
                 new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 0),
@@ -64,7 +68,7 @@ public class SemanticAssignationTest {
 
   @Test
   public void invalidNumberAssignationTest() {
-    ASTNode assignmentNode =
+    AstNode assignmentNode =
         new AssignationNode(
             new DeclarationNode(
                 new ValueToken(TokenType.STRING_TYPE, "string", 10, 0),
@@ -81,7 +85,7 @@ public class SemanticAssignationTest {
 
   @Test
   public void validVariableAssignationTest() {
-    ASTNode assignmentNode =
+    AstNode assignmentNode =
         new AssignationNode(
             new DeclarationNode(
                 new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 0),

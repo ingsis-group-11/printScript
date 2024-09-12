@@ -1,10 +1,10 @@
-package AST.nodes;
+package ast.nodes;
 
-import AST.ASTVisitor;
+import ast.AstVisitor;
 import token.Token;
 import token.TokenType;
 
-public class LiteralNode implements ASTNode {
+public class LiteralNode implements AstNode {
   private final Token token;
 
   public LiteralNode(Token value) {
@@ -24,7 +24,7 @@ public class LiteralNode implements ASTNode {
   }
 
   @Override
-  public <T> T accept(ASTVisitor<T> visitor) {
+  public <T> T accept(AstVisitor<T> visitor) {
     return visitor.visit(this);
   }
 

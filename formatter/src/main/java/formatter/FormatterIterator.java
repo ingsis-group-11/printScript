@@ -1,6 +1,6 @@
 package formatter;
 
-import AST.nodes.ASTNode;
+import ast.nodes.AstNode;
 import formatter.rules.Rule;
 import java.io.IOException;
 import java.util.Iterator;
@@ -8,10 +8,10 @@ import java.util.List;
 
 public class FormatterIterator implements Iterator<String> {
   private final Formatter formatter;
-  private final Iterator<ASTNode> iterator;
+  private final Iterator<AstNode> iterator;
   private final List<Rule> rules;
 
-  public FormatterIterator(Iterator<ASTNode> iterator, List<Rule> rules) {
+  public FormatterIterator(Iterator<AstNode> iterator, List<Rule> rules) {
     this.rules = rules;
     this.formatter = new Formatter();
     this.iterator = iterator;

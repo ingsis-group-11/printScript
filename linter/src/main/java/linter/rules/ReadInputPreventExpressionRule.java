@@ -1,8 +1,8 @@
 package linter.rules;
 
-import AST.nodes.ASTNode;
-import AST.nodes.OperatorNode;
-import AST.nodes.ReadInputNode;
+import ast.nodes.AstNode;
+import ast.nodes.OperatorNode;
+import ast.nodes.ReadInputNode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -20,7 +20,7 @@ public class ReadInputPreventExpressionRule implements Rule {
   }
 
   @Override
-  public LinterResult lint(ASTNode node) {
+  public LinterResult lint(AstNode node) {
     if (Objects.equals(value, "false")) {
       return new SuccessLinterResult();
     }
@@ -29,7 +29,7 @@ public class ReadInputPreventExpressionRule implements Rule {
     List<ReadInputNode> readInputNodes = node.accept(new ReadInputNodeFinder());
 
     for (ReadInputNode readInputNode : readInputNodes) {
-      ASTNode expression = readInputNode.getExpression();
+      AstNode expression = readInputNode.getExpression();
       if (expression instanceof OperatorNode) {
         int line = readInputNode.getLine();
         int column = readInputNode.getColumn();

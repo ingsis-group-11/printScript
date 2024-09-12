@@ -1,6 +1,6 @@
 package runner;
 
-import AST.nodes.ASTNode;
+import ast.nodes.AstNode;
 import formatter.FormatterIterator;
 import formatter.rules.Rule;
 import formatter.rulesmap.RulesMap;
@@ -27,7 +27,7 @@ public class FormatterRunner {
       throws IOException {
     FileReaderIterator fileIterator = new FileReaderIterator(inputStream);
     PrintScriptIterator<Token> tokens = new TokenIterator(fileIterator, version);
-    Iterator<ASTNode> nodes = new AstIterator(tokens, version);
+    Iterator<AstNode> nodes = new AstIterator(tokens, version);
     outputProvider.write(new FormatterIterator(nodes, getRules(configRules, version)));
   }
 

@@ -1,6 +1,6 @@
 package variablemap;
 
-import AST.nodes.LiteralNode;
+import ast.nodes.LiteralNode;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;

@@ -1,8 +1,8 @@
 package parser.syntax.parsers;
 
-import AST.nodes.ASTNode;
-import AST.nodes.BlockNode;
-import AST.nodes.IfNode;
+import ast.nodes.AstNode;
+import ast.nodes.BlockNode;
+import ast.nodes.IfNode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -14,7 +14,7 @@ import token.TokenType;
 
 public class IfSyntaxParser implements SyntaxParser {
   @Override
-  public ASTNode syntaxParse(TokenStream tokens, String version) {
+  public AstNode syntaxParse(TokenStream tokens, String version) {
 
     tokens.expect(TokenType.IF_KEYWORD, "Expected 'if'");
     tokens.advance();
@@ -22,7 +22,7 @@ public class IfSyntaxParser implements SyntaxParser {
     tokens.expect(TokenType.PARENTHESIS_OPEN, "Expected '('");
     tokens.advance();
 
-    ASTNode condition = ExpressionFactory.createExpression(tokens, version);
+    AstNode condition = ExpressionFactory.createExpression(tokens, version);
 
     tokens.expect(TokenType.PARENTHESIS_CLOSE, "Expected ')'");
     tokens.advance();
@@ -69,12 +69,12 @@ public class IfSyntaxParser implements SyntaxParser {
   }
 
   private BlockNode parseBlock(TokenStream tokens, String version) {
-    List<ASTNode> block = new ArrayList<>();
+    List<AstNode> block = new ArrayList<>();
     SyntaxParserFactory syntaxParserFactory =
         new SyntaxParserFactory(Set.of(ProviderTypeV2.values()));
     while (tokens.getCurrentToken().getType() != TokenType.BRACE_CLOSE) {
       SyntaxParser parser = syntaxParserFactory.getSyntaxParser(tokens);
-      ASTNode result = parser.syntaxParse(tokens, version);
+      AstNode result = parser.syntaxParse(tokens, version);
       block.add(result);
     }
     return new BlockNode(block);

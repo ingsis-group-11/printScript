@@ -1,9 +1,9 @@
-package AST.nodes;
+package ast.nodes;
 
-import AST.ASTVisitor;
+import ast.AstVisitor;
 import token.Token;
 
-public class DeclarationNode implements ASTNode {
+public class DeclarationNode implements AstNode {
   private final Token type;
   private final Token name;
   private final Token declarationKeyWord;
@@ -36,7 +36,7 @@ public class DeclarationNode implements ASTNode {
   }
 
   @Override
-  public <T> T accept(ASTVisitor<T> visitor) {
+  public <T> T accept(AstVisitor<T> visitor) {
     return visitor.visit(this);
   }
 

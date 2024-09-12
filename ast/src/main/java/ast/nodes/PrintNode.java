@@ -1,24 +1,24 @@
-package AST.nodes;
+package ast.nodes;
 
-import AST.ASTVisitor;
+import ast.AstVisitor;
 
-public class PrintNode implements ASTNode {
-  private final ASTNode expression;
+public class PrintNode implements AstNode {
+  private final AstNode expression;
   private final Integer line;
   private final Integer column;
 
-  public PrintNode(ASTNode expression, Integer line, Integer column) {
+  public PrintNode(AstNode expression, Integer line, Integer column) {
     this.expression = expression;
     this.line = line;
     this.column = column;
   }
 
-  public ASTNode getExpression() {
+  public AstNode getExpression() {
     return expression;
   }
 
   @Override
-  public <T> T accept(ASTVisitor<T> visitor) {
+  public <T> T accept(AstVisitor<T> visitor) {
     return visitor.visit(this);
   }
 

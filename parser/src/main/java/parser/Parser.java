@@ -1,6 +1,6 @@
 package parser;
 
-import AST.nodes.ASTNode;
+import ast.nodes.AstNode;
 import java.util.Set;
 import parser.semantic.SemanticAnalyzer;
 import parser.syntax.TokenStream;
@@ -18,21 +18,21 @@ public class Parser {
     this.version = version;
   }
 
-  public ASTNode parse(PrintScriptIterator<Token> tokens) {
+  public AstNode parse(PrintScriptIterator<Token> tokens) {
     TokenStream tokenStream = new TokenStream(tokens);
     // Syntax analysis
-    ASTNode syntaxResult = syntaxParser(tokenStream);
+    AstNode syntaxResult = syntaxParser(tokenStream);
     // Semantic analysis
     semanticParser(syntaxResult);
     return syntaxResult;
   }
 
-  private void semanticParser(ASTNode node) {
+  private void semanticParser(AstNode node) {
     SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
     semanticAnalyzer.analyze(node);
   }
 
-  private ASTNode syntaxParser(TokenStream tokenStream) {
+  private AstNode syntaxParser(TokenStream tokenStream) {
     Set<ProviderType> providerTypes = ParserVersionResolver.getParserProviderTypes(version);
     SyntaxParserFactory factory = new SyntaxParserFactory(providerTypes);
     SyntaxParser syntaxParser = factory.getSyntaxParser(tokenStream);

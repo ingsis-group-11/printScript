@@ -4,15 +4,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import AST.nodes.ASTNode;
-import AST.nodes.AssignationNode;
-import AST.nodes.DeclarationNode;
-import AST.nodes.LiteralNode;
-import AST.nodes.OperatorNode;
-import AST.nodes.PrintNode;
-import AST.nodes.ReadInputNode;
-import AST.nodes.ReassignmentNode;
-import AST.nodes.VariableNode;
+import ast.nodes.AssignationNode;
+import ast.nodes.AstNode;
+import ast.nodes.DeclarationNode;
+import ast.nodes.LiteralNode;
+import ast.nodes.OperatorNode;
+import ast.nodes.PrintNode;
+import ast.nodes.ReadInputNode;
+import ast.nodes.ReassignmentNode;
+import ast.nodes.VariableNode;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import providers.inputprovider.InputProvider;
@@ -26,7 +26,7 @@ public class ReadInputTest {
   public void testSimpleValidReadEnv() {
     // GIVEN
     // readInput("Test");
-    List<ASTNode> astNodes =
+    List<AstNode> astNodes =
         List.of(
             new ReadInputNode(
                 new LiteralNode(new ValueToken(TokenType.STRING, "Test", 8, 2)), 1, 1));
@@ -42,7 +42,7 @@ public class ReadInputTest {
     // let a: number = readInput("Ingrese a: "); -> hola -> should fail
     // println(a);
 
-    List<ASTNode> astNodes =
+    List<AstNode> astNodes =
         List.of(
             new AssignationNode(
                 new DeclarationNode(
@@ -70,7 +70,7 @@ public class ReadInputTest {
     // let a: string = readInput("Ingrese a: "); -> hola
     // println(a); -> hola
 
-    List<ASTNode> astNodes =
+    List<AstNode> astNodes =
         List.of(
             new AssignationNode(
                 new DeclarationNode(
@@ -99,7 +99,7 @@ public class ReadInputTest {
     // let b: number = readInput("Ingrese b: "); -> 2
     // println(a + b); -> 4
 
-    List<ASTNode> astNodes =
+    List<AstNode> astNodes =
         List.of(
             new AssignationNode(
                 new DeclarationNode(
@@ -146,7 +146,7 @@ public class ReadInputTest {
     // let a: number = readInput("Ingrese a: "); -> ""
     // println(a); -> ""
 
-    List<ASTNode> astNodes =
+    List<AstNode> astNodes =
         List.of(
             new AssignationNode(
                 new DeclarationNode(
@@ -174,7 +174,7 @@ public class ReadInputTest {
     // let a: string = readInput("Ingrese a: "); -> "\"hola\""
     // println(a);
 
-    List<ASTNode> astNodes =
+    List<AstNode> astNodes =
         List.of(
             new AssignationNode(
                 new DeclarationNode(
@@ -202,7 +202,7 @@ public class ReadInputTest {
     // let a: number = readInput("Ingrese a: "); -> 5
     // a = readInput("Ingrese a: "); -> hola
 
-    List<ASTNode> astNodes =
+    List<AstNode> astNodes =
         List.of(
             new AssignationNode(
                 new DeclarationNode(

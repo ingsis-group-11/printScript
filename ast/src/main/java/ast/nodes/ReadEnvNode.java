@@ -1,13 +1,13 @@
-package AST.nodes;
+package ast.nodes;
 
-import AST.ASTVisitor;
+import ast.AstVisitor;
 
-public class ReadInputNode implements ASTNode {
+public class ReadEnvNode implements AstNode {
   private final Integer line;
   private final Integer column;
-  private final ASTNode expression;
+  private final AstNode expression;
 
-  public ReadInputNode(ASTNode expression, Integer line, Integer column) {
+  public ReadEnvNode(AstNode expression, Integer line, Integer column) {
     this.line = line;
     this.column = column;
     this.expression = expression;
@@ -23,12 +23,12 @@ public class ReadInputNode implements ASTNode {
     return column;
   }
 
-  public ASTNode getExpression() {
+  public AstNode getExpression() {
     return expression;
   }
 
   @Override
-  public <T> T accept(ASTVisitor<T> visitor) {
+  public <T> T accept(AstVisitor<T> visitor) {
     return visitor.visit(this);
   }
 }

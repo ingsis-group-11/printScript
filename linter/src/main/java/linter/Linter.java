@@ -1,13 +1,13 @@
 package linter;
 
-import AST.nodes.ASTNode;
+import ast.nodes.AstNode;
 import java.util.ArrayList;
 import java.util.List;
 import linter.result.LinterResult;
 import linter.rules.Rule;
 
 public class Linter {
-  public void lint(ASTNode node, List<Rule> rules) {
+  public void lint(AstNode node, List<Rule> rules) {
     List<String> errors = new ArrayList<>();
     for (Rule rule : rules) {
       LinterResult result = rule.lint(node);

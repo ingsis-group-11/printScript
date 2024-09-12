@@ -2,7 +2,7 @@ package linter;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import fileReader.InputStreamToString;
+import filereader.InputStreamToString;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;

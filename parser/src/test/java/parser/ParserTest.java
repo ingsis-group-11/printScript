@@ -5,12 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import AST.ExpressionTypeVisitor;
-import AST.nodes.ASTNode;
-import AST.nodes.AssignationNode;
-import AST.nodes.PrintNode;
-import AST.nodes.ReadEnvNode;
-import AST.nodes.ReassignmentNode;
+import ast.ExpressionTypeVisitor;
+import ast.nodes.AssignationNode;
+import ast.nodes.AstNode;
+import ast.nodes.PrintNode;
+import ast.nodes.ReadEnvNode;
+import ast.nodes.ReassignmentNode;
 import java.util.Iterator;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -42,8 +42,8 @@ public class ParserTest {
 
     // WHEN
     TestTokenIterator tokenIterator = new TestTokenIterator(tokens);
-    Iterator<ASTNode> nodes = new AstIterator(tokenIterator, "1.0");
-    ASTNode firstAst = nodes.next();
+    Iterator<AstNode> nodes = new AstIterator(tokenIterator, "1.0");
+    AstNode firstAst = nodes.next();
     assertInstanceOf(AssignationNode.class, firstAst);
   }
 
@@ -68,8 +68,8 @@ public class ParserTest {
             new ValueToken(TokenType.SEMICOLON, ";", 27, 1));
 
     TestTokenIterator tokenIterator = new TestTokenIterator(tokens);
-    Iterator<ASTNode> nodes = new AstIterator(tokenIterator, "1.0");
-    ASTNode firstAst = nodes.next();
+    Iterator<AstNode> nodes = new AstIterator(tokenIterator, "1.0");
+    AstNode firstAst = nodes.next();
     assertInstanceOf(AssignationNode.class, firstAst);
   }
 
@@ -105,8 +105,8 @@ public class ParserTest {
 
     // WHEN
     TestTokenIterator tokenIterator = new TestTokenIterator(tokens);
-    Iterator<ASTNode> nodes = new AstIterator(tokenIterator, "1.0");
-    ASTNode firstAst = nodes.next();
+    Iterator<AstNode> nodes = new AstIterator(tokenIterator, "1.0");
+    AstNode firstAst = nodes.next();
     assertInstanceOf(AssignationNode.class, firstAst);
   }
 
@@ -137,10 +137,10 @@ public class ParserTest {
 
     // WHEN
     TestTokenIterator tokenIterator = new TestTokenIterator(tokens);
-    Iterator<ASTNode> nodes = new AstIterator(tokenIterator, "1.0");
-    ASTNode firstAst = nodes.next();
+    Iterator<AstNode> nodes = new AstIterator(tokenIterator, "1.0");
+    AstNode firstAst = nodes.next();
     assertInstanceOf(AssignationNode.class, firstAst);
-    ASTNode secondAst = nodes.next();
+    AstNode secondAst = nodes.next();
     assertInstanceOf(ReassignmentNode.class, secondAst);
   }
 
@@ -162,8 +162,8 @@ public class ParserTest {
 
     // WHEN
     TestTokenIterator tokenIterator = new TestTokenIterator(tokens);
-    Iterator<ASTNode> nodes = new AstIterator(tokenIterator, "1.0");
-    ASTNode firstAst = nodes.next();
+    Iterator<AstNode> nodes = new AstIterator(tokenIterator, "1.0");
+    AstNode firstAst = nodes.next();
     assertInstanceOf(AssignationNode.class, firstAst);
     assertEquals(TokenType.BOOLEAN, firstAst.accept(new ExpressionTypeVisitor()));
   }
@@ -195,13 +195,13 @@ public class ParserTest {
 
     // WHEN
     TestTokenIterator tokenIterator = new TestTokenIterator(tokens);
-    Iterator<ASTNode> nodes = new AstIterator(tokenIterator, "1.1");
-    ASTNode firstAst = nodes.next();
+    Iterator<AstNode> nodes = new AstIterator(tokenIterator, "1.1");
+    AstNode firstAst = nodes.next();
     assertInstanceOf(AssignationNode.class, firstAst);
-    ASTNode secondAst = nodes.next();
+    AstNode secondAst = nodes.next();
     assertInstanceOf(ReassignmentNode.class, secondAst);
     assertEquals(TokenType.BOOLEAN, secondAst.accept(new ExpressionTypeVisitor()));
-    ASTNode thirdAst = nodes.next();
+    AstNode thirdAst = nodes.next();
     assertInstanceOf(PrintNode.class, thirdAst);
   }
 
@@ -228,8 +228,8 @@ public class ParserTest {
 
     // WHEN
     TestTokenIterator tokenIterator = new TestTokenIterator(tokens);
-    Iterator<ASTNode> nodes = new AstIterator(tokenIterator, "1.1");
-    ASTNode firstAst = nodes.next();
+    Iterator<AstNode> nodes = new AstIterator(tokenIterator, "1.1");
+    AstNode firstAst = nodes.next();
     assertInstanceOf(AssignationNode.class, firstAst);
   }
 
@@ -256,8 +256,8 @@ public class ParserTest {
 
     // WHEN
     TestTokenIterator tokenIterator = new TestTokenIterator(tokens);
-    Iterator<ASTNode> nodes = new AstIterator(tokenIterator, "1.1");
-    ASTNode firstAst = nodes.next();
+    Iterator<AstNode> nodes = new AstIterator(tokenIterator, "1.1");
+    AstNode firstAst = nodes.next();
     if (firstAst instanceof AssignationNode assignationNode) {
       assertInstanceOf(ReadEnvNode.class, assignationNode.getExpression());
     } else {
