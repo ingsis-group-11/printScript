@@ -503,4 +503,19 @@ public class LetAssignationRunnerTest {
               printProvider);
         });
   }
+
+  @Test
+  public void variableAssignationNotOfSameType(){
+    TestPrintProvider printProvider = new TestPrintProvider();
+    Runner runner = new Runner();
+    assertThrows(
+            RuntimeException.class,
+            () -> {
+              runner.run(
+                      new FileInputStream(
+                              "src/test/resources/assignation/1.0/variableAssignationNotOfSameType.txt"),
+                      "1.0",
+                      printProvider);
+            });
+  }
 }

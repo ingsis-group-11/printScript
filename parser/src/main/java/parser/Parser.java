@@ -3,6 +3,7 @@ package parser;
 import ast.nodes.AstNode;
 import java.util.Set;
 import parser.semantic.SemanticAnalyzer;
+import parser.semantic.variables.VariablesMap;
 import parser.syntax.TokenStream;
 import parser.syntax.factory.SyntaxParserFactory;
 import parser.syntax.parsers.SyntaxParser;
@@ -13,6 +14,7 @@ import token.Token;
 
 public class Parser {
   private final String version;
+  SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
 
   public Parser(String version) {
     this.version = version;
@@ -28,7 +30,6 @@ public class Parser {
   }
 
   private void semanticParser(AstNode node) {
-    SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
     semanticAnalyzer.analyze(node);
   }
 

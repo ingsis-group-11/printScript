@@ -1,5 +1,6 @@
 package parser.semantic;
 
+import parser.semantic.variables.VariableTokenMap;
 import token.TokenType;
 
 public class TypeValidator {

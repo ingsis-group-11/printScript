@@ -1,7 +1,6 @@
 package parser.semantic;
 
 import ast.AstVisitor;
-import ast.ExpressionTypeVisitor;
 import ast.nodes.AssignationNode;
 import ast.nodes.AstNode;
 import ast.nodes.BlockNode;
@@ -19,9 +18,16 @@ import java.util.List;
 import parser.semantic.result.SemanticErrorResult;
 import parser.semantic.result.SemanticResult;
 import parser.semantic.result.SemanticSuccessResult;
+import parser.semantic.variables.VariablesMap;
 import token.TokenType;
 
 public class SemanticVisitor implements AstVisitor<SemanticResult> {
+
+  private final VariablesMap variablesMap;
+
+  public SemanticVisitor() {
+    this.variablesMap = new VariablesMap();
+  }
 
   @Override
   public SemanticResult visit(DeclarationNode node) {
@@ -40,13 +46,16 @@ public class SemanticVisitor implements AstVisitor<SemanticResult> {
 
   @Override
   public SemanticResult visit(AssignationNode node) {
-    ExpressionTypeVisitor expressionTypeVisitor = new ExpressionTypeVisitor();
+    ExpressionTypeVisitor expressionTypeVisitor = new ExpressionTypeVisitor(variablesMap);
     TokenType variableType = node.getDeclaration().getTypeToken().getType();
     TokenType expressionType = node.getExpression().accept(expressionTypeVisitor);
+    boolean mutable = node.getDeclaration().isMutable();
 
     if (node.getExpression() instanceof EmptyNode) {
+      variablesMap.addVariable(node.getDeclaration().getNameToken().getValue(), variableType, mutable);
       return new SemanticSuccessResult();
     } else if (TypeValidator.validateType(variableType, expressionType)) {
+      variablesMap.addVariable(node.getDeclaration().getNameToken().getValue(), variableType, mutable);
       return new SemanticSuccessResult();
     }
 
@@ -63,7 +72,8 @@ public class SemanticVisitor implements AstVisitor<SemanticResult> {
 
   @Override
   public SemanticResult visit(OperatorNode node) {
-    ExpressionTypeVisitor expressionTypeVisitor = new ExpressionTypeVisitor();
+    ExpressionTypeVisitor expressionTypeVisitor = new ExpressionTypeVisitor(variablesMap);
+
     String operator = node.getOperator();
     return switch (operator) {
       case "+" ->
@@ -108,7 +118,23 @@ public class SemanticVisitor implements AstVisitor<SemanticResult> {
 
   @Override
   public SemanticResult visit(ReassignmentNode node) {
-    return new SemanticSuccessResult();
+    ExpressionTypeVisitor expressionTypeVisitor = new ExpressionTypeVisitor(variablesMap);
+    TokenType variableType = variablesMap.getVariableType(node.getVariableNode().getValue());
+    TokenType expressionType = node.getExpression().accept(expressionTypeVisitor);
+    if (variableType == expressionType) {
+      variablesMap.updateVariable(node.getVariableNode().getValue(), expressionType);
+      return new SemanticSuccessResult();
+    }
+    return new SemanticErrorResult(
+            "Semantic error in "
+                    + node.getLine()
+                    + ":"
+                    + node.getColumn()
+                    + " Variable type is "
+                    + variableType
+                    + " but value is of type "
+                    + expressionType);
+
   }
 
   @Override
@@ -118,7 +144,7 @@ public class SemanticVisitor implements AstVisitor<SemanticResult> {
 
   @Override
   public SemanticResult visit(ReadInputNode node) {
-    ExpressionTypeVisitor expressionTypeVisitor = new ExpressionTypeVisitor();
+    ExpressionTypeVisitor expressionTypeVisitor = new ExpressionTypeVisitor(variablesMap);
     TokenType expressionType = node.getExpression().accept(expressionTypeVisitor);
     if (expressionType == TokenType.IDENTIFIER) {
       return new SemanticSuccessResult();
@@ -135,7 +161,7 @@ public class SemanticVisitor implements AstVisitor<SemanticResult> {
 
   @Override
   public SemanticResult visit(ReadEnvNode node) {
-    ExpressionTypeVisitor expressionTypeVisitor = new ExpressionTypeVisitor();
+    ExpressionTypeVisitor expressionTypeVisitor = new ExpressionTypeVisitor(variablesMap);
     TokenType expressionType = node.getExpression().accept(expressionTypeVisitor);
     if (expressionType == TokenType.IDENTIFIER) {
       return new SemanticSuccessResult();
@@ -152,8 +178,7 @@ public class SemanticVisitor implements AstVisitor<SemanticResult> {
 
   @Override
   public SemanticResult visit(IfNode ifNode) {
-    ExpressionTypeVisitor expressionTypeVisitor = new ExpressionTypeVisitor();
-    TokenType conditionType = ifNode.getCondition().accept(expressionTypeVisitor);
+    TokenType conditionType = ifNode.getCondition().accept(new ExpressionTypeVisitor(variablesMap));
     if (conditionType == TokenType.BOOLEAN || conditionType == TokenType.IDENTIFIER) {
       SemanticResult ifBlockResult = ifNode.getIfBlock().accept(this);
       if (ifBlockResult.hasErrors()) {
@@ -175,6 +200,7 @@ public class SemanticVisitor implements AstVisitor<SemanticResult> {
 
   @Override
   public SemanticResult visit(BlockNode blockNode) {
+    variablesMap.enterScope();
     List<AstNode> nodes = blockNode.getStatements();
     for (AstNode node : nodes) {
       SemanticResult result = node.accept(this);
@@ -182,6 +208,7 @@ public class SemanticVisitor implements AstVisitor<SemanticResult> {
         return result;
       }
     }
+    variablesMap.exitScope();
     return new SemanticSuccessResult();
   }
 

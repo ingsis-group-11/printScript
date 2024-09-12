@@ -1,4 +1,4 @@
-package parser.semantic;
+package parser.semantic.variables;
 
 import java.util.HashMap;
 import java.util.Map;
