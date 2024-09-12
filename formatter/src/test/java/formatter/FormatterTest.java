@@ -3,6 +3,7 @@ package formatter;
 import fileReader.FileReader;
 import fileWriter.TestWriter;
 import org.junit.jupiter.api.Test;
+import runner.FormatterRunner;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -153,6 +154,30 @@ public class FormatterTest {
     FormatterRunner formatterRunner = new FormatterRunner();
     TestWriter testWriter = new TestWriter();
     String expected = fileReader.read("src/test/resources/cases/1.1/simpleInputOutput.txt");
+    formatterRunner.format(new FileInputStream(inputFilePath), new FileInputStream(configPathRules), testWriter, "1.1");
+    assertEquals(expected, testWriter.getOutput());
+  }
+
+  @Test
+  public void testSimpleReadEnvironment() throws IOException {
+    String inputFilePath = "src/test/resources/cases/1.1/simpleEnvironmentInput.txt";
+    String configPathRules = "src/test/resources/config/1.1/allActive.json";
+
+    FormatterRunner formatterRunner = new FormatterRunner();
+    TestWriter testWriter = new TestWriter();
+    String expected = fileReader.read("src/test/resources/cases/1.1/simpleEnvironmentOutput.txt");
+    formatterRunner.format(new FileInputStream(inputFilePath), new FileInputStream(configPathRules), testWriter, "1.1");
+    assertEquals(expected, testWriter.getOutput());
+  }
+
+  @Test
+  public void testElseIf() throws IOException {
+    String inputFilePath = "src/test/resources/cases/1.1/elseInput.txt";
+    String configPathRules = "src/test/resources/config/1.1/allActive.json";
+
+    FormatterRunner formatterRunner = new FormatterRunner();
+    TestWriter testWriter = new TestWriter();
+    String expected = fileReader.read("src/test/resources/cases/1.1/elseOutput.txt");
     formatterRunner.format(new FileInputStream(inputFilePath), new FileInputStream(configPathRules), testWriter, "1.1");
     assertEquals(expected, testWriter.getOutput());
   }

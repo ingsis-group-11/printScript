@@ -1,0 +1,5 @@
+if (true){
+let name:string="John";
+}else {
+let lastname:string="Doe";
+}

@@ -6,7 +6,6 @@ import fileReader.InputStreamToString;
 import formatter.rules.*;
 import formatter.rules.alwaysActive.LineBreakAfterSemicolon;
 import formatter.rules.alwaysActive.StringQuotes;
-import formatter.rules.alwaysActive.Types;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,7 +33,6 @@ public class RulesReader {
   private List<Rule> alwaysActiveRules() {
     List<Rule> activeRules = new ArrayList<>();
     activeRules.add(new LineBreakAfterSemicolon());
-    activeRules.add(new Types());
     activeRules.add(new StringQuotes());
     return activeRules;
   }
