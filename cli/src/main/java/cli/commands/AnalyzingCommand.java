@@ -30,10 +30,11 @@ public class AnalyzingCommand implements Runnable {
     try {
       List<Observer> parserObservers = List.of(new ParserObserver());
       LinterRunner linterRunner = new LinterRunner();
+      linterRunner.setObservers(parserObservers);
       linterRunner.linterRun(
               new FileInputStream(sourceFile),
               new FileInputStream(configFile),
-              version, parserObservers);
+              version);
       System.out.println("\nFile has no linter errors :)");
     } catch (Exception e) {
       System.err.print(e.getMessage());

@@ -29,10 +29,10 @@ public class ExecutionCommand implements Runnable {
       ConsolePrintProvider printProvider = new ConsolePrintProvider();
       ConsoleInputProvider consoleInputProvider = new ConsoleInputProvider();
       Runner runner = new Runner();
+      runner.setObservers(parserObservers);
       runner.run(new FileInputStream(sourceFile),
               version, printProvider,
-              consoleInputProvider,
-              parserObservers);
+              consoleInputProvider);
       System.out.println();
       printProvider.printMessages();
     } catch (Exception e) {

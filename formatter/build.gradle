@@ -9,6 +9,6 @@ dependencies {
     implementation project(':token')
     implementation project(':ast')
     implementation project(':filereader')
-    implementation project(':providers')
+    testImplementation project(':providers')
     testImplementation project(':runner')
 }

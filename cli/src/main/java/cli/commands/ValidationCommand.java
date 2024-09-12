@@ -2,9 +2,11 @@ package cli.commands;
 
 import cli.ParserObserver;
 import java.io.FileInputStream;
+import java.util.List;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
+import providers.observer.Observer;
 import runner.ValidationRunner;
 
 
@@ -24,9 +26,10 @@ public class ValidationCommand implements Runnable {
   public void run() {
     System.out.println("Validating file...");
     try {
-      ParserObserver parserObserver = new ParserObserver();
+      List<Observer> parserObservers = List.of(new ParserObserver());
       ValidationRunner validationRunner = new ValidationRunner();
-      validationRunner.validate(new FileInputStream(sourceFile), version, parserObserver);
+      validationRunner.setObservers(parserObservers);
+      validationRunner.validate(new FileInputStream(sourceFile), version);
       System.out.println("\nFile has no semantic or syntax errors :)");
     } catch (Exception e) {
       System.err.print(e.getMessage());

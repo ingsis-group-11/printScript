@@ -5,13 +5,11 @@ plugins {
 }
 
 dependencies {
-    implementation project(':token')
-    implementation project(':ast')
     implementation project(':lexer')
     implementation project(':parser')
     implementation project(':interpreter')
     implementation project(':formatter')
-    implementation project(':filereader')
+    testImplementation project(':filereader')
     implementation project(':providers')
     implementation project(':linter')
 }
