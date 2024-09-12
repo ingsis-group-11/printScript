@@ -1,6 +1,5 @@
 package iterator;
 
-import fileReader.FileReaderIterator;
 import java.util.NoSuchElementException;
 import lexer.Lexer;
 import providers.iterator.PrintScriptIterator;

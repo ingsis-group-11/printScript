@@ -3,7 +3,7 @@ package lexer;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-import fileReader.FileReaderIterator;
+import iterator.FileReaderIterator;
 import iterator.TokenIterator;
 import java.io.FileInputStream;
 import java.io.IOException;

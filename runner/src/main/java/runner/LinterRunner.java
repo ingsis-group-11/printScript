@@ -1,7 +1,7 @@
 package runner;
 
 import AST.nodes.ASTNode;
-import fileReader.FileReaderIterator;
+import iterator.FileReaderIterator;
 import iterator.TokenIterator;
 import java.io.IOException;
 import java.io.InputStream;

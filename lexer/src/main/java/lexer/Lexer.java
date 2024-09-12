@@ -1,7 +1,7 @@
 package lexer;
 
 import factory.LexerMapFactory;
-import fileReader.InputReader;
+import iterator.InputReader;
 import result.*;
 
 public class Lexer {

@@ -1,6 +1,6 @@
 package lexer;
 
-import fileReader.InputReader;
+import iterator.InputReader;
 import result.LexingResult;
 import result.SuccessfulResult;
 import result.UnsuccessfulResult;

@@ -1,6 +1,6 @@
 package runner;
 
-import fileReader.FileReaderIterator;
+import iterator.FileReaderIterator;
 import iterator.TokenIterator;
 import java.io.IOException;
 import java.io.InputStream;

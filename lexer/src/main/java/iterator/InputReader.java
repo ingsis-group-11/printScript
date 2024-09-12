@@ -1,4 +1,4 @@
-package fileReader;
+package iterator;
 
 public interface InputReader {
   public char next();

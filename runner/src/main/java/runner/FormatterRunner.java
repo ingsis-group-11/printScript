@@ -1,12 +1,12 @@
 package runner;
 
 import AST.nodes.ASTNode;
-import fileReader.FileReaderIterator;
 import formatter.FormatterIterator;
 import formatter.rules.Rule;
 import formatter.rulesMap.RulesMap;
 import formatter.rulesMap.RulesMapFactory;
 import formatter.rulesMap.RulesReader;
+import iterator.FileReaderIterator;
 import iterator.TokenIterator;
 import java.io.IOException;
 import java.io.InputStream;
