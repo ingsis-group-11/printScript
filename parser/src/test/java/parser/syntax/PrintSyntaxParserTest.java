@@ -9,7 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import parser.Parser;
-import parser.iterator.ASTIterator;
+import parser.iterator.AstIterator;
 import parser.iterator.TestTokenIterator;
 import token.Token;
 import token.TokenType;
@@ -30,6 +30,7 @@ public class PrintSyntaxParserTest {
 
     // WHEN
     TestTokenIterator tokenIterator = new TestTokenIterator(tokens);
+
     Iterator<ASTNode> nodes = new ASTIterator(tokenIterator, "1.0");
     ASTNode firstAst = nodes.next();
     assertInstanceOf(PrintNode.class, firstAst);

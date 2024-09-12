@@ -8,7 +8,7 @@ import AST.nodes.ReassignmentNode;
 import java.util.Iterator;
 import java.util.List;
 import org.junit.jupiter.api.Test;
-import parser.iterator.ASTIterator;
+import parser.iterator.AstIterator;
 import parser.iterator.TestTokenIterator;
 import token.Token;
 import token.TokenType;

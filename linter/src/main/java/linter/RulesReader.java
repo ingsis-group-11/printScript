@@ -8,7 +8,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import linter.rules.Rule;
-import linter.rulesMap.RulesMap;
+import linter.rulesmap.RulesMap;
 
 public class RulesReader {
   public List<Rule> loadRulesFromJson(InputStream configFile, RulesMap rulesMap)

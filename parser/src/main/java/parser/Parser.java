@@ -33,10 +33,6 @@ public class Parser {
   }
 
   private ASTNode syntaxParser(TokenStream tokenStream) {
-    return createTree(tokenStream, version);
-  }
-
-  private ASTNode createTree(TokenStream tokenStream, String version) {
     Set<ProviderType> providerTypes = ParserVersionResolver.getParserProviderTypes(version);
     SyntaxParserFactory factory = new SyntaxParserFactory(providerTypes);
     SyntaxParser syntaxParser = factory.getSyntaxParser(tokenStream);

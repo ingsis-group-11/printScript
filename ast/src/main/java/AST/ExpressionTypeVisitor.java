@@ -29,7 +29,7 @@ public class ExpressionTypeVisitor implements ASTVisitor<TokenType> {
   public TokenType visit(OperatorNode node) {
     if (node.getLeftNode().accept(this) == TokenType.BOOLEAN
         || node.getRightNode().accept(this) == TokenType.BOOLEAN) {
-      throw new RuntimeException("Type boolean cannot be operated");
+      return TokenType.BOOLEAN;
     }
     if (node.getLeftNode().accept(this) == TokenType.NUMBER
         && node.getRightNode().accept(this) == TokenType.NUMBER) {

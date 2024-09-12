@@ -10,17 +10,17 @@ import providers.iterator.PrintScriptIterator;
 import providers.observer.Observer;
 import token.Token;
 
-public class ASTIterator implements Iterator<ASTNode> {
+public class AstIterator implements Iterator<ASTNode> {
   private final Parser parser;
   private final PrintScriptIterator<Token> iterator;
   private List<Observer> observers = new ArrayList<>();
 
-  public ASTIterator(PrintScriptIterator<Token> iterator, String version) {
+  public AstIterator(PrintScriptIterator<Token> iterator, String version) {
     this.parser = new Parser(version);
     this.iterator = iterator;
   }
 
-  public ASTIterator(
+  public AstIterator(
       PrintScriptIterator<Token> iterator, String version, List<Observer> observers) {
     this.parser = new Parser(version);
     this.iterator = iterator;

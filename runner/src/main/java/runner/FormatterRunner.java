@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
 import java.util.List;
-import parser.iterator.ASTIterator;
+import parser.iterator.AstIterator;
 import providers.iterator.PrintScriptIterator;
 import providers.outputprovider.OutputProvider;
 import token.Token;
@@ -27,7 +27,7 @@ public class FormatterRunner {
       throws IOException {
     FileReaderIterator fileIterator = new FileReaderIterator(inputStream);
     PrintScriptIterator<Token> tokens = new TokenIterator(fileIterator, version);
-    Iterator<ASTNode> nodes = new ASTIterator(tokens, version);
+    Iterator<ASTNode> nodes = new AstIterator(tokens, version);
     outputProvider.write(new FormatterIterator(nodes, getRules(configRules, version)));
   }
 
