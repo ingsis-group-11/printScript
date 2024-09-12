@@ -90,6 +90,9 @@ public class ReadEnvTest {
     assertThrows(
         RuntimeException.class,
         () -> {
+          runner.run(
+              new FileInputStream("src/test/resources/readEnv/assignationToBooleanReadEnvFail.txt"),
+              "1.1");
         });
   }
 }
