@@ -1,8 +1,10 @@
 package parser.syntax;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import AST.nodes.*;
+import AST.nodes.ASTNode;
+import AST.nodes.ReadInputNode;
 import java.util.Iterator;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -28,8 +30,8 @@ public class ReadInputSyntaxParserTest {
     // WHEN
     TestTokenIterator tokenIterator = new TestTokenIterator(tokens);
     Iterator<ASTNode> nodes = new ASTIterator(tokenIterator, "1.1");
-    ASTNode firstAST = nodes.next();
-    assertInstanceOf(ReadInputNode.class, firstAST);
+    ASTNode firstAst = nodes.next();
+    assertInstanceOf(ReadInputNode.class, firstAst);
   }
 
   @Test

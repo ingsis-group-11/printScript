@@ -14,7 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 import parser.iterator.ASTIterator;
 import providers.iterator.PrintScriptIterator;
-import providers.outputProvider.OutputProvider;
+import providers.outputprovider.OutputProvider;
 import token.Token;
 
 public class FormatterRunner {

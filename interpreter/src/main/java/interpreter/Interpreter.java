@@ -2,11 +2,11 @@ package interpreter;
 
 import AST.nodes.ASTNode;
 import java.util.Iterator;
-import providers.inputProvider.InputProvider;
-import providers.inputProvider.TestInputProvider;
-import providers.printProvider.PrintProvider;
-import providers.printProvider.TestPrintProvider;
-import variableMap.VariableMap;
+import providers.inputprovider.InputProvider;
+import providers.inputprovider.TestInputProvider;
+import providers.printprovider.PrintProvider;
+import providers.printprovider.TestPrintProvider;
+import variablemap.VariableMap;
 
 public class Interpreter {
   private final VariableMap variableMap = new VariableMap();

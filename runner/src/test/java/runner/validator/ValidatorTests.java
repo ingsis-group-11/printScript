@@ -6,7 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import org.junit.jupiter.api.Test;
 import runner.ValidationRunner;
-import runner.printScript.observers.RunnerTestObserver;
+import runner.printscript.observers.RunnerTestObserver;
 
 public class ValidatorTests {
   @Test

@@ -1,12 +1,23 @@
 package interpreter;
 
 import AST.ASTVisitor;
-import AST.nodes.*;
-import inputType.InputTypeTransformer;
-import providers.inputProvider.InputProvider;
+import AST.nodes.AssignationNode;
+import AST.nodes.BlockNode;
+import AST.nodes.DeclarationNode;
+import AST.nodes.EmptyNode;
+import AST.nodes.IfNode;
+import AST.nodes.LiteralNode;
+import AST.nodes.OperatorNode;
+import AST.nodes.PrintNode;
+import AST.nodes.ReadEnvNode;
+import AST.nodes.ReadInputNode;
+import AST.nodes.ReassignmentNode;
+import AST.nodes.VariableNode;
+import inputyype.InputTypeTransformer;
+import providers.inputprovider.InputProvider;
 import token.TokenType;
 import token.ValueToken;
-import variableMap.VariableMap;
+import variablemap.VariableMap;
 
 public class LiteralTransformer implements ASTVisitor<LiteralNode> {
 

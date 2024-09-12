@@ -29,8 +29,8 @@ public class ReadEnvSyntaxParserTest {
     // WHEN
     TestTokenIterator tokenIterator = new TestTokenIterator(tokens);
     Iterator<ASTNode> nodes = new ASTIterator(tokenIterator, "1.1");
-    ASTNode firstAST = nodes.next();
-    assertInstanceOf(ReadEnvNode.class, firstAST);
+    ASTNode firstAst = nodes.next();
+    assertInstanceOf(ReadEnvNode.class, firstAst);
   }
 
   @Test
