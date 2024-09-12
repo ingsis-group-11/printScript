@@ -1,9 +1,9 @@
 package formatter;
 
 import AST.nodes.ASTNode;
-import formatter.nodeFormatter.NodeFormatter;
-import formatter.nodeFormatter.TokenListFactory;
+import formatter.nodeformatter.NodeFormatter;
 import formatter.rules.Rule;
+import formatter.tokenfactory.TokenListFactory;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
@@ -14,7 +14,7 @@ public class Formatter {
   TokenListFactory tokenListFactory = new TokenListFactory();
 
   public String formatFile(Iterator<ASTNode> nodes, List<Rule> rules) throws IOException {
-    ASTMap nodeMap = new ASTMap();
+    AstMap nodeMap = new AstMap();
 
     ASTNode node = nodes.next();
     tokenListFactory.addRules(rules);

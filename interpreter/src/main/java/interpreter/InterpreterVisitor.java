@@ -1,11 +1,23 @@
 package interpreter;
 
 import AST.ASTVisitor;
-import AST.nodes.*;
-import providers.inputProvider.InputProvider;
-import providers.printProvider.PrintProvider;
+import AST.nodes.ASTNode;
+import AST.nodes.AssignationNode;
+import AST.nodes.BlockNode;
+import AST.nodes.DeclarationNode;
+import AST.nodes.EmptyNode;
+import AST.nodes.IfNode;
+import AST.nodes.LiteralNode;
+import AST.nodes.OperatorNode;
+import AST.nodes.PrintNode;
+import AST.nodes.ReadEnvNode;
+import AST.nodes.ReadInputNode;
+import AST.nodes.ReassignmentNode;
+import AST.nodes.VariableNode;
+import providers.inputprovider.InputProvider;
+import providers.printprovider.PrintProvider;
 import token.TokenType;
-import variableMap.VariableMap;
+import variablemap.VariableMap;
 
 public class InterpreterVisitor implements ASTVisitor<Void> {
   private final VariableMap variableMap;

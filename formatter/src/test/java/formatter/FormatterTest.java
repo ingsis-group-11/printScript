@@ -1,12 +1,12 @@
 package formatter;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import fileReader.FileReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import org.junit.jupiter.api.Test;
-import providers.outputProvider.TestWriter;
+import providers.outputprovider.TestWriter;
 import runner.FormatterRunner;
 
 public class FormatterTest {
@@ -103,6 +103,22 @@ public class FormatterTest {
     FormatterRunner formatterRunner = new FormatterRunner();
     TestWriter testWriter = new TestWriter();
     String expected = fileReader.read("src/test/resources/cases/1.0/spacesInOperatorOutput.txt");
+    formatterRunner.format(
+        new FileInputStream(inputFilePath),
+        new FileInputStream(configPathRules),
+        testWriter,
+        "1.0");
+    assertEquals(expected, testWriter.getOutput());
+  }
+
+  @Test
+  public void testNotAssignedVariable() throws IOException {
+    String inputFilePath = "src/test/resources/cases/1.0/notAssignedVariableInput.txt";
+    String configPathRules = "src/test/resources/config/1.0/allActive.json";
+
+    FormatterRunner formatterRunner = new FormatterRunner();
+    TestWriter testWriter = new TestWriter();
+    String expected = fileReader.read("src/test/resources/cases/1.0/notAssignedVariableOutput.txt");
     formatterRunner.format(
         new FileInputStream(inputFilePath),
         new FileInputStream(configPathRules),

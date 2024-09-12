@@ -3,11 +3,19 @@ package interpreter;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import AST.nodes.*;
+import AST.nodes.ASTNode;
+import AST.nodes.AssignationNode;
+import AST.nodes.DeclarationNode;
+import AST.nodes.EmptyNode;
+import AST.nodes.LiteralNode;
+import AST.nodes.OperatorNode;
+import AST.nodes.PrintNode;
+import AST.nodes.ReassignmentNode;
+import AST.nodes.VariableNode;
 import java.util.Iterator;
 import java.util.List;
 import org.junit.jupiter.api.Test;
-import providers.printProvider.TestPrintProvider;
+import providers.printprovider.TestPrintProvider;
 import token.TokenType;
 import token.ValueToken;
 

@@ -9,7 +9,7 @@ import java.util.List;
 import parser.iterator.AstIterator;
 import providers.inputProvider.InputProvider;
 import providers.observer.Observer;
-import providers.printProvider.PrintProvider;
+import providers.printprovider.PrintProvider;
 
 public class Runner {
   public void run(InputStream inputStream, String version) throws IOException {

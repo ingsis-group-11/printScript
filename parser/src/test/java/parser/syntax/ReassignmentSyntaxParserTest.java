@@ -43,10 +43,10 @@ public class ReassignmentSyntaxParserTest {
 
     // WHEN
     TestTokenIterator tokenIterator = new TestTokenIterator(tokens);
-    Iterator<ASTNode> nodes = new AstIterator(tokenIterator, "1.0");
-    ASTNode firstAST = nodes.next();
-    assertInstanceOf(AssignationNode.class, firstAST);
-    ASTNode secondAST = nodes.next();
-    assertInstanceOf(ReassignmentNode.class, secondAST);
+    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator, "1.0");
+    ASTNode firstAst = nodes.next();
+    assertInstanceOf(AssignationNode.class, firstAst);
+    ASTNode secondAst = nodes.next();
+    assertInstanceOf(ReassignmentNode.class, secondAst);
   }
 }

@@ -3,9 +3,9 @@ package runner;
 import AST.nodes.ASTNode;
 import formatter.FormatterIterator;
 import formatter.rules.Rule;
-import formatter.rulesMap.RulesMap;
-import formatter.rulesMap.RulesMapFactory;
-import formatter.rulesMap.RulesReader;
+import formatter.rulesmap.RulesMap;
+import formatter.rulesmap.RulesMapFactory;
+import formatter.rulesmap.RulesReader;
 import iterator.FileReaderIterator;
 import iterator.TokenIterator;
 import java.io.IOException;
@@ -14,7 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 import parser.iterator.AstIterator;
 import providers.iterator.PrintScriptIterator;
-import providers.outputProvider.OutputProvider;
+import providers.outputprovider.OutputProvider;
 import token.Token;
 
 public class FormatterRunner {
