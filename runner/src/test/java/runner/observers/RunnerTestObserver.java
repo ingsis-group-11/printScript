@@ -1,6 +1,6 @@
 package runner.observers;
 
-import parser.Observer;
+import providers.observer.Observer;
 
 import java.util.ArrayList;
 import java.util.List;

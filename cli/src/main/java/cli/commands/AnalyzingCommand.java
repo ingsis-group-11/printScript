@@ -1,8 +1,8 @@
 package cli.commands;
 
 import cli.ParserObserver;
-import linter.LinterRunner;
-import parser.Observer;
+import runner.LinterRunner;
+import providers.observer.Observer;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 import picocli.CommandLine.Command;

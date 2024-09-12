@@ -1,7 +1,7 @@
 package parser.iterator;
 
 import AST.nodes.ASTNode;
-import parser.Observer;
+import providers.observer.Observer;
 import parser.Parser;
 import providers.iterator.PrintScriptIterator;
 import token.Token;

@@ -1,7 +1,7 @@
 package cli.commands;
 
 import cli.ParserObserver;
-import parser.Observer;
+import providers.observer.Observer;
 import providers.inputProvider.ConsoleInputProvider;
 import providers.printProvider.ConsolePrintProvider;
 import picocli.CommandLine.Command;

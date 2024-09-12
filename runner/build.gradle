@@ -12,6 +12,7 @@ dependencies {
     implementation project(':interpreter')
     implementation project(':filereader')
     implementation project(':providers')
+    implementation project(':linter')
 }
 
 test {

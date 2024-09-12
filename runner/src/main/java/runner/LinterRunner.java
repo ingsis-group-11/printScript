@@ -1,12 +1,14 @@
-package linter;
+package runner;
 
 import AST.nodes.ASTNode;
 import fileReader.FileReaderIterator;
 import iterator.TokenIterator;
+import linter.Linter;
+import linter.RulesReader;
 import linter.rules.Rule;
 import linter.rulesMap.RuleMapFactory;
 import linter.rulesMap.RulesMap;
-import parser.Observer;
+import providers.observer.Observer;
 import parser.iterator.ASTIterator;
 import providers.iterator.PrintScriptIterator;
 import token.Token;

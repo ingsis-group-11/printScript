@@ -1,6 +1,7 @@
 package linter;
 
 import org.junit.jupiter.api.Test;
+import runner.LinterRunner;
 
 import java.io.FileInputStream;
 import java.io.IOException;
