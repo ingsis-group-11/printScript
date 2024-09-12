@@ -1,4 +1,4 @@
-package formatter.nodeformatter;
+package formatter.tokenfactory;
 
 import AST.ASTVisitor;
 import AST.nodes.ASTNode;
@@ -15,30 +15,31 @@ import AST.nodes.ReadInputNode;
 import AST.nodes.ReassignmentNode;
 import AST.nodes.VariableNode;
 import formatter.AstMap;
+import formatter.nodeformatter.NodeFormatter;
 import formatter.rules.Rule;
 import formatter.rules.conditional.IndentationInsideIf;
 import java.util.ArrayList;
 import java.util.List;
 import token.Token;
 import token.TokenType;
-import token.ValueToken;
 
 public class TokenListFactory implements ASTVisitor<List<Token>> {
   private List<Rule> rules;
+  private TokenFactory tokenFactory = new TokenFactory();
 
   @Override
   public List<Token> visit(DeclarationNode node) {
     List<Token> result = new ArrayList<>();
     result.add(node.getDeclarationKeyWord());
     result.add(
-        new ValueToken(
+        tokenFactory.createToken(
             TokenType.WHITESPACE,
             " ",
             node.getDeclarationKeyWord().getColumn() + 1,
             node.getDeclarationKeyWord().getLine()));
     result.add(node.getNameToken());
     result.add(
-        new ValueToken(
+        tokenFactory.createToken(
             TokenType.COLON,
             ":",
             node.getNameToken().getColumn() + 1,
@@ -56,22 +57,29 @@ public class TokenListFactory implements ASTVisitor<List<Token>> {
   public List<Token> visit(PrintNode node) {
     List<Token> result = new ArrayList<>();
     result.add(
-        new ValueToken(TokenType.PRINT_KEYWORD, "println", node.getColumn(), node.getLine()));
-    result.add(new ValueToken(TokenType.PARENTHESIS_OPEN, "(", node.getLine(), node.getColumn()));
-    result.addAll(node.getExpression().accept(this));
-    result.add(new ValueToken(TokenType.PARENTHESIS_CLOSE, ")", node.getLine(), node.getColumn()));
+        tokenFactory.createToken(
+            TokenType.PRINT_KEYWORD, "println", node.getColumn(), node.getLine()));
     result.add(
-        new ValueToken(TokenType.SEMICOLON, ";", node.getExpression().getColumn(), node.getLine()));
+        tokenFactory.createToken(
+            TokenType.PARENTHESIS_OPEN, "(", node.getLine(), node.getColumn()));
+    result.addAll(node.getExpression().accept(this));
+    result.add(
+        tokenFactory.createToken(
+            TokenType.PARENTHESIS_CLOSE, ")", node.getLine(), node.getColumn()));
+    result.add(
+        tokenFactory.createToken(
+            TokenType.SEMICOLON, ";", node.getExpression().getColumn(), node.getLine()));
     return result;
   }
 
   @Override
   public List<Token> visit(AssignationNode node) {
     List<Token> result = new ArrayList<>(node.getDeclaration().accept(this));
-    result.add(new ValueToken(TokenType.ASSIGN, "=", node.getColumn(), node.getLine()));
+    result.add(tokenFactory.createToken(TokenType.ASSIGN, "=", node.getColumn(), node.getLine()));
     result.addAll(node.getExpression().accept(this));
     result.add(
-        new ValueToken(TokenType.SEMICOLON, ";", node.getExpression().getColumn(), node.getLine()));
+        tokenFactory.createToken(
+            TokenType.SEMICOLON, ";", node.getExpression().getColumn(), node.getLine()));
     return result;
   }
 
@@ -79,19 +87,19 @@ public class TokenListFactory implements ASTVisitor<List<Token>> {
   public List<Token> visit(OperatorNode node) {
     List<Token> result = new ArrayList<>(node.getLeftNode().accept(this));
     result.add(
-        new ValueToken(
+        tokenFactory.createToken(
             TokenType.WHITESPACE,
             " ",
             node.getLeftNode().getColumn() + 1,
             node.getLeftNode().getLine()));
     result.add(
-        new ValueToken(
+        tokenFactory.createToken(
             TokenType.OPERATOR,
             node.getOperator(),
             node.getLeftNode().getColumn() + 1,
             node.getLine()));
     result.add(
-        new ValueToken(
+        tokenFactory.createToken(
             TokenType.WHITESPACE,
             " ",
             node.getRightNode().getColumn() + 1,
@@ -109,10 +117,12 @@ public class TokenListFactory implements ASTVisitor<List<Token>> {
   public List<Token> visit(ReassignmentNode node) {
     List<Token> result = new ArrayList<>(node.getVariableNode().accept(this));
     result.add(
-        new ValueToken(TokenType.ASSIGN, "=", node.getVariableNode().getColumn(), node.getLine()));
+        tokenFactory.createToken(
+            TokenType.ASSIGN, "=", node.getVariableNode().getColumn(), node.getLine()));
     result.addAll(node.getExpression().accept(this));
     result.add(
-        new ValueToken(TokenType.SEMICOLON, ";", node.getExpression().getColumn(), node.getLine()));
+        tokenFactory.createToken(
+            TokenType.SEMICOLON, ";", node.getExpression().getColumn(), node.getLine()));
     return result;
   }
 
@@ -120,7 +130,8 @@ public class TokenListFactory implements ASTVisitor<List<Token>> {
   public List<Token> visit(EmptyNode emptyNode) {
     List<Token> result = new ArrayList<>();
     result.add(
-        new ValueToken(TokenType.SEMICOLON, ";", emptyNode.getColumn(), emptyNode.getLine()));
+        tokenFactory.createToken(
+            TokenType.SEMICOLON, ";", emptyNode.getColumn(), emptyNode.getLine()));
     return result;
   }
 
@@ -128,23 +139,23 @@ public class TokenListFactory implements ASTVisitor<List<Token>> {
   public List<Token> visit(ReadInputNode readInputNode) {
     List<Token> result = new ArrayList<>();
     result.add(
-        new ValueToken(
+        tokenFactory.createToken(
             TokenType.READ_INPUT, "readInput", readInputNode.getColumn(), readInputNode.getLine()));
     result.add(
-        new ValueToken(
+        tokenFactory.createToken(
             TokenType.PARENTHESIS_OPEN,
             "(",
             readInputNode.getColumn() + 4,
             readInputNode.getLine()));
     result.addAll(readInputNode.getExpression().accept(this));
     result.add(
-        new ValueToken(
+        tokenFactory.createToken(
             TokenType.PARENTHESIS_CLOSE,
             ")",
             readInputNode.getExpression().getColumn() + 1,
             readInputNode.getLine()));
     result.add(
-        new ValueToken(
+        tokenFactory.createToken(
             TokenType.SEMICOLON,
             ";",
             readInputNode.getExpression().getColumn(),
@@ -156,20 +167,20 @@ public class TokenListFactory implements ASTVisitor<List<Token>> {
   public List<Token> visit(ReadEnvNode readEnvNode) {
     List<Token> result = new ArrayList<>();
     result.add(
-        new ValueToken(
+        tokenFactory.createToken(
             TokenType.READ_ENV, "readEnv", readEnvNode.getColumn(), readEnvNode.getLine()));
     result.add(
-        new ValueToken(
+        tokenFactory.createToken(
             TokenType.PARENTHESIS_OPEN, "(", readEnvNode.getColumn() + 7, readEnvNode.getLine()));
     result.addAll(readEnvNode.getExpression().accept(this));
     result.add(
-        new ValueToken(
+        tokenFactory.createToken(
             TokenType.PARENTHESIS_CLOSE,
             ")",
             readEnvNode.getExpression().getColumn() + 1,
             readEnvNode.getLine()));
     result.add(
-        new ValueToken(
+        tokenFactory.createToken(
             TokenType.SEMICOLON,
             ";",
             readEnvNode.getExpression().getColumn(),
@@ -180,43 +191,48 @@ public class TokenListFactory implements ASTVisitor<List<Token>> {
   @Override
   public List<Token> visit(IfNode ifNode) {
     List<Token> result = new ArrayList<>();
-    result.add(new ValueToken(TokenType.IF_KEYWORD, "if", ifNode.getColumn(), ifNode.getLine()));
-    result.add(new ValueToken(TokenType.WHITESPACE, " ", ifNode.getColumn() + 1, ifNode.getLine()));
     result.add(
-        new ValueToken(TokenType.PARENTHESIS_OPEN, "(", ifNode.getColumn() + 2, ifNode.getLine()));
+        tokenFactory.createToken(TokenType.IF_KEYWORD, "if", ifNode.getColumn(), ifNode.getLine()));
+    result.add(
+        tokenFactory.createToken(
+            TokenType.WHITESPACE, " ", ifNode.getColumn() + 1, ifNode.getLine()));
+    result.add(
+        tokenFactory.createToken(
+            TokenType.PARENTHESIS_OPEN, "(", ifNode.getColumn() + 2, ifNode.getLine()));
     result.addAll(ifNode.getCondition().accept(this));
     result.add(
-        new ValueToken(
+        tokenFactory.createToken(
             TokenType.PARENTHESIS_CLOSE,
             ")",
             ifNode.getCondition().getColumn() + 1,
             ifNode.getLine()));
     result.add(
-        new ValueToken(
+        tokenFactory.createToken(
             TokenType.BRACE_OPEN, "{", ifNode.getCondition().getColumn() + 2, ifNode.getLine()));
     result.add(
-        new ValueToken(TokenType.LINE_BREAK, "\n", ifNode.getColumn() + 1, ifNode.getLine()));
+        tokenFactory.createToken(
+            TokenType.LINE_BREAK, "\n", ifNode.getColumn() + 1, ifNode.getLine()));
     result.addAll(ifNode.getIfBlock().accept(this));
-    result.add(new ValueToken(TokenType.BRACE_CLOSE, "}", 2, ifNode.getLine() + 1));
+    result.add(tokenFactory.createToken(TokenType.BRACE_CLOSE, "}", 2, ifNode.getLine() + 1));
     if (!ifNode.getElseBlock().getStatements().isEmpty()) {
       result.add(
-          new ValueToken(
+          tokenFactory.createToken(
               TokenType.WHITESPACE, " ", ifNode.getIfBlock().getColumn() + 2, ifNode.getLine()));
       result.add(
-          new ValueToken(
+          tokenFactory.createToken(
               TokenType.ELSE_KEYWORD,
               "else",
               ifNode.getIfBlock().getColumn() + 3,
               ifNode.getLine()));
       result.add(
-          new ValueToken(
+          tokenFactory.createToken(
               TokenType.WHITESPACE, " ", ifNode.getIfBlock().getColumn() + 7, ifNode.getLine()));
       result.add(
-          new ValueToken(
+          tokenFactory.createToken(
               TokenType.BRACE_OPEN, "{", ifNode.getIfBlock().getColumn() + 8, ifNode.getLine()));
       result.addAll(ifNode.getElseBlock().accept(this));
       result.add(
-          new ValueToken(
+          tokenFactory.createToken(
               TokenType.BRACE_CLOSE, "}", ifNode.getElseBlock().getColumn() + 1, ifNode.getLine()));
     }
     return result;

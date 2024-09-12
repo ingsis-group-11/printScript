@@ -2,8 +2,8 @@ package formatter;
 
 import AST.nodes.ASTNode;
 import formatter.nodeformatter.NodeFormatter;
-import formatter.nodeformatter.TokenListFactory;
 import formatter.rules.Rule;
+import formatter.tokenfactory.TokenListFactory;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
