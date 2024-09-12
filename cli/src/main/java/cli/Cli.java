@@ -5,13 +5,17 @@ import cli.commands.ExecutionCommand;
 import cli.commands.FormattingCommand;
 import cli.commands.ValidationCommand;
 import picocli.CommandLine;
-import picocli.CommandLine.Option;
 import picocli.CommandLine.Command;
+import picocli.CommandLine.Option;
+
 
 @Command(name = "printScript", mixinStandardHelpOptions = true, version = "printScript 1.0",
         description = "A CLI tool for printScript operations",
-        subcommands = {ValidationCommand.class, ExecutionCommand.class, FormattingCommand.class, AnalyzingCommand.class})
-public class Cli implements Runnable{
+        subcommands = {ValidationCommand.class,
+          ExecutionCommand.class,
+          FormattingCommand.class,
+          AnalyzingCommand.class})
+public class Cli implements Runnable {
   @Option(names = {"-v", "--version"}, description = "Version of the file to interpret")
   private String version = "1.0";
 

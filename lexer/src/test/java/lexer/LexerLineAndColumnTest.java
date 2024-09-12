@@ -72,7 +72,7 @@ public class LexerLineAndColumnTest {
     assertEquals(token.getLine(), 1);
     assertEquals(token.getColumn(), 1);
 
-    jumpNLines(tokenIterator, 5);
+    jumpLines(tokenIterator, 5);
 
     token = tokenIterator.next();
     assertEquals(token.getType(), TokenType.LINE_BREAK);
@@ -170,7 +170,7 @@ public class LexerLineAndColumnTest {
     FileReaderIterator fileReaderIterator = new FileReaderIterator(new FileInputStream(filePath));
     TokenIterator tokenIterator = new TokenIterator(fileReaderIterator, "1.1");
 
-    jumpNLines(tokenIterator, 9);
+    jumpLines(tokenIterator, 9);
 
     Token token = tokenIterator.current();
     assertEquals(token.getType(), TokenType.READ_INPUT);
@@ -208,7 +208,7 @@ public class LexerLineAndColumnTest {
     assertEquals(token.getColumn(), 41);
   }
 
-  private void jumpNLines(TokenIterator tokenIterator, int n) {
+  private void jumpLines(TokenIterator tokenIterator, int n) {
     for (int i = 0; i < n; i++) {
       tokenIterator.next();
     }
