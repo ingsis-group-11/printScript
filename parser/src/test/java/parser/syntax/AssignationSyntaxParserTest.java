@@ -34,7 +34,7 @@ public class AssignationSyntaxParserTest {
 
     // WHEN
     TestTokenIterator tokenIterator = new TestTokenIterator(tokens);
-    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator, "1.0");
+    Iterator<ASTNode> nodes = new AstIterator(tokenIterator, "1.0");
     ASTNode firstAst = nodes.next();
     assertInstanceOf(AssignationNode.class, firstAst);
     assertEquals("John", ((LiteralNode) ((AssignationNode) firstAst).getExpression()).getValue());
@@ -60,7 +60,7 @@ public class AssignationSyntaxParserTest {
 
     // WHEN
     TestTokenIterator tokenIterator = new TestTokenIterator(tokens);
-    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator, "1.0");
+    Iterator<ASTNode> nodes = new AstIterator(tokenIterator, "1.0");
     ASTNode firstAst = nodes.next();
     assertInstanceOf(AssignationNode.class, firstAst);
     assertEquals("25", ((LiteralNode) ((AssignationNode) firstAst).getExpression()).getValue());
@@ -91,7 +91,7 @@ public class AssignationSyntaxParserTest {
 
     // WHEN
     TestTokenIterator tokenIterator = new TestTokenIterator(tokens);
-    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator, "1.0");
+    Iterator<ASTNode> nodes = new AstIterator(tokenIterator, "1.0");
     ASTNode firstAst = nodes.next();
     assertInstanceOf(AssignationNode.class, firstAst);
     assertEquals("+", ((OperatorNode) ((AssignationNode) firstAst).getExpression()).getOperator());
@@ -119,7 +119,7 @@ public class AssignationSyntaxParserTest {
 
     // WHEN
     TestTokenIterator tokenIterator = new TestTokenIterator(tokens);
-    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator, "1.1");
+    Iterator<ASTNode> nodes = new AstIterator(tokenIterator, "1.1");
     ASTNode firstAst = nodes.next();
     assertInstanceOf(AssignationNode.class, firstAst);
     assertEquals("Olive", ((LiteralNode) ((AssignationNode) firstAst).getExpression()).getValue());

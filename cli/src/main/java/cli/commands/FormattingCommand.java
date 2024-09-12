@@ -4,7 +4,7 @@ import java.io.FileInputStream;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
-import providers.outputProvider.FileWriter;
+import providers.outputprovider.FileWriter;
 import runner.FormatterRunner;
 
 @Command(name = "format", description = "Format a printScript file using a config file")

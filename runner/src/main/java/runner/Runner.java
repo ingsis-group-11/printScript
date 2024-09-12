@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import parser.iterator.AstIterator;
-import providers.inputProvider.InputProvider;
+import providers.inputprovider.InputProvider;
 import providers.observer.Observer;
 import providers.printprovider.PrintProvider;
 

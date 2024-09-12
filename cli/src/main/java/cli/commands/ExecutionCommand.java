@@ -6,9 +6,11 @@ import java.util.List;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
-import providers.inputProvider.ConsoleInputProvider;
+
+import providers.inputprovider.ConsoleInputProvider;
 import providers.observer.Observer;
-import providers.printProvider.ConsolePrintProvider;
+
+import providers.printprovider.ConsolePrintProvider;
 import runner.Runner;
 
 @Command(name = "execute", description = "Executes a printScript file")
