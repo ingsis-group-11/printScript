@@ -2,7 +2,6 @@ package AST.nodes;
 
 import AST.ASTVisitor;
 
-
 public class IfNode implements ASTNode {
   private final ASTNode condition;
   private final BlockNode ifBlock;
@@ -10,7 +9,8 @@ public class IfNode implements ASTNode {
   private final Integer line;
   private final Integer column;
 
-  public IfNode(ASTNode condition, BlockNode ifBlock, BlockNode elseBlock, Integer line, Integer column) {
+  public IfNode(
+      ASTNode condition, BlockNode ifBlock, BlockNode elseBlock, Integer line, Integer column) {
     this.condition = condition;
     this.ifBlock = ifBlock;
     this.elseBlock = elseBlock;

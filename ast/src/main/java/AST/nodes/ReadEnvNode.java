@@ -2,7 +2,7 @@ package AST.nodes;
 
 import AST.ASTVisitor;
 
-public class ReadEnvNode implements ASTNode{
+public class ReadEnvNode implements ASTNode {
   private final Integer line;
   private final Integer column;
   private final ASTNode expression;

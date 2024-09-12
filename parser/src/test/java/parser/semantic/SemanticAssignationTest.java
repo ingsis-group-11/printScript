@@ -1,97 +1,97 @@
 package parser.semantic;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import AST.nodes.*;
 import org.junit.jupiter.api.Test;
 import parser.semantic.result.SemanticResult;
 import token.TokenType;
 import token.ValueToken;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 public class SemanticAssignationTest {
   @Test
-  public void validStringAssignationTest(){
+  public void validStringAssignationTest() {
     ASTNode assignmentNode =
-          new AssignationNode(
-                  new DeclarationNode(
-                          new ValueToken(TokenType.STRING_TYPE, "string", 10, 0),
-                          new ValueToken(TokenType.IDENTIFIER, "name", 4, 0),
-                          new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
-                          1,
-                          0),
-                  new LiteralNode(new ValueToken(TokenType.STRING, "Olive", 19, 0)),
-                  1,
-                  1);
+        new AssignationNode(
+            new DeclarationNode(
+                new ValueToken(TokenType.STRING_TYPE, "string", 10, 0),
+                new ValueToken(TokenType.IDENTIFIER, "name", 4, 0),
+                new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                1,
+                0),
+            new LiteralNode(new ValueToken(TokenType.STRING, "Olive", 19, 0)),
+            1,
+            1);
     SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
     SemanticResult semanticError = semanticAnalyzer.analyze(assignmentNode);
     assertFalse(semanticError.hasErrors());
   }
 
   @Test
-  public void validNumberAssignationTest(){
+  public void validNumberAssignationTest() {
     ASTNode assignmentNode =
-            new AssignationNode(
-                    new DeclarationNode(
-                            new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 0),
-                            new ValueToken(TokenType.IDENTIFIER, "num", 4, 0),
-                            new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
-                            1,
-                            0),
-                    new LiteralNode(new ValueToken(TokenType.NUMBER, "10", 19, 0)),
-                    1,
-                    1);
+        new AssignationNode(
+            new DeclarationNode(
+                new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 0),
+                new ValueToken(TokenType.IDENTIFIER, "num", 4, 0),
+                new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                1,
+                0),
+            new LiteralNode(new ValueToken(TokenType.NUMBER, "10", 19, 0)),
+            1,
+            1);
     SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
     SemanticResult semanticError = semanticAnalyzer.analyze(assignmentNode);
     assertFalse(semanticError.hasErrors());
   }
 
   @Test
-  public void invalidStringAssignationTest(){
+  public void invalidStringAssignationTest() {
     ASTNode assignmentNode =
-            new AssignationNode(
-                    new DeclarationNode(
-                            new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 0),
-                            new ValueToken(TokenType.IDENTIFIER, "name", 4, 0),
-                            new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
-                            1,
-                            0),
-                    new LiteralNode(new ValueToken(TokenType.STRING, "Olive", 19, 0)),
-                    1,
-                    1);
+        new AssignationNode(
+            new DeclarationNode(
+                new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 0),
+                new ValueToken(TokenType.IDENTIFIER, "name", 4, 0),
+                new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                1,
+                0),
+            new LiteralNode(new ValueToken(TokenType.STRING, "Olive", 19, 0)),
+            1,
+            1);
     SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
     assertThrows(RuntimeException.class, () -> semanticAnalyzer.analyze(assignmentNode));
   }
 
   @Test
-  public void invalidNumberAssignationTest(){
+  public void invalidNumberAssignationTest() {
     ASTNode assignmentNode =
-            new AssignationNode(
-                    new DeclarationNode(
-                            new ValueToken(TokenType.STRING_TYPE, "string", 10, 0),
-                            new ValueToken(TokenType.IDENTIFIER, "num", 4, 0),
-                            new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
-                            1,
-                            0),
-                    new LiteralNode(new ValueToken(TokenType.NUMBER, "10", 19, 0)),
-                    1,
-                    1);
+        new AssignationNode(
+            new DeclarationNode(
+                new ValueToken(TokenType.STRING_TYPE, "string", 10, 0),
+                new ValueToken(TokenType.IDENTIFIER, "num", 4, 0),
+                new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                1,
+                0),
+            new LiteralNode(new ValueToken(TokenType.NUMBER, "10", 19, 0)),
+            1,
+            1);
     SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
     assertThrows(RuntimeException.class, () -> semanticAnalyzer.analyze(assignmentNode));
   }
 
   @Test
-  public void validVariableAssignationTest(){
+  public void validVariableAssignationTest() {
     ASTNode assignmentNode =
-            new AssignationNode(
-                    new DeclarationNode(
-                            new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 0),
-                            new ValueToken(TokenType.IDENTIFIER, "name", 4, 0),
-                            new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
-                            1,
-                            0),
-                    new LiteralNode(new ValueToken(TokenType.IDENTIFIER, "a", 19, 0)),
-                    1,
-                    1);
+        new AssignationNode(
+            new DeclarationNode(
+                new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 0),
+                new ValueToken(TokenType.IDENTIFIER, "name", 4, 0),
+                new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                1,
+                0),
+            new LiteralNode(new ValueToken(TokenType.IDENTIFIER, "a", 19, 0)),
+            1,
+            1);
     SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
     SemanticResult semanticError = semanticAnalyzer.analyze(assignmentNode);
     assertFalse(semanticError.hasErrors());

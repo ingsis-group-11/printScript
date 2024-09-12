@@ -1,9 +1,8 @@
 package formatter.rules;
 
+import java.util.List;
 import token.Token;
 import token.TokenType;
-
-import java.util.List;
 
 public class TokenIndex {
   public int getIndex(List<Token> tokens, TokenType type) {

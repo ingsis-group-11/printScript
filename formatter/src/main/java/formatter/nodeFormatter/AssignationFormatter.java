@@ -3,9 +3,8 @@ package formatter.nodeFormatter;
 import formatter.rules.Rule;
 import formatter.rules.alwaysActive.AlwaysActiveRules;
 import formatter.rules.assignation.AssignationRule;
-import token.Token;
-
 import java.util.List;
+import token.Token;
 
 public class AssignationFormatter implements NodeFormatter {
   @Override

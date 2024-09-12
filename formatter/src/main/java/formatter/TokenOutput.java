@@ -1,8 +1,7 @@
 package formatter;
 
-import token.Token;
-
 import java.util.List;
+import token.Token;
 
 public class TokenOutput {
   public String toString(List<Token> tokens) {

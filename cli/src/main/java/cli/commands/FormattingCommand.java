@@ -1,7 +1,7 @@
 package cli.commands;
 
-import fileWriter.FileWriter;
-import formatter.FormatterRunner;
+import providers.outputProvider.FileWriter;
+import runner.FormatterRunner;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Parameters;

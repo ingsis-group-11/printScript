@@ -1,27 +1,27 @@
 package parser.iterator;
 
 import AST.nodes.ASTNode;
-import parser.Observer;
-import parser.Parser;
-import providers.iterator.PrintScriptIterator;
-import token.Token;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
+import parser.Parser;
+import providers.iterator.PrintScriptIterator;
+import providers.observer.Observer;
+import token.Token;
 
 public class ASTIterator implements Iterator<ASTNode> {
   private final Parser parser;
   private final PrintScriptIterator<Token> iterator;
   private List<Observer> observers = new ArrayList<>();
 
-  public ASTIterator (PrintScriptIterator<Token> iterator, String version){
+  public ASTIterator(PrintScriptIterator<Token> iterator, String version) {
     this.parser = new Parser(version);
     this.iterator = iterator;
   }
 
-  public ASTIterator (PrintScriptIterator<Token> iterator, String version, List<Observer> observers){
+  public ASTIterator(
+      PrintScriptIterator<Token> iterator, String version, List<Observer> observers) {
     this.parser = new Parser(version);
     this.iterator = iterator;
     this.observers = observers;
@@ -33,7 +33,7 @@ public class ASTIterator implements Iterator<ASTNode> {
 
   public void notifyObservers() {
     for (Observer observer : observers) {
-      observer.update(".");
+      observer.update(" █ ");
     }
   }
 
@@ -44,7 +44,7 @@ public class ASTIterator implements Iterator<ASTNode> {
 
   @Override
   public ASTNode next() {
-    if(!hasNext()){
+    if (!hasNext()) {
       throw new NoSuchElementException("No more tokens to parse");
     }
     this.notifyObservers();

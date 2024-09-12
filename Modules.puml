@@ -1,0 +1,64 @@
+@startuml
+
+' Define the components
+component Token
+component FileReader
+component Providers
+
+component AST {
+    [AST] --> Token
+}
+
+component Parser {
+    [Parser] --> Token
+    [Parser] --> AST
+    [Parser] --> Providers
+}
+
+component Lexer {
+    [Lexer] --> Token
+    [Lexer] --> Providers
+}
+
+component Formatter {
+    [Formatter] --> Token
+    [Formatter] --> AST
+    [Formatter] --> FileReader
+    [Formatter] --> Providers
+}
+
+component Interpreter {
+    [Interpreter] --> AST
+    [Interpreter] --> Token
+    [Interpreter] --> Providers
+}
+
+component Linter {
+    [Linter] --> Token
+    [Linter] --> AST
+    [Linter] --> FileReader
+    [Linter] --> Providers
+}
+
+component Runner {
+    [Runner] --> Token
+    [Runner] --> AST
+    [Runner] --> Lexer
+    [Runner] --> Parser
+    [Runner] --> Interpreter
+    [Runner] --> Formatter
+    [Runner] --> FileReader
+    [Runner] --> Providers
+    [Runner] --> Linter
+}
+
+component CLI {
+    [CLI] --> Runner
+    [CLI] --> Providers
+}
+
+' Organize the layout
+left to right direction
+top to bottom direction
+
+@enduml

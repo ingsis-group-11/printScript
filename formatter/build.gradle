@@ -10,6 +10,5 @@ dependencies {
     implementation project(':ast')
     implementation project(':filereader')
     implementation project(':providers')
-    implementation project(':lexer')
-    implementation project(':parser')
+    testImplementation project(':runner')
 }

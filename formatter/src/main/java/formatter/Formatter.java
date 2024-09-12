@@ -1,14 +1,13 @@
 package formatter;
 
 import AST.nodes.ASTNode;
+import formatter.nodeFormatter.NodeFormatter;
 import formatter.nodeFormatter.TokenListFactory;
 import formatter.rules.Rule;
-import formatter.nodeFormatter.NodeFormatter;
-import token.Token;
-
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
+import token.Token;
 
 public class Formatter {
   TokenOutput tokenOutput = new TokenOutput();
@@ -23,8 +22,7 @@ public class Formatter {
     if (nodeMap.containsNode(node)) {
       NodeFormatter tokenFormatter = nodeMap.getNodeFormatter(node);
       return tokenOutput.toString(tokenFormatter.formatToken(tokens, rules));
-    }
-    else {
+    } else {
       return tokenOutput.toString(tokens);
     }
   }

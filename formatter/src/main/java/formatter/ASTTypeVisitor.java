@@ -3,7 +3,7 @@ package formatter;
 import AST.nodes.*;
 import formatter.nodeFormatter.ASTTypes;
 
-public class ASTTypeVisitor{
+public class ASTTypeVisitor {
 
   public ASTTypes getType(ASTNode node) {
     if (node instanceof AssignationNode) {
@@ -17,6 +17,12 @@ public class ASTTypeVisitor{
     }
     if (node instanceof IfNode) {
       return ASTTypes.IF_NODE;
+    }
+    if (node instanceof ReadInputNode) {
+      return ASTTypes.READ_INPUT_NODE;
+    }
+    if (node instanceof ReadEnvNode) {
+      return ASTTypes.READ_ENV_NODE;
     }
     return null;
   }

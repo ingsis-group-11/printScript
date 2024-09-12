@@ -10,8 +10,7 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
     implementation project(':ast')
     implementation project(':token')
-    implementation project(':filereader')
-    implementation project(':lexer')
-    implementation project(':parser')
     implementation project(':providers')
+    implementation project(':filereader')
+    testImplementation project(':runner')
 }

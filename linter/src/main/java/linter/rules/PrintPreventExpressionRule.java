@@ -3,13 +3,12 @@ package linter.rules;
 import AST.nodes.ASTNode;
 import AST.nodes.OperatorNode;
 import AST.nodes.PrintNode;
-import linter.result.FailedLinterResult;
-import linter.result.LinterResult;
-import linter.result.SuccessLinterResult;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import linter.result.FailedLinterResult;
+import linter.result.LinterResult;
+import linter.result.SuccessLinterResult;
 
 public class PrintPreventExpressionRule implements Rule {
   private String value;
@@ -21,11 +20,11 @@ public class PrintPreventExpressionRule implements Rule {
 
   @Override
   public LinterResult lint(ASTNode node) {
-    if(Objects.equals(value, "false")){
+    if (Objects.equals(value, "false")) {
       return new SuccessLinterResult();
     }
     List<String> errors = new ArrayList<>();
-    if (node instanceof PrintNode printNode){
+    if (node instanceof PrintNode printNode) {
       ASTNode expression = printNode.getExpression();
       if (expression instanceof OperatorNode) {
         int line = printNode.getLine();
@@ -36,5 +35,4 @@ public class PrintPreventExpressionRule implements Rule {
 
     return errors.isEmpty() ? new SuccessLinterResult() : new FailedLinterResult(errors);
   }
-
 }

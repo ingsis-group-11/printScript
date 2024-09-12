@@ -1,12 +1,11 @@
 package linter;
 
 import AST.nodes.ASTNode;
+import java.util.ArrayList;
+import java.util.List;
 import linter.result.FailedLinterResult;
 import linter.result.LinterResult;
 import linter.rules.Rule;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Linter {
   public void lint(ASTNode node, List<Rule> rules) {
@@ -17,7 +16,7 @@ public class Linter {
     List<String> errors = new ArrayList<>();
     for (Rule rule : rules) {
       LinterResult result = rule.lint(node);
-      if(result.hasErrors()) {
+      if (result.hasErrors()) {
         errors.addAll(((FailedLinterResult) result).getErrors());
       }
     }
@@ -25,10 +24,10 @@ public class Linter {
   }
 
   private void resolveErrors(List<String> errors) {
-    if(!errors.isEmpty()){
+    if (!errors.isEmpty()) {
       String messages = "";
       for (String message : errors) {
-        messages+=message+"\n";
+        messages += message + "\n";
       }
       throw new RuntimeException(messages);
     }

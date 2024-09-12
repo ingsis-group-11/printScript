@@ -2,7 +2,6 @@ package formatter;
 
 import AST.nodes.ASTNode;
 import formatter.nodeFormatter.*;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,6 +13,8 @@ public class ASTMap {
     ASTMap.put(ASTTypes.REASSIGNMENT_NODE, new AssignationFormatter());
     ASTMap.put(ASTTypes.PRINT_NODE, new PrintFormatter());
     ASTMap.put(ASTTypes.IF_NODE, new IfFormatter());
+    ASTMap.put(ASTTypes.READ_INPUT_NODE, new ReadFormatter());
+    ASTMap.put(ASTTypes.READ_ENV_NODE, new ReadFormatter());
   }
 
   public NodeFormatter getNodeFormatter(ASTNode node) {
@@ -32,5 +33,3 @@ public class ASTMap {
     return ASTMap.containsKey(type);
   }
 }
-
-

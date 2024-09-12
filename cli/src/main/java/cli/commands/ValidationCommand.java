@@ -1,17 +1,12 @@
 package cli.commands;
 
 import cli.ParserObserver;
-import fileReader.FileReaderIterator;
-import iterator.TokenIterator;
-import parser.iterator.ASTIterator;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Parameters;
-import providers.iterator.PrintScriptIterator;
-import token.Token;
+import runner.ValidationRunner;
 
 import java.io.FileInputStream;
-import java.util.Iterator;
 
 @Command(name = "validate", description = "Validates the semantic and syntax errors in a printScript file")
 public class ValidationCommand implements Runnable {
@@ -27,13 +22,8 @@ public class ValidationCommand implements Runnable {
     System.out.println("Validating file...");
     try {
       ParserObserver parserObserver = new ParserObserver();
-      FileReaderIterator fileIterator = new FileReaderIterator(new FileInputStream(sourceFile));
-      PrintScriptIterator<Token> tokens = new TokenIterator(fileIterator, version);
-      ASTIterator nodes = new ASTIterator(tokens, version);
-      nodes.addObserver(parserObserver);
-      while (nodes.hasNext()){
-        nodes.next();
-      }
+      ValidationRunner validationRunner = new ValidationRunner();
+      validationRunner.validate(new FileInputStream(sourceFile), version, parserObserver);
       System.out.println("\nFile has no semantic or syntax errors :)");
     } catch (Exception e) {
       System.err.print(e.getMessage());

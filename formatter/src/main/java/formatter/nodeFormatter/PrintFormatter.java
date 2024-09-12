@@ -1,11 +1,10 @@
 package formatter.nodeFormatter;
 
+import formatter.rules.Rule;
 import formatter.rules.alwaysActive.AlwaysActiveRules;
 import formatter.rules.print.PrintRule;
-import formatter.rules.Rule;
-import token.Token;
-
 import java.util.List;
+import token.Token;
 
 public class PrintFormatter implements NodeFormatter {
   @Override

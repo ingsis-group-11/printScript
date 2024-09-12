@@ -1,11 +1,10 @@
 package parser.syntax.factory;
 
+import java.util.Map;
 import parser.syntax.handler.PrimaryExpressionHandler;
 import parser.syntax.map.ExpressionHandlerMap1_0;
 import parser.syntax.map.ExpressionHandlerMap1_1;
 import token.TokenType;
-
-import java.util.Map;
 
 public class ExpressionHandlerMapFactory {
   public static Map<TokenType, PrimaryExpressionHandler> getHandlerMap(String version) {

@@ -1,15 +1,14 @@
 package parser.semantic;
 
-import token.TokenType;
-
 import java.util.HashMap;
 import java.util.Map;
+import token.TokenType;
 
 public class VariableTokenMap {
 
   private final Map<TokenType, TokenType> variableTokenMap = new HashMap<>();
 
-  public VariableTokenMap () {
+  public VariableTokenMap() {
     variableTokenMap.put(TokenType.NUMBER_TYPE, TokenType.NUMBER);
     variableTokenMap.put(TokenType.STRING_TYPE, TokenType.STRING);
     variableTokenMap.put(TokenType.BOOLEAN_TYPE, TokenType.BOOLEAN);

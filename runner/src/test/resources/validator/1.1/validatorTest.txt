@@ -1,0 +1,8 @@
+if (true) {
+    let nestedIf: boolean = true;
+    if (nestedIf) {
+        println("nested if working correctly");
+    } else {
+        println("nested else not working correctly");
+    }
+}

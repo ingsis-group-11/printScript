@@ -5,7 +5,7 @@ import parser.syntax.parsers.ReadEnvSyntaxParser;
 import parser.syntax.parsers.SyntaxParser;
 import token.TokenType;
 
-public class ReadEnvSyntaxParserProvider implements SyntaxParserProvider{
+public class ReadEnvSyntaxParserProvider implements SyntaxParserProvider {
   @Override
   public boolean supports(TokenStream tokens) {
     return tokens.getCurrentToken().getType() == TokenType.READ_ENV;

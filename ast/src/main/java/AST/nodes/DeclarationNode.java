@@ -10,7 +10,8 @@ public class DeclarationNode implements ASTNode {
   private final Integer line;
   private final Integer column;
 
-  public DeclarationNode(Token type, Token name, Token declarationKeyWord, Integer line, Integer column) {
+  public DeclarationNode(
+      Token type, Token name, Token declarationKeyWord, Integer line, Integer column) {
     this.type = type;
     this.name = name;
     this.declarationKeyWord = declarationKeyWord;

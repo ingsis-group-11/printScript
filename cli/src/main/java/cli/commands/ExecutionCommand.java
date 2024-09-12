@@ -1,7 +1,7 @@
 package cli.commands;
 
 import cli.ParserObserver;
-import parser.Observer;
+import providers.observer.Observer;
 import providers.inputProvider.ConsoleInputProvider;
 import providers.printProvider.ConsolePrintProvider;
 import picocli.CommandLine.Command;
@@ -30,6 +30,7 @@ public class ExecutionCommand implements Runnable {
       Runner runner = new Runner();
       runner.run(new FileInputStream(sourceFile),version, printProvider, consoleInputProvider, parserObservers);
       System.out.println();
+      printProvider.printMessages();
     } catch (Exception e) {
       System.err.print(e.getMessage());
       System.exit(1);
