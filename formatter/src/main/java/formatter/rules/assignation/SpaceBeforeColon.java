@@ -24,6 +24,9 @@ public class SpaceBeforeColon implements AssignationRule {
     }
     List<Token> result = new ArrayList<>(tokens);
     int colonIndex = tokenIndex.getIndex(tokens, TokenType.COLON);
+    if (colonIndex == -1) {
+      return result;
+    }
     result.add(
         colonIndex,
         new ValueToken(
