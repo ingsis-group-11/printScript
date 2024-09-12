@@ -12,7 +12,7 @@ import linter.RulesReader;
 import linter.rules.Rule;
 import linter.rulesMap.RuleMapFactory;
 import linter.rulesMap.RulesMap;
-import parser.iterator.ASTIterator;
+import parser.iterator.AstIterator;
 import providers.iterator.PrintScriptIterator;
 import providers.observer.Observer;
 import token.Token;
@@ -23,7 +23,7 @@ public class LinterRunner {
       throws IOException {
     FileReaderIterator fileIterator = new FileReaderIterator(input);
     PrintScriptIterator<Token> tokens = new TokenIterator(fileIterator, version);
-    Iterator<ASTNode> nodes = new ASTIterator(tokens, version);
+    Iterator<ASTNode> nodes = new AstIterator(tokens, version);
     run(configRules, version, nodes);
   }
 
@@ -32,7 +32,7 @@ public class LinterRunner {
       throws IOException {
     FileReaderIterator fileIterator = new FileReaderIterator(input);
     PrintScriptIterator<Token> tokens = new TokenIterator(fileIterator, version);
-    Iterator<ASTNode> nodes = new ASTIterator(tokens, version, observers);
+    Iterator<ASTNode> nodes = new AstIterator(tokens, version, observers);
     run(configRules, version, nodes);
   }
 

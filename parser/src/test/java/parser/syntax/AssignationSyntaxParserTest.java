@@ -6,7 +6,7 @@ import AST.nodes.*;
 import java.util.Iterator;
 import java.util.List;
 import org.junit.jupiter.api.Test;
-import parser.iterator.ASTIterator;
+import parser.iterator.AstIterator;
 import parser.iterator.TestTokenIterator;
 import token.Token;
 import token.TokenType;
@@ -30,7 +30,7 @@ public class AssignationSyntaxParserTest {
 
     // WHEN
     TestTokenIterator tokenIterator = new TestTokenIterator(tokens);
-    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator, "1.0");
+    Iterator<ASTNode> nodes = new AstIterator(tokenIterator, "1.0");
     ASTNode firstAST = nodes.next();
     assertInstanceOf(AssignationNode.class, firstAST);
     assertEquals("John", ((LiteralNode) ((AssignationNode) firstAST).getExpression()).getValue());
@@ -56,7 +56,7 @@ public class AssignationSyntaxParserTest {
 
     // WHEN
     TestTokenIterator tokenIterator = new TestTokenIterator(tokens);
-    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator, "1.0");
+    Iterator<ASTNode> nodes = new AstIterator(tokenIterator, "1.0");
     ASTNode firstAST = nodes.next();
     assertInstanceOf(AssignationNode.class, firstAST);
     assertEquals("25", ((LiteralNode) ((AssignationNode) firstAST).getExpression()).getValue());
@@ -87,7 +87,7 @@ public class AssignationSyntaxParserTest {
 
     // WHEN
     TestTokenIterator tokenIterator = new TestTokenIterator(tokens);
-    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator, "1.0");
+    Iterator<ASTNode> nodes = new AstIterator(tokenIterator, "1.0");
     ASTNode firstAST = nodes.next();
     assertInstanceOf(AssignationNode.class, firstAST);
     assertEquals("+", ((OperatorNode) ((AssignationNode) firstAST).getExpression()).getOperator());
@@ -115,7 +115,7 @@ public class AssignationSyntaxParserTest {
 
     // WHEN
     TestTokenIterator tokenIterator = new TestTokenIterator(tokens);
-    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator, "1.1");
+    Iterator<ASTNode> nodes = new AstIterator(tokenIterator, "1.1");
     ASTNode firstAST = nodes.next();
     assertInstanceOf(AssignationNode.class, firstAST);
     assertEquals("Olive", ((LiteralNode) ((AssignationNode) firstAST).getExpression()).getValue());

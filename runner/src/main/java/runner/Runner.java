@@ -6,7 +6,7 @@ import iterator.TokenIterator;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import parser.iterator.ASTIterator;
+import parser.iterator.AstIterator;
 import providers.inputProvider.InputProvider;
 import providers.observer.Observer;
 import providers.printProvider.PrintProvider;
@@ -15,7 +15,7 @@ public class Runner {
   public void run(InputStream inputStream, String version) throws IOException {
     FileReaderIterator fileIterator = new FileReaderIterator(inputStream);
     TokenIterator tokens = new TokenIterator(fileIterator, version);
-    ASTIterator ASTNodes = new ASTIterator(tokens, version);
+    AstIterator ASTNodes = new AstIterator(tokens, version);
     new Interpreter().interpret(ASTNodes);
   }
 
@@ -24,7 +24,7 @@ public class Runner {
       throws IOException {
     FileReaderIterator fileIterator = new FileReaderIterator(inputStream);
     TokenIterator tokens = new TokenIterator(fileIterator, version);
-    ASTIterator ASTNodes = new ASTIterator(tokens, version);
+    AstIterator ASTNodes = new AstIterator(tokens, version);
     new Interpreter(printProvider).interpret(ASTNodes);
   }
 
@@ -33,7 +33,7 @@ public class Runner {
       throws IOException {
     FileReaderIterator fileIterator = new FileReaderIterator(inputStream);
     TokenIterator tokens = new TokenIterator(fileIterator, version);
-    ASTIterator ASTNodes = new ASTIterator(tokens, version);
+    AstIterator ASTNodes = new AstIterator(tokens, version);
     new Interpreter(inputProvider).interpret(ASTNodes);
   }
 
@@ -46,7 +46,7 @@ public class Runner {
       throws IOException {
     FileReaderIterator fileIterator = new FileReaderIterator(inputStream);
     TokenIterator tokens = new TokenIterator(fileIterator, version);
-    ASTIterator ASTNodes = new ASTIterator(tokens, version);
+    AstIterator ASTNodes = new AstIterator(tokens, version);
     new Interpreter(inputProvider, printProvider).interpret(ASTNodes);
   }
 
@@ -60,7 +60,7 @@ public class Runner {
       throws IOException {
     FileReaderIterator fileIterator = new FileReaderIterator(inputStream);
     TokenIterator tokens = new TokenIterator(fileIterator, version);
-    ASTIterator ASTNodes = new ASTIterator(tokens, version, observers);
+    AstIterator ASTNodes = new AstIterator(tokens, version, observers);
     new Interpreter(inputProvider, printProvider).interpret(ASTNodes);
   }
 }
