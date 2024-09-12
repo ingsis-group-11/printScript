@@ -47,7 +47,8 @@ public class ReadInputTests {
     String configFilePath =
         "src/test/resources/linter/config/1.1/configReadInputActiveAndCamelCaseActive.json";
     String filePath =
-        "src/test/resources/linter/printScript/1.1/readInputActiveAndCamelCaseActiveSuccessTest.txt";
+        "src/test/resources/linter/printScript/1.1/"
+            + "readInputActiveAndCamelCaseActiveSuccessTest.txt";
 
     LinterRunner linterRunner = new LinterRunner();
     linterRunner.linterRun(

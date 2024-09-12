@@ -9,7 +9,7 @@ import java.util.Set;
 import parser.syntax.TokenStream;
 import parser.syntax.factory.ExpressionFactory;
 import parser.syntax.factory.SyntaxParserFactory;
-import parser.syntax.provider.ProviderType1_1;
+import parser.syntax.provider.ProviderTypeV2;
 import token.TokenType;
 
 public class IfSyntaxParser implements SyntaxParser {
@@ -71,7 +71,7 @@ public class IfSyntaxParser implements SyntaxParser {
   private BlockNode parseBlock(TokenStream tokens, String version) {
     List<ASTNode> block = new ArrayList<>();
     SyntaxParserFactory syntaxParserFactory =
-        new SyntaxParserFactory(Set.of(ProviderType1_1.values()));
+        new SyntaxParserFactory(Set.of(ProviderTypeV2.values()));
     while (tokens.getCurrentToken().getType() != TokenType.BRACE_CLOSE) {
       SyntaxParser parser = syntaxParserFactory.getSyntaxParser(tokens);
       ASTNode result = parser.syntaxParse(tokens, version);

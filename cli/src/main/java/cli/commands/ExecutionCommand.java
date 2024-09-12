@@ -2,8 +2,8 @@ package cli.commands;
 
 import cli.ParserObserver;
 import providers.observer.Observer;
-import providers.inputProvider.ConsoleInputProvider;
-import providers.printProvider.ConsolePrintProvider;
+import providers.inputprovider.ConsoleInputProvider;
+import providers.printprovider.ConsolePrintProvider;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;

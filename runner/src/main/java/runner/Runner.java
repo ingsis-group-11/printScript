@@ -7,16 +7,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import parser.iterator.ASTIterator;
-import providers.inputProvider.InputProvider;
+import providers.inputprovider.InputProvider;
 import providers.observer.Observer;
-import providers.printProvider.PrintProvider;
+import providers.printprovider.PrintProvider;
 
 public class Runner {
   public void run(InputStream inputStream, String version) throws IOException {
     FileReaderIterator fileIterator = new FileReaderIterator(inputStream);
     TokenIterator tokens = new TokenIterator(fileIterator, version);
-    ASTIterator ASTNodes = new ASTIterator(tokens, version);
-    new Interpreter().interpret(ASTNodes);
+    ASTIterator astNodes = new ASTIterator(tokens, version);
+    new Interpreter().interpret(astNodes);
   }
 
   // When you use printProvider
@@ -24,8 +24,8 @@ public class Runner {
       throws IOException {
     FileReaderIterator fileIterator = new FileReaderIterator(inputStream);
     TokenIterator tokens = new TokenIterator(fileIterator, version);
-    ASTIterator ASTNodes = new ASTIterator(tokens, version);
-    new Interpreter(printProvider).interpret(ASTNodes);
+    ASTIterator astNodes = new ASTIterator(tokens, version);
+    new Interpreter(printProvider).interpret(astNodes);
   }
 
   // When you use inputProvider
@@ -33,8 +33,8 @@ public class Runner {
       throws IOException {
     FileReaderIterator fileIterator = new FileReaderIterator(inputStream);
     TokenIterator tokens = new TokenIterator(fileIterator, version);
-    ASTIterator ASTNodes = new ASTIterator(tokens, version);
-    new Interpreter(inputProvider).interpret(ASTNodes);
+    ASTIterator astNodes = new ASTIterator(tokens, version);
+    new Interpreter(inputProvider).interpret(astNodes);
   }
 
   // When you use printProvider and inputProvider
@@ -46,8 +46,8 @@ public class Runner {
       throws IOException {
     FileReaderIterator fileIterator = new FileReaderIterator(inputStream);
     TokenIterator tokens = new TokenIterator(fileIterator, version);
-    ASTIterator ASTNodes = new ASTIterator(tokens, version);
-    new Interpreter(inputProvider, printProvider).interpret(ASTNodes);
+    ASTIterator astNodes = new ASTIterator(tokens, version);
+    new Interpreter(inputProvider, printProvider).interpret(astNodes);
   }
 
   // When you use printProvider and inputProvider
@@ -60,7 +60,7 @@ public class Runner {
       throws IOException {
     FileReaderIterator fileIterator = new FileReaderIterator(inputStream);
     TokenIterator tokens = new TokenIterator(fileIterator, version);
-    ASTIterator ASTNodes = new ASTIterator(tokens, version, observers);
-    new Interpreter(inputProvider, printProvider).interpret(ASTNodes);
+    ASTIterator astNodes = new ASTIterator(tokens, version, observers);
+    new Interpreter(inputProvider, printProvider).interpret(astNodes);
   }
 }
