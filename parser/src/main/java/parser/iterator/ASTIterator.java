@@ -33,7 +33,7 @@ public class ASTIterator implements Iterator<ASTNode> {
 
   public void notifyObservers() {
     for (Observer observer : observers) {
-      observer.update(".");
+      observer.update(" █ ");
     }
   }
 

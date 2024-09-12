@@ -1,0 +1,7 @@
+const booleanValue: boolean = readInput("insert boolean: ");
+if(booleanValue) {
+    println("inside if");
+}
+else {
+    println("inside else");
+}

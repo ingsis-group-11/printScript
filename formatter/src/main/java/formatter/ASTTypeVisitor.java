@@ -18,6 +18,9 @@ public class ASTTypeVisitor{
     if (node instanceof IfNode) {
       return ASTTypes.IF_NODE;
     }
+    if (node instanceof ReadInputNode) {
+      return ASTTypes.READ_INPUT_NODE;
+    }
     return null;
   }
 }
