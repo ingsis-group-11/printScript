@@ -3,7 +3,9 @@ package iterator;
 import java.util.NoSuchElementException;
 import lexer.Lexer;
 import providers.iterator.PrintScriptIterator;
-import result.*;
+import result.LexingResult;
+import result.SuccessfulResult;
+import result.UnsuccessfulResult;
 import token.Token;
 
 public class TokenIterator implements PrintScriptIterator<Token> {

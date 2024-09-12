@@ -1,12 +1,12 @@
 package formatter;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import fileReader.FileReader;
+import filereader.FileReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import org.junit.jupiter.api.Test;
-import providers.outputProvider.TestWriter;
+import providers.outputprovider.TestWriter;
 import runner.FormatterRunner;
 
 public class FormatterTest {
@@ -112,6 +112,22 @@ public class FormatterTest {
   }
 
   @Test
+  public void testNotAssignedVariable() throws IOException {
+    String inputFilePath = "src/test/resources/cases/1.0/notAssignedVariableInput.txt";
+    String configPathRules = "src/test/resources/config/1.0/allActive.json";
+
+    FormatterRunner formatterRunner = new FormatterRunner();
+    TestWriter testWriter = new TestWriter();
+    String expected = fileReader.read("src/test/resources/cases/1.0/notAssignedVariableOutput.txt");
+    formatterRunner.format(
+        new FileInputStream(inputFilePath),
+        new FileInputStream(configPathRules),
+        testWriter,
+        "1.0");
+    assertEquals(expected, testWriter.getOutput());
+  }
+
+  @Test
   public void testLineBreakAfterPrint() throws IOException {
     String inputFilePath = "src/test/resources/cases/1.0/lineBreakAfterPrintInput.txt";
     String configPathRules = "src/test/resources/config/1.0/allActive.json";
@@ -119,6 +135,23 @@ public class FormatterTest {
     FormatterRunner formatterRunner = new FormatterRunner();
     TestWriter testWriter = new TestWriter();
     String expected = fileReader.read("src/test/resources/cases/1.0/lineBreakAfterPrintOutput.txt");
+    formatterRunner.format(
+        new FileInputStream(inputFilePath),
+        new FileInputStream(configPathRules),
+        testWriter,
+        "1.0");
+    assertEquals(expected, testWriter.getOutput());
+  }
+
+  @Test
+  public void testReassignmentVariable() throws IOException {
+    String inputFilePath = "src/test/resources/cases/1.0/reassignmentVariableInput.txt";
+    String configPathRules = "src/test/resources/config/1.0/allActive.json";
+
+    FormatterRunner formatterRunner = new FormatterRunner();
+    TestWriter testWriter = new TestWriter();
+    String expected =
+        fileReader.read("src/test/resources/cases/1.0/reassignmentVariableOutput.txt");
     formatterRunner.format(
         new FileInputStream(inputFilePath),
         new FileInputStream(configPathRules),
@@ -235,6 +268,55 @@ public class FormatterTest {
     FormatterRunner formatterRunner = new FormatterRunner();
     TestWriter testWriter = new TestWriter();
     String expected = fileReader.read("src/test/resources/cases/1.1/elseOutput.txt");
+    formatterRunner.format(
+        new FileInputStream(inputFilePath),
+        new FileInputStream(configPathRules),
+        testWriter,
+        "1.1");
+    assertEquals(expected, testWriter.getOutput());
+  }
+
+  @Test
+  public void testConstVariable() throws IOException {
+    String inputFilePath = "src/test/resources/cases/1.1/constVariableInput.txt";
+    String configPathRules = "src/test/resources/config/1.1/allActive.json";
+
+    FormatterRunner formatterRunner = new FormatterRunner();
+    TestWriter testWriter = new TestWriter();
+    String expected = fileReader.read("src/test/resources/cases/1.1/constVariableOutput.txt");
+    formatterRunner.format(
+        new FileInputStream(inputFilePath),
+        new FileInputStream(configPathRules),
+        testWriter,
+        "1.1");
+    assertEquals(expected, testWriter.getOutput());
+  }
+
+  @Test
+  public void testAllCases1() throws IOException {
+    String inputFilePath = "src/test/resources/cases/1.1/testAllCasesInput.txt";
+    String configPathRules = "src/test/resources/config/1.1/allActiveIndentation2.json";
+
+    FormatterRunner formatterRunner = new FormatterRunner();
+    TestWriter testWriter = new TestWriter();
+    String expected = fileReader.read("src/test/resources/cases/1.1/testAllCasesOutput1.txt");
+    formatterRunner.format(
+        new FileInputStream(inputFilePath),
+        new FileInputStream(configPathRules),
+        testWriter,
+        "1.1");
+    assertEquals(expected, testWriter.getOutput());
+  }
+
+  @Test
+  public void testAllCases2() throws IOException {
+    String inputFilePath = "src/test/resources/cases/1.1/testAllCasesInput.txt";
+    String configPathRules =
+        "src/test/resources/config/1.1/indentation4SpaceBeforeColonDisabled.json";
+
+    FormatterRunner formatterRunner = new FormatterRunner();
+    TestWriter testWriter = new TestWriter();
+    String expected = fileReader.read("src/test/resources/cases/1.1/testAllCasesOutput2.txt");
     formatterRunner.format(
         new FileInputStream(inputFilePath),
         new FileInputStream(configPathRules),

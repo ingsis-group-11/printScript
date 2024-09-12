@@ -3,10 +3,18 @@ package interpreter;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import AST.nodes.*;
+import ast.nodes.AssignationNode;
+import ast.nodes.AstNode;
+import ast.nodes.DeclarationNode;
+import ast.nodes.LiteralNode;
+import ast.nodes.OperatorNode;
+import ast.nodes.PrintNode;
+import ast.nodes.ReadEnvNode;
+import ast.nodes.ReassignmentNode;
+import ast.nodes.VariableNode;
 import java.util.List;
 import org.junit.jupiter.api.Test;
-import providers.printProvider.TestPrintProvider;
+import providers.printprovider.TestPrintProvider;
 import token.TokenType;
 import token.ValueToken;
 
@@ -16,7 +24,7 @@ public class ReadEnvTest {
   public void testSimpleValidReadEnv() {
     // GIVEN
     // readEnv("TEST_ENV");
-    List<ASTNode> astNodes =
+    List<AstNode> astNodes =
         List.of(
             new ReadEnvNode(
                 new LiteralNode(new ValueToken(TokenType.STRING, "TEST_ENV", 8, 2)), 1, 1));
@@ -28,7 +36,7 @@ public class ReadEnvTest {
   public void testSimpleInvalidReadEnv() {
     // GIVEN
     // readEnv("TEST_ENV_NOT_EXISTS");
-    List<ASTNode> astNodes =
+    List<AstNode> astNodes =
         List.of(
             new ReadEnvNode(
                 new LiteralNode(new ValueToken(TokenType.STRING, "TEST_ENV_NOT_EXISTS", 8, 2)),
@@ -43,7 +51,7 @@ public class ReadEnvTest {
     // GIVEN
     // let a: string = readEnv("TEST_ENV_NOT_EXISTS");
 
-    List<ASTNode> astNodes =
+    List<AstNode> astNodes =
         List.of(
             new AssignationNode(
                 new DeclarationNode(
@@ -71,7 +79,7 @@ public class ReadEnvTest {
     // let b: string = readEnv("ANOTHER_ENV");
     // println(a + b);
 
-    List<ASTNode> astNodes =
+    List<AstNode> astNodes =
         List.of(
             new AssignationNode(
                 new DeclarationNode(
@@ -118,7 +126,7 @@ public class ReadEnvTest {
     // a = readEnv("ANOTHER_ENV");
     // println(a);
 
-    List<ASTNode> astNodes =
+    List<AstNode> astNodes =
         List.of(
             new AssignationNode(
                 new DeclarationNode(

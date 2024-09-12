@@ -1,13 +1,13 @@
 package parser.syntax;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
-import AST.nodes.ASTNode;
-import AST.nodes.IfNode;
+import ast.nodes.AstNode;
+import ast.nodes.IfNode;
 import java.util.Iterator;
 import java.util.List;
 import org.junit.jupiter.api.Test;
-import parser.iterator.ASTIterator;
+import parser.iterator.AstIterator;
 import parser.iterator.TestTokenIterator;
 import token.Token;
 import token.TokenType;
@@ -40,8 +40,8 @@ public class IfSyntaxParserTest {
 
     // WHEN
     TestTokenIterator tokenIterator = new TestTokenIterator(tokens);
-    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator, "1.1");
-    ASTNode firstAST = nodes.next();
-    assertInstanceOf(IfNode.class, firstAST);
+    Iterator<AstNode> nodes = new AstIterator(tokenIterator, "1.1");
+    AstNode firstAst = nodes.next();
+    assertInstanceOf(IfNode.class, firstAst);
   }
 }

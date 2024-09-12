@@ -1,9 +1,9 @@
 package parser.syntax.parsers;
 
-import AST.nodes.ASTNode;
-import AST.nodes.AssignationNode;
-import AST.nodes.DeclarationNode;
-import AST.nodes.EmptyNode;
+import ast.nodes.AssignationNode;
+import ast.nodes.AstNode;
+import ast.nodes.DeclarationNode;
+import ast.nodes.EmptyNode;
 import parser.syntax.TokenStream;
 import parser.syntax.factory.ExpressionFactory;
 import parser.syntax.resolver.DeclarationTypeValidator;
@@ -13,13 +13,13 @@ import token.TokenType;
 public class AssignationSyntaxParser implements SyntaxParser {
 
   @Override
-  public ASTNode syntaxParse(TokenStream tokens, String version) {
-    ASTNode result = parseAssignation(tokens, version);
+  public AstNode syntaxParse(TokenStream tokens, String version) {
+    AstNode result = parseAssignation(tokens, version);
     return result;
   }
 
-  private ASTNode parseAssignation(TokenStream tokenStream, String version) {
-    ASTNode expressionNode;
+  private AstNode parseAssignation(TokenStream tokenStream, String version) {
+    AstNode expressionNode;
 
     if (tokenStream.getCurrentToken().getType() == TokenType.CONST_KEYWORD) {
       tokenStream.expect(TokenType.CONST_KEYWORD, "Expected 'const'");

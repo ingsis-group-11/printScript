@@ -1,8 +1,8 @@
 package linter.rules;
 
-import AST.nodes.ASTNode;
-import AST.nodes.OperatorNode;
-import AST.nodes.PrintNode;
+import ast.nodes.AstNode;
+import ast.nodes.OperatorNode;
+import ast.nodes.PrintNode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -19,13 +19,13 @@ public class PrintPreventExpressionRule implements Rule {
   }
 
   @Override
-  public LinterResult lint(ASTNode node) {
+  public LinterResult lint(AstNode node) {
     if (Objects.equals(value, "false")) {
       return new SuccessLinterResult();
     }
     List<String> errors = new ArrayList<>();
     if (node instanceof PrintNode printNode) {
-      ASTNode expression = printNode.getExpression();
+      AstNode expression = printNode.getExpression();
       if (expression instanceof OperatorNode) {
         int line = printNode.getLine();
         int column = printNode.getColumn();

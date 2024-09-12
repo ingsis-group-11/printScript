@@ -24,6 +24,9 @@ public class SpacesBetweenAssign implements AssignationRule {
     }
     List<Token> result = new ArrayList<>(tokens);
     int assignIndex = tokenIndex.getIndex(tokens, TokenType.ASSIGN);
+    if (assignIndex == -1) {
+      return result;
+    }
     result.add(
         assignIndex,
         new ValueToken(

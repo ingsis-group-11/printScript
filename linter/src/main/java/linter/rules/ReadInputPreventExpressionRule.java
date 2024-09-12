@@ -1,12 +1,12 @@
 package linter.rules;
 
-import AST.nodes.ASTNode;
-import AST.nodes.OperatorNode;
-import AST.nodes.ReadInputNode;
+import ast.nodes.AstNode;
+import ast.nodes.OperatorNode;
+import ast.nodes.ReadInputNode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import linter.nodeFinder.ReadInputNodeFinder;
+import linter.nodefinder.ReadInputNodeFinder;
 import linter.result.FailedLinterResult;
 import linter.result.LinterResult;
 import linter.result.SuccessLinterResult;
@@ -20,18 +20,16 @@ public class ReadInputPreventExpressionRule implements Rule {
   }
 
   @Override
-  public LinterResult lint(ASTNode node) {
+  public LinterResult lint(AstNode node) {
     if (Objects.equals(value, "false")) {
       return new SuccessLinterResult();
     }
     List<String> errors = new ArrayList<>();
 
-    ReadInputNodeFinder readInputNodeFinder = new ReadInputNodeFinder();
-    node.accept(readInputNodeFinder);
-    List<ReadInputNode> readInputNodes = readInputNodeFinder.getReadInputNodes();
+    List<ReadInputNode> readInputNodes = node.accept(new ReadInputNodeFinder());
 
     for (ReadInputNode readInputNode : readInputNodes) {
-      ASTNode expression = readInputNode.getExpression();
+      AstNode expression = readInputNode.getExpression();
       if (expression instanceof OperatorNode) {
         int line = readInputNode.getLine();
         int column = readInputNode.getColumn();

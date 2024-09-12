@@ -2,11 +2,15 @@ package interpreter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import AST.nodes.*;
+import ast.nodes.AstNode;
+import ast.nodes.BlockNode;
+import ast.nodes.IfNode;
+import ast.nodes.LiteralNode;
+import ast.nodes.PrintNode;
 import java.util.Iterator;
 import java.util.List;
 import org.junit.jupiter.api.Test;
-import providers.printProvider.TestPrintProvider;
+import providers.printprovider.TestPrintProvider;
 import token.TokenType;
 import token.ValueToken;
 
@@ -20,7 +24,7 @@ public class IfTest {
     // }
 
     TestPrintProvider printProvider = new TestPrintProvider();
-    List<ASTNode> astNodes =
+    List<AstNode> astNodes =
         List.of(
             new IfNode(
                 new LiteralNode(new ValueToken(TokenType.BOOLEAN, "true", 8, 1)),

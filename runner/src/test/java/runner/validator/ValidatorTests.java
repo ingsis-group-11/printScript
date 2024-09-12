@@ -4,9 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import runner.ValidationRunner;
-import runner.printScript.observers.RunnerTestObserver;
+import runner.printscript.observers.RunnerTestObserver;
 
 public class ValidatorTests {
   @Test
@@ -14,10 +15,11 @@ public class ValidatorTests {
     RunnerTestObserver runnerTestObserver = new RunnerTestObserver();
     String filePath = "src/test/resources/validator/1.0/validatorTest.txt";
     ValidationRunner validationRunner = new ValidationRunner();
+    validationRunner.setObservers(List.of(runnerTestObserver));
     assertThrows(
         RuntimeException.class,
         () -> {
-          validationRunner.validate(new FileInputStream(filePath), "1.0", runnerTestObserver);
+          validationRunner.validate(new FileInputStream(filePath), "1.0");
         });
   }
 
@@ -26,6 +28,7 @@ public class ValidatorTests {
     RunnerTestObserver runnerTestObserver = new RunnerTestObserver();
     String filePath = "src/test/resources/validator/1.0/validatorTest.txt";
     ValidationRunner validationRunner = new ValidationRunner();
-    validationRunner.validate(new FileInputStream(filePath), "1.1", runnerTestObserver);
+    validationRunner.setObservers(List.of(runnerTestObserver));
+    validationRunner.validate(new FileInputStream(filePath), "1.1");
   }
 }

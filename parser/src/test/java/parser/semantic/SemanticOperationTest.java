@@ -1,8 +1,14 @@
 package parser.semantic;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import AST.nodes.*;
+import ast.nodes.AssignationNode;
+import ast.nodes.AstNode;
+import ast.nodes.DeclarationNode;
+import ast.nodes.LiteralNode;
+import ast.nodes.OperatorNode;
+import ast.nodes.PrintNode;
 import org.junit.jupiter.api.Test;
 import parser.semantic.result.SemanticResult;
 import token.TokenType;
@@ -11,7 +17,7 @@ import token.ValueToken;
 public class SemanticOperationTest {
   @Test
   public void validStringAssignationOperationTest() {
-    ASTNode assignmentNode =
+    AstNode assignmentNode =
         new AssignationNode(
             new DeclarationNode(
                 new ValueToken(TokenType.STRING_TYPE, "string", 10, 1),
@@ -34,7 +40,7 @@ public class SemanticOperationTest {
 
   @Test
   public void validNumberAssignationOperationTest() {
-    ASTNode assignmentNode =
+    AstNode assignmentNode =
         new AssignationNode(
             new DeclarationNode(
                 new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 1),
@@ -57,7 +63,7 @@ public class SemanticOperationTest {
 
   @Test
   public void invalidStringAssignationOperationTest() {
-    ASTNode assignmentNode =
+    AstNode assignmentNode =
         new AssignationNode(
             new DeclarationNode(
                 new ValueToken(TokenType.STRING_TYPE, "string", 10, 1),
@@ -79,7 +85,7 @@ public class SemanticOperationTest {
 
   @Test
   public void invalidNumberAssignationOperationTest() {
-    ASTNode assignmentNode =
+    AstNode assignmentNode =
         new AssignationNode(
             new DeclarationNode(
                 new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 1),
@@ -101,7 +107,7 @@ public class SemanticOperationTest {
 
   @Test
   public void validNumberPrintOperationTest() {
-    ASTNode assignmentNode =
+    AstNode assignmentNode =
         new PrintNode(
             new OperatorNode(
                 "+",
@@ -118,7 +124,7 @@ public class SemanticOperationTest {
 
   @Test
   public void invalidNumberPrintOperationTest() {
-    ASTNode assignmentNode =
+    AstNode assignmentNode =
         new PrintNode(
             new OperatorNode(
                 "%",
@@ -134,7 +140,7 @@ public class SemanticOperationTest {
 
   @Test
   public void validStringPrintOperationTest() {
-    ASTNode assignmentNode =
+    AstNode assignmentNode =
         new PrintNode(
             new OperatorNode(
                 "+",
@@ -151,7 +157,7 @@ public class SemanticOperationTest {
 
   @Test
   public void invalidStringPrintOperationTest() {
-    ASTNode assignmentNode =
+    AstNode assignmentNode =
         new PrintNode(
             new OperatorNode(
                 "-",
@@ -167,7 +173,7 @@ public class SemanticOperationTest {
 
   @Test
   public void validVariablePrintOperationTest() {
-    ASTNode assignmentNode =
+    AstNode assignmentNode =
         new PrintNode(
             new OperatorNode(
                 "+",
@@ -184,7 +190,7 @@ public class SemanticOperationTest {
 
   @Test
   public void validVariableNumberPrintOperationTest() {
-    ASTNode assignmentNode =
+    AstNode assignmentNode =
         new PrintNode(
             new OperatorNode(
                 "-",
@@ -201,7 +207,7 @@ public class SemanticOperationTest {
 
   @Test
   public void validVariableStringPrintOperationTest() {
-    ASTNode assignmentNode =
+    AstNode assignmentNode =
         new PrintNode(
             new OperatorNode(
                 "+",
@@ -218,7 +224,7 @@ public class SemanticOperationTest {
 
   @Test
   public void invalidVariableStringPrintOperationTest() {
-    ASTNode assignmentNode =
+    AstNode assignmentNode =
         new PrintNode(
             new OperatorNode(
                 "-",

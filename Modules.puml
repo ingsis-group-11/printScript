@@ -1,6 +1,5 @@
 @startuml
 
-' Define the components
 component Token
 component FileReader
 component Providers
@@ -24,7 +23,6 @@ component Formatter {
     [Formatter] --> Token
     [Formatter] --> AST
     [Formatter] --> FileReader
-    [Formatter] --> Providers
 }
 
 component Interpreter {
@@ -37,17 +35,13 @@ component Linter {
     [Linter] --> Token
     [Linter] --> AST
     [Linter] --> FileReader
-    [Linter] --> Providers
 }
 
 component Runner {
-    [Runner] --> Token
-    [Runner] --> AST
     [Runner] --> Lexer
     [Runner] --> Parser
     [Runner] --> Interpreter
     [Runner] --> Formatter
-    [Runner] --> FileReader
     [Runner] --> Providers
     [Runner] --> Linter
 }
@@ -57,7 +51,6 @@ component CLI {
     [CLI] --> Providers
 }
 
-' Organize the layout
 left to right direction
 top to bottom direction
 

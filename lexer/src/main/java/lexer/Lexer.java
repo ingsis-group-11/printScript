@@ -2,7 +2,7 @@ package lexer;
 
 import factory.LexerMapFactory;
 import iterator.InputReader;
-import result.*;
+import result.LexingResult;
 
 public class Lexer {
   private final Tokenizer tokenizer;

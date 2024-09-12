@@ -1,14 +1,25 @@
 package interpreter;
 
-import AST.ASTVisitor;
-import AST.nodes.*;
-import inputType.InputTypeTransformer;
-import providers.inputProvider.InputProvider;
+import ast.AstVisitor;
+import ast.nodes.AssignationNode;
+import ast.nodes.BlockNode;
+import ast.nodes.DeclarationNode;
+import ast.nodes.EmptyNode;
+import ast.nodes.IfNode;
+import ast.nodes.LiteralNode;
+import ast.nodes.OperatorNode;
+import ast.nodes.PrintNode;
+import ast.nodes.ReadEnvNode;
+import ast.nodes.ReadInputNode;
+import ast.nodes.ReassignmentNode;
+import ast.nodes.VariableNode;
+import inputyype.InputTypeTransformer;
+import providers.inputprovider.InputProvider;
 import token.TokenType;
 import token.ValueToken;
-import variableMap.VariableMap;
+import variablemap.VariableMap;
 
-public class LiteralTransformer implements ASTVisitor<LiteralNode> {
+public class LiteralTransformer implements AstVisitor<LiteralNode> {
 
   private final VariableMap variableMap;
   private final InputProvider inputProvider;
@@ -103,21 +114,23 @@ public class LiteralTransformer implements ASTVisitor<LiteralNode> {
   private String parseCalc(String operator, LiteralNode left, LiteralNode right) {
     TokenType leftType = left.getType();
     TokenType rightType = right.getType();
+    String leftValue = left.getValue();
+    String rightValue = right.getValue();
     Operators operatorEnum = Operators.fromSymbol(operator);
     return switch (operatorEnum) {
       case ADDITION -> {
         if (leftType == TokenType.STRING || rightType == TokenType.STRING) {
-          yield left.getValue() + right.getValue();
+          yield leftValue + rightValue;
         }
         checkInvalidOperation(left, right, leftType, rightType, operator);
-        if (isDouble(left.getValue()) || isDouble(right.getValue())) {
-          yield String.valueOf(parseToDouble(left.getValue()) + parseToDouble(right.getValue()));
+        if (isDouble(leftValue) || isDouble(rightValue)) {
+          yield String.valueOf(parseToDouble(leftValue) + parseToDouble(rightValue));
         }
-        yield String.valueOf(parseToInteger(left.getValue()) + parseToInteger(right.getValue()));
+        yield String.valueOf(parseToInteger(leftValue) + parseToInteger(rightValue));
       }
       case SUBTRACTION -> {
         checkInvalidOperation(left, right, leftType, rightType, operator);
-        if (isDouble(left.getValue()) || isDouble(right.getValue())) {
+        if (isDouble(leftValue) || isDouble(right.getValue())) {
           yield String.valueOf(parseToDouble(left.getValue()) - parseToDouble(right.getValue()));
         }
         yield String.valueOf(parseToInteger(left.getValue()) - parseToInteger(right.getValue()));

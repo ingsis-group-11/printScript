@@ -1,12 +1,14 @@
 package parser.syntax;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import AST.nodes.*;
+import ast.nodes.AstNode;
+import ast.nodes.ReadInputNode;
 import java.util.Iterator;
 import java.util.List;
 import org.junit.jupiter.api.Test;
-import parser.iterator.ASTIterator;
+import parser.iterator.AstIterator;
 import parser.iterator.TestTokenIterator;
 import token.Token;
 import token.TokenType;
@@ -27,9 +29,9 @@ public class ReadInputSyntaxParserTest {
 
     // WHEN
     TestTokenIterator tokenIterator = new TestTokenIterator(tokens);
-    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator, "1.1");
-    ASTNode firstAST = nodes.next();
-    assertInstanceOf(ReadInputNode.class, firstAST);
+    Iterator<AstNode> nodes = new AstIterator(tokenIterator, "1.1");
+    AstNode firstAst = nodes.next();
+    assertInstanceOf(ReadInputNode.class, firstAst);
   }
 
   @Test
@@ -44,7 +46,7 @@ public class ReadInputSyntaxParserTest {
 
     // WHEN
     TestTokenIterator tokenIterator = new TestTokenIterator(tokens);
-    Iterator<ASTNode> nodes = new ASTIterator(tokenIterator, "1.1");
+    Iterator<AstNode> nodes = new AstIterator(tokenIterator, "1.1");
     assertThrows(RuntimeException.class, () -> nodes.next());
   }
 }

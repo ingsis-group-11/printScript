@@ -1,13 +1,25 @@
 package interpreter;
 
-import AST.ASTVisitor;
-import AST.nodes.*;
-import providers.inputProvider.InputProvider;
-import providers.printProvider.PrintProvider;
+import ast.AstVisitor;
+import ast.nodes.AssignationNode;
+import ast.nodes.AstNode;
+import ast.nodes.BlockNode;
+import ast.nodes.DeclarationNode;
+import ast.nodes.EmptyNode;
+import ast.nodes.IfNode;
+import ast.nodes.LiteralNode;
+import ast.nodes.OperatorNode;
+import ast.nodes.PrintNode;
+import ast.nodes.ReadEnvNode;
+import ast.nodes.ReadInputNode;
+import ast.nodes.ReassignmentNode;
+import ast.nodes.VariableNode;
+import providers.inputprovider.InputProvider;
+import providers.printprovider.PrintProvider;
 import token.TokenType;
-import variableMap.VariableMap;
+import variablemap.VariableMap;
 
-public class InterpreterVisitor implements ASTVisitor<Void> {
+public class InterpreterVisitor implements AstVisitor<Void> {
   private final VariableMap variableMap;
   private final LiteralTransformer literalTransformer;
   private final PrintProvider printProvider;
@@ -103,7 +115,7 @@ public class InterpreterVisitor implements ASTVisitor<Void> {
   @Override
   public Void visit(IfNode ifNode) {
 
-    ASTNode conditionNode = ifNode.getCondition();
+    AstNode conditionNode = ifNode.getCondition();
     LiteralNode conditionLiteral = conditionNode.accept(literalTransformer);
 
     if (conditionLiteral.getType() != TokenType.BOOLEAN) {
@@ -124,7 +136,7 @@ public class InterpreterVisitor implements ASTVisitor<Void> {
   @Override
   public Void visit(BlockNode blockNode) {
     variableMap.enterScope();
-    for (ASTNode node : blockNode.getStatements()) {
+    for (AstNode node : blockNode.getStatements()) {
       node.accept(this);
     }
     variableMap.exitScope();

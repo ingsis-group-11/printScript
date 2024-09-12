@@ -2,11 +2,11 @@ package runner.formatter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import fileReader.FileReader;
+import filereader.FileReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import org.junit.jupiter.api.Test;
-import providers.outputProvider.TestWriter;
+import providers.outputprovider.TestWriter;
 import runner.FormatterRunner;
 
 public class FormatterTest {
