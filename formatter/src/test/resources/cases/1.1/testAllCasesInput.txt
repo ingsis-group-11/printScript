@@ -7,13 +7,13 @@ const bool:boolean=true;
 }
 else
 {
-readInput("Hello");
+let bool : boolean = readInput("Hello");
 if (bool)
 {
-readInput("Hi");
+println("Hi if");
 }
 else
 {
-const sushi:string="Sushi";
+println("Hi else");
 }
 }

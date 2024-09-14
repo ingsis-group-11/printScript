@@ -52,10 +52,12 @@ public class SemanticVisitor implements AstVisitor<SemanticResult> {
     boolean mutable = node.getDeclaration().isMutable();
 
     if (node.getExpression() instanceof EmptyNode) {
-      variablesMap.addVariable(node.getDeclaration().getNameToken().getValue(), variableType, mutable);
+      variablesMap.addVariable(
+          node.getDeclaration().getNameToken().getValue(), variableType, mutable);
       return new SemanticSuccessResult();
     } else if (TypeValidator.validateType(variableType, expressionType)) {
-      variablesMap.addVariable(node.getDeclaration().getNameToken().getValue(), variableType, mutable);
+      variablesMap.addVariable(
+          node.getDeclaration().getNameToken().getValue(), variableType, mutable);
       return new SemanticSuccessResult();
     }
 
@@ -126,15 +128,14 @@ public class SemanticVisitor implements AstVisitor<SemanticResult> {
       return new SemanticSuccessResult();
     }
     return new SemanticErrorResult(
-            "Semantic error in "
-                    + node.getLine()
-                    + ":"
-                    + node.getColumn()
-                    + " Variable type is "
-                    + variableType
-                    + " but value is of type "
-                    + expressionType);
-
+        "Semantic error in "
+            + node.getLine()
+            + ":"
+            + node.getColumn()
+            + " Variable type is "
+            + variableType
+            + " but value is of type "
+            + expressionType);
   }
 
   @Override

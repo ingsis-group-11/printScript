@@ -47,11 +47,11 @@ public class ExpressionTypeVisitor implements AstVisitor<TokenType> {
   @Override
   public TokenType visit(OperatorNode node) {
     if (node.getLeftNode().accept(this) == TokenType.BOOLEAN
-            || node.getRightNode().accept(this) == TokenType.BOOLEAN) {
+        || node.getRightNode().accept(this) == TokenType.BOOLEAN) {
       return TokenType.BOOLEAN;
     }
     if (node.getLeftNode().accept(this) == TokenType.NUMBER
-            && node.getRightNode().accept(this) == TokenType.NUMBER) {
+        && node.getRightNode().accept(this) == TokenType.NUMBER) {
       return TokenType.NUMBER;
     }
     return TokenType.STRING;
@@ -92,4 +92,3 @@ public class ExpressionTypeVisitor implements AstVisitor<TokenType> {
     return null;
   }
 }
-

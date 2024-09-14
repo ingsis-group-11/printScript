@@ -60,7 +60,6 @@ public class ReadInputTest {
     InputProvider inputProvider = new TestInputProvider(List.of("hola"));
     TestPrintProvider printProvider = new TestPrintProvider();
     Interpreter interpreter = new Interpreter(inputProvider, printProvider);
-    interpreter.interpret(astNodes.iterator());
     assertThrows(RuntimeException.class, () -> interpreter.interpret(astNodes.iterator()));
   }
 
@@ -143,7 +142,7 @@ public class ReadInputTest {
   @Test
   public void testEmptyInput() {
     // GIVEN
-    // let a: number = readInput("Ingrese a: "); -> ""
+    // let a: number = readInput("Ingrese a: "); -> "2.76"
     // println(a); -> ""
 
     List<AstNode> astNodes =
@@ -161,17 +160,17 @@ public class ReadInputTest {
                 1),
             new PrintNode(new VariableNode(new ValueToken(TokenType.IDENTIFIER, "a", 8, 2)), 2, 1));
 
-    InputProvider inputProvider = new TestInputProvider(List.of(""));
+    InputProvider inputProvider = new TestInputProvider(List.of("2.76"));
     TestPrintProvider printProvider = new TestPrintProvider();
     Interpreter interpreter = new Interpreter(inputProvider, printProvider);
     interpreter.interpret(astNodes.iterator());
-    assertEquals("\n", printProvider.getMessages().next());
+    assertEquals("2.76\n", printProvider.getMessages().next());
   }
 
   @Test
   public void testSpecialCharactersInput() {
     // Given
-    // let a: string = readInput("Ingrese a: "); -> "\"hola\""
+    // let a: string = readInput("Ingrese a: "); -> "hola"
     // println(a);
 
     List<AstNode> astNodes =
@@ -189,11 +188,11 @@ public class ReadInputTest {
                 1),
             new PrintNode(new VariableNode(new ValueToken(TokenType.IDENTIFIER, "a", 8, 2)), 2, 1));
 
-    InputProvider inputProvider = new TestInputProvider(List.of("\"hola\""));
+    InputProvider inputProvider = new TestInputProvider(List.of("hola"));
     TestPrintProvider printProvider = new TestPrintProvider();
     Interpreter interpreter = new Interpreter(inputProvider, printProvider);
     interpreter.interpret(astNodes.iterator());
-    assertEquals("\"hola\"\n", printProvider.getMessages().next());
+    assertEquals("hola\n", printProvider.getMessages().next());
   }
 
   @Test

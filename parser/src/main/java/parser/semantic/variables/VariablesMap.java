@@ -1,10 +1,9 @@
 package parser.semantic.variables;
 
-import token.TokenType;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
+import token.TokenType;
 
 public class VariablesMap {
 
@@ -66,13 +65,12 @@ public class VariablesMap {
     VariableTokenMap variableTokenMap = new VariableTokenMap();
     if (variableTokenMap.getType(tokenType) != newTokenType) {
       throw new RuntimeException(
-              "Variable "
-                      + name
-                      + " is of type "
-                      + tokenType
-                      + " and can't be updated to type "
-                      + newTokenType);
+          "Variable "
+              + name
+              + " is of type "
+              + tokenType
+              + " and can't be updated to type "
+              + newTokenType);
     }
   }
 }
-

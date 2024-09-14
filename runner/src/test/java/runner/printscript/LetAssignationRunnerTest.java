@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import org.junit.jupiter.api.Test;
+import providers.inputprovider.TestInputProvider;
 import providers.printprovider.TestPrintProvider;
 import runner.Runner;
 
@@ -462,21 +463,18 @@ public class LetAssignationRunnerTest {
 
   @Test
   public void variableStringDivision() {
-    TestPrintProvider printProvider = new TestPrintProvider();
     Runner runner = new Runner();
     assertThrows(
         RuntimeException.class,
         () -> {
           runner.run(
               new FileInputStream("src/test/resources/assignation/1.0/variableStringDivision.txt"),
-              "1.0",
-              printProvider);
+              "1.0");
         });
   }
 
   @Test
   public void variableStringNumberDivision() {
-    TestPrintProvider printProvider = new TestPrintProvider();
     Runner runner = new Runner();
     assertThrows(
         RuntimeException.class,
@@ -484,14 +482,12 @@ public class LetAssignationRunnerTest {
           runner.run(
               new FileInputStream(
                   "src/test/resources/assignation/1.0/variableStringNumberDivision.txt"),
-              "1.0",
-              printProvider);
+              "1.0");
         });
   }
 
   @Test
   public void duplicateSameVariableAssignation() {
-    TestPrintProvider printProvider = new TestPrintProvider();
     Runner runner = new Runner();
     assertThrows(
         RuntimeException.class,
@@ -499,23 +495,35 @@ public class LetAssignationRunnerTest {
           runner.run(
               new FileInputStream(
                   "src/test/resources/assignation/1.0/duplicateSameVariableAssignation.txt"),
-              "1.0",
-              printProvider);
+              "1.0");
         });
   }
 
   @Test
-  public void variableAssignationNotOfSameType(){
-    TestPrintProvider printProvider = new TestPrintProvider();
+  public void variableAssignationNotOfSameType() {
     Runner runner = new Runner();
     assertThrows(
-            RuntimeException.class,
-            () -> {
-              runner.run(
-                      new FileInputStream(
-                              "src/test/resources/assignation/1.0/variableAssignationNotOfSameType.txt"),
-                      "1.0",
-                      printProvider);
-            });
+        RuntimeException.class,
+        () -> {
+          runner.run(
+              new FileInputStream(
+                  "src/test/resources/assignation/1.0/variableAssignationNotOfSameType.txt"),
+              "1.0");
+        });
+  }
+
+  @Test
+  public void variableAssignationReadInputNotOfSameType() {
+    TestInputProvider inputProvider = new TestInputProvider(List.of("Hello"));
+    Runner runner = new Runner();
+    assertThrows(
+        RuntimeException.class,
+        () -> {
+          runner.run(
+              new FileInputStream(
+                  "src/test/resources/assignation/1.1/variableAssignationReadInputNotOfSameType.txt"),
+              "1.1",
+              inputProvider);
+        });
   }
 }

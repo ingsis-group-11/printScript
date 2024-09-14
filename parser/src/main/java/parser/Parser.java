@@ -3,7 +3,6 @@ package parser;
 import ast.nodes.AstNode;
 import java.util.Set;
 import parser.semantic.SemanticAnalyzer;
-import parser.semantic.variables.VariablesMap;
 import parser.syntax.TokenStream;
 import parser.syntax.factory.SyntaxParserFactory;
 import parser.syntax.parsers.SyntaxParser;
