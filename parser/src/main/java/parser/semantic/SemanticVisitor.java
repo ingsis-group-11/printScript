@@ -49,15 +49,14 @@ public class SemanticVisitor implements AstVisitor<SemanticResult> {
     ExpressionTypeVisitor expressionTypeVisitor = new ExpressionTypeVisitor(variablesMap);
     TokenType variableType = node.getDeclaration().getTypeToken().getType();
     TokenType expressionType = node.getExpression().accept(expressionTypeVisitor);
+    String variableName = node.getDeclaration().getNameToken().getValue();
     boolean mutable = node.getDeclaration().isMutable();
 
     if (node.getExpression() instanceof EmptyNode) {
-      variablesMap.addVariable(
-          node.getDeclaration().getNameToken().getValue(), variableType, mutable);
+      variablesMap.addVariable(variableName, variableType, mutable);
       return new SemanticSuccessResult();
     } else if (TypeValidator.validateType(variableType, expressionType)) {
-      variablesMap.addVariable(
-          node.getDeclaration().getNameToken().getValue(), variableType, mutable);
+      variablesMap.addVariable(variableName, variableType, mutable);
       return new SemanticSuccessResult();
     }
 
@@ -75,6 +74,8 @@ public class SemanticVisitor implements AstVisitor<SemanticResult> {
   @Override
   public SemanticResult visit(OperatorNode node) {
     ExpressionTypeVisitor expressionTypeVisitor = new ExpressionTypeVisitor(variablesMap);
+    TokenType leftType = node.getLeftNode().accept(expressionTypeVisitor);
+    TokenType rightType = node.getRightNode().accept(expressionTypeVisitor);
 
     String operator = node.getOperator();
     return switch (operator) {
@@ -90,7 +91,7 @@ public class SemanticVisitor implements AstVisitor<SemanticResult> {
                       + " can only be applied to numbers or strings")
               : new SemanticSuccessResult();
       case "-", "*", "/" -> {
-        if (bothNumbersOrIdentifiers(node, expressionTypeVisitor)) {
+        if (bothNumbers(leftType, rightType)) {
           yield new SemanticSuccessResult();
         } else {
           yield new SemanticErrorResult(
@@ -215,18 +216,8 @@ public class SemanticVisitor implements AstVisitor<SemanticResult> {
 
   // * Helper methods
 
-  private Boolean bothNumbersOrIdentifiers(
-      OperatorNode operatorNode, ExpressionTypeVisitor expressionTypeVisitor) {
-    if (operatorNode.getLeftNode().accept(expressionTypeVisitor) == TokenType.NUMBER
-        && operatorNode.getRightNode().accept(expressionTypeVisitor) == TokenType.NUMBER) {
-      return true;
-    } else if ((operatorNode.getLeftNode().accept(expressionTypeVisitor) == TokenType.IDENTIFIER
-            && operatorNode.getRightNode().accept(expressionTypeVisitor) == TokenType.NUMBER)
-        || (operatorNode.getLeftNode().accept(expressionTypeVisitor) == TokenType.NUMBER
-            && operatorNode.getRightNode().accept(expressionTypeVisitor) == TokenType.IDENTIFIER)) {
-      return true;
-    }
-    return false;
+  private Boolean bothNumbers(TokenType leftType, TokenType rightType) {
+    return leftType == TokenType.NUMBER && rightType == TokenType.NUMBER;
   }
 
   private Boolean someBoolean(

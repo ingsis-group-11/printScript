@@ -242,4 +242,17 @@ public class PrintRunnerTest {
     Iterator<String> actual = printProvider.getMessages();
     assertEquals(expected, actual.next() + actual.next() + actual.next() + actual.next());
   }
+
+  @Test
+  public void divisionNumberIdentifier() throws IOException {
+    TestPrintProvider printProvider = new TestPrintProvider();
+    Runner runner = new Runner();
+    runner.run(
+        new FileInputStream("src/test/resources/print/divisionNumberIdentifier.txt"),
+        "1.0",
+        printProvider);
+    String expected = expectedTransformer.transform(List.of("1.57"));
+    Iterator<String> actual = printProvider.getMessages();
+    assertEquals(expected, actual.next());
+  }
 }

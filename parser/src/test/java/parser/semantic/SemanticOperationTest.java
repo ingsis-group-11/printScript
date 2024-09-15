@@ -189,23 +189,6 @@ public class SemanticOperationTest {
   }
 
   @Test
-  public void validVariableNumberPrintOperationTest() {
-    AstNode assignmentNode =
-        new PrintNode(
-            new OperatorNode(
-                "-",
-                new LiteralNode(new ValueToken(TokenType.IDENTIFIER, "a", 20, 1)),
-                new LiteralNode(new ValueToken(TokenType.NUMBER, "10", 24, 1)),
-                1,
-                20),
-            1,
-            1);
-    SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
-    SemanticResult semanticError = semanticAnalyzer.analyze(assignmentNode);
-    assertFalse(semanticError.hasErrors());
-  }
-
-  @Test
   public void validVariableStringPrintOperationTest() {
     AstNode assignmentNode =
         new PrintNode(
