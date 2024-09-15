@@ -17,6 +17,7 @@ import ast.nodes.VariableNode;
 import providers.inputprovider.InputProvider;
 import providers.printprovider.PrintProvider;
 import token.TokenType;
+import variablemap.TypeValidator;
 import variablemap.VariableMap;
 
 public class InterpreterVisitor implements AstVisitor<Void> {
@@ -54,9 +55,20 @@ public class InterpreterVisitor implements AstVisitor<Void> {
   @Override
   public Void visit(AssignationNode node) {
     LiteralNode expression = node.getExpression().accept(literalTransformer);
+    TokenType variableType = node.getDeclaration().getTypeToken().getType();
+    TokenType expressionType = expression.getType();
     boolean mutable = node.getDeclaration().isMutable();
-    variableMap.addVariable(node.getDeclaration().getNameToken().getValue(), expression, mutable);
-    return null;
+    if (TypeValidator.validateType(variableType, expressionType)) {
+      variableMap.addVariable(node.getDeclaration().getNameToken().getValue(), expression, mutable);
+      return null;
+    }
+    throw new RuntimeException(
+        "Variable "
+            + node.getDeclaration().getNameToken().getValue()
+            + " is of type "
+            + variableType
+            + " and cannot be assigned to type "
+            + expressionType);
   }
 
   @Override

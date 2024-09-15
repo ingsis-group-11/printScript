@@ -13,6 +13,7 @@ import token.Token;
 
 public class Parser {
   private final String version;
+  SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
 
   public Parser(String version) {
     this.version = version;
@@ -28,7 +29,6 @@ public class Parser {
   }
 
   private void semanticParser(AstNode node) {
-    SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
     semanticAnalyzer.analyze(node);
   }
 

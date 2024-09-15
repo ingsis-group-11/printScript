@@ -1,4 +1,4 @@
-package parser.semantic;
+package variablemap;
 
 import java.util.HashMap;
 import java.util.Map;

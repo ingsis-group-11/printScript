@@ -1,4 +1,4 @@
 let a: number = 10;
 let b: number = 10;
-let c: string = a - b;
+let c: number = a - b;
 println(c);

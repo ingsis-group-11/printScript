@@ -79,7 +79,10 @@ public class TokenListFactory implements AstVisitor<List<Token>> {
       result.add(tokenFactory.createToken(TokenType.ASSIGN, "=", node.getColumn(), node.getLine()));
     }
     result.addAll(node.getExpression().accept(this));
-    result.add(tokenFactory.createToken(TokenType.SEMICOLON, ";", result.size(), node.getLine()));
+    if (!(node.getExpression() instanceof ReadInputNode)
+        && !(node.getExpression() instanceof ReadEnvNode)) {
+      result.add(tokenFactory.createToken(TokenType.SEMICOLON, ";", result.size(), node.getLine()));
+    }
     return result;
   }
 
