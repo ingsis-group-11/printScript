@@ -7,6 +7,7 @@ import ast.nodes.EmptyNode;
 import parser.syntax.TokenStream;
 import parser.syntax.factory.ExpressionFactory;
 import parser.syntax.resolver.DeclarationTypeValidator;
+import parser.syntax.result.ExpressionResult;
 import token.Token;
 import token.TokenType;
 
@@ -14,11 +15,11 @@ public class AssignationSyntaxParser implements SyntaxParser {
 
   @Override
   public AstNode syntaxParse(TokenStream tokens, String version) {
-    AstNode result = parseAssignation(tokens, version);
-    return result;
+    return parseAssignation(tokens, version);
   }
 
   private AstNode parseAssignation(TokenStream tokenStream, String version) {
+
     AstNode expressionNode;
 
     if (tokenStream.getCurrentToken().getType() == TokenType.CONST_KEYWORD) {
@@ -26,20 +27,21 @@ public class AssignationSyntaxParser implements SyntaxParser {
     } else {
       tokenStream.expect(TokenType.LET_KEYWORD, "Expected 'let'");
     }
+
     DeclarationNode declarationNode = parseDeclaration(tokenStream);
+    tokenStream = tokenStream.advance();
 
     if (tokenStream.getCurrentToken().getType() != TokenType.ASSIGN) {
       tokenStream.expect(TokenType.SEMICOLON, "Expected ';'");
-      tokenStream.advance();
       TokenType type = resolveEmptyType(declarationNode.getTypeToken().getType());
-
       expressionNode = new EmptyNode(type);
     } else {
       tokenStream.expect(TokenType.ASSIGN, "Expected '='");
-      tokenStream.advance();
-      expressionNode = ExpressionFactory.createExpression(tokenStream, version);
+      tokenStream = tokenStream.advance();
+      ExpressionResult result = ExpressionFactory.createExpression(tokenStream, version);
+      expressionNode = result.astNode();
+      tokenStream = result.tokenStream();
       tokenStream.expect(TokenType.SEMICOLON, "Expected ';'");
-      tokenStream.advance();
     }
 
     return new AssignationNode(
@@ -48,17 +50,16 @@ public class AssignationSyntaxParser implements SyntaxParser {
 
   private DeclarationNode parseDeclaration(TokenStream tokenStream) {
     Token keyWordToken = tokenStream.getCurrentToken();
-    tokenStream.advance();
+    tokenStream = tokenStream.advance();
     Token nameToken = tokenStream.getCurrentToken();
     tokenStream.expect(TokenType.IDENTIFIER, "Expected identifier");
-    tokenStream.advance();
+    tokenStream = tokenStream.advance();
     tokenStream.expect(TokenType.COLON, "Expected ':'");
-    tokenStream.advance();
+    tokenStream = tokenStream.advance();
     Token typeToken = tokenStream.getCurrentToken();
+
     if (!DeclarationTypeValidator.isValidDeclarationType(typeToken.getType())) {
       throw new RuntimeException("Unsupported type: " + typeToken.getType().toString());
-    } else {
-      tokenStream.advance();
     }
     return new DeclarationNode(
         typeToken, nameToken, keyWordToken, nameToken.getLine(), nameToken.getColumn());

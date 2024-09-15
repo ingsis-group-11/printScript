@@ -5,6 +5,7 @@ import ast.nodes.ReassignmentNode;
 import ast.nodes.VariableNode;
 import parser.syntax.TokenStream;
 import parser.syntax.factory.ExpressionFactory;
+import parser.syntax.result.ExpressionResult;
 import token.Token;
 import token.TokenType;
 
@@ -17,14 +18,17 @@ public class ReassignationSyntaxParser implements SyntaxParser {
   }
 
   private AstNode parseReassignment(TokenStream tokenStream, String version) {
+
     VariableNode variableNode = parseVariable(tokenStream);
+    tokenStream = tokenStream.advance();
+
     tokenStream.expect(TokenType.ASSIGN, "Expected '='");
-    tokenStream.advance();
+    tokenStream = tokenStream.advance();
 
-    AstNode expressionNode = ExpressionFactory.createExpression(tokenStream, version);
-
+    ExpressionResult result = ExpressionFactory.createExpression(tokenStream, version);
+    AstNode expressionNode = result.astNode();
+    tokenStream = result.tokenStream();
     tokenStream.expect(TokenType.SEMICOLON, "Expected ';'");
-    tokenStream.advance();
 
     return new ReassignmentNode(
         variableNode, expressionNode, expressionNode.getLine(), expressionNode.getColumn());
@@ -32,7 +36,6 @@ public class ReassignationSyntaxParser implements SyntaxParser {
 
   private VariableNode parseVariable(TokenStream tokenStream) {
     Token variable = tokenStream.getCurrentToken();
-    tokenStream.advance();
     return new VariableNode(variable);
   }
 }

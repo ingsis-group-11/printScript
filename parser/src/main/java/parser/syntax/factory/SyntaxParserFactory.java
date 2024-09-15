@@ -5,6 +5,7 @@ import parser.syntax.TokenStream;
 import parser.syntax.parsers.SyntaxParser;
 import parser.syntax.provider.ProviderType;
 import parser.syntax.provider.SyntaxParserProvider;
+import parser.syntax.result.SyntaxParserFactoryResult;
 import token.Token;
 import token.TokenType;
 
@@ -15,7 +16,7 @@ public class SyntaxParserFactory {
     this.providerTypes = providerTypes;
   }
 
-  public SyntaxParser getSyntaxParser(TokenStream tokens) {
+  public SyntaxParserFactoryResult getSyntaxParser(TokenStream tokens) {
     if (!tokens.hasNext()) {
       throw new IllegalArgumentException("Empty token list");
     }
@@ -26,14 +27,14 @@ public class SyntaxParserFactory {
           && firstToken.getType() != TokenType.WHITESPACE) {
         break;
       } else {
-        tokens.advance();
+        tokens = tokens.advance();
       }
     }
 
     for (ProviderType type : providerTypes) {
       SyntaxParserProvider provider = type.getProvider();
       if (provider.supports(tokens)) {
-        return provider.createParser();
+        return new SyntaxParserFactoryResult(provider.createParser(), tokens);
       }
     }
 

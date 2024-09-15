@@ -8,18 +8,23 @@ import token.Token;
 public class TestTokenIterator implements PrintScriptIterator<Token> {
 
   private final Iterator<Token> iterator;
-  private Token currentToken;
-  private Token lastToken;
+  private final Token currentToken;
+  private final Token lastToken;
 
   public TestTokenIterator(List<Token> tokens) {
-
     this.iterator = tokens.iterator();
     this.lastToken = null;
     if (iterator.hasNext()) {
-      currentToken = iterator.next();
+      this.currentToken = iterator.next();
     } else {
-      currentToken = null;
+      this.currentToken = null;
     }
+  }
+
+  private TestTokenIterator(Iterator<Token> iterator, Token lastToken, Token currentToken) {
+    this.iterator = iterator;
+    this.lastToken = lastToken;
+    this.currentToken = currentToken;
   }
 
   @Override
@@ -28,10 +33,11 @@ public class TestTokenIterator implements PrintScriptIterator<Token> {
   }
 
   @Override
-  public Token next() {
-    lastToken = currentToken;
-    currentToken = iterator.next();
-    return currentToken;
+  public PrintScriptIterator<Token> next() {
+    Token newLastToken = currentToken;
+    Token newCurrentToken = iterator.hasNext() ? iterator.next() : null;
+
+    return new TestTokenIterator(iterator, newLastToken, newCurrentToken);  // Return a new instance
   }
 
   @Override

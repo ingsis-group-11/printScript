@@ -8,6 +8,7 @@ import parser.syntax.factory.SyntaxParserFactory;
 import parser.syntax.parsers.SyntaxParser;
 import parser.syntax.provider.ProviderType;
 import parser.syntax.resolver.ParserVersionResolver;
+import parser.syntax.result.SyntaxParserFactoryResult;
 import providers.iterator.PrintScriptIterator;
 import token.Token;
 
@@ -35,7 +36,9 @@ public class Parser {
   private AstNode syntaxParser(TokenStream tokenStream) {
     Set<ProviderType> providerTypes = ParserVersionResolver.getParserProviderTypes(version);
     SyntaxParserFactory factory = new SyntaxParserFactory(providerTypes);
-    SyntaxParser syntaxParser = factory.getSyntaxParser(tokenStream);
+    SyntaxParserFactoryResult result = factory.getSyntaxParser(tokenStream);
+    tokenStream = result.tokenStream();
+    SyntaxParser syntaxParser = result.syntaxParser();
     return syntaxParser.syntaxParse(tokenStream, version);
   }
 }

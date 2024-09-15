@@ -4,6 +4,7 @@ import ast.nodes.AstNode;
 import ast.nodes.ReadEnvNode;
 import parser.syntax.TokenStream;
 import parser.syntax.factory.ExpressionFactory;
+import parser.syntax.result.ExpressionResult;
 import token.TokenType;
 
 public class ReadEnvSyntaxParser implements SyntaxParser {
@@ -14,19 +15,21 @@ public class ReadEnvSyntaxParser implements SyntaxParser {
   }
 
   private AstNode parseReadInput(TokenStream tokenStream, String version) {
+
     tokenStream.expect(TokenType.READ_ENV, "Expected 'readEnv'");
-    tokenStream.advance();
+    tokenStream = tokenStream.advance();
 
     tokenStream.expect(TokenType.PARENTHESIS_OPEN, "Expected '('");
-    tokenStream.advance();
+    tokenStream = tokenStream.advance();
 
-    AstNode expressionNode = ExpressionFactory.createExpression(tokenStream, version);
+    ExpressionResult result = ExpressionFactory.createExpression(tokenStream, version);
+    AstNode expressionNode = result.astNode();
+    tokenStream = result.tokenStream();
     tokenStream.expect(TokenType.PARENTHESIS_CLOSE, "Expected ')'");
-    tokenStream.advance();
+    tokenStream = tokenStream.advance();
     int line = tokenStream.getCurrentToken().getLine();
     int column = tokenStream.getCurrentToken().getColumn();
     tokenStream.expect(TokenType.SEMICOLON, "Expected ';'");
-    tokenStream.advance();
     return new ReadEnvNode(expressionNode, line, column);
   }
 }

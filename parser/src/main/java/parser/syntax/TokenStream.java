@@ -11,16 +11,17 @@ public class TokenStream {
     this.iterator = iterator;
   }
 
-  public void advance() {
-
+  public TokenStream advance() {
+    PrintScriptIterator<Token> newIterator = iterator;
     if (iterator.hasNext()) {
-      iterator.next();
-      while ((iterator.current().getType() == TokenType.WHITESPACE
-              || iterator.current().getType() == TokenType.LINE_BREAK)
-          && iterator.hasNext()) {
-        iterator.next();
+      newIterator = iterator.next();
+      while ((newIterator.current().getType() == TokenType.WHITESPACE
+          || newIterator.current().getType() == TokenType.LINE_BREAK)
+          && newIterator.hasNext()) {
+        newIterator = newIterator.next();
       }
     }
+    return new TokenStream(newIterator);
   }
 
   public boolean hasNext() {

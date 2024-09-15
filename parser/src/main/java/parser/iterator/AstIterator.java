@@ -12,7 +12,7 @@ import token.Token;
 
 public class AstIterator implements Iterator<AstNode> {
   private final Parser parser;
-  private final PrintScriptIterator<Token> iterator;
+  private PrintScriptIterator<Token> iterator;
   private List<Observer> observers = new ArrayList<>();
 
   public AstIterator(PrintScriptIterator<Token> iterator, String version) {
@@ -48,6 +48,10 @@ public class AstIterator implements Iterator<AstNode> {
       throw new NoSuchElementException("No more tokens to parse");
     }
     this.notifyObservers();
-    return parser.parse(iterator);
+    AstNode node = parser.parse(iterator);
+    if (iterator.hasNext()) {
+      iterator = iterator.next(); // Advance the internal iterator
+    }
+    return node;
   }
 }

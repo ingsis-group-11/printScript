@@ -1,9 +1,9 @@
 package parser.syntax.handler;
 
-import ast.nodes.AstNode;
 import parser.syntax.TokenStream;
+import parser.syntax.result.ExpressionResult;
 import token.Token;
 
 public interface PrimaryExpressionHandler {
-  AstNode handle(TokenStream tokenStream, Token token);
+  ExpressionResult handle(TokenStream tokenStream, Token token);
 }

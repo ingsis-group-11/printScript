@@ -10,6 +10,9 @@ import parser.syntax.TokenStream;
 import parser.syntax.factory.ExpressionFactory;
 import parser.syntax.factory.SyntaxParserFactory;
 import parser.syntax.provider.ProviderTypeV2;
+import parser.syntax.result.ExpressionResult;
+import parser.syntax.result.ParseBlockResult;
+import parser.syntax.result.SyntaxParserFactoryResult;
 import token.TokenType;
 
 public class IfSyntaxParser implements SyntaxParser {
@@ -17,43 +20,36 @@ public class IfSyntaxParser implements SyntaxParser {
   public AstNode syntaxParse(TokenStream tokens, String version) {
 
     tokens.expect(TokenType.IF_KEYWORD, "Expected 'if'");
-    tokens.advance();
+    tokens = tokens.advance();
 
     tokens.expect(TokenType.PARENTHESIS_OPEN, "Expected '('");
-    tokens.advance();
-
-    AstNode condition = ExpressionFactory.createExpression(tokens, version);
+    tokens = tokens.advance();
+    ExpressionResult result = ExpressionFactory.createExpression(tokens, version);
+    AstNode condition = result.astNode();
+    tokens = result.tokenStream();
 
     tokens.expect(TokenType.PARENTHESIS_CLOSE, "Expected ')'");
-    tokens.advance();
-
+    tokens = tokens.advance();
     tokens.expect(TokenType.BRACE_OPEN, "Expected '{'");
-    tokens.advance();
-
-    BlockNode ifBlock = parseBlock(tokens, version);
+    tokens = tokens.advance();
+    ParseBlockResult ifBlockResult = parseBlock(tokens, version);
+    BlockNode ifBlock = ifBlockResult.blockNode();
+    tokens = ifBlockResult.tokenStream();
 
     tokens.expect(TokenType.BRACE_CLOSE, "Expected '}'");
-    tokens.advance();
-
+    tokens = tokens.advance();
     BlockNode elseBlock = new BlockNode(new ArrayList<>());
 
     if (tokens.hasNext()) {
 
-      if (tokens.getCurrentToken().getType() == TokenType.LINE_BREAK) {
-        tokens.advance();
-      }
-
       if (tokens.getCurrentToken().getType() == TokenType.ELSE_KEYWORD) {
 
-        tokens.advance();
-
+        tokens = tokens.advance();
         tokens.expect(TokenType.BRACE_OPEN, "Expected '{'");
-        tokens.advance();
-
-        elseBlock = parseBlock(tokens, version);
+        tokens = tokens.advance();
+        elseBlock = parseBlock(tokens, version).blockNode();
 
         tokens.expect(TokenType.BRACE_CLOSE, "Expected '}'");
-        tokens.advance();
       }
     }
 
@@ -68,15 +64,18 @@ public class IfSyntaxParser implements SyntaxParser {
     return ifNode;
   }
 
-  private BlockNode parseBlock(TokenStream tokens, String version) {
+  private ParseBlockResult parseBlock(TokenStream tokens, String version) {
     List<AstNode> block = new ArrayList<>();
     SyntaxParserFactory syntaxParserFactory =
         new SyntaxParserFactory(Set.of(ProviderTypeV2.values()));
     while (tokens.getCurrentToken().getType() != TokenType.BRACE_CLOSE) {
-      SyntaxParser parser = syntaxParserFactory.getSyntaxParser(tokens);
-      AstNode result = parser.syntaxParse(tokens, version);
-      block.add(result);
+      SyntaxParserFactoryResult result = syntaxParserFactory.getSyntaxParser(tokens);
+      tokens = result.tokenStream();
+      SyntaxParser parser = result.syntaxParser();
+      AstNode node = parser.syntaxParse(tokens, version);
+      block.add(node);
+      tokens = tokens.advance();
     }
-    return new BlockNode(block);
+    return new ParseBlockResult(new BlockNode(block), tokens);
   }
 }

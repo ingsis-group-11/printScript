@@ -11,18 +11,21 @@ import token.Token;
 public class TokenIterator implements PrintScriptIterator<Token> {
   private final Lexer lexer;
   private final FileReaderIterator inputIterator;
-  private Token currentToken;
-  private Token lastToken;
+  private final Token currentToken;
+  private final Token lastToken;
 
   public TokenIterator(FileReaderIterator inputIterator, String version) {
     this.inputIterator = inputIterator;
     this.lexer = new Lexer(inputIterator, version);
     this.lastToken = null;
-    if (inputIterator.hasNext()) {
-      this.currentToken = this.next();
-    } else {
-      this.currentToken = null;
-    }
+    this.currentToken = inputIterator.hasNext() ? this.next().current() : null;
+  }
+
+  private TokenIterator(FileReaderIterator inputIterator, Lexer lexer, Token lastToken, Token currentToken) {
+    this.inputIterator = inputIterator;
+    this.lexer = lexer;
+    this.lastToken = lastToken;
+    this.currentToken = currentToken;
   }
 
   @Override
@@ -31,15 +34,15 @@ public class TokenIterator implements PrintScriptIterator<Token> {
   }
 
   @Override
-  public Token next() {
+  public PrintScriptIterator<Token> next() {
     if (!hasNext()) {
       throw new NoSuchElementException("No more tokens to parse");
     }
     LexingResult result = lexer.lex();
     if (result instanceof SuccessfulResult) {
-      lastToken = currentToken;
-      currentToken = ((SuccessfulResult) result).token();
-      return ((SuccessfulResult) result).token();
+      Token newLastToken = currentToken;
+      Token newCurrentToken = ((SuccessfulResult) result).token();
+      return new TokenIterator(inputIterator, lexer, newLastToken, newCurrentToken);  // Return new iterator
     } else {
       throw new RuntimeException(((UnsuccessfulResult) result).message());
     }

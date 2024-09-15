@@ -4,7 +4,7 @@ public interface PrintScriptIterator<T> {
 
   boolean hasNext();
 
-  T next();
+  PrintScriptIterator<T> next();
 
   T current();
 
