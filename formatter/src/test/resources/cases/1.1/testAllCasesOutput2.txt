@@ -6,8 +6,8 @@ if (isAdult) {
 } else {
     let bool: boolean = readInput("Hello");
     if (bool) {
-      println("Hi if");
+        println("Hi if");
     } else {
-      println("Hi else");
+        println("Hi else");
     }
 }
