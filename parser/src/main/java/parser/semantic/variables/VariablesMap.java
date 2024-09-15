@@ -30,22 +30,26 @@ public class VariablesMap {
     if (scopes.peek().containsKey(name)) {
       throw new RuntimeException("Variable " + name + " already exists");
     }
-    scopes.peek().put(name, new VariableType(variableType, mutable));
+    if (new VariableTokenMap().getType(variableType) == null) {
+      scopes.peek().put(name, new VariableType(variableType, mutable));
+    } else {
+      scopes
+          .peek()
+          .put(name, new VariableType(new VariableTokenMap().getType(variableType), mutable));
+    }
   }
 
   public TokenType getVariableType(String name) {
-    VariableTokenMap variableTokenMap = new VariableTokenMap();
     for (int i = scopes.size() - 1; i >= 0; i--) {
       Map<String, VariableType> scope = scopes.get(i);
       if (scope.containsKey(name)) {
-        return variableTokenMap.getType(scope.get(name).getType());
+        return scope.get(name).getType();
       }
     }
     throw new RuntimeException("Variable " + name + " does not exists");
   }
 
   public void updateVariable(String name, TokenType tokenType) {
-    VariableTokenMap variableTokenMap = new VariableTokenMap();
     for (int i = scopes.size() - 1; i >= 0; i--) {
       Map<String, VariableType> scope = scopes.get(i);
       if (scope.containsKey(name)) {
@@ -55,15 +59,14 @@ public class VariablesMap {
         if (!mutable) {
           throw new RuntimeException("Variable " + name + " is of type const and can't be updated");
         }
-        scope.put(name, new VariableType(variableTokenMap.getType(tokenType), true));
+        scope.put(name, new VariableType(tokenType, true));
         return;
       }
     }
   }
 
   private static void checkVariableType(String name, TokenType newTokenType, TokenType tokenType) {
-    VariableTokenMap variableTokenMap = new VariableTokenMap();
-    if (variableTokenMap.getType(tokenType) != newTokenType) {
+    if (tokenType != newTokenType) {
       throw new RuntimeException(
           "Variable "
               + name
