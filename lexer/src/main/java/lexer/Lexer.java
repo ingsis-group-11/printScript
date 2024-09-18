@@ -10,7 +10,7 @@ public class Lexer {
 
   public Lexer(InputReader input, String version) {
     LexerMapFactory factory = new LexerMapFactory();
-    tokenizer = new Tokenizer(input, factory.getLexerMap(version));
+    tokenizer = new Tokenizer(factory.getLexerMap(version));
     this.input = input;
   }
 

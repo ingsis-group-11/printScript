@@ -1,9 +1,9 @@
 package iterator;
 
 public interface InputReader {
-  public char next();
+  char next();
 
-  public boolean hasNext();
+  boolean hasNext();
 
-  public char current();
+  char current();
 }
