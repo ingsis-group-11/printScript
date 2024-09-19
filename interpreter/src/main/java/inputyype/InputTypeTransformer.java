@@ -1,18 +1,18 @@
 package inputyype;
 
-import token.TokenType;
+import ast.tokens.AstTokenType;
 
 public class InputTypeTransformer {
-  public TokenType detectInputType(String input) {
+  public AstTokenType detectInputType(String input) {
     switch (input.toLowerCase()) {
       case "true":
       case "false":
-        return TokenType.BOOLEAN;
+        return AstTokenType.BOOLEAN;
       default:
         if (isInteger(input) || isDouble(input)) {
-          return TokenType.NUMBER;
+          return AstTokenType.NUMBER;
         } else {
-          return TokenType.STRING;
+          return AstTokenType.STRING;
         }
     }
   }

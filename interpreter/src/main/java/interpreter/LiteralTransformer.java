@@ -13,10 +13,10 @@ import ast.nodes.ReadEnvNode;
 import ast.nodes.ReadInputNode;
 import ast.nodes.ReassignmentNode;
 import ast.nodes.VariableNode;
+import ast.tokens.ValueAstToken;
 import inputyype.InputTypeTransformer;
 import providers.inputprovider.InputProvider;
-import token.TokenType;
-import token.ValueToken;
+import ast.tokens.AstTokenType;
 import variablemap.VariableMap;
 
 public class LiteralTransformer implements AstVisitor<LiteralNode> {
@@ -55,7 +55,7 @@ public class LiteralTransformer implements AstVisitor<LiteralNode> {
     LiteralNode left = node.getLeftNode().accept(this);
     LiteralNode right = node.getRightNode().accept(this);
     return new LiteralNode(
-        new ValueToken(
+        new ValueAstToken(
             left.getType(), parseCalc(operator, left, right), left.getLine(), left.getColumn()));
   }
 
@@ -64,7 +64,7 @@ public class LiteralTransformer implements AstVisitor<LiteralNode> {
     String variableName = node.getValue();
     LiteralNode variableValue = variableMap.getVariable(variableName);
     return new LiteralNode(
-        new ValueToken(
+        new ValueAstToken(
             variableValue.getType(),
             variableValue.getValue(),
             variableValue.getLine(),
@@ -78,7 +78,7 @@ public class LiteralTransformer implements AstVisitor<LiteralNode> {
 
   @Override
   public LiteralNode visit(EmptyNode emptyNode) {
-    return new LiteralNode(new ValueToken(emptyNode.getType(), null, null, null));
+    return new LiteralNode(new ValueAstToken(emptyNode.getType(), null, null, null));
   }
 
   @Override
@@ -86,8 +86,8 @@ public class LiteralTransformer implements AstVisitor<LiteralNode> {
     LiteralNode expression = node.getExpression().accept(this);
     String message = expression.getValue();
     String input = inputProvider.getInput(message);
-    TokenType inputType = new InputTypeTransformer().detectInputType(input);
-    return new LiteralNode(new ValueToken(inputType, input, node.getColumn(), node.getLine()));
+    AstTokenType inputType = new InputTypeTransformer().detectInputType(input);
+    return new LiteralNode(new ValueAstToken(inputType, input, node.getColumn(), node.getLine()));
   }
 
   @Override
@@ -98,7 +98,7 @@ public class LiteralTransformer implements AstVisitor<LiteralNode> {
     if (env == null) {
       throw new RuntimeException("Environment variable " + variableName + " not found");
     }
-    return new LiteralNode(new ValueToken(TokenType.STRING, env, node.getColumn(), node.getLine()));
+    return new LiteralNode(new ValueAstToken(AstTokenType.STRING, env, node.getColumn(), node.getLine()));
   }
 
   @Override
@@ -112,14 +112,14 @@ public class LiteralTransformer implements AstVisitor<LiteralNode> {
   }
 
   private String parseCalc(String operator, LiteralNode left, LiteralNode right) {
-    TokenType leftType = left.getType();
-    TokenType rightType = right.getType();
+    AstTokenType leftType = left.getType();
+    AstTokenType rightType = right.getType();
     String leftValue = left.getValue();
     String rightValue = right.getValue();
     Operators operatorEnum = Operators.fromSymbol(operator);
     return switch (operatorEnum) {
       case ADDITION -> {
-        if (leftType == TokenType.STRING || rightType == TokenType.STRING) {
+        if (leftType == AstTokenType.STRING || rightType == AstTokenType.STRING) {
           yield leftValue + rightValue;
         }
         checkInvalidOperation(left, right, leftType, rightType, operator);
@@ -157,11 +157,11 @@ public class LiteralTransformer implements AstVisitor<LiteralNode> {
   private void checkInvalidOperation(
       LiteralNode left,
       LiteralNode right,
-      TokenType leftType,
-      TokenType rightType,
+      AstTokenType leftType,
+      AstTokenType rightType,
       String operator) {
-    if ((leftType == TokenType.STRING || leftType == TokenType.BOOLEAN)
-        || (rightType == TokenType.STRING || rightType == TokenType.BOOLEAN)) {
+    if ((leftType == AstTokenType.STRING || leftType == AstTokenType.BOOLEAN)
+        || (rightType == AstTokenType.STRING || rightType == AstTokenType.BOOLEAN)) {
       throw new RuntimeException(
           "Invalid operation: "
               + left.getValue()

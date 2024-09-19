@@ -6,10 +6,14 @@ import ast.nodes.VariableNode;
 import java.util.Optional;
 import parser.syntax.TokenStream;
 import parser.syntax.factory.ExpressionFactory;
+import parser.syntax.map.TokenAdapter;
+import parser.syntax.map.TokenGenerator;
 import token.Token;
 import token.TokenType;
 
 public class ReassignationSyntaxParser implements SyntaxParser {
+  ;
+  private final TokenGenerator tokenGenerator = new TokenGenerator();
 
   @Override
   public AstNode syntaxParse(TokenStream tokens, String version) {
@@ -34,7 +38,7 @@ public class ReassignationSyntaxParser implements SyntaxParser {
   private VariableNode parseVariable(TokenStream tokenStream) {
     Token variable = tokenStream.getCurrentToken();
     tokenStream.advance();
-    return new VariableNode(variable);
+    return new VariableNode(tokenGenerator.getAstToken(variable));
   }
 
   private void handleExpect(Optional<Exception> exception) {

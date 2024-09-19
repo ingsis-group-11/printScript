@@ -6,4 +6,4 @@ interpreter/build/
 lexer/build
 parser/build
 runner/build
-token/build
+astToken/build

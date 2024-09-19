@@ -1,17 +1,18 @@
 package ast.nodes;
 
 import ast.AstVisitor;
-import token.Token;
+import ast.tokens.AstToken;
+import ast.tokens.AstTokenType;
 
 public class DeclarationNode implements AstNode {
-  private final Token type;
-  private final Token name;
-  private final Token declarationKeyWord;
+  private final AstToken type;
+  private final AstToken name;
+  private final AstToken declarationKeyWord;
   private final Integer line;
   private final Integer column;
 
   public DeclarationNode(
-      Token type, Token name, Token declarationKeyWord, Integer line, Integer column) {
+          AstToken type, AstToken name, AstToken declarationKeyWord, Integer line, Integer column) {
     this.type = type;
     this.name = name;
     this.declarationKeyWord = declarationKeyWord;
@@ -19,20 +20,20 @@ public class DeclarationNode implements AstNode {
     this.column = column;
   }
 
-  public Token getTypeToken() {
+  public AstToken getTypeToken() {
     return type;
   }
 
-  public Token getNameToken() {
+  public AstToken getNameToken() {
     return name;
   }
 
-  public Token getDeclarationKeyWord() {
+  public AstToken getDeclarationKeyWord() {
     return declarationKeyWord;
   }
 
   public boolean isMutable() {
-    return declarationKeyWord.getType() == token.TokenType.LET_KEYWORD;
+    return declarationKeyWord.getType() == AstTokenType.LET_KEYWORD;
   }
 
   @Override

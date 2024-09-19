@@ -16,7 +16,7 @@ import ast.nodes.ReassignmentNode;
 import ast.nodes.VariableNode;
 import providers.inputprovider.InputProvider;
 import providers.printprovider.PrintProvider;
-import token.TokenType;
+import ast.tokens.AstTokenType;
 import variablemap.TypeValidator;
 import variablemap.VariableMap;
 
@@ -55,8 +55,8 @@ public class InterpreterVisitor implements AstVisitor<Void> {
   @Override
   public Void visit(AssignationNode node) {
     LiteralNode expression = node.getExpression().accept(literalTransformer);
-    TokenType variableType = node.getDeclaration().getTypeToken().getType();
-    TokenType expressionType = expression.getType();
+    AstTokenType variableType = node.getDeclaration().getTypeToken().getType();
+    AstTokenType expressionType = expression.getType();
     boolean mutable = node.getDeclaration().isMutable();
     if (TypeValidator.validateType(variableType, expressionType)) {
       variableMap.addVariable(node.getDeclaration().getNameToken().getValue(), expression, mutable);
@@ -85,7 +85,7 @@ public class InterpreterVisitor implements AstVisitor<Void> {
   public Void visit(ReassignmentNode node) {
     LiteralNode expression = node.getExpression().accept(literalTransformer);
     LiteralNode variable = variableMap.getVariable(node.getVariableNode().getValue());
-    TokenType variableType = variable.getType();
+    AstTokenType variableType = variable.getType();
     if (variableType.equals(expression.getType())) {
       variableMap.updateVariable(node.getVariableNode().getValue(), expression);
     } else {
@@ -130,7 +130,7 @@ public class InterpreterVisitor implements AstVisitor<Void> {
     AstNode conditionNode = ifNode.getCondition();
     LiteralNode conditionLiteral = conditionNode.accept(literalTransformer);
 
-    if (conditionLiteral.getType() != TokenType.BOOLEAN) {
+    if (conditionLiteral.getType() != AstTokenType.BOOLEAN) {
       throw new RuntimeException("Condition in if statement must be a Boolean");
     }
 

@@ -14,6 +14,7 @@ import parser.syntax.provider.ProviderTypeV2;
 import token.TokenType;
 
 public class IfSyntaxParser implements SyntaxParser {
+
   @Override
   public AstNode syntaxParse(TokenStream tokens, String version) {
 

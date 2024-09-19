@@ -3,7 +3,8 @@ package parser.semantic.variables;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
-import token.TokenType;
+
+import ast.tokens.AstTokenType;
 
 public class VariablesMap {
 
@@ -26,7 +27,7 @@ public class VariablesMap {
     }
   }
 
-  public void addVariable(String name, TokenType variableType, boolean mutable) {
+  public void addVariable(String name, AstTokenType variableType, boolean mutable) {
     if (scopes.peek().containsKey(name)) {
       throw new RuntimeException("Variable " + name + " already exists");
     }
@@ -39,7 +40,7 @@ public class VariablesMap {
     }
   }
 
-  public TokenType getVariableType(String name) {
+  public AstTokenType getVariableType(String name) {
     for (int i = scopes.size() - 1; i >= 0; i--) {
       Map<String, VariableType> scope = scopes.get(i);
       if (scope.containsKey(name)) {
@@ -49,7 +50,7 @@ public class VariablesMap {
     throw new RuntimeException("Variable " + name + " does not exists");
   }
 
-  public void updateVariable(String name, TokenType tokenType) {
+  public void updateVariable(String name, AstTokenType tokenType) {
     for (int i = scopes.size() - 1; i >= 0; i--) {
       Map<String, VariableType> scope = scopes.get(i);
       if (scope.containsKey(name)) {
@@ -65,7 +66,7 @@ public class VariablesMap {
     }
   }
 
-  private static void checkVariableType(String name, TokenType newTokenType, TokenType tokenType) {
+  private static void checkVariableType(String name, AstTokenType newTokenType, AstTokenType tokenType) {
     if (tokenType != newTokenType) {
       throw new RuntimeException(
           "Variable "

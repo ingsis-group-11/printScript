@@ -13,10 +13,10 @@ import ast.nodes.ReadEnvNode;
 import ast.nodes.ReadInputNode;
 import ast.nodes.ReassignmentNode;
 import ast.nodes.VariableNode;
+import ast.tokens.AstTokenType;
 import parser.semantic.variables.VariablesMap;
-import token.TokenType;
 
-public class ExpressionTypeVisitor implements AstVisitor<TokenType> {
+public class ExpressionTypeVisitor implements AstVisitor<AstTokenType> {
 
   private final VariablesMap variablesMap;
 
@@ -25,70 +25,70 @@ public class ExpressionTypeVisitor implements AstVisitor<TokenType> {
   }
 
   @Override
-  public TokenType visit(DeclarationNode node) {
+  public AstTokenType visit(DeclarationNode node) {
     return node.getTypeToken().getType();
   }
 
   @Override
-  public TokenType visit(LiteralNode node) {
+  public AstTokenType visit(LiteralNode node) {
     return node.getType();
   }
 
   @Override
-  public TokenType visit(PrintNode node) {
+  public AstTokenType visit(PrintNode node) {
     return node.getExpression().accept(this);
   }
 
   @Override
-  public TokenType visit(AssignationNode node) {
+  public AstTokenType visit(AssignationNode node) {
     return node.getExpression().accept(this);
   }
 
   @Override
-  public TokenType visit(OperatorNode node) {
-    if (node.getLeftNode().accept(this) == TokenType.BOOLEAN
-        || node.getRightNode().accept(this) == TokenType.BOOLEAN) {
-      return TokenType.BOOLEAN;
+  public AstTokenType visit(OperatorNode node) {
+    if (node.getLeftNode().accept(this) == AstTokenType.BOOLEAN
+        || node.getRightNode().accept(this) == AstTokenType.BOOLEAN) {
+      return AstTokenType.BOOLEAN;
     }
-    if (node.getLeftNode().accept(this) == TokenType.NUMBER
-        && node.getRightNode().accept(this) == TokenType.NUMBER) {
-      return TokenType.NUMBER;
+    if (node.getLeftNode().accept(this) == AstTokenType.NUMBER
+        && node.getRightNode().accept(this) == AstTokenType.NUMBER) {
+      return AstTokenType.NUMBER;
     }
-    return TokenType.STRING;
+    return AstTokenType.STRING;
   }
 
   @Override
-  public TokenType visit(VariableNode node) {
+  public AstTokenType visit(VariableNode node) {
     return variablesMap.getVariableType(node.getValue());
   }
 
   @Override
-  public TokenType visit(ReassignmentNode node) {
+  public AstTokenType visit(ReassignmentNode node) {
     return node.getExpression().accept(this);
   }
 
   @Override
-  public TokenType visit(EmptyNode node) {
-    return TokenType.EMPTY;
+  public AstTokenType visit(EmptyNode node) {
+    return AstTokenType.EMPTY;
   }
 
   @Override
-  public TokenType visit(ReadInputNode node) {
-    return TokenType.READ_INPUT;
+  public AstTokenType visit(ReadInputNode node) {
+    return AstTokenType.READ_INPUT;
   }
 
   @Override
-  public TokenType visit(ReadEnvNode readEnvNode) {
-    return TokenType.STRING;
+  public AstTokenType visit(ReadEnvNode readEnvNode) {
+    return AstTokenType.STRING;
   }
 
   @Override
-  public TokenType visit(IfNode ifNode) {
+  public AstTokenType visit(IfNode ifNode) {
     return null;
   }
 
   @Override
-  public TokenType visit(BlockNode blockNode) {
+  public AstTokenType visit(BlockNode blockNode) {
     return null;
   }
 }

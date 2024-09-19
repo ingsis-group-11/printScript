@@ -1,16 +1,16 @@
 package ast.nodes;
 
 import ast.AstVisitor;
-import token.TokenType;
+import ast.tokens.AstTokenType;
 
 public class EmptyNode implements AstNode {
-  private final TokenType variableType;
+  private final AstTokenType variableType;
 
-  public EmptyNode(TokenType type) {
+  public EmptyNode(AstTokenType type) {
     this.variableType = type;
   }
 
-  public TokenType getType() {
+  public AstTokenType getType() {
     return variableType;
   }
 

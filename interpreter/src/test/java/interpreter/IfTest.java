@@ -9,10 +9,11 @@ import ast.nodes.LiteralNode;
 import ast.nodes.PrintNode;
 import java.util.Iterator;
 import java.util.List;
+
+import ast.tokens.ValueAstToken;
 import org.junit.jupiter.api.Test;
 import providers.printprovider.TestPrintProvider;
-import token.TokenType;
-import token.ValueToken;
+import ast.tokens.AstTokenType;
 
 public class IfTest {
 
@@ -27,13 +28,13 @@ public class IfTest {
     List<AstNode> astNodes =
         List.of(
             new IfNode(
-                new LiteralNode(new ValueToken(TokenType.BOOLEAN, "true", 8, 1)),
+                new LiteralNode(new ValueAstToken(AstTokenType.BOOLEAN, "true", 8, 1)),
                 new BlockNode(
                     List.of(
                         new PrintNode(
                             new LiteralNode(
-                                new ValueToken(
-                                    TokenType.STRING, "if statement working correctly", 8, 1)),
+                                new ValueAstToken(
+                                    AstTokenType.STRING, "if statement working correctly", 8, 1)),
                             1,
                             1))),
                 new BlockNode(List.of()),
