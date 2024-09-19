@@ -12,6 +12,7 @@ allprojects {
     checkstyle {
         toolVersion = '10.18.0'
         configFile = file("${rootProject.projectDir}/config/checkstyle/google_checks.xml")
+        maxWarnings = 0
     }
 }
 
