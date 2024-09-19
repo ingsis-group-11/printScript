@@ -88,8 +88,7 @@ public class ParserTest {
     Parser parser = new Parser("1.0");
     RuntimeException exception =
         assertThrows(RuntimeException.class, () -> parser.parse(tokenIterator));
-    assertEquals(
-        "java.lang.RuntimeException: Expected '(' at column 8 line 1", exception.getMessage());
+    assertEquals("Expected '(' at column 8 line 1", exception.getMessage());
   }
 
   @Test
