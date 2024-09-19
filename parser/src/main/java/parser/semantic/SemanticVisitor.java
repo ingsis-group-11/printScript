@@ -124,7 +124,9 @@ public class SemanticVisitor implements AstVisitor<SemanticResult> {
     ExpressionTypeVisitor expressionTypeVisitor = new ExpressionTypeVisitor(variablesMap);
     TokenType variableType = variablesMap.getVariableType(node.getVariableNode().getValue());
     TokenType expressionType = node.getExpression().accept(expressionTypeVisitor);
-    if (variableType == expressionType) {
+    if (variableType == expressionType
+        || variableType == TokenType.READ_INPUT
+        || variableType == TokenType.READ_ENV) {
       variablesMap.updateVariable(node.getVariableNode().getValue(), expressionType);
       return new SemanticSuccessResult();
     }
