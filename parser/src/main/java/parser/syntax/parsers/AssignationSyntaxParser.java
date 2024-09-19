@@ -4,6 +4,7 @@ import ast.nodes.AssignationNode;
 import ast.nodes.AstNode;
 import ast.nodes.DeclarationNode;
 import ast.nodes.EmptyNode;
+import java.util.Optional;
 import parser.syntax.TokenStream;
 import parser.syntax.factory.ExpressionFactory;
 import parser.syntax.resolver.DeclarationTypeValidator;
@@ -22,23 +23,23 @@ public class AssignationSyntaxParser implements SyntaxParser {
     AstNode expressionNode;
 
     if (tokenStream.getCurrentToken().getType() == TokenType.CONST_KEYWORD) {
-      tokenStream.expect(TokenType.CONST_KEYWORD, "Expected 'const'");
+      handleExpect(tokenStream.expect(TokenType.CONST_KEYWORD, "Expected 'const'"));
     } else {
-      tokenStream.expect(TokenType.LET_KEYWORD, "Expected 'let'");
+      handleExpect(tokenStream.expect(TokenType.LET_KEYWORD, "Expected 'let'"));
     }
     DeclarationNode declarationNode = parseDeclaration(tokenStream);
 
     if (tokenStream.getCurrentToken().getType() != TokenType.ASSIGN) {
-      tokenStream.expect(TokenType.SEMICOLON, "Expected ';'");
+      handleExpect(tokenStream.expect(TokenType.SEMICOLON, "Expected ';'"));
       tokenStream.advance();
       TokenType type = resolveEmptyType(declarationNode.getTypeToken().getType());
 
       expressionNode = new EmptyNode(type);
     } else {
-      tokenStream.expect(TokenType.ASSIGN, "Expected '='");
+      handleExpect(tokenStream.expect(TokenType.ASSIGN, "Expected '='"));
       tokenStream.advance();
       expressionNode = ExpressionFactory.createExpression(tokenStream, version);
-      tokenStream.expect(TokenType.SEMICOLON, "Expected ';'");
+      handleExpect(tokenStream.expect(TokenType.SEMICOLON, "Expected ';'"));
       tokenStream.advance();
     }
 
@@ -50,9 +51,9 @@ public class AssignationSyntaxParser implements SyntaxParser {
     Token keyWordToken = tokenStream.getCurrentToken();
     tokenStream.advance();
     Token nameToken = tokenStream.getCurrentToken();
-    tokenStream.expect(TokenType.IDENTIFIER, "Expected identifier");
+    handleExpect(tokenStream.expect(TokenType.IDENTIFIER, "Expected identifier"));
     tokenStream.advance();
-    tokenStream.expect(TokenType.COLON, "Expected ':'");
+    handleExpect(tokenStream.expect(TokenType.COLON, "Expected ':'"));
     tokenStream.advance();
     Token typeToken = tokenStream.getCurrentToken();
     if (!DeclarationTypeValidator.isValidDeclarationType(typeToken.getType())) {
@@ -71,5 +72,12 @@ public class AssignationSyntaxParser implements SyntaxParser {
       return TokenType.NUMBER;
     }
     return TokenType.EMPTY;
+  }
+
+  private void handleExpect(Optional<Exception> exception) {
+    exception.ifPresent(
+        e -> {
+          throw new RuntimeException(e);
+        });
   }
 }

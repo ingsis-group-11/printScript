@@ -12,6 +12,7 @@ allprojects {
     checkstyle {
         toolVersion = '10.18.0'
         configFile = file("${rootProject.projectDir}/config/checkstyle/google_checks.xml")
+        maxWarnings = 0
     }
 }
 
@@ -56,5 +57,6 @@ tasks.register('runScript', Exec) {
 tasks.named('build'){
     dependsOn 'runScript'
     dependsOn 'addPreCommitGitHookOnBuild'
+    dependsOn 'check'
 }
 
