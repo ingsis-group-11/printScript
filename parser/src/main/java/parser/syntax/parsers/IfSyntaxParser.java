@@ -5,6 +5,7 @@ import ast.nodes.BlockNode;
 import ast.nodes.IfNode;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import parser.syntax.TokenStream;
 import parser.syntax.factory.ExpressionFactory;
@@ -16,23 +17,23 @@ public class IfSyntaxParser implements SyntaxParser {
   @Override
   public AstNode syntaxParse(TokenStream tokens, String version) {
 
-    tokens.expect(TokenType.IF_KEYWORD, "Expected 'if'");
+    handleExpect(tokens.expect(TokenType.IF_KEYWORD, "Expected 'if'"));
     tokens.advance();
 
-    tokens.expect(TokenType.PARENTHESIS_OPEN, "Expected '('");
+    handleExpect(tokens.expect(TokenType.PARENTHESIS_OPEN, "Expected '('"));
     tokens.advance();
 
     AstNode condition = ExpressionFactory.createExpression(tokens, version);
 
-    tokens.expect(TokenType.PARENTHESIS_CLOSE, "Expected ')'");
+    handleExpect(tokens.expect(TokenType.PARENTHESIS_CLOSE, "Expected ')'"));
     tokens.advance();
 
-    tokens.expect(TokenType.BRACE_OPEN, "Expected '{'");
+    handleExpect(tokens.expect(TokenType.BRACE_OPEN, "Expected '{'"));
     tokens.advance();
 
     BlockNode ifBlock = parseBlock(tokens, version);
 
-    tokens.expect(TokenType.BRACE_CLOSE, "Expected '}'");
+    handleExpect(tokens.expect(TokenType.BRACE_CLOSE, "Expected '}'"));
     tokens.advance();
 
     BlockNode elseBlock = new BlockNode(new ArrayList<>());
@@ -47,12 +48,12 @@ public class IfSyntaxParser implements SyntaxParser {
 
         tokens.advance();
 
-        tokens.expect(TokenType.BRACE_OPEN, "Expected '{'");
+        handleExpect(tokens.expect(TokenType.BRACE_OPEN, "Expected '{'"));
         tokens.advance();
 
         elseBlock = parseBlock(tokens, version);
 
-        tokens.expect(TokenType.BRACE_CLOSE, "Expected '}'");
+        handleExpect(tokens.expect(TokenType.BRACE_CLOSE, "Expected '}'"));
         tokens.advance();
       }
     }
@@ -78,5 +79,12 @@ public class IfSyntaxParser implements SyntaxParser {
       block.add(result);
     }
     return new BlockNode(block);
+  }
+
+  private void handleExpect(Optional<Exception> exception) {
+    exception.ifPresent(
+        e -> {
+          throw new RuntimeException(e);
+        });
   }
 }

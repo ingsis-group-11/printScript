@@ -56,5 +56,6 @@ tasks.register('runScript', Exec) {
 tasks.named('build'){
     dependsOn 'runScript'
     dependsOn 'addPreCommitGitHookOnBuild'
+    dependsOn 'check'
 }
 
