@@ -77,7 +77,11 @@ public class AssignationSyntaxParser implements SyntaxParser {
   private void handleExpect(Optional<Exception> exception) {
     exception.ifPresent(
         e -> {
-          throw new RuntimeException(e);
+          if (e instanceof RuntimeException) {
+            throw (RuntimeException) e;
+          } else {
+            throw new RuntimeException(e);
+          }
         });
   }
 }
