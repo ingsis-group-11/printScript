@@ -1,9 +1,8 @@
 package parser.semantic.variables;
 
+import ast.tokens.AstTokenType;
 import java.util.HashMap;
 import java.util.Map;
-
-import ast.tokens.AstTokenType;
 
 public class VariableTokenMap {
 

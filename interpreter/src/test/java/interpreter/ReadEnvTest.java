@@ -12,12 +12,11 @@ import ast.nodes.PrintNode;
 import ast.nodes.ReadEnvNode;
 import ast.nodes.ReassignmentNode;
 import ast.nodes.VariableNode;
-import java.util.List;
-
+import ast.tokens.AstTokenType;
 import ast.tokens.ValueAstToken;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import providers.printprovider.TestPrintProvider;
-import ast.tokens.AstTokenType;
 
 public class ReadEnvTest {
 
@@ -40,7 +39,8 @@ public class ReadEnvTest {
     List<AstNode> astNodes =
         List.of(
             new ReadEnvNode(
-                new LiteralNode(new ValueAstToken(AstTokenType.STRING, "TEST_ENV_NOT_EXISTS", 8, 2)),
+                new LiteralNode(
+                    new ValueAstToken(AstTokenType.STRING, "TEST_ENV_NOT_EXISTS", 8, 2)),
                 1,
                 1));
     Interpreter interpreter = new Interpreter();
@@ -62,7 +62,8 @@ public class ReadEnvTest {
                     1,
                     0),
                 new ReadEnvNode(
-                    new LiteralNode(new ValueAstToken(AstTokenType.STRING, "TEST_ENV_NOT_EXISTS", 8, 2)),
+                    new LiteralNode(
+                        new ValueAstToken(AstTokenType.STRING, "TEST_ENV_NOT_EXISTS", 8, 2)),
                     2,
                     1),
                 2,
@@ -90,7 +91,9 @@ public class ReadEnvTest {
                     1,
                     0),
                 new ReadEnvNode(
-                    new LiteralNode(new ValueAstToken(AstTokenType.STRING, "TEST_ENV", 8, 2)), 2, 1),
+                    new LiteralNode(new ValueAstToken(AstTokenType.STRING, "TEST_ENV", 8, 2)),
+                    2,
+                    1),
                 2,
                 1),
             new AssignationNode(
@@ -101,7 +104,9 @@ public class ReadEnvTest {
                     1,
                     0),
                 new ReadEnvNode(
-                    new LiteralNode(new ValueAstToken(AstTokenType.STRING, "ANOTHER_ENV", 8, 2)), 2, 1),
+                    new LiteralNode(new ValueAstToken(AstTokenType.STRING, "ANOTHER_ENV", 8, 2)),
+                    2,
+                    1),
                 2,
                 1),
             new PrintNode(
@@ -137,16 +142,21 @@ public class ReadEnvTest {
                     1,
                     0),
                 new ReadEnvNode(
-                    new LiteralNode(new ValueAstToken(AstTokenType.STRING, "TEST_ENV", 8, 2)), 2, 1),
+                    new LiteralNode(new ValueAstToken(AstTokenType.STRING, "TEST_ENV", 8, 2)),
+                    2,
+                    1),
                 2,
                 1),
             new ReassignmentNode(
                 new VariableNode(new ValueAstToken(AstTokenType.IDENTIFIER, "a", 8, 2)),
                 new ReadEnvNode(
-                    new LiteralNode(new ValueAstToken(AstTokenType.STRING, "ANOTHER_ENV", 8, 2)), 2, 1),
+                    new LiteralNode(new ValueAstToken(AstTokenType.STRING, "ANOTHER_ENV", 8, 2)),
+                    2,
+                    1),
                 2,
                 1),
-            new PrintNode(new VariableNode(new ValueAstToken(AstTokenType.IDENTIFIER, "a", 8, 2)), 2, 1));
+            new PrintNode(
+                new VariableNode(new ValueAstToken(AstTokenType.IDENTIFIER, "a", 8, 2)), 2, 1));
 
     TestPrintProvider printProvider = new TestPrintProvider();
     Interpreter interpreter = new Interpreter(printProvider);

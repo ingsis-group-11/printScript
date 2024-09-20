@@ -14,9 +14,8 @@ import ast.nodes.ReadEnvNode;
 import ast.nodes.ReadInputNode;
 import ast.nodes.ReassignmentNode;
 import ast.nodes.VariableNode;
-import java.util.List;
-
 import ast.tokens.AstTokenType;
+import java.util.List;
 import parser.semantic.result.SemanticErrorResult;
 import parser.semantic.result.SemanticResult;
 import parser.semantic.result.SemanticSuccessResult;
@@ -128,7 +127,8 @@ public class SemanticVisitor implements AstVisitor<SemanticResult> {
     if (variableType == expressionType) {
       variablesMap.updateVariable(node.getVariableNode().getValue(), expressionType);
       return new SemanticSuccessResult();
-    } else if (expressionType == AstTokenType.READ_INPUT || expressionType == AstTokenType.READ_ENV) {
+    } else if (expressionType == AstTokenType.READ_INPUT
+        || expressionType == AstTokenType.READ_ENV) {
       return new SemanticSuccessResult();
     }
     return new SemanticErrorResult(
@@ -183,7 +183,8 @@ public class SemanticVisitor implements AstVisitor<SemanticResult> {
 
   @Override
   public SemanticResult visit(IfNode ifNode) {
-    AstTokenType conditionType = ifNode.getCondition().accept(new ExpressionTypeVisitor(variablesMap));
+    AstTokenType conditionType =
+        ifNode.getCondition().accept(new ExpressionTypeVisitor(variablesMap));
     if (conditionType == AstTokenType.BOOLEAN || conditionType == AstTokenType.IDENTIFIER) {
       SemanticResult ifBlockResult = ifNode.getIfBlock().accept(this);
       if (ifBlockResult.hasErrors()) {

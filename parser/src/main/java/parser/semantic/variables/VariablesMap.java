@@ -1,10 +1,9 @@
 package parser.semantic.variables;
 
+import ast.tokens.AstTokenType;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
-
-import ast.tokens.AstTokenType;
 
 public class VariablesMap {
 
@@ -66,7 +65,8 @@ public class VariablesMap {
     }
   }
 
-  private static void checkVariableType(String name, AstTokenType newTokenType, AstTokenType tokenType) {
+  private static void checkVariableType(
+      String name, AstTokenType newTokenType, AstTokenType tokenType) {
     if (tokenType != newTokenType) {
       throw new RuntimeException(
           "Variable "

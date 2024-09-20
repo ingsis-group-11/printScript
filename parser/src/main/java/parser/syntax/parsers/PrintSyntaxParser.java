@@ -17,14 +17,10 @@ public class PrintSyntaxParser implements SyntaxParser {
 
   private AstNode parsePrint(TokenStream tokenStream, String version) {
     handleExpect(tokenStream.expect(TokenType.PRINT_KEYWORD, "Expected 'println'"));
-    tokenStream.advance();
     handleExpect(tokenStream.expect(TokenType.PARENTHESIS_OPEN, "Expected '('"));
-    tokenStream.advance();
     AstNode expressionNode = ExpressionFactory.createExpression(tokenStream, version);
     handleExpect(tokenStream.expect(TokenType.PARENTHESIS_CLOSE, "Expected ')'"));
-    tokenStream.advance();
     handleExpect(tokenStream.expect(TokenType.SEMICOLON, "Expected ';'"));
-    tokenStream.advance();
     return new PrintNode(expressionNode, expressionNode.getLine(), expressionNode.getColumn());
   }
 

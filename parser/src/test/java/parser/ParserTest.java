@@ -11,10 +11,9 @@ import ast.nodes.AstNode;
 import ast.nodes.PrintNode;
 import ast.nodes.ReadEnvNode;
 import ast.nodes.ReassignmentNode;
+import ast.tokens.AstTokenType;
 import java.util.Iterator;
 import java.util.List;
-
-import ast.tokens.AstTokenType;
 import org.junit.jupiter.api.Test;
 import parser.iterator.AstIterator;
 import parser.iterator.TestTokenIterator;

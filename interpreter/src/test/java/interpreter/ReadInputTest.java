@@ -13,14 +13,13 @@ import ast.nodes.PrintNode;
 import ast.nodes.ReadInputNode;
 import ast.nodes.ReassignmentNode;
 import ast.nodes.VariableNode;
-import java.util.List;
-
+import ast.tokens.AstTokenType;
 import ast.tokens.ValueAstToken;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import providers.inputprovider.InputProvider;
 import providers.inputprovider.TestInputProvider;
 import providers.printprovider.TestPrintProvider;
-import ast.tokens.AstTokenType;
 
 public class ReadInputTest {
   @Test
@@ -53,10 +52,13 @@ public class ReadInputTest {
                     1,
                     0),
                 new ReadInputNode(
-                    new LiteralNode(new ValueAstToken(AstTokenType.STRING, "Ingrese a: ", 8, 2)), 2, 1),
+                    new LiteralNode(new ValueAstToken(AstTokenType.STRING, "Ingrese a: ", 8, 2)),
+                    2,
+                    1),
                 2,
                 1),
-            new PrintNode(new VariableNode(new ValueAstToken(AstTokenType.IDENTIFIER, "a", 8, 2)), 2, 1));
+            new PrintNode(
+                new VariableNode(new ValueAstToken(AstTokenType.IDENTIFIER, "a", 8, 2)), 2, 1));
 
     InputProvider inputProvider = new TestInputProvider(List.of("hola"));
     TestPrintProvider printProvider = new TestPrintProvider();
@@ -80,10 +82,13 @@ public class ReadInputTest {
                     1,
                     0),
                 new ReadInputNode(
-                    new LiteralNode(new ValueAstToken(AstTokenType.STRING, "Ingrese a: ", 8, 2)), 2, 1),
+                    new LiteralNode(new ValueAstToken(AstTokenType.STRING, "Ingrese a: ", 8, 2)),
+                    2,
+                    1),
                 2,
                 1),
-            new PrintNode(new VariableNode(new ValueAstToken(AstTokenType.IDENTIFIER, "a", 8, 2)), 2, 1));
+            new PrintNode(
+                new VariableNode(new ValueAstToken(AstTokenType.IDENTIFIER, "a", 8, 2)), 2, 1));
 
     InputProvider inputProvider = new TestInputProvider(List.of("hola"));
     TestPrintProvider printProvider = new TestPrintProvider();
@@ -109,7 +114,9 @@ public class ReadInputTest {
                     1,
                     0),
                 new ReadInputNode(
-                    new LiteralNode(new ValueAstToken(AstTokenType.STRING, "Ingrese a: ", 8, 2)), 2, 1),
+                    new LiteralNode(new ValueAstToken(AstTokenType.STRING, "Ingrese a: ", 8, 2)),
+                    2,
+                    1),
                 2,
                 1),
             new AssignationNode(
@@ -120,7 +127,9 @@ public class ReadInputTest {
                     1,
                     0),
                 new ReadInputNode(
-                    new LiteralNode(new ValueAstToken(AstTokenType.STRING, "Ingrese b: ", 8, 2)), 2, 1),
+                    new LiteralNode(new ValueAstToken(AstTokenType.STRING, "Ingrese b: ", 8, 2)),
+                    2,
+                    1),
                 2,
                 1),
             new PrintNode(
@@ -156,10 +165,13 @@ public class ReadInputTest {
                     1,
                     0),
                 new ReadInputNode(
-                    new LiteralNode(new ValueAstToken(AstTokenType.STRING, "Ingrese a: ", 8, 2)), 2, 1),
+                    new LiteralNode(new ValueAstToken(AstTokenType.STRING, "Ingrese a: ", 8, 2)),
+                    2,
+                    1),
                 2,
                 1),
-            new PrintNode(new VariableNode(new ValueAstToken(AstTokenType.IDENTIFIER, "a", 8, 2)), 2, 1));
+            new PrintNode(
+                new VariableNode(new ValueAstToken(AstTokenType.IDENTIFIER, "a", 8, 2)), 2, 1));
 
     InputProvider inputProvider = new TestInputProvider(List.of("2.76"));
     TestPrintProvider printProvider = new TestPrintProvider();
@@ -184,10 +196,13 @@ public class ReadInputTest {
                     1,
                     0),
                 new ReadInputNode(
-                    new LiteralNode(new ValueAstToken(AstTokenType.STRING, "Ingrese a: ", 8, 2)), 2, 1),
+                    new LiteralNode(new ValueAstToken(AstTokenType.STRING, "Ingrese a: ", 8, 2)),
+                    2,
+                    1),
                 2,
                 1),
-            new PrintNode(new VariableNode(new ValueAstToken(AstTokenType.IDENTIFIER, "a", 8, 2)), 2, 1));
+            new PrintNode(
+                new VariableNode(new ValueAstToken(AstTokenType.IDENTIFIER, "a", 8, 2)), 2, 1));
 
     InputProvider inputProvider = new TestInputProvider(List.of("hola"));
     TestPrintProvider printProvider = new TestPrintProvider();
@@ -212,13 +227,17 @@ public class ReadInputTest {
                     1,
                     0),
                 new ReadInputNode(
-                    new LiteralNode(new ValueAstToken(AstTokenType.STRING, "Ingrese a: ", 8, 2)), 2, 1),
+                    new LiteralNode(new ValueAstToken(AstTokenType.STRING, "Ingrese a: ", 8, 2)),
+                    2,
+                    1),
                 2,
                 1),
             new ReassignmentNode(
                 new VariableNode(new ValueAstToken(AstTokenType.IDENTIFIER, "a", 8, 2)),
                 new ReadInputNode(
-                    new LiteralNode(new ValueAstToken(AstTokenType.STRING, "Ingrese a: ", 8, 2)), 2, 1),
+                    new LiteralNode(new ValueAstToken(AstTokenType.STRING, "Ingrese a: ", 8, 2)),
+                    2,
+                    1),
                 2,
                 1));
 

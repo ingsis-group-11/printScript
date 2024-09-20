@@ -14,9 +14,9 @@ import ast.nodes.ReadEnvNode;
 import ast.nodes.ReadInputNode;
 import ast.nodes.ReassignmentNode;
 import ast.nodes.VariableNode;
+import ast.tokens.AstTokenType;
 import providers.inputprovider.InputProvider;
 import providers.printprovider.PrintProvider;
-import ast.tokens.AstTokenType;
 import variablemap.TypeValidator;
 import variablemap.VariableMap;
 

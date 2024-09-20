@@ -19,23 +19,18 @@ public class IfSyntaxParser implements SyntaxParser {
   public AstNode syntaxParse(TokenStream tokens, String version) {
 
     handleExpect(tokens.expect(TokenType.IF_KEYWORD, "Expected 'if'"));
-    tokens.advance();
 
     handleExpect(tokens.expect(TokenType.PARENTHESIS_OPEN, "Expected '('"));
-    tokens.advance();
 
     AstNode condition = ExpressionFactory.createExpression(tokens, version);
 
     handleExpect(tokens.expect(TokenType.PARENTHESIS_CLOSE, "Expected ')'"));
-    tokens.advance();
 
     handleExpect(tokens.expect(TokenType.BRACE_OPEN, "Expected '{'"));
-    tokens.advance();
 
     BlockNode ifBlock = parseBlock(tokens, version);
 
     handleExpect(tokens.expect(TokenType.BRACE_CLOSE, "Expected '}'"));
-    tokens.advance();
 
     BlockNode elseBlock = new BlockNode(new ArrayList<>());
 
@@ -50,12 +45,10 @@ public class IfSyntaxParser implements SyntaxParser {
         tokens.advance();
 
         handleExpect(tokens.expect(TokenType.BRACE_OPEN, "Expected '{'"));
-        tokens.advance();
 
         elseBlock = parseBlock(tokens, version);
 
         handleExpect(tokens.expect(TokenType.BRACE_CLOSE, "Expected '}'"));
-        tokens.advance();
       }
     }
 
