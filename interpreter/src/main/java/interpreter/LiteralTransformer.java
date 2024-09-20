@@ -13,10 +13,10 @@ import ast.nodes.ReadEnvNode;
 import ast.nodes.ReadInputNode;
 import ast.nodes.ReassignmentNode;
 import ast.nodes.VariableNode;
+import ast.tokens.AstTokenType;
 import ast.tokens.ValueAstToken;
 import inputyype.InputTypeTransformer;
 import providers.inputprovider.InputProvider;
-import ast.tokens.AstTokenType;
 import variablemap.VariableMap;
 
 public class LiteralTransformer implements AstVisitor<LiteralNode> {
@@ -98,7 +98,8 @@ public class LiteralTransformer implements AstVisitor<LiteralNode> {
     if (env == null) {
       throw new RuntimeException("Environment variable " + variableName + " not found");
     }
-    return new LiteralNode(new ValueAstToken(AstTokenType.STRING, env, node.getColumn(), node.getLine()));
+    return new LiteralNode(
+        new ValueAstToken(AstTokenType.STRING, env, node.getColumn(), node.getLine()));
   }
 
   @Override

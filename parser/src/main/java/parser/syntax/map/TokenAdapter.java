@@ -1,9 +1,8 @@
 package parser.syntax.map;
 
 import ast.tokens.AstTokenType;
-import token.TokenType;
-
 import java.util.HashMap;
+import token.TokenType;
 
 public class TokenAdapter {
 

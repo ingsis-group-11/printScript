@@ -12,8 +12,6 @@ import ast.tokens.AstTokenType;
 import ast.tokens.ValueAstToken;
 import org.junit.jupiter.api.Test;
 import parser.semantic.result.SemanticResult;
-import token.TokenType;
-import token.ValueToken;
 
 public class SemanticReadEnvTest {
   @Test
@@ -27,7 +25,8 @@ public class SemanticReadEnvTest {
                 new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                 1,
                 0),
-            new ReadEnvNode(new LiteralNode(new ValueAstToken(AstTokenType.STRING, "TEST", 19, 0)), 1, 1),
+            new ReadEnvNode(
+                new LiteralNode(new ValueAstToken(AstTokenType.STRING, "TEST", 19, 0)), 1, 1),
             1,
             1);
     SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
@@ -46,7 +45,8 @@ public class SemanticReadEnvTest {
                 new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                 1,
                 0),
-            new ReadEnvNode(new LiteralNode(new ValueAstToken(AstTokenType.STRING, "TEST", 19, 0)), 1, 1),
+            new ReadEnvNode(
+                new LiteralNode(new ValueAstToken(AstTokenType.STRING, "TEST", 19, 0)), 1, 1),
             1,
             1);
     SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();

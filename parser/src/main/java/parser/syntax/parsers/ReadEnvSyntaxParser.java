@@ -16,18 +16,14 @@ public class ReadEnvSyntaxParser implements SyntaxParser {
 
   private AstNode parseReadInput(TokenStream tokenStream, String version) {
     handleExpect(tokenStream.expect(TokenType.READ_ENV, "Expected 'readEnv'"));
-    tokenStream.advance();
 
     handleExpect(tokenStream.expect(TokenType.PARENTHESIS_OPEN, "Expected '('"));
-    tokenStream.advance();
 
     AstNode expressionNode = ExpressionFactory.createExpression(tokenStream, version);
     handleExpect(tokenStream.expect(TokenType.PARENTHESIS_CLOSE, "Expected ')'"));
-    tokenStream.advance();
     int line = tokenStream.getCurrentToken().getLine();
     int column = tokenStream.getCurrentToken().getColumn();
     handleExpect(tokenStream.expect(TokenType.SEMICOLON, "Expected ';'"));
-    tokenStream.advance();
     return new ReadEnvNode(expressionNode, line, column);
   }
 

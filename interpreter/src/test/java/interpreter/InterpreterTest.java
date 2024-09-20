@@ -12,13 +12,12 @@ import ast.nodes.OperatorNode;
 import ast.nodes.PrintNode;
 import ast.nodes.ReassignmentNode;
 import ast.nodes.VariableNode;
+import ast.tokens.AstTokenType;
+import ast.tokens.ValueAstToken;
 import java.util.Iterator;
 import java.util.List;
-
-import ast.tokens.ValueAstToken;
 import org.junit.jupiter.api.Test;
 import providers.printprovider.TestPrintProvider;
-import ast.tokens.AstTokenType;
 
 public class InterpreterTest {
 

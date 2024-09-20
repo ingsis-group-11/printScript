@@ -7,6 +7,10 @@ import token.Token;
 public class TokenGenerator {
   public AstToken getAstToken(Token token) {
     TokenAdapter tokenAdapter = new TokenAdapter();
-    return new ValueAstToken(tokenAdapter.getAstTokenType(token.getType()), token.getValue(), token.getColumn(), token.getLine());
+    return new ValueAstToken(
+        tokenAdapter.getAstTokenType(token.getType()),
+        token.getValue(),
+        token.getColumn(),
+        token.getLine());
   }
 }

@@ -48,6 +48,7 @@ public class TokenStream {
               + last.getLine();
       return Optional.of(new RuntimeException(message));
     }
+    advance();
     return Optional.empty();
   }
 }

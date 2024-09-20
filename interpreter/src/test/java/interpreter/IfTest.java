@@ -7,13 +7,12 @@ import ast.nodes.BlockNode;
 import ast.nodes.IfNode;
 import ast.nodes.LiteralNode;
 import ast.nodes.PrintNode;
+import ast.tokens.AstTokenType;
+import ast.tokens.ValueAstToken;
 import java.util.Iterator;
 import java.util.List;
-
-import ast.tokens.ValueAstToken;
 import org.junit.jupiter.api.Test;
 import providers.printprovider.TestPrintProvider;
-import ast.tokens.AstTokenType;
 
 public class IfTest {
 

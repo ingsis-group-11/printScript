@@ -11,8 +11,6 @@ import ast.tokens.AstTokenType;
 import ast.tokens.ValueAstToken;
 import org.junit.jupiter.api.Test;
 import parser.semantic.result.SemanticResult;
-import token.TokenType;
-import token.ValueToken;
 
 public class SemanticAssignationTest {
   @Test

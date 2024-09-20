@@ -12,7 +12,7 @@ public class DeclarationNode implements AstNode {
   private final Integer column;
 
   public DeclarationNode(
-          AstToken type, AstToken name, AstToken declarationKeyWord, Integer line, Integer column) {
+      AstToken type, AstToken name, AstToken declarationKeyWord, Integer line, Integer column) {
     this.type = type;
     this.name = name;
     this.declarationKeyWord = declarationKeyWord;

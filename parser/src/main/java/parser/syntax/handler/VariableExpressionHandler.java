@@ -8,6 +8,7 @@ import token.Token;
 
 public class VariableExpressionHandler implements PrimaryExpressionHandler {
   private final TokenGenerator tokenGenerator = new TokenGenerator();
+
   @Override
   public AstNode handle(TokenStream tokenStream, Token token) {
     tokenStream.advance();
