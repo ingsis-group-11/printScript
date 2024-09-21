@@ -1,12 +1,12 @@
 package formatter;
 
+import ast.tokens.AstToken;
 import java.util.List;
-import token.Token;
 
 public class TokenOutput {
-  public String toString(List<Token> tokens) {
+  public String toString(List<AstToken> tokens) {
     StringBuilder output = new StringBuilder();
-    for (Token token : tokens) {
+    for (AstToken token : tokens) {
       output.append(token.getValue());
     }
     return output.toString();

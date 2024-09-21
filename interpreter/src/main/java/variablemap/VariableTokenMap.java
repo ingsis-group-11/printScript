@@ -1,20 +1,20 @@
 package variablemap;
 
+import ast.tokens.AstTokenType;
 import java.util.HashMap;
 import java.util.Map;
-import token.TokenType;
 
 public class VariableTokenMap {
 
-  private final Map<TokenType, TokenType> variableTokenMap = new HashMap<>();
+  private final Map<AstTokenType, AstTokenType> variableTokenMap = new HashMap<>();
 
   public VariableTokenMap() {
-    variableTokenMap.put(TokenType.NUMBER_TYPE, TokenType.NUMBER);
-    variableTokenMap.put(TokenType.STRING_TYPE, TokenType.STRING);
-    variableTokenMap.put(TokenType.BOOLEAN_TYPE, TokenType.BOOLEAN);
+    variableTokenMap.put(AstTokenType.NUMBER_TYPE, AstTokenType.NUMBER);
+    variableTokenMap.put(AstTokenType.STRING_TYPE, AstTokenType.STRING);
+    variableTokenMap.put(AstTokenType.BOOLEAN_TYPE, AstTokenType.BOOLEAN);
   }
 
-  public TokenType getType(TokenType variableType) {
+  public AstTokenType getType(AstTokenType variableType) {
     return variableTokenMap.get(variableType);
   }
 }

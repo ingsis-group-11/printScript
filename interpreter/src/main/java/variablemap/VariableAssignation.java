@@ -1,7 +1,7 @@
 package variablemap;
 
 import ast.nodes.LiteralNode;
-import token.TokenType;
+import ast.tokens.AstTokenType;
 
 public class VariableAssignation {
   private final LiteralNode literalNode;
@@ -20,7 +20,7 @@ public class VariableAssignation {
     return mutable;
   }
 
-  public TokenType getType() {
+  public AstTokenType getType() {
     return literalNode.getType();
   }
 

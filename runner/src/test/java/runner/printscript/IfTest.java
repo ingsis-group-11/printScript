@@ -98,4 +98,14 @@ public class IfTest {
               testPrintProvider);
         });
   }
+
+  @Test
+  public void completeIfElse() throws IOException {
+    TestPrintProvider testPrintProvider = new TestPrintProvider();
+    Runner runner = new Runner();
+    runner.run(
+        new FileInputStream("src/test/resources/ifStatement/completeIfElse.txt"),
+        "1.1",
+        testPrintProvider);
+  }
 }

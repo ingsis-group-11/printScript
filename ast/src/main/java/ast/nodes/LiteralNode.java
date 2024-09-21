@@ -1,26 +1,26 @@
 package ast.nodes;
 
 import ast.AstVisitor;
-import token.Token;
-import token.TokenType;
+import ast.tokens.AstToken;
+import ast.tokens.AstTokenType;
 
 public class LiteralNode implements AstNode {
-  private final Token token;
+  private final AstToken astToken;
 
-  public LiteralNode(Token value) {
-    this.token = value;
+  public LiteralNode(AstToken value) {
+    this.astToken = value;
   }
 
   public String getValue() {
-    return token.getValue();
+    return astToken.getValue();
   }
 
-  public Token getToken() {
-    return token;
+  public AstToken getToken() {
+    return astToken;
   }
 
-  public TokenType getType() {
-    return token.getType();
+  public AstTokenType getType() {
+    return astToken.getType();
   }
 
   @Override
@@ -30,11 +30,11 @@ public class LiteralNode implements AstNode {
 
   @Override
   public Integer getLine() {
-    return token.getLine();
+    return astToken.getLine();
   }
 
   @Override
   public Integer getColumn() {
-    return token.getColumn();
+    return astToken.getColumn();
   }
 }

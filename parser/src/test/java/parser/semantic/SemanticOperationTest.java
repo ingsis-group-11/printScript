@@ -9,10 +9,10 @@ import ast.nodes.DeclarationNode;
 import ast.nodes.LiteralNode;
 import ast.nodes.OperatorNode;
 import ast.nodes.PrintNode;
+import ast.tokens.AstTokenType;
+import ast.tokens.ValueAstToken;
 import org.junit.jupiter.api.Test;
 import parser.semantic.result.SemanticResult;
-import token.TokenType;
-import token.ValueToken;
 
 public class SemanticOperationTest {
   @Test
@@ -20,15 +20,15 @@ public class SemanticOperationTest {
     AstNode assignmentNode =
         new AssignationNode(
             new DeclarationNode(
-                new ValueToken(TokenType.STRING_TYPE, "string", 10, 1),
-                new ValueToken(TokenType.IDENTIFIER, "name", 4, 1),
-                new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                new ValueAstToken(AstTokenType.STRING_TYPE, "string", 10, 1),
+                new ValueAstToken(AstTokenType.IDENTIFIER, "name", 4, 1),
+                new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                 1,
                 1),
             new OperatorNode(
                 "+",
-                new LiteralNode(new ValueToken(TokenType.STRING, "Olive", 20, 1)),
-                new LiteralNode(new ValueToken(TokenType.STRING, "Olive", 29, 1)),
+                new LiteralNode(new ValueAstToken(AstTokenType.STRING, "Olive", 20, 1)),
+                new LiteralNode(new ValueAstToken(AstTokenType.STRING, "Olive", 29, 1)),
                 1,
                 20),
             1,
@@ -43,15 +43,15 @@ public class SemanticOperationTest {
     AstNode assignmentNode =
         new AssignationNode(
             new DeclarationNode(
-                new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 1),
-                new ValueToken(TokenType.IDENTIFIER, "sum", 4, 1),
-                new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                new ValueAstToken(AstTokenType.NUMBER_TYPE, "number", 10, 1),
+                new ValueAstToken(AstTokenType.IDENTIFIER, "sum", 4, 1),
+                new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                 1,
                 1),
             new OperatorNode(
                 "+",
-                new LiteralNode(new ValueToken(TokenType.NUMBER, "5", 20, 1)),
-                new LiteralNode(new ValueToken(TokenType.NUMBER, "5", 24, 1)),
+                new LiteralNode(new ValueAstToken(AstTokenType.NUMBER, "5", 20, 1)),
+                new LiteralNode(new ValueAstToken(AstTokenType.NUMBER, "5", 24, 1)),
                 1,
                 20),
             1,
@@ -66,15 +66,15 @@ public class SemanticOperationTest {
     AstNode assignmentNode =
         new AssignationNode(
             new DeclarationNode(
-                new ValueToken(TokenType.STRING_TYPE, "string", 10, 1),
-                new ValueToken(TokenType.IDENTIFIER, "name", 4, 1),
-                new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                new ValueAstToken(AstTokenType.STRING_TYPE, "string", 10, 1),
+                new ValueAstToken(AstTokenType.IDENTIFIER, "name", 4, 1),
+                new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                 1,
                 1),
             new OperatorNode(
                 "*",
-                new LiteralNode(new ValueToken(TokenType.NUMBER, "5", 20, 1)),
-                new LiteralNode(new ValueToken(TokenType.NUMBER, "5", 29, 1)),
+                new LiteralNode(new ValueAstToken(AstTokenType.NUMBER, "5", 20, 1)),
+                new LiteralNode(new ValueAstToken(AstTokenType.NUMBER, "5", 29, 1)),
                 1,
                 20),
             1,
@@ -88,15 +88,15 @@ public class SemanticOperationTest {
     AstNode assignmentNode =
         new AssignationNode(
             new DeclarationNode(
-                new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 1),
-                new ValueToken(TokenType.IDENTIFIER, "sum", 4, 1),
-                new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                new ValueAstToken(AstTokenType.NUMBER_TYPE, "number", 10, 1),
+                new ValueAstToken(AstTokenType.IDENTIFIER, "sum", 4, 1),
+                new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                 1,
                 1),
             new OperatorNode(
                 "+",
-                new LiteralNode(new ValueToken(TokenType.STRING, "Hello", 20, 1)),
-                new LiteralNode(new ValueToken(TokenType.NUMBER, "5", 24, 1)),
+                new LiteralNode(new ValueAstToken(AstTokenType.STRING, "Hello", 20, 1)),
+                new LiteralNode(new ValueAstToken(AstTokenType.NUMBER, "5", 24, 1)),
                 1,
                 20),
             1,
@@ -111,8 +111,8 @@ public class SemanticOperationTest {
         new PrintNode(
             new OperatorNode(
                 "+",
-                new LiteralNode(new ValueToken(TokenType.NUMBER, "20", 20, 1)),
-                new LiteralNode(new ValueToken(TokenType.NUMBER, "5", 24, 1)),
+                new LiteralNode(new ValueAstToken(AstTokenType.NUMBER, "20", 20, 1)),
+                new LiteralNode(new ValueAstToken(AstTokenType.NUMBER, "5", 24, 1)),
                 1,
                 20),
             1,
@@ -128,8 +128,8 @@ public class SemanticOperationTest {
         new PrintNode(
             new OperatorNode(
                 "%",
-                new LiteralNode(new ValueToken(TokenType.NUMBER, "5", 20, 1)),
-                new LiteralNode(new ValueToken(TokenType.NUMBER, "5", 24, 1)),
+                new LiteralNode(new ValueAstToken(AstTokenType.NUMBER, "5", 20, 1)),
+                new LiteralNode(new ValueAstToken(AstTokenType.NUMBER, "5", 24, 1)),
                 1,
                 20),
             1,
@@ -144,8 +144,8 @@ public class SemanticOperationTest {
         new PrintNode(
             new OperatorNode(
                 "+",
-                new LiteralNode(new ValueToken(TokenType.NUMBER, "Hello ", 20, 1)),
-                new LiteralNode(new ValueToken(TokenType.NUMBER, "World", 24, 1)),
+                new LiteralNode(new ValueAstToken(AstTokenType.NUMBER, "Hello ", 20, 1)),
+                new LiteralNode(new ValueAstToken(AstTokenType.NUMBER, "World", 24, 1)),
                 1,
                 20),
             1,
@@ -161,8 +161,8 @@ public class SemanticOperationTest {
         new PrintNode(
             new OperatorNode(
                 "-",
-                new LiteralNode(new ValueToken(TokenType.STRING, "Hello ", 20, 1)),
-                new LiteralNode(new ValueToken(TokenType.STRING, "World", 24, 1)),
+                new LiteralNode(new ValueAstToken(AstTokenType.STRING, "Hello ", 20, 1)),
+                new LiteralNode(new ValueAstToken(AstTokenType.STRING, "World", 24, 1)),
                 1,
                 20),
             1,
@@ -177,8 +177,8 @@ public class SemanticOperationTest {
         new PrintNode(
             new OperatorNode(
                 "+",
-                new LiteralNode(new ValueToken(TokenType.IDENTIFIER, "a", 20, 1)),
-                new LiteralNode(new ValueToken(TokenType.IDENTIFIER, "b", 24, 1)),
+                new LiteralNode(new ValueAstToken(AstTokenType.IDENTIFIER, "a", 20, 1)),
+                new LiteralNode(new ValueAstToken(AstTokenType.IDENTIFIER, "b", 24, 1)),
                 1,
                 20),
             1,
@@ -194,8 +194,8 @@ public class SemanticOperationTest {
         new PrintNode(
             new OperatorNode(
                 "+",
-                new LiteralNode(new ValueToken(TokenType.IDENTIFIER, "a", 20, 1)),
-                new LiteralNode(new ValueToken(TokenType.STRING, "Hello", 24, 1)),
+                new LiteralNode(new ValueAstToken(AstTokenType.IDENTIFIER, "a", 20, 1)),
+                new LiteralNode(new ValueAstToken(AstTokenType.STRING, "Hello", 24, 1)),
                 1,
                 20),
             1,
@@ -211,8 +211,8 @@ public class SemanticOperationTest {
         new PrintNode(
             new OperatorNode(
                 "-",
-                new LiteralNode(new ValueToken(TokenType.IDENTIFIER, "a", 20, 1)),
-                new LiteralNode(new ValueToken(TokenType.STRING, "Hello", 24, 1)),
+                new LiteralNode(new ValueAstToken(AstTokenType.IDENTIFIER, "a", 20, 1)),
+                new LiteralNode(new ValueAstToken(AstTokenType.STRING, "Hello", 24, 1)),
                 1,
                 20),
             1,

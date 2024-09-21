@@ -7,10 +7,10 @@ import ast.nodes.AssignationNode;
 import ast.nodes.AstNode;
 import ast.nodes.DeclarationNode;
 import ast.nodes.LiteralNode;
+import ast.tokens.AstTokenType;
+import ast.tokens.ValueAstToken;
 import org.junit.jupiter.api.Test;
 import parser.semantic.result.SemanticResult;
-import token.TokenType;
-import token.ValueToken;
 
 public class SemanticAssignationTest {
   @Test
@@ -18,12 +18,12 @@ public class SemanticAssignationTest {
     AstNode assignmentNode =
         new AssignationNode(
             new DeclarationNode(
-                new ValueToken(TokenType.STRING_TYPE, "string", 10, 0),
-                new ValueToken(TokenType.IDENTIFIER, "name", 4, 0),
-                new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                new ValueAstToken(AstTokenType.STRING_TYPE, "string", 10, 0),
+                new ValueAstToken(AstTokenType.IDENTIFIER, "name", 4, 0),
+                new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                 1,
                 0),
-            new LiteralNode(new ValueToken(TokenType.STRING, "Olive", 19, 0)),
+            new LiteralNode(new ValueAstToken(AstTokenType.STRING, "Olive", 19, 0)),
             1,
             1);
     SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
@@ -36,12 +36,12 @@ public class SemanticAssignationTest {
     AstNode assignmentNode =
         new AssignationNode(
             new DeclarationNode(
-                new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 0),
-                new ValueToken(TokenType.IDENTIFIER, "num", 4, 0),
-                new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                new ValueAstToken(AstTokenType.NUMBER_TYPE, "number", 10, 0),
+                new ValueAstToken(AstTokenType.IDENTIFIER, "num", 4, 0),
+                new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                 1,
                 0),
-            new LiteralNode(new ValueToken(TokenType.NUMBER, "10", 19, 0)),
+            new LiteralNode(new ValueAstToken(AstTokenType.NUMBER, "10", 19, 0)),
             1,
             1);
     SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
@@ -54,12 +54,12 @@ public class SemanticAssignationTest {
     AstNode assignmentNode =
         new AssignationNode(
             new DeclarationNode(
-                new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 0),
-                new ValueToken(TokenType.IDENTIFIER, "name", 4, 0),
-                new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                new ValueAstToken(AstTokenType.NUMBER_TYPE, "number", 10, 0),
+                new ValueAstToken(AstTokenType.IDENTIFIER, "name", 4, 0),
+                new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                 1,
                 0),
-            new LiteralNode(new ValueToken(TokenType.STRING, "Olive", 19, 0)),
+            new LiteralNode(new ValueAstToken(AstTokenType.STRING, "Olive", 19, 0)),
             1,
             1);
     SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
@@ -71,12 +71,12 @@ public class SemanticAssignationTest {
     AstNode assignmentNode =
         new AssignationNode(
             new DeclarationNode(
-                new ValueToken(TokenType.STRING_TYPE, "string", 10, 0),
-                new ValueToken(TokenType.IDENTIFIER, "num", 4, 0),
-                new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                new ValueAstToken(AstTokenType.STRING_TYPE, "string", 10, 0),
+                new ValueAstToken(AstTokenType.IDENTIFIER, "num", 4, 0),
+                new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                 1,
                 0),
-            new LiteralNode(new ValueToken(TokenType.NUMBER, "10", 19, 0)),
+            new LiteralNode(new ValueAstToken(AstTokenType.NUMBER, "10", 19, 0)),
             1,
             1);
     SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
@@ -88,12 +88,12 @@ public class SemanticAssignationTest {
     AstNode assignmentNode =
         new AssignationNode(
             new DeclarationNode(
-                new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 0),
-                new ValueToken(TokenType.IDENTIFIER, "name", 4, 0),
-                new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                new ValueAstToken(AstTokenType.NUMBER_TYPE, "number", 10, 0),
+                new ValueAstToken(AstTokenType.IDENTIFIER, "name", 4, 0),
+                new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                 1,
                 0),
-            new LiteralNode(new ValueToken(TokenType.IDENTIFIER, "a", 19, 0)),
+            new LiteralNode(new ValueAstToken(AstTokenType.IDENTIFIER, "a", 19, 0)),
             1,
             1);
     SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();

@@ -1,11 +1,11 @@
 package formatter.rules.print;
 
+import ast.tokens.AstToken;
+import ast.tokens.AstTokenType;
+import ast.tokens.ValueAstToken;
 import formatter.rules.TokenIndex;
 import java.util.ArrayList;
 import java.util.List;
-import token.Token;
-import token.TokenType;
-import token.ValueToken;
 
 public class LinebreakAfterPrint implements PrintRule {
   private final TokenIndex tokenIndex = new TokenIndex();
@@ -17,15 +17,15 @@ public class LinebreakAfterPrint implements PrintRule {
   }
 
   @Override
-  public List<Token> format(List<Token> tokens) {
+  public List<AstToken> format(List<AstToken> tokens) {
     int lineBreaks = Integer.parseInt(value);
-    List<Token> result = new ArrayList<>(tokens);
-    int printEndIndex = tokenIndex.getIndex(tokens, TokenType.SEMICOLON);
+    List<AstToken> result = new ArrayList<>(tokens);
+    int printEndIndex = tokenIndex.getIndex(tokens, AstTokenType.SEMICOLON);
     for (int i = 0; i < lineBreaks - 1; i++) {
       result.add(
           printEndIndex + 1,
-          new ValueToken(
-              TokenType.LINE_BREAK,
+          new ValueAstToken(
+              AstTokenType.LINE_BREAK,
               "\n",
               tokens.get(printEndIndex).getColumn(),
               tokens.get(printEndIndex).getLine() + i));

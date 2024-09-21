@@ -1,10 +1,10 @@
 package formatter.rules.conditional;
 
+import ast.tokens.AstToken;
+import ast.tokens.AstTokenType;
+import ast.tokens.ValueAstToken;
 import java.util.ArrayList;
 import java.util.List;
-import token.Token;
-import token.TokenType;
-import token.ValueToken;
 
 public class IndentationInsideIf implements IfRule {
   public String value;
@@ -15,14 +15,14 @@ public class IndentationInsideIf implements IfRule {
   }
 
   @Override
-  public List<Token> format(List<Token> tokens) {
-    List<Token> formattedTokens = new ArrayList<>();
+  public List<AstToken> format(List<AstToken> tokens) {
+    List<AstToken> formattedTokens = new ArrayList<>();
     int indentationLevel = 0;
     boolean newLine = false;
     int tokensSize = tokens.size();
 
     for (int i = 0; i < tokensSize; i++) {
-      Token token = tokens.get(i);
+      AstToken token = tokens.get(i);
       switch (token.getType()) {
         case IF_KEYWORD:
           if (newLine) {
@@ -44,8 +44,8 @@ public class IndentationInsideIf implements IfRule {
           addIndentation(formattedTokens, indentationLevel, token);
           formattedTokens.add(token);
           if (i < tokensSize - 2
-              && tokens.get(i + 1).getType() == TokenType.WHITESPACE
-              && tokens.get(i + 2).getType() == TokenType.ELSE_KEYWORD) {
+              && tokens.get(i + 1).getType() == AstTokenType.WHITESPACE
+              && tokens.get(i + 2).getType() == AstTokenType.ELSE_KEYWORD) {
             newLine = false;
           } else if (i < tokensSize - 1) {
             addLineBreak(formattedTokens, token);
@@ -83,18 +83,19 @@ public class IndentationInsideIf implements IfRule {
     return formattedTokens;
   }
 
-  private void addIndentation(List<Token> tokens, int level, Token baseToken) {
+  private void addIndentation(List<AstToken> tokens, int level, AstToken baseToken) {
     if (level > 0) {
       String indentation = " ".repeat(level * Integer.parseInt(value));
-      Token indentToken =
-          new ValueToken(
-              TokenType.WHITESPACE, indentation, baseToken.getLine(), baseToken.getColumn());
+      AstToken indentToken =
+          new ValueAstToken(
+              AstTokenType.WHITESPACE, indentation, baseToken.getLine(), baseToken.getColumn());
       tokens.add(indentToken);
     }
   }
 
-  private void addLineBreak(List<Token> tokens, Token baseToken) {
-    Token lineBreakToken = new ValueToken(TokenType.LINE_BREAK, "\n", baseToken.getLine() + 1, 1);
+  private void addLineBreak(List<AstToken> tokens, AstToken baseToken) {
+    AstToken lineBreakToken =
+        new ValueAstToken(AstTokenType.LINE_BREAK, "\n", baseToken.getLine() + 1, 1);
     tokens.add(lineBreakToken);
   }
 }

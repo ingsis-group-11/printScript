@@ -19,18 +19,14 @@ public class ReadInputSyntaxParser implements SyntaxParser {
     int line = tokenStream.getCurrentToken().getLine();
     int column = tokenStream.getCurrentToken().getColumn();
     handleExpect(tokenStream.expect(TokenType.READ_INPUT, "Expected 'readInput'"));
-    tokenStream.advance();
 
     handleExpect(tokenStream.expect(TokenType.PARENTHESIS_OPEN, "Expected '('"));
-    tokenStream.advance();
 
     AstNode expressionNode = ExpressionFactory.createExpression(tokenStream, version);
 
     handleExpect(tokenStream.expect(TokenType.PARENTHESIS_CLOSE, "Expected ')'"));
-    tokenStream.advance();
 
     handleExpect(tokenStream.expect(TokenType.SEMICOLON, "Expected ';'"));
-    tokenStream.advance();
     return new ReadInputNode(expressionNode, line, column);
   }
 

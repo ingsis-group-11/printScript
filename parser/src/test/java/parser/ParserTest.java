@@ -11,6 +11,7 @@ import ast.nodes.AstNode;
 import ast.nodes.PrintNode;
 import ast.nodes.ReadEnvNode;
 import ast.nodes.ReassignmentNode;
+import ast.tokens.AstTokenType;
 import java.util.Iterator;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -165,7 +166,7 @@ public class ParserTest {
     Iterator<AstNode> nodes = new AstIterator(tokenIterator, "1.0");
     AstNode firstAst = nodes.next();
     assertInstanceOf(AssignationNode.class, firstAst);
-    assertEquals(TokenType.BOOLEAN, firstAst.accept(new ExpressionTypeVisitor()));
+    assertEquals(AstTokenType.BOOLEAN, firstAst.accept(new ExpressionTypeVisitor()));
   }
 
   @Test
@@ -200,7 +201,7 @@ public class ParserTest {
     assertInstanceOf(AssignationNode.class, firstAst);
     AstNode secondAst = nodes.next();
     assertInstanceOf(ReassignmentNode.class, secondAst);
-    assertEquals(TokenType.BOOLEAN, secondAst.accept(new ExpressionTypeVisitor()));
+    assertEquals(AstTokenType.BOOLEAN, secondAst.accept(new ExpressionTypeVisitor()));
     AstNode thirdAst = nodes.next();
     assertInstanceOf(PrintNode.class, thirdAst);
   }

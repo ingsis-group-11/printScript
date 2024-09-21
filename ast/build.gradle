@@ -2,7 +2,3 @@ plugins {
     id 'common-conventions'
     id 'publish-packages-conventions'
 }
-
-dependencies {
-    implementation project(':token')
-}

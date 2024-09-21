@@ -12,12 +12,12 @@ import ast.nodes.OperatorNode;
 import ast.nodes.PrintNode;
 import ast.nodes.ReassignmentNode;
 import ast.nodes.VariableNode;
+import ast.tokens.AstTokenType;
+import ast.tokens.ValueAstToken;
 import java.util.Iterator;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import providers.printprovider.TestPrintProvider;
-import token.TokenType;
-import token.ValueToken;
 
 public class InterpreterTest {
 
@@ -31,16 +31,16 @@ public class InterpreterTest {
         List.of(
             new AssignationNode(
                 new DeclarationNode(
-                    new ValueToken(TokenType.STRING_TYPE, "string", 10, 0),
-                    new ValueToken(TokenType.IDENTIFIER, "name", 4, 0),
-                    new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                    new ValueAstToken(AstTokenType.STRING_TYPE, "string", 10, 0),
+                    new ValueAstToken(AstTokenType.IDENTIFIER, "name", 4, 0),
+                    new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                     1,
                     0),
-                new LiteralNode(new ValueToken(TokenType.STRING, "Olive", 19, 0)),
+                new LiteralNode(new ValueAstToken(AstTokenType.STRING, "Olive", 19, 0)),
                 1,
                 1),
             new PrintNode(
-                new VariableNode(new ValueToken(TokenType.IDENTIFIER, "name", 8, 1)), 1, 1));
+                new VariableNode(new ValueAstToken(AstTokenType.IDENTIFIER, "name", 8, 1)), 1, 1));
 
     Interpreter interpreter = new Interpreter(printProvider);
     interpreter.interpret(astNodes.iterator());
@@ -59,29 +59,29 @@ public class InterpreterTest {
         List.of(
             new AssignationNode(
                 new DeclarationNode(
-                    new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 0),
-                    new ValueToken(TokenType.IDENTIFIER, "a", 4, 0),
-                    new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                    new ValueAstToken(AstTokenType.NUMBER_TYPE, "number", 10, 0),
+                    new ValueAstToken(AstTokenType.IDENTIFIER, "a", 4, 0),
+                    new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                     1,
                     0),
-                new LiteralNode(new ValueToken(TokenType.NUMBER, "5", 19, 0)),
+                new LiteralNode(new ValueAstToken(AstTokenType.NUMBER, "5", 19, 0)),
                 1,
                 1),
             new AssignationNode(
                 new DeclarationNode(
-                    new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 0),
-                    new ValueToken(TokenType.IDENTIFIER, "b", 4, 0),
-                    new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                    new ValueAstToken(AstTokenType.NUMBER_TYPE, "number", 10, 0),
+                    new ValueAstToken(AstTokenType.IDENTIFIER, "b", 4, 0),
+                    new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                     1,
                     0),
-                new LiteralNode(new ValueToken(TokenType.NUMBER, "3", 19, 0)),
+                new LiteralNode(new ValueAstToken(AstTokenType.NUMBER, "3", 19, 0)),
                 1,
                 1),
             new PrintNode(
                 new OperatorNode(
                     "+",
-                    new VariableNode(new ValueToken(TokenType.IDENTIFIER, "a", 8, 1)),
-                    new VariableNode(new ValueToken(TokenType.IDENTIFIER, "b", 8, 1)),
+                    new VariableNode(new ValueAstToken(AstTokenType.IDENTIFIER, "a", 8, 1)),
+                    new VariableNode(new ValueAstToken(AstTokenType.IDENTIFIER, "b", 8, 1)),
                     1,
                     1),
                 1,
@@ -103,29 +103,29 @@ public class InterpreterTest {
         List.of(
             new AssignationNode(
                 new DeclarationNode(
-                    new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 0),
-                    new ValueToken(TokenType.IDENTIFIER, "a", 4, 0),
-                    new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                    new ValueAstToken(AstTokenType.NUMBER_TYPE, "number", 10, 0),
+                    new ValueAstToken(AstTokenType.IDENTIFIER, "a", 4, 0),
+                    new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                     1,
                     0),
-                new LiteralNode(new ValueToken(TokenType.NUMBER, "10", 19, 0)),
+                new LiteralNode(new ValueAstToken(AstTokenType.NUMBER, "10", 19, 0)),
                 1,
                 1),
             new AssignationNode(
                 new DeclarationNode(
-                    new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 0),
-                    new ValueToken(TokenType.IDENTIFIER, "b", 4, 0),
-                    new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                    new ValueAstToken(AstTokenType.NUMBER_TYPE, "number", 10, 0),
+                    new ValueAstToken(AstTokenType.IDENTIFIER, "b", 4, 0),
+                    new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                     1,
                     0),
-                new LiteralNode(new ValueToken(TokenType.NUMBER, "2.5", 19, 0)),
+                new LiteralNode(new ValueAstToken(AstTokenType.NUMBER, "2.5", 19, 0)),
                 1,
                 1),
             new PrintNode(
                 new OperatorNode(
                     "/",
-                    new VariableNode(new ValueToken(TokenType.IDENTIFIER, "a", 8, 1)),
-                    new VariableNode(new ValueToken(TokenType.IDENTIFIER, "b", 8, 1)),
+                    new VariableNode(new ValueAstToken(AstTokenType.IDENTIFIER, "a", 8, 1)),
+                    new VariableNode(new ValueAstToken(AstTokenType.IDENTIFIER, "b", 8, 1)),
                     1,
                     1),
                 1,
@@ -147,29 +147,29 @@ public class InterpreterTest {
         List.of(
             new AssignationNode(
                 new DeclarationNode(
-                    new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 0),
-                    new ValueToken(TokenType.IDENTIFIER, "a", 4, 0),
-                    new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                    new ValueAstToken(AstTokenType.NUMBER_TYPE, "number", 10, 0),
+                    new ValueAstToken(AstTokenType.IDENTIFIER, "a", 4, 0),
+                    new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                     1,
                     0),
-                new LiteralNode(new ValueToken(TokenType.NUMBER, "10.0", 19, 0)),
+                new LiteralNode(new ValueAstToken(AstTokenType.NUMBER, "10.0", 19, 0)),
                 1,
                 1),
             new AssignationNode(
                 new DeclarationNode(
-                    new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 0),
-                    new ValueToken(TokenType.IDENTIFIER, "b", 4, 0),
-                    new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                    new ValueAstToken(AstTokenType.NUMBER_TYPE, "number", 10, 0),
+                    new ValueAstToken(AstTokenType.IDENTIFIER, "b", 4, 0),
+                    new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                     1,
                     0),
-                new LiteralNode(new ValueToken(TokenType.NUMBER, "2.5", 19, 0)),
+                new LiteralNode(new ValueAstToken(AstTokenType.NUMBER, "2.5", 19, 0)),
                 1,
                 1),
             new PrintNode(
                 new OperatorNode(
                     "/",
-                    new VariableNode(new ValueToken(TokenType.IDENTIFIER, "a", 8, 1)),
-                    new VariableNode(new ValueToken(TokenType.IDENTIFIER, "b", 8, 1)),
+                    new VariableNode(new ValueAstToken(AstTokenType.IDENTIFIER, "a", 8, 1)),
+                    new VariableNode(new ValueAstToken(AstTokenType.IDENTIFIER, "b", 8, 1)),
                     1,
                     1),
                 1,
@@ -189,22 +189,22 @@ public class InterpreterTest {
         List.of(
             new AssignationNode(
                 new DeclarationNode(
-                    new ValueToken(TokenType.STRING_TYPE, "string", 10, 0),
-                    new ValueToken(TokenType.IDENTIFIER, "name", 4, 0),
-                    new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                    new ValueAstToken(AstTokenType.STRING_TYPE, "string", 10, 0),
+                    new ValueAstToken(AstTokenType.IDENTIFIER, "name", 4, 0),
+                    new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                     0,
                     0),
-                new LiteralNode(new ValueToken(TokenType.STRING, "a", 19, 0)),
+                new LiteralNode(new ValueAstToken(AstTokenType.STRING, "a", 19, 0)),
                 1,
                 1),
             new AssignationNode(
                 new DeclarationNode(
-                    new ValueToken(TokenType.STRING_TYPE, "string", 10, 0),
-                    new ValueToken(TokenType.IDENTIFIER, "name", 4, 0),
-                    new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                    new ValueAstToken(AstTokenType.STRING_TYPE, "string", 10, 0),
+                    new ValueAstToken(AstTokenType.IDENTIFIER, "name", 4, 0),
+                    new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                     1,
                     0),
-                new LiteralNode(new ValueToken(TokenType.STRING, "b", 19, 0)),
+                new LiteralNode(new ValueAstToken(AstTokenType.STRING, "b", 19, 0)),
                 1,
                 1));
 
@@ -223,21 +223,21 @@ public class InterpreterTest {
         List.of(
             new AssignationNode(
                 new DeclarationNode(
-                    new ValueToken(TokenType.STRING_TYPE, "string", 10, 0),
-                    new ValueToken(TokenType.IDENTIFIER, "name", 4, 0),
-                    new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                    new ValueAstToken(AstTokenType.STRING_TYPE, "string", 10, 0),
+                    new ValueAstToken(AstTokenType.IDENTIFIER, "name", 4, 0),
+                    new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                     0,
                     0),
-                new LiteralNode(new ValueToken(TokenType.STRING, "a", 19, 0)),
+                new LiteralNode(new ValueAstToken(AstTokenType.STRING, "a", 19, 0)),
                 1,
                 1),
             new ReassignmentNode(
-                new VariableNode(new ValueToken(TokenType.IDENTIFIER, "name", 8, 1)),
-                new LiteralNode(new ValueToken(TokenType.STRING, "b", 19, 0)),
+                new VariableNode(new ValueAstToken(AstTokenType.IDENTIFIER, "name", 8, 1)),
+                new LiteralNode(new ValueAstToken(AstTokenType.STRING, "b", 19, 0)),
                 1,
                 1),
             new PrintNode(
-                new VariableNode(new ValueToken(TokenType.IDENTIFIER, "name", 8, 1)), 1, 1));
+                new VariableNode(new ValueAstToken(AstTokenType.IDENTIFIER, "name", 8, 1)), 1, 1));
 
     Interpreter interpreter = new Interpreter(printProvider);
     interpreter.interpret(astNodes.iterator());
@@ -254,17 +254,17 @@ public class InterpreterTest {
         List.of(
             new AssignationNode(
                 new DeclarationNode(
-                    new ValueToken(TokenType.STRING_TYPE, "string", 10, 0),
-                    new ValueToken(TokenType.IDENTIFIER, "name", 4, 0),
-                    new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                    new ValueAstToken(AstTokenType.STRING_TYPE, "string", 10, 0),
+                    new ValueAstToken(AstTokenType.IDENTIFIER, "name", 4, 0),
+                    new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                     0,
                     0),
-                new LiteralNode(new ValueToken(TokenType.STRING, "a", 19, 0)),
+                new LiteralNode(new ValueAstToken(AstTokenType.STRING, "a", 19, 0)),
                 1,
                 1),
             new ReassignmentNode(
-                new VariableNode(new ValueToken(TokenType.IDENTIFIER, "name", 8, 1)),
-                new LiteralNode(new ValueToken(TokenType.NUMBER, "8", 19, 0)),
+                new VariableNode(new ValueAstToken(AstTokenType.IDENTIFIER, "name", 8, 1)),
+                new LiteralNode(new ValueAstToken(AstTokenType.NUMBER, "8", 19, 0)),
                 1,
                 1));
 
@@ -285,23 +285,23 @@ public class InterpreterTest {
         List.of(
             new AssignationNode(
                 new DeclarationNode(
-                    new ValueToken(TokenType.BOOLEAN_TYPE, "boolean", 10, 0),
-                    new ValueToken(TokenType.IDENTIFIER, "bool", 4, 0),
-                    new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                    new ValueAstToken(AstTokenType.BOOLEAN_TYPE, "boolean", 10, 0),
+                    new ValueAstToken(AstTokenType.IDENTIFIER, "bool", 4, 0),
+                    new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                     0,
                     0),
-                new LiteralNode(new ValueToken(TokenType.BOOLEAN, "true", 19, 0)),
+                new LiteralNode(new ValueAstToken(AstTokenType.BOOLEAN, "true", 19, 0)),
                 1,
                 1),
             new PrintNode(
-                new VariableNode(new ValueToken(TokenType.IDENTIFIER, "bool", 8, 1)), 1, 1),
+                new VariableNode(new ValueAstToken(AstTokenType.IDENTIFIER, "bool", 8, 1)), 1, 1),
             new ReassignmentNode(
-                new VariableNode(new ValueToken(TokenType.IDENTIFIER, "bool", 8, 1)),
-                new LiteralNode(new ValueToken(TokenType.BOOLEAN, "false", 19, 0)),
+                new VariableNode(new ValueAstToken(AstTokenType.IDENTIFIER, "bool", 8, 1)),
+                new LiteralNode(new ValueAstToken(AstTokenType.BOOLEAN, "false", 19, 0)),
                 1,
                 1),
             new PrintNode(
-                new VariableNode(new ValueToken(TokenType.IDENTIFIER, "bool", 8, 1)), 1, 1));
+                new VariableNode(new ValueAstToken(AstTokenType.IDENTIFIER, "bool", 8, 1)), 1, 1));
 
     Interpreter interpreter = new Interpreter(printProvider);
     interpreter.interpret(astNodes.iterator());
@@ -321,29 +321,29 @@ public class InterpreterTest {
         List.of(
             new AssignationNode(
                 new DeclarationNode(
-                    new ValueToken(TokenType.STRING_TYPE, "string", 10, 0),
-                    new ValueToken(TokenType.IDENTIFIER, "a", 4, 0),
-                    new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                    new ValueAstToken(AstTokenType.STRING_TYPE, "string", 10, 0),
+                    new ValueAstToken(AstTokenType.IDENTIFIER, "a", 4, 0),
+                    new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                     1,
                     0),
-                new LiteralNode(new ValueToken(TokenType.STRING, "Hello", 19, 0)),
+                new LiteralNode(new ValueAstToken(AstTokenType.STRING, "Hello", 19, 0)),
                 1,
                 1),
             new AssignationNode(
                 new DeclarationNode(
-                    new ValueToken(TokenType.STRING_TYPE, "string", 10, 0),
-                    new ValueToken(TokenType.IDENTIFIER, "b", 4, 0),
-                    new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                    new ValueAstToken(AstTokenType.STRING_TYPE, "string", 10, 0),
+                    new ValueAstToken(AstTokenType.IDENTIFIER, "b", 4, 0),
+                    new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                     1,
                     0),
-                new LiteralNode(new ValueToken(TokenType.STRING, "World", 19, 0)),
+                new LiteralNode(new ValueAstToken(AstTokenType.STRING, "World", 19, 0)),
                 1,
                 1),
             new PrintNode(
                 new OperatorNode(
                     "/",
-                    new VariableNode(new ValueToken(TokenType.IDENTIFIER, "a", 8, 1)),
-                    new VariableNode(new ValueToken(TokenType.IDENTIFIER, "b", 8, 1)),
+                    new VariableNode(new ValueAstToken(AstTokenType.IDENTIFIER, "a", 8, 1)),
+                    new VariableNode(new ValueAstToken(AstTokenType.IDENTIFIER, "b", 8, 1)),
                     1,
                     1),
                 1,
@@ -362,25 +362,25 @@ public class InterpreterTest {
         List.of(
             new AssignationNode(
                 new DeclarationNode(
-                    new ValueToken(TokenType.STRING_TYPE, "string", 10, 1),
-                    new ValueToken(TokenType.IDENTIFIER, "a", 4, 1),
-                    new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                    new ValueAstToken(AstTokenType.STRING_TYPE, "string", 10, 1),
+                    new ValueAstToken(AstTokenType.IDENTIFIER, "a", 4, 1),
+                    new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                     1,
                     0),
-                new LiteralNode(new ValueToken(TokenType.STRING, "Hello ", 19, 1)),
+                new LiteralNode(new ValueAstToken(AstTokenType.STRING, "Hello ", 19, 1)),
                 1,
                 1),
             new AssignationNode(
                 new DeclarationNode(
-                    new ValueToken(TokenType.STRING_TYPE, "string", 10, 1),
-                    new ValueToken(TokenType.IDENTIFIER, "b", 4, 1),
-                    new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                    new ValueAstToken(AstTokenType.STRING_TYPE, "string", 10, 1),
+                    new ValueAstToken(AstTokenType.IDENTIFIER, "b", 4, 1),
+                    new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                     1,
                     0),
                 new OperatorNode(
                     "*",
-                    new VariableNode(new ValueToken(TokenType.IDENTIFIER, "a", 8, 2)),
-                    new LiteralNode(new ValueToken(TokenType.NUMBER, "2", 8, 2)),
+                    new VariableNode(new ValueAstToken(AstTokenType.IDENTIFIER, "a", 8, 2)),
+                    new LiteralNode(new ValueAstToken(AstTokenType.NUMBER, "2", 8, 2)),
                     2,
                     1),
                 2,
@@ -398,15 +398,15 @@ public class InterpreterTest {
         List.of(
             new AssignationNode(
                 new DeclarationNode(
-                    new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 1),
-                    new ValueToken(TokenType.IDENTIFIER, "a", 4, 1),
-                    new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                    new ValueAstToken(AstTokenType.NUMBER_TYPE, "number", 10, 1),
+                    new ValueAstToken(AstTokenType.IDENTIFIER, "a", 4, 1),
+                    new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                     1,
                     0),
                 new OperatorNode(
                     "-",
-                    new VariableNode(new ValueToken(TokenType.STRING_TYPE, "Hello", 8, 2)),
-                    new LiteralNode(new ValueToken(TokenType.NUMBER, "2", 8, 2)),
+                    new VariableNode(new ValueAstToken(AstTokenType.STRING_TYPE, "Hello", 8, 2)),
+                    new LiteralNode(new ValueAstToken(AstTokenType.NUMBER, "2", 8, 2)),
                     2,
                     1),
                 2,
@@ -424,15 +424,15 @@ public class InterpreterTest {
         List.of(
             new AssignationNode(
                 new DeclarationNode(
-                    new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 1),
-                    new ValueToken(TokenType.IDENTIFIER, "a", 4, 1),
-                    new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                    new ValueAstToken(AstTokenType.NUMBER_TYPE, "number", 10, 1),
+                    new ValueAstToken(AstTokenType.IDENTIFIER, "a", 4, 1),
+                    new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                     1,
                     0),
                 new OperatorNode(
                     "-",
-                    new LiteralNode(new ValueToken(TokenType.NUMBER, "5", 8, 2)),
-                    new LiteralNode(new ValueToken(TokenType.NUMBER, "2", 8, 2)),
+                    new LiteralNode(new ValueAstToken(AstTokenType.NUMBER, "5", 8, 2)),
+                    new LiteralNode(new ValueAstToken(AstTokenType.NUMBER, "2", 8, 2)),
                     2,
                     1),
                 2,
@@ -451,25 +451,25 @@ public class InterpreterTest {
         List.of(
             new AssignationNode(
                 new DeclarationNode(
-                    new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 1),
-                    new ValueToken(TokenType.IDENTIFIER, "a", 4, 1),
-                    new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                    new ValueAstToken(AstTokenType.NUMBER_TYPE, "number", 10, 1),
+                    new ValueAstToken(AstTokenType.IDENTIFIER, "a", 4, 1),
+                    new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                     1,
                     0),
-                new LiteralNode(new ValueToken(TokenType.NUMBER, "5", 19, 1)),
+                new LiteralNode(new ValueAstToken(AstTokenType.NUMBER, "5", 19, 1)),
                 1,
                 1),
             new AssignationNode(
                 new DeclarationNode(
-                    new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 1),
-                    new ValueToken(TokenType.IDENTIFIER, "b", 4, 1),
-                    new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                    new ValueAstToken(AstTokenType.NUMBER_TYPE, "number", 10, 1),
+                    new ValueAstToken(AstTokenType.IDENTIFIER, "b", 4, 1),
+                    new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                     1,
                     0),
                 new OperatorNode(
                     "*",
-                    new VariableNode(new ValueToken(TokenType.IDENTIFIER, "a", 8, 2)),
-                    new LiteralNode(new ValueToken(TokenType.NUMBER, "2", 8, 2)),
+                    new VariableNode(new ValueAstToken(AstTokenType.IDENTIFIER, "a", 8, 2)),
+                    new LiteralNode(new ValueAstToken(AstTokenType.NUMBER, "2", 8, 2)),
                     2,
                     1),
                 2,
@@ -489,29 +489,29 @@ public class InterpreterTest {
         List.of(
             new AssignationNode(
                 new DeclarationNode(
-                    new ValueToken(TokenType.NUMBER_TYPE, "string", 10, 0),
-                    new ValueToken(TokenType.IDENTIFIER, "a", 4, 0),
-                    new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                    new ValueAstToken(AstTokenType.NUMBER_TYPE, "string", 10, 0),
+                    new ValueAstToken(AstTokenType.IDENTIFIER, "a", 4, 0),
+                    new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                     1,
                     0),
-                new LiteralNode(new ValueToken(TokenType.NUMBER, "10", 19, 0)),
+                new LiteralNode(new ValueAstToken(AstTokenType.NUMBER, "10", 19, 0)),
                 1,
                 1),
             new AssignationNode(
                 new DeclarationNode(
-                    new ValueToken(TokenType.NUMBER_TYPE, "string", 10, 0),
-                    new ValueToken(TokenType.IDENTIFIER, "b", 4, 0),
-                    new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                    new ValueAstToken(AstTokenType.NUMBER_TYPE, "string", 10, 0),
+                    new ValueAstToken(AstTokenType.IDENTIFIER, "b", 4, 0),
+                    new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                     1,
                     0),
-                new LiteralNode(new ValueToken(TokenType.NUMBER, "2", 19, 0)),
+                new LiteralNode(new ValueAstToken(AstTokenType.NUMBER, "2", 19, 0)),
                 1,
                 1),
             new PrintNode(
                 new OperatorNode(
                     "/",
-                    new VariableNode(new ValueToken(TokenType.IDENTIFIER, "a", 8, 1)),
-                    new VariableNode(new ValueToken(TokenType.IDENTIFIER, "b", 8, 1)),
+                    new VariableNode(new ValueAstToken(AstTokenType.IDENTIFIER, "a", 8, 1)),
+                    new VariableNode(new ValueAstToken(AstTokenType.IDENTIFIER, "b", 8, 1)),
                     1,
                     1),
                 1,
@@ -530,17 +530,17 @@ public class InterpreterTest {
         List.of(
             new AssignationNode(
                 new DeclarationNode(
-                    new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 1),
-                    new ValueToken(TokenType.IDENTIFIER, "a", 4, 1),
-                    new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                    new ValueAstToken(AstTokenType.NUMBER_TYPE, "number", 10, 1),
+                    new ValueAstToken(AstTokenType.IDENTIFIER, "a", 4, 1),
+                    new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                     1,
                     0),
-                new EmptyNode(TokenType.NUMBER),
+                new EmptyNode(AstTokenType.NUMBER),
                 2,
                 1),
             new ReassignmentNode(
-                new VariableNode(new ValueToken(TokenType.IDENTIFIER, "a", 8, 2)),
-                new LiteralNode(new ValueToken(TokenType.NUMBER, "5", 8, 2)),
+                new VariableNode(new ValueAstToken(AstTokenType.IDENTIFIER, "a", 8, 2)),
+                new LiteralNode(new ValueAstToken(AstTokenType.NUMBER, "5", 8, 2)),
                 2,
                 1));
     Interpreter interpreter = new Interpreter(printProvider);
@@ -557,17 +557,17 @@ public class InterpreterTest {
         List.of(
             new AssignationNode(
                 new DeclarationNode(
-                    new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 1),
-                    new ValueToken(TokenType.IDENTIFIER, "a", 4, 1),
-                    new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                    new ValueAstToken(AstTokenType.NUMBER_TYPE, "number", 10, 1),
+                    new ValueAstToken(AstTokenType.IDENTIFIER, "a", 4, 1),
+                    new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                     1,
                     0),
-                new EmptyNode(TokenType.NUMBER),
+                new EmptyNode(AstTokenType.NUMBER),
                 2,
                 1),
             new ReassignmentNode(
-                new VariableNode(new ValueToken(TokenType.IDENTIFIER, "a", 8, 2)),
-                new LiteralNode(new ValueToken(TokenType.STRING, "Hello", 8, 2)),
+                new VariableNode(new ValueAstToken(AstTokenType.IDENTIFIER, "a", 8, 2)),
+                new LiteralNode(new ValueAstToken(AstTokenType.STRING, "Hello", 8, 2)),
                 2,
                 1));
     Interpreter interpreter = new Interpreter(printProvider);
