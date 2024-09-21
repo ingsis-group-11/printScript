@@ -1,12 +1,12 @@
 package formatter.rules.conditional;
 
+import ast.tokens.AstToken;
+import ast.tokens.AstTokenType;
+import ast.tokens.ValueAstToken;
 import formatter.rules.TokenIndex;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import token.Token;
-import token.TokenType;
-import token.ValueToken;
 
 public class BracketOnSameLineAsIf implements IfRule {
   private final TokenIndex tokenIndex = new TokenIndex();
@@ -18,22 +18,22 @@ public class BracketOnSameLineAsIf implements IfRule {
   }
 
   @Override
-  public List<Token> format(List<Token> tokens) {
-    List<Token> result = new ArrayList<>(tokens);
-    int bracketIndex = tokenIndex.getIndex(tokens, TokenType.BRACE_OPEN);
+  public List<AstToken> format(List<AstToken> tokens) {
+    List<AstToken> result = new ArrayList<>(tokens);
+    int bracketIndex = tokenIndex.getIndex(tokens, AstTokenType.BRACE_OPEN);
     if (Objects.equals(value, "false")) {
       result.add(
           bracketIndex,
-          new ValueToken(
-              TokenType.LINE_BREAK,
+          new ValueAstToken(
+              AstTokenType.LINE_BREAK,
               "\n",
               tokens.get(bracketIndex).getColumn() + 1,
               tokens.get(bracketIndex).getLine()));
     } else {
       result.add(
           bracketIndex,
-          new ValueToken(
-              TokenType.WHITESPACE,
+          new ValueAstToken(
+              AstTokenType.WHITESPACE,
               " ",
               tokens.get(bracketIndex).getColumn() + 1,
               tokens.get(bracketIndex).getLine()));

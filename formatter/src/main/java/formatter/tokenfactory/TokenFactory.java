@@ -1,11 +1,11 @@
 package formatter.tokenfactory;
 
-import token.Token;
-import token.TokenType;
-import token.ValueToken;
+import ast.tokens.AstToken;
+import ast.tokens.AstTokenType;
+import ast.tokens.ValueAstToken;
 
 public class TokenFactory {
-  public Token createToken(TokenType type, String value, int column, int line) {
-    return new ValueToken(type, value, column, line);
+  public AstToken createToken(AstTokenType type, String value, int column, int line) {
+    return new ValueAstToken(type, value, column, line);
   }
 }
