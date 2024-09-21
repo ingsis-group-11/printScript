@@ -1,11 +1,11 @@
 package formatter.rules.alwaysactive;
 
+import ast.tokens.AstToken;
+import ast.tokens.AstTokenType;
+import ast.tokens.ValueAstToken;
 import formatter.rules.TokenIndex;
 import java.util.ArrayList;
 import java.util.List;
-import token.Token;
-import token.TokenType;
-import token.ValueToken;
 
 public class LineBreakAfterSemicolon implements AlwaysActiveRules {
   private final TokenIndex tokenIndex = new TokenIndex();
@@ -17,13 +17,13 @@ public class LineBreakAfterSemicolon implements AlwaysActiveRules {
   }
 
   @Override
-  public List<Token> format(List<Token> tokens) {
-    List<Token> result = new ArrayList<>(tokens);
-    int semicolonIndex = tokenIndex.getIndex(tokens, TokenType.SEMICOLON);
+  public List<AstToken> format(List<AstToken> tokens) {
+    List<AstToken> result = new ArrayList<>(tokens);
+    int semicolonIndex = tokenIndex.getIndex(tokens, AstTokenType.SEMICOLON);
     result.add(
         semicolonIndex + 1,
-        new ValueToken(
-            TokenType.LINE_BREAK,
+        new ValueAstToken(
+            AstTokenType.LINE_BREAK,
             "\n",
             tokens.get(semicolonIndex).getColumn() + 1,
             tokens.get(semicolonIndex).getLine()));
