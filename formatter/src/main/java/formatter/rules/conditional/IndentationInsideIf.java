@@ -3,7 +3,6 @@ package formatter.rules.conditional;
 import ast.tokens.AstToken;
 import ast.tokens.AstTokenType;
 import ast.tokens.ValueAstToken;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,8 +94,8 @@ public class IndentationInsideIf implements IfRule {
   }
 
   private void addLineBreak(List<AstToken> tokens, AstToken baseToken) {
-    AstToken lineBreakToken = new ValueAstToken(AstTokenType.LINE_BREAK, "\n",
-        baseToken.getLine() + 1, 1);
+    AstToken lineBreakToken =
+        new ValueAstToken(AstTokenType.LINE_BREAK, "\n", baseToken.getLine() + 1, 1);
     tokens.add(lineBreakToken);
   }
 }

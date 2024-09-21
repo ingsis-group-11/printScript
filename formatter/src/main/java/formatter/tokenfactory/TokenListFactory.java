@@ -76,12 +76,14 @@ public class TokenListFactory implements AstVisitor<List<AstToken>> {
   public List<AstToken> visit(AssignationNode node) {
     List<AstToken> result = new ArrayList<>(node.getDeclaration().accept(this));
     if (!(node.getExpression() instanceof EmptyNode)) {
-      result.add(tokenFactory.createToken(AstTokenType.ASSIGN, "=", node.getColumn(), node.getLine()));
+      result.add(
+          tokenFactory.createToken(AstTokenType.ASSIGN, "=", node.getColumn(), node.getLine()));
     }
     result.addAll(node.getExpression().accept(this));
     if (!(node.getExpression() instanceof ReadInputNode)
         && !(node.getExpression() instanceof ReadEnvNode)) {
-      result.add(tokenFactory.createToken(AstTokenType.SEMICOLON, ";", result.size(), node.getLine()));
+      result.add(
+          tokenFactory.createToken(AstTokenType.SEMICOLON, ";", result.size(), node.getLine()));
     }
     return result;
   }
@@ -139,7 +141,10 @@ public class TokenListFactory implements AstVisitor<List<AstToken>> {
     List<AstToken> result = new ArrayList<>();
     result.add(
         tokenFactory.createToken(
-            AstTokenType.READ_INPUT, "readInput", readInputNode.getColumn(), readInputNode.getLine()));
+            AstTokenType.READ_INPUT,
+            "readInput",
+            readInputNode.getColumn(),
+            readInputNode.getLine()));
     result.add(
         tokenFactory.createToken(
             AstTokenType.PARENTHESIS_OPEN,
@@ -170,7 +175,10 @@ public class TokenListFactory implements AstVisitor<List<AstToken>> {
             AstTokenType.READ_ENV, "readEnv", readEnvNode.getColumn(), readEnvNode.getLine()));
     result.add(
         tokenFactory.createToken(
-            AstTokenType.PARENTHESIS_OPEN, "(", readEnvNode.getColumn() + 7, readEnvNode.getLine()));
+            AstTokenType.PARENTHESIS_OPEN,
+            "(",
+            readEnvNode.getColumn() + 7,
+            readEnvNode.getLine()));
     result.addAll(readEnvNode.getExpression().accept(this));
     result.add(
         tokenFactory.createToken(
@@ -191,7 +199,8 @@ public class TokenListFactory implements AstVisitor<List<AstToken>> {
   public List<AstToken> visit(IfNode ifNode) {
     List<AstToken> result = new ArrayList<>();
     result.add(
-        tokenFactory.createToken(AstTokenType.IF_KEYWORD, "if", ifNode.getColumn(), ifNode.getLine()));
+        tokenFactory.createToken(
+            AstTokenType.IF_KEYWORD, "if", ifNode.getColumn(), ifNode.getLine()));
     result.add(
         tokenFactory.createToken(
             AstTokenType.WHITESPACE, " ", ifNode.getColumn() + 1, ifNode.getLine()));
@@ -232,7 +241,10 @@ public class TokenListFactory implements AstVisitor<List<AstToken>> {
       result.addAll(ifNode.getElseBlock().accept(this));
       result.add(
           tokenFactory.createToken(
-              AstTokenType.BRACE_CLOSE, "}", ifNode.getElseBlock().getColumn() + 1, ifNode.getLine()));
+              AstTokenType.BRACE_CLOSE,
+              "}",
+              ifNode.getElseBlock().getColumn() + 1,
+              ifNode.getLine()));
     }
     return result;
   }
