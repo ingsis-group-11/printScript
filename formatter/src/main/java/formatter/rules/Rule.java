@@ -1,10 +1,10 @@
 package formatter.rules;
 
+import ast.tokens.AstToken;
 import java.util.List;
-import token.Token;
 
 public interface Rule {
   void setValue(String value);
 
-  List<Token> format(List<Token> tokens);
+  List<AstToken> format(List<AstToken> tokens);
 }

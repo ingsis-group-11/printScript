@@ -1,17 +1,17 @@
 package parser.semantic.variables;
 
-import token.TokenType;
+import ast.tokens.AstTokenType;
 
 public class VariableType {
-  private final TokenType type;
+  private final AstTokenType type;
   private final Boolean mutable;
 
-  public VariableType(TokenType type, Boolean mutable) {
+  public VariableType(AstTokenType type, Boolean mutable) {
     this.type = type;
     this.mutable = mutable;
   }
 
-  public TokenType getType() {
+  public AstTokenType getType() {
     return type;
   }
 

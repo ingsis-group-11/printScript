@@ -2,6 +2,7 @@ package parser.syntax.parsers;
 
 import ast.nodes.AstNode;
 import ast.nodes.ReadEnvNode;
+import java.util.Optional;
 import parser.syntax.TokenStream;
 import parser.syntax.factory.ExpressionFactory;
 import token.TokenType;
@@ -14,19 +15,26 @@ public class ReadEnvSyntaxParser implements SyntaxParser {
   }
 
   private AstNode parseReadInput(TokenStream tokenStream, String version) {
-    tokenStream.expect(TokenType.READ_ENV, "Expected 'readEnv'");
-    tokenStream.advance();
+    handleExpect(tokenStream.expect(TokenType.READ_ENV, "Expected 'readEnv'"));
 
-    tokenStream.expect(TokenType.PARENTHESIS_OPEN, "Expected '('");
-    tokenStream.advance();
+    handleExpect(tokenStream.expect(TokenType.PARENTHESIS_OPEN, "Expected '('"));
 
     AstNode expressionNode = ExpressionFactory.createExpression(tokenStream, version);
-    tokenStream.expect(TokenType.PARENTHESIS_CLOSE, "Expected ')'");
-    tokenStream.advance();
+    handleExpect(tokenStream.expect(TokenType.PARENTHESIS_CLOSE, "Expected ')'"));
     int line = tokenStream.getCurrentToken().getLine();
     int column = tokenStream.getCurrentToken().getColumn();
-    tokenStream.expect(TokenType.SEMICOLON, "Expected ';'");
-    tokenStream.advance();
+    handleExpect(tokenStream.expect(TokenType.SEMICOLON, "Expected ';'"));
     return new ReadEnvNode(expressionNode, line, column);
+  }
+
+  private void handleExpect(Optional<Exception> exception) {
+    exception.ifPresent(
+        e -> {
+          if (e instanceof RuntimeException) {
+            throw (RuntimeException) e;
+          } else {
+            throw new RuntimeException(e);
+          }
+        });
   }
 }

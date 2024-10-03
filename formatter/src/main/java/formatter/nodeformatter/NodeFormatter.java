@@ -1,9 +1,9 @@
 package formatter.nodeformatter;
 
+import ast.tokens.AstToken;
 import formatter.rules.Rule;
 import java.util.List;
-import token.Token;
 
 public interface NodeFormatter {
-  List<Token> formatToken(List<Token> tokens, List<Rule> rules);
+  List<AstToken> formatToken(List<AstToken> tokens, List<Rule> rules);
 }

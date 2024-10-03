@@ -8,10 +8,10 @@ import ast.nodes.AstNode;
 import ast.nodes.DeclarationNode;
 import ast.nodes.LiteralNode;
 import ast.nodes.ReadEnvNode;
+import ast.tokens.AstTokenType;
+import ast.tokens.ValueAstToken;
 import org.junit.jupiter.api.Test;
 import parser.semantic.result.SemanticResult;
-import token.TokenType;
-import token.ValueToken;
 
 public class SemanticReadEnvTest {
   @Test
@@ -20,12 +20,13 @@ public class SemanticReadEnvTest {
     AstNode assignmentNode =
         new AssignationNode(
             new DeclarationNode(
-                new ValueToken(TokenType.STRING_TYPE, "string", 10, 0),
-                new ValueToken(TokenType.IDENTIFIER, "var", 4, 0),
-                new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                new ValueAstToken(AstTokenType.STRING_TYPE, "string", 10, 0),
+                new ValueAstToken(AstTokenType.IDENTIFIER, "var", 4, 0),
+                new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                 1,
                 0),
-            new ReadEnvNode(new LiteralNode(new ValueToken(TokenType.STRING, "TEST", 19, 0)), 1, 1),
+            new ReadEnvNode(
+                new LiteralNode(new ValueAstToken(AstTokenType.STRING, "TEST", 19, 0)), 1, 1),
             1,
             1);
     SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
@@ -39,12 +40,13 @@ public class SemanticReadEnvTest {
     AstNode assignmentNode =
         new AssignationNode(
             new DeclarationNode(
-                new ValueToken(TokenType.NUMBER_TYPE, "number", 10, 0),
-                new ValueToken(TokenType.IDENTIFIER, "var", 4, 0),
-                new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                new ValueAstToken(AstTokenType.NUMBER_TYPE, "number", 10, 0),
+                new ValueAstToken(AstTokenType.IDENTIFIER, "var", 4, 0),
+                new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                 1,
                 0),
-            new ReadEnvNode(new LiteralNode(new ValueToken(TokenType.STRING, "TEST", 19, 0)), 1, 1),
+            new ReadEnvNode(
+                new LiteralNode(new ValueAstToken(AstTokenType.STRING, "TEST", 19, 0)), 1, 1),
             1,
             1);
     SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();

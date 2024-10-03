@@ -12,11 +12,11 @@ import ast.nodes.PrintNode;
 import ast.nodes.ReadEnvNode;
 import ast.nodes.ReassignmentNode;
 import ast.nodes.VariableNode;
+import ast.tokens.AstTokenType;
+import ast.tokens.ValueAstToken;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import providers.printprovider.TestPrintProvider;
-import token.TokenType;
-import token.ValueToken;
 
 public class ReadEnvTest {
 
@@ -27,7 +27,7 @@ public class ReadEnvTest {
     List<AstNode> astNodes =
         List.of(
             new ReadEnvNode(
-                new LiteralNode(new ValueToken(TokenType.STRING, "TEST_ENV", 8, 2)), 1, 1));
+                new LiteralNode(new ValueAstToken(AstTokenType.STRING, "TEST_ENV", 8, 2)), 1, 1));
     Interpreter interpreter = new Interpreter();
     interpreter.interpret(astNodes.iterator());
   }
@@ -39,7 +39,8 @@ public class ReadEnvTest {
     List<AstNode> astNodes =
         List.of(
             new ReadEnvNode(
-                new LiteralNode(new ValueToken(TokenType.STRING, "TEST_ENV_NOT_EXISTS", 8, 2)),
+                new LiteralNode(
+                    new ValueAstToken(AstTokenType.STRING, "TEST_ENV_NOT_EXISTS", 8, 2)),
                 1,
                 1));
     Interpreter interpreter = new Interpreter();
@@ -55,13 +56,14 @@ public class ReadEnvTest {
         List.of(
             new AssignationNode(
                 new DeclarationNode(
-                    new ValueToken(TokenType.STRING_TYPE, "string", 10, 1),
-                    new ValueToken(TokenType.IDENTIFIER, "a", 4, 1),
-                    new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                    new ValueAstToken(AstTokenType.STRING_TYPE, "string", 10, 1),
+                    new ValueAstToken(AstTokenType.IDENTIFIER, "a", 4, 1),
+                    new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                     1,
                     0),
                 new ReadEnvNode(
-                    new LiteralNode(new ValueToken(TokenType.STRING, "TEST_ENV_NOT_EXISTS", 8, 2)),
+                    new LiteralNode(
+                        new ValueAstToken(AstTokenType.STRING, "TEST_ENV_NOT_EXISTS", 8, 2)),
                     2,
                     1),
                 2,
@@ -83,31 +85,35 @@ public class ReadEnvTest {
         List.of(
             new AssignationNode(
                 new DeclarationNode(
-                    new ValueToken(TokenType.STRING_TYPE, "string", 10, 1),
-                    new ValueToken(TokenType.IDENTIFIER, "a", 4, 1),
-                    new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                    new ValueAstToken(AstTokenType.STRING_TYPE, "string", 10, 1),
+                    new ValueAstToken(AstTokenType.IDENTIFIER, "a", 4, 1),
+                    new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                     1,
                     0),
                 new ReadEnvNode(
-                    new LiteralNode(new ValueToken(TokenType.STRING, "TEST_ENV", 8, 2)), 2, 1),
+                    new LiteralNode(new ValueAstToken(AstTokenType.STRING, "TEST_ENV", 8, 2)),
+                    2,
+                    1),
                 2,
                 1),
             new AssignationNode(
                 new DeclarationNode(
-                    new ValueToken(TokenType.STRING_TYPE, "string", 10, 1),
-                    new ValueToken(TokenType.IDENTIFIER, "b", 4, 1),
-                    new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                    new ValueAstToken(AstTokenType.STRING_TYPE, "string", 10, 1),
+                    new ValueAstToken(AstTokenType.IDENTIFIER, "b", 4, 1),
+                    new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                     1,
                     0),
                 new ReadEnvNode(
-                    new LiteralNode(new ValueToken(TokenType.STRING, "ANOTHER_ENV", 8, 2)), 2, 1),
+                    new LiteralNode(new ValueAstToken(AstTokenType.STRING, "ANOTHER_ENV", 8, 2)),
+                    2,
+                    1),
                 2,
                 1),
             new PrintNode(
                 new OperatorNode(
                     "+",
-                    new VariableNode(new ValueToken(TokenType.IDENTIFIER, "a", 8, 2)),
-                    new VariableNode(new ValueToken(TokenType.IDENTIFIER, "b", 8, 2)),
+                    new VariableNode(new ValueAstToken(AstTokenType.IDENTIFIER, "a", 8, 2)),
+                    new VariableNode(new ValueAstToken(AstTokenType.IDENTIFIER, "b", 8, 2)),
                     2,
                     1),
                 2,
@@ -130,22 +136,27 @@ public class ReadEnvTest {
         List.of(
             new AssignationNode(
                 new DeclarationNode(
-                    new ValueToken(TokenType.STRING_TYPE, "number", 10, 1),
-                    new ValueToken(TokenType.IDENTIFIER, "a", 4, 1),
-                    new ValueToken(TokenType.LET_KEYWORD, "let", 20, 1),
+                    new ValueAstToken(AstTokenType.STRING_TYPE, "number", 10, 1),
+                    new ValueAstToken(AstTokenType.IDENTIFIER, "a", 4, 1),
+                    new ValueAstToken(AstTokenType.LET_KEYWORD, "let", 20, 1),
                     1,
                     0),
                 new ReadEnvNode(
-                    new LiteralNode(new ValueToken(TokenType.STRING, "TEST_ENV", 8, 2)), 2, 1),
+                    new LiteralNode(new ValueAstToken(AstTokenType.STRING, "TEST_ENV", 8, 2)),
+                    2,
+                    1),
                 2,
                 1),
             new ReassignmentNode(
-                new VariableNode(new ValueToken(TokenType.IDENTIFIER, "a", 8, 2)),
+                new VariableNode(new ValueAstToken(AstTokenType.IDENTIFIER, "a", 8, 2)),
                 new ReadEnvNode(
-                    new LiteralNode(new ValueToken(TokenType.STRING, "ANOTHER_ENV", 8, 2)), 2, 1),
+                    new LiteralNode(new ValueAstToken(AstTokenType.STRING, "ANOTHER_ENV", 8, 2)),
+                    2,
+                    1),
                 2,
                 1),
-            new PrintNode(new VariableNode(new ValueToken(TokenType.IDENTIFIER, "a", 8, 2)), 2, 1));
+            new PrintNode(
+                new VariableNode(new ValueAstToken(AstTokenType.IDENTIFIER, "a", 8, 2)), 2, 1));
 
     TestPrintProvider printProvider = new TestPrintProvider();
     Interpreter interpreter = new Interpreter(printProvider);

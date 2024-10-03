@@ -1,5 +1,6 @@
 package parser.syntax;
 
+import java.util.Optional;
 import providers.iterator.PrintScriptIterator;
 import token.Token;
 import token.TokenType;
@@ -35,7 +36,7 @@ public class TokenStream {
     return iterator.current() != null && iterator.current().getType() == type;
   }
 
-  public void expect(TokenType type, String errorMessage) {
+  public Optional<Exception> expect(TokenType type, String errorMessage) {
     Token current = iterator.current();
     if (current == null || !match(type)) {
       Token last = iterator.last();
@@ -45,7 +46,9 @@ public class TokenStream {
               + (last.getColumn() + last.getValue().length())
               + " line "
               + last.getLine();
-      throw new RuntimeException(message);
+      return Optional.of(new RuntimeException(message));
     }
+    advance();
+    return Optional.empty();
   }
 }

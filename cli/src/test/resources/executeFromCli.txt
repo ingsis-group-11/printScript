@@ -1,0 +1,1 @@
+let name: boolean = readInput("insert boolean: ");

@@ -521,7 +521,8 @@ public class LetAssignationRunnerTest {
         () -> {
           runner.run(
               new FileInputStream(
-                  "src/test/resources/assignation/1.1/variableAssignationReadInputNotOfSameType.txt"),
+                  "src/test/resources/assignation/1.1/"
+                      + "variableAssignationReadInputNotOfSameType.txt"),
               "1.1",
               inputProvider);
         });

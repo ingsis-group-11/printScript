@@ -1,22 +1,22 @@
 package ast.nodes;
 
 import ast.AstVisitor;
-import token.Token;
-import token.TokenType;
+import ast.tokens.AstToken;
+import ast.tokens.AstTokenType;
 
 public class VariableNode implements AstNode {
-  private final Token token;
+  private final AstToken astToken;
   private final Integer line;
   private final Integer column;
 
-  public VariableNode(Token token) {
-    this.token = token;
-    this.line = token.getLine();
-    this.column = token.getColumn();
+  public VariableNode(AstToken astToken) {
+    this.astToken = astToken;
+    this.line = astToken.getLine();
+    this.column = astToken.getColumn();
   }
 
-  public Token getToken() {
-    return token;
+  public AstToken getToken() {
+    return astToken;
   }
 
   @Override
@@ -35,10 +35,10 @@ public class VariableNode implements AstNode {
   }
 
   public String getValue() {
-    return token.getValue();
+    return astToken.getValue();
   }
 
-  public TokenType getType() {
-    return token.getType();
+  public AstTokenType getType() {
+    return astToken.getType();
   }
 }
